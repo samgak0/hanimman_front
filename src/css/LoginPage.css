@@ -1,0 +1,48 @@
+/* src/css/LoginPage.css */
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.logo {
+  width: 150px; /* 로고 크기를 조정하세요 */
+  margin-bottom: 20px;
+}
+
+.start-button {
+  width: 200px;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  background-color: #f4bb44; /* 버튼 색상 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.start-button:hover {
+  background-color: #f47b44
+  ;
+}
+
+.login-prompt {
+  font-size: 14px;
+}
+
+.login-button {
+  background: none;
+  border: none;
+  color: #0066cc; /* 링크 색상 */
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-button:hover {
+  color: #004999;
+}
