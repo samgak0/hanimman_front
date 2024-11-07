@@ -27,7 +27,8 @@
 }
 
 .start-button:hover {
-  background-color: #f47b44
+  background-color: #ff8c00;
+  transition: 0.3s;
   ;
 }
 
@@ -38,11 +39,12 @@
 .login-button {
   background: none;
   border: none;
-  color: #0066cc; /* 링크 색상 */
+  color: #f4bb44; /* 링크 색상 */
   cursor: pointer;
   text-decoration: underline;
 }
 
 .login-button:hover {
-  color: #004999;
+  color: #ff8c00;
+  transition: 0.3s;
 }
