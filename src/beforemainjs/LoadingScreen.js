@@ -1,7 +1,7 @@
 // src/LoadingScreen.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate로 변경
-import './css/LoadingScreen.css';
+import '../beforemaincss/LoadingScreen.css';
 
 const LoadingScreen = () => {
   const navigate = useNavigate(); // useNavigate 사용
