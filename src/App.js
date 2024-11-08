@@ -1,11 +1,11 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoadingScreen from './beforemain/LoadingScreen';
+import LoadingScreen from './beforemainjs/LoadingScreen';
 import MainPage from './MainPage';
-import LoginPage from './beforemain/LoginPage';
-import LocationPage from './beforemain/LocationPage';
-import VertificationPage from './beforemain/VertificationPage';
+import LoginPage from './beforemainjs/LoginPage';
+import LocationPage from './beforemainjs/LocationPage';
+import VertificationPage from './beforemainjs/VertificationPage';
 
 const App = () => {
   return (
