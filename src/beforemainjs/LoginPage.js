@@ -1,4 +1,3 @@
-// src/LoginPage.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LoginPage.css';
@@ -6,9 +5,9 @@ import '../beforemaincss/LoginPage.css';
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  // "로그인" 버튼 클릭 시 네이버로 이동하는 함수
+  // "로그인" 버튼 클릭 시 VerificationPage로 이동하는 함수
   const handleLoginRedirect = () => {
-    window.location.href = 'https://www.naver.com';
+    navigate('/vertification');
   };
 
   // "시작하기" 버튼 클릭 시 LocationPage로 이동
