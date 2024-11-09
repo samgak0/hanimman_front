@@ -6,6 +6,7 @@ import MainPage from './MainPage';
 import LoginPage from './beforemainjs/LoginPage';
 import LocationPage from './beforemainjs/LocationPage';
 import VertificationPage from './beforemainjs/VertificationPage';
+import Notification from './mainjs/Notification'
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/location" element={<LocationPage />} />
         <Route path="/vertification" element={<VertificationPage />} />
+        <Route path="/notification" element={<Notification />} />
       </Routes>
     </Router>
   );
