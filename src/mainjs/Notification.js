@@ -1,20 +1,45 @@
-// src/Notification.js
-import React, { useState } from 'react';
+// src/main/Notification.js
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../maincss/Notification.css';
+import notificationsData from '../data/notifications.json'; // 알림 JSON 파일 import
+import keywordsData from '../data/keywords.json'; // 키워드 JSON 파일 import
 
 const Notification = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('activity');
+  const [notifications, setNotifications] = useState({ activity: [], keyword: [] });
+  const [isEditing, setIsEditing] = useState(false);
+  const keywordCount = keywordsData.keywords.length; // 키워드 JSON에서 키워드 개수 가져오기
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  useEffect(() => {
+    // 알림 JSON 데이터를 상태에 저장
+    setNotifications(notificationsData);
+  }, []);
+
+  const handleTabClick = (tab) => setActiveTab(tab);
+
+  const handleBackClick = () => navigate('/main'); // MainPage로 이동
+
+  const handleEditClick = () => setIsEditing(!isEditing);
+
+  const handleDelete = (tab, id) => {
+    setNotifications((prevNotifications) => ({
+      ...prevNotifications,
+      [tab]: prevNotifications[tab].filter((item) => item.id !== id),
+    }));
   };
+
+  const handleSettingsClick = () => navigate('/keynoti'); // KeyNoti 페이지로 이동
 
   return (
     <div className="notification-container">
       <header className="notification-header">
-        <button className="back-button">◀︎</button>
+        <button className="back-button" onClick={handleBackClick}>◀︎</button>
         <h1>알림</h1>
-        <button className="edit-button">편집</button>
+        <button className="edit-button" onClick={handleEditClick}>
+          {isEditing ? '완료' : '편집'}
+        </button>
       </header>
 
       <div className="tab-container">
@@ -33,17 +58,37 @@ const Notification = () => {
       </div>
 
       <div className="notification-content">
-        {activeTab === 'activity' && (
-          <div className="notification-item">
-            <img src={`${process.env.PUBLIC_URL}/notification-icon.png`} alt="Notification Icon" className="notification-icon" />
-            <div className="notification-text">
-              <p>휴가비 100만원 🌴 vs 장사 대박 🍗</p>
-              <span className="notification-time">2일 전</span>
+        {activeTab === 'activity' &&
+          notifications.activity.map((item) => (
+            <div key={item.id} className="notification-item">
+              <div className="notification-text">
+                <p>{item.message}</p>
+                <span className="notification-time">{item.time}</span>
+              </div>
+              {isEditing && (
+                <button className="delete-button" onClick={() => handleDelete('activity', item.id)}>x</button>
+              )}
             </div>
-          </div>
-        )}
+          ))}
+
         {activeTab === 'keyword' && (
-          <p className="no-keyword-alert">등록된 키워드 알림이 없습니다.</p>
+          <>
+            <div className="settings-container">
+              <span>🔔 알림 받는 키워드 {keywordCount}개</span>
+              <button className="settings-button" onClick={handleSettingsClick}>설정</button>
+            </div>
+            {notifications.keyword.map((item) => (
+              <div key={item.id} className="notification-item">
+                <div className="notification-text">
+                  <p>{item.message}</p>
+                  <span className="notification-time">{item.time}</span>
+                </div>
+                {isEditing && (
+                  <button className="delete-button" onClick={() => handleDelete('keyword', item.id)}>x</button>
+                )}
+              </div>
+            ))}
+          </>
         )}
       </div>
     </div>
