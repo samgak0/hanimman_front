@@ -1,0 +1,14 @@
+/* src/LoadingScreen.css */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
