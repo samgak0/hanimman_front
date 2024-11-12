@@ -1,0 +1,92 @@
+/* 전체 컨테이너 스타일 */
+.keynoti-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* 헤더 스타일 */
+.keynoti-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.keynoti-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.back-button {
+  font-size: 18px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* 입력 컨테이너 스타일 */
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.add-button {
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-button:hover {
+  background-color: #0056b3;
+}
+
+/* 키워드 리스트 스타일 */
+.keyword-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.keyword-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.keyword-item span {
+  font-size: 16px;
+  flex: 1;
+}
+
+.settings-icon,
+.delete-icon {
+  font-size: 16px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin-left: 8px;
+  color: #888;
+}
+
+.settings-icon:hover,
+.delete-icon:hover {
+  color: #000;
+}
