@@ -1,7 +1,7 @@
 // src/main/KeyNoti.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import keywordsData from '../data/keywords.json'; // JSON 파일을 import로 불러오기
+import keywordsData from '../../../data/keywords.json'; // JSON 파일을 import로 불러오기
 import '../maincss/KeyNoti.css';
 
 const KeyNoti = () => {

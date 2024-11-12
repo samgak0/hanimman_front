@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../maincss/Notification.css';
-import notificationsData from '../data/notifications.json'; // 알림 JSON 파일 import
-import keywordsData from '../data/keywords.json'; // 키워드 JSON 파일 import
+import notificationsData from '../../../data/notifications.json'; // 알림 JSON 파일 import
+import keywordsData from '../../../data/keywords.json'; // 키워드 JSON 파일 import
 
 const Notification = () => {
   const navigate = useNavigate();
