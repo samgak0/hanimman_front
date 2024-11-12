@@ -2,12 +2,13 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import LoadingScreen from './pages/Auth/beforemainjs/LoadingScreen';
-import LoginPage from './pages/Auth/beforemainjs/LoadingScreen'
-import MainPage from './MainPage'
+import LoginPage from './pages/Auth/beforemainjs/LoginPage'
+import MainPage from './pages/Home/mainjs/MainPage'
 import KeyNoti from './pages/Home/mainjs/KeyNoti';
 import LocationPage from './pages/Auth/beforemainjs/LocationPage'
 import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
+import "./App.css"
 
 const App = () => {
   return (

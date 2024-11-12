@@ -1,0 +1,18 @@
+{
+  "togetherItems": [
+    { "id": 1, "title": "토마토", "members": "현재인원 : 5명", "image": "/images/tomatoes.jpg" },
+    { "id": 2, "title": "블루베리", "members": "현재인원 : 3명", "image": "/images/blueberry.jpg" },
+    { "id": 3, "title": "딸기", "members": "현재인원 : 6명", "image": "/images/strawberry.jpg" },
+    { "id": 4, "title": "수박", "members": "현재인원 : 10명", "image": "/images/wartermelon.jpg" },
+    { "id": 5, "title": "포도", "members": "현재인원 : 7명", "image": "/images/grape.jpg" },
+    { "id": 6, "title": "사과", "members": "현재인원 : 8명", "image": "/images/apple.jpg" }
+  ],
+  "shareItems": [
+    { "id": 1, "title": "포도", "quantity": "수량 : 4개", "image": "/images/grape.jpg" },
+    { "id": 2, "title": "사과", "quantity": "수량 : 10개", "image": "/images/apple.jpg" },
+    { "id": 3, "title": "수박", "quantity": "수량 : 5개", "image": "/images/wartermelon.jpg" },
+    { "id": 4, "title": "딸기", "quantity": "수량 : 6개", "image": "/images/strawberry.jpg" },
+    { "id": 5, "title": "블루베리", "quantity": "수량 : 7개", "image": "/images/blueberry.jpg" },
+    { "id": 6, "title": "토마토", "quantity": "수량 : 8개", "image": "/images/tomatoes.jpg" }
+  ]
+}
