@@ -1,16 +1,18 @@
 .slider {
-  overflow: hidden;
-  width: 100%; /* 전체 슬라이더 너비 */
-  position: relative;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  
 }
 
+/* 슬라이더 트랙 (이미지 슬라이드) */
 .slider-track {
   display: flex;
-  transition: transform 0.5s ease; /* 슬라이드 이동 시 애니메이션 */
+  transition: transform 0.5s ease;
+  /* overflow: hidden; */
 }
 
 .slide {
-  flex: 0 0 33.33%; /* 한 번에 2개 반 정도 보여지게 설정 */
+  flex: 0 0 33.33%; /* 슬라이드 너비를 33.33%로 설정해 한 번에 2개 반 보이도록 */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,21 +20,21 @@
   padding: 10px;
 }
 
+/* 이미지 스타일 */
 .slide-image {
-  width:  200px;
+  width: 150px;
   height: 150px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  /* margin-bottom: 10px; */
+  margin-bottom: 20px;
 }
 
+/* 슬라이더 컨트롤 (인디케이터) */
 .slider-controls {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
+  justify-content: center;
   gap: 5px;
+  margin-top: 30px;
 }
 
 .slider-controls button {
@@ -43,7 +45,23 @@
   border-radius: 50%;
   cursor: pointer;
 }
-
+/* .indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ddd;
+  border: none;
+  cursor: pointer;
+} */
 .slider-controls .active {
   background-color: #333; /* 활성화된 인디케이터 색상 */
+}
+.item-titlefont {
+  margin: 0px 0; /* 위아래 간격을 5px로 설정 */
+  padding: 0;
+}
+
+.item-subfont {
+  margin: 0;
+  padding: 0;
 }
