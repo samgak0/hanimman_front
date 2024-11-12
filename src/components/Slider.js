@@ -3,7 +3,7 @@ import './Slider.css';
 
 const Slider = ({ items }) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const imagesPerPage = 2; // 한 번에 보여줄 이미지 수 (2개 반)
+  const imagesPerPage = 1.5; // 한 번에 보여줄 이미지 수 (2개 반)
   const totalPages = Math.ceil(items.length / imagesPerPage);
 
   return (
