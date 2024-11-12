@@ -1,13 +1,13 @@
 // src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoadingScreen from './beforemainjs/LoadingScreen';
-import MainPage from './MainPage';
-import LoginPage from './beforemainjs/LoginPage';
-import LocationPage from './beforemainjs/LocationPage';
-import VertificationPage from './beforemainjs/VertificationPage';
-import Notification from './mainjs/Notification'
-import KeyNoti from './mainjs/KeyNoti'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import LoadingScreen from './pages/Auth/beforemainjs/LoadingScreen';
+import LoginPage from './pages/Auth/beforemainjs/LoadingScreen'
+import MainPage from './MainPage'
+import KeyNoti from './pages/Home/mainjs/KeyNoti';
+import LocationPage from './pages/Auth/beforemainjs/LocationPage'
+import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
+import Notification from './pages/Home/mainjs/Notification'
 
 const App = () => {
   return (
@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/location" element={<LocationPage />} />
         <Route path="/vertification" element={<VertificationPage />} />
         <Route path="/notification" element={<Notification />} />
-        <Route path="/keynoti" element={<KeyNoti />} />
+        <Route path="/keynoti" element={<KeyNoti/>} />
       </Routes>
     </Router>
   );
