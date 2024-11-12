@@ -18,8 +18,8 @@ const Slider = ({ items }) => {
           <div className="slide" key={index}>
             <img src={item.image} alt={item.title} className="slide-image" />
             <div className="slide-info">
-              <h3>{item.title}</h3>
-              <p>{item.quantity} {item.members}</p>
+              <h3 className='item-titlefont'>{item.title}</h3>
+              <p className='item-subfont'>{item.quantity} {item.members}</p>
             </div>
           </div>
         ))}
