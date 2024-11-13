@@ -20,12 +20,12 @@ const MainPage = () => {
             </button>
             <p className='together-font'>같이가요</p>
           </div>
-          <di className='share-selector'>
+          <div className='share-selector'>
             <button className='share-button'>
               <ShareIcon/>
             </button>
             <p className='share-font'>나눠요</p>
-          </di>  
+          </div>  
         </section>
 
         <section className='together-slider'>
