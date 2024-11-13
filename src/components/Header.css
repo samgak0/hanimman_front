@@ -59,5 +59,6 @@
   border: none;
   background: transparent;
   padding: 8px;
+  margin-right: 10px;
   cursor: pointer;
 }

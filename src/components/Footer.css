@@ -4,7 +4,8 @@
   bottom: 0; /* 화면 하단에 위치 */
   margin: 0 auto;
   width: 393px; /* 화면 전체 너비로 설정 */
-  padding: 15px;
+  height: 60px;
+  display: flex;
   z-index: 1000;
    /* 다른 요소 위에 표시되도록 설정 */
 }
@@ -14,6 +15,7 @@
   background: transparent;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   width: 100%; /* 버튼 전체 너비를 footer 너비로 설정 */
   cursor: pointer;
 }

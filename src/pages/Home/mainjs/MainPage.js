@@ -1,7 +1,7 @@
 import '../maincss/MainPage.css'
-import Header from '../../../components/Header'
+import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
-import data from '../../../data/togetherAndShareItems.json'
+import data from '../../../data/togetherAndShareItems.json';
 import Slider from '../../../components/Slider';
 import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg';
 import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.svg';
@@ -17,7 +17,7 @@ const MainPage = () => {
           <div className='together-selector'>
             <button className='together-button'>
               <TogetherIcon/>
-            </button>
+            </button>  
             <p className='together-font'>같이가요</p>
           </div>
           <div className='share-selector'>
@@ -27,7 +27,6 @@ const MainPage = () => {
             <p className='share-font'>나눠요</p>
           </div>  
         </section>
-
         <section className='together-slider'>
           <h3 className='neighborhood-together'>우리 동네 같이가요</h3>
           <Slider items={togetherItems}/>
