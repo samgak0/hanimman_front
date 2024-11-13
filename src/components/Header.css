@@ -1,0 +1,67 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f1a23e;
+  padding: 5px;
+}
+
+.logo-icon {
+  width: 70px;
+  height: 50px;
+  margin-left: 10px;
+}
+.logo-button {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: flex;
+  width: 70px;
+  height: 50px;
+}
+
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 10px; 
+  overflow: hidden; /* 내부 요소가 바깥으로 나가지 않게 */
+  background-color: white; /* 배경색을 검색창 색상으로 설정 */
+  border: 1px solid #ccc; /* 검색창 테두리 */
+}
+.search-button {
+  border: none;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+}
+.search-icon {
+  width: 16px;
+  height: 16px;
+  
+}
+.search-bar input {
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+
+
+.header-icon img {
+  width: 24px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+.bell-button {
+  border: none;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+}
+.setting-button {
+  border: none;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 14px;
+  background-color: #f1a23e;
+}
+
+.footer-button {
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: space-around;
+  width: 100%; /* 버튼 전체 너비를 footer 너비로 설정 */
+  cursor: pointer;
+}
+
+.icon-wrapper {
+  flex: 1; /* 각 아이콘을 균등한 너비로 만듦 */
+  display: flex;
+  justify-content: center;
+  
+}
