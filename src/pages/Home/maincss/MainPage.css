@@ -9,48 +9,26 @@
 /* 카테고리 버튼 */
 .category {
   display: flex;
-  justify-content: space-between;
-  margin-top: 30px;
+  justify-content: space-around;
+  margin-top: 5vh; /* 상대 높이로 간격 설정 */
 }
-.together-selector{
-  display: flex;
-  flex-direction: column;
-  margin-left: 100px;
-  margin-top: 20px;
-}
-.share-selector{
-  display: flex;
-  flex-direction: column;
-  margin-right: 100px;
-  margin-top: 20px;
-}
+
 .together-font, .share-font {
   font-size:small;
   text-align: center;
 }
 .together-img, .share-img{
-  width: 60px;
+  width: 10vh;
+  height: 10vh;
+  fill: #FFAC00; /* SVG 색상 변경 */
+
 }
 .together-button, .share-button {
   display: flex;
   border: none; /* 버튼의 기본 테두리 제거 */
-  outline: none; /* 클릭 시 생기는 외곽선 제거 */
-  cursor: pointer; /* 버튼 위에 마우스를 올렸을 때 커서가 손가락 모양이 되도록 */
-  margin-top: 20px; /* 다른 요소와의 간격 */
+  cursor: pointer; 
   background: transparent;
 }
-/* .share-selector {
-  width: 60px;
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-   margin-right: 100px;
-   margin-top: 20px;
-} */
-/* .share-font {
-  font-size: small;
-  text-align: center;
-} */
 
 
 /*  슬라이드 섹션 */
@@ -58,9 +36,9 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  margin-top: 50px;
-  margin-left: 30px;
-  margin-bottom: 100px;
+  margin-top: 5vh;
+  margin-left: 5vw;
+  margin-bottom: 10vh;
 }
 .share-slider {
   display: flex;
@@ -71,23 +49,39 @@
 }
 .item-slider{
   display: flex;
+  overflow-x: scroll;
 }
 .item-card {
   display: flex;
   flex-direction: column;
+  margin-right: 2vw;
 }
 .item-image {
   box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
   border-radius: 10px;
-  width: 200px;
-  height: 150px;
+  width: 50vw;
+  height: 30vh;
 }
 .item-info h3{
-  margin: 5px 0;
+  margin: 0.5rem 0;
   padding:0;
 }
 .item-info p {
   margin: 0;
-  padding: 0;
 }
 
+
+/* 작은 화면 (예: 모바일) */
+@media (max-width: 600px) {
+  .together-selector, .share-selector {
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  .together-img, .share-img {
+    width: 12vw; /* 더 작은 크기로 조정 */
+  }
+  .item-image {
+    width: 80vw;
+    height: 40vh;
+  }
+}

@@ -3,6 +3,8 @@ import Header from '../../../components/Header'
 import Footer from '../../../components/Footer';
 import data from '../../../data/togetherAndShareItems.json'
 import Slider from '../../../components/Slider';
+import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg';
+import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.svg';
 
 const MainPage = () => {
   const {togetherItems, shareItems} = data;
@@ -14,13 +16,13 @@ const MainPage = () => {
         <section className='category'>
           <div className='together-selector'>
             <button className='together-button'>
-              <img src={`${process.env.PUBLIC_URL}/icons/together.png`} className='together-img'  alt="같이가요"/>
+              <TogetherIcon/>
             </button>
             <p className='together-font'>같이가요</p>
           </div>
           <di className='share-selector'>
             <button className='share-button'>
-              <img src={`${process.env.PUBLIC_URL}/icons/share.png`} className='share-img' alt="나눠요"/>
+              <ShareIcon/>
             </button>
             <p className='share-font'>나눠요</p>
           </di>  
