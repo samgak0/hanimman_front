@@ -1,8 +1,12 @@
 .footer {
-  display: flex;
-  justify-content: center;
-  padding: 14px;
   background-color: #F4BB44;
+  position: fixed; /* 하단에 고정 */
+  bottom: 0; /* 화면 하단에 위치 */
+  margin: 0 auto;
+  width: 393px; /* 화면 전체 너비로 설정 */
+  padding: 15px;
+  z-index: 1000;
+   /* 다른 요소 위에 표시되도록 설정 */
 }
 
 .footer-button {
@@ -15,8 +19,7 @@
 }
 
 .icon-wrapper {
-  flex: 1; /* 각 아이콘을 균등한 너비로 만듦 */
   display: flex;
-  justify-content: center;
   
 }
+

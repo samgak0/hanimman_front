@@ -1,28 +1,36 @@
 .main-page {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  margin: 70px auto;
+  width: 393px;
+  border: none;
+  
 }
 .content {
-  flex: 1;
+  margin: 0 auto;
+  overflow: hidden;
+  
 }
-/* 카테고리 버튼 */
+
 .category {
   display: flex;
   justify-content: space-around;
-  margin-top: 5vh; /* 상대 높이로 간격 설정 */
 }
 
-.together-font, .share-font {
-  font-size:small;
-  text-align: center;
-}
-.together-img, .share-img{
-  width: 10vh;
-  height: 10vh;
-  fill: #FFAC00; /* SVG 색상 변경 */
 
+/*  슬라이드 섹션 */
+.together-slider {
+
+  margin-top: 5vh;
+  margin-left: 2vw;
+
+  
 }
+.share-slider {
+
+  margin-top: 5vh;
+  margin-left: 2vw;
+  width: 100%;
+}
+
 .together-button, .share-button {
   display: flex;
   border: none; /* 버튼의 기본 테두리 제거 */
@@ -30,58 +38,11 @@
   background: transparent;
 }
 
-
-/*  슬라이드 섹션 */
-.together-slider {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  margin-top: 5vh;
-  margin-left: 5vw;
-  margin-bottom: 10vh;
+.neighborhood-together {
+  margin-bottom: 5px;
+  margin-left: 5px;
 }
-.share-slider {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50px;
-  margin-left: 30px;
-  margin-bottom: 100px;
-}
-.item-slider{
-  display: flex;
-  overflow-x: scroll;
-}
-.item-card {
-  display: flex;
-  flex-direction: column;
-  margin-right: 2vw;
-}
-.item-image {
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-  border-radius: 10px;
-  width: 50vw;
-  height: 30vh;
-}
-.item-info h3{
-  margin: 0.5rem 0;
-  padding:0;
-}
-.item-info p {
-  margin: 0;
-}
-
-
-/* 작은 화면 (예: 모바일) */
-@media (max-width: 600px) {
-  .together-selector, .share-selector {
-    margin-left: 5vw;
-    margin-right: 5vw;
-  }
-  .together-img, .share-img {
-    width: 12vw; /* 더 작은 크기로 조정 */
-  }
-  .item-image {
-    width: 80vw;
-    height: 40vh;
-  }
+.neighborhood-share {
+  margin-bottom: 5px;
+  margin-left: 5px;
 }

@@ -1,6 +1,8 @@
 import './Header.css'
 import React from 'react';
-
+import { ReactComponent as SearchIcon } from '../assets/icons/search.svg';
+import { ReactComponent as SettingIcon } from '../assets/icons/setting.svg';
+import { ReactComponent as BellIcon } from '../assets/icons/bell24.svg';
 
 const Header = () => {
   return (
@@ -11,15 +13,15 @@ const Header = () => {
       <div className='search-bar'>
         <input type='text' placeholder='Search'/>
         <button className='search-button'>
-          <img src={`${process.env.PUBLIC_URL}/icons/search.png`} alt='Search' className='search-icon'/>
+          <SearchIcon/>
         </button>
       </div>
       <div className='header-icon'>
         <button className='bell-button'>
-          <img src={`${process.env.PUBLIC_URL}/icons/bell.png`} alt='Notifications' />
+          <BellIcon/>
         </button>  
         <button className='setting-button'>  
-          <img src={`${process.env.PUBLIC_URL}/icons/setting.png`} alt='Settings' />
+          <SettingIcon/>
         </button>  
       </div>
     </header>

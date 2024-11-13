@@ -29,11 +29,11 @@ const MainPage = () => {
         </section>
 
         <section className='together-slider'>
-          <h2>우리 동네 같이가요</h2>
+          <h3 className='neighborhood-together'>우리 동네 같이가요</h3>
           <Slider items={togetherItems}/>
         </section>
         <section className='share-slider'>
-          <h2>우리 동네 나눠요</h2>
+          <h3 className='neighborhood-share'>우리 동네 나눠요</h3>
           <Slider items={shareItems}/>
         </section>
       </div>

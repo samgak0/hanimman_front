@@ -14,11 +14,12 @@ const Slider = ({ items }) => {
           transform: `translateX(-${currentPage * 100 / imagesPerPage}%)`,
         }}
       >
+        
         {items.map((item, index) => (
           <div className="slide" key={index}>
             <img src={item.image} alt={item.title} className="slide-image" />
             <div className="slide-info">
-              <h3 className='item-titlefont'>{item.title}</h3>
+              <h4 className='item-titlefont'>{item.title}</h4>
               <p className='item-subfont'>{item.quantity} {item.members}</p>
             </div>
           </div>
@@ -34,6 +35,7 @@ const Slider = ({ items }) => {
         ))}
       </div>
     </div>
+    
   );
 };
 
