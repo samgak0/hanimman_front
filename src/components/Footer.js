@@ -16,13 +16,17 @@ const Footer = () => {
     navigate('/main');
   };
 
+  const ZzimClick = () => {
+    navigate('/zzimlist');
+  };
+
   return (
     <footer className="footer">
       <button className="footer-button">
         <div className="icon-wrapper" onClick={HomeClick}>
           <HomeIcon/>
         </div>
-        <div className="icon-wrapper">
+        <div className="icon-wrapper" onClick={ZzimClick}>
           <FavoriteIcon/>
         </div>
         <div className="icon-wrapper">

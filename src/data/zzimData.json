@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "3단 슬라이딩 만화책장 흰색 새상품",
+    "location": "수영구 수영동",
+    "status": "거래완료",
+    "price": "50,000원",
+    "comments": 5,
+    "likes": 15,
+    "imageUrl": "path/to/image1.jpg"
+  },
+  {
+    "id": 2,
+    "title": "만화책장",
+    "location": "온천제1동",
+    "status": "거래완료",
+    "price": "100,000원",
+    "comments": 3,
+    "likes": 21,
+    "imageUrl": "path/to/image2.jpg"
+  }
+]

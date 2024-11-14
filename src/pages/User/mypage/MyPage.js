@@ -1,11 +1,13 @@
 import React from 'react';
 import './MyPage.css';
 import Footer from '../../../components/Footer';
-import { FaUser, FaCog, FaHeart, FaClipboardList, FaShoppingBag, FaStore, FaComments, FaHome, FaGift, FaAd, FaLocationArrow, FaQuestionCircle, FaTag } from 'react-icons/fa';
+import { FaUser, FaCog, FaHeart, FaClipboardList, FaShoppingBag, FaStore, FaGift, FaAd, FaLocationArrow, FaQuestionCircle, FaTag } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // useNavigate import 추가
 
 function MyPage() {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   return (
-    // <div className="mobile-container">
     <div className="myPage">
       <header className="myPage-header">
         <div className="profile">
@@ -18,7 +20,9 @@ function MyPage() {
       <div className="section">
         <div className="section-title">나의 거래</div>
         <div className="menu">
-          <div className="menu-item"><FaHeart /> 관심목록</div>
+          <div className="menu-item" onClick={() => navigate('/zzimlist')}> {/* 관심목록 클릭 시 ZzimList로 이동 */}
+            <FaHeart /> 관심목록
+          </div>
           <div className="menu-item"><FaClipboardList /> 내 글</div>
           <div className="menu-item"><FaShoppingBag /> 참여 글</div>
         </div>
@@ -50,9 +54,8 @@ function MyPage() {
           <div className="menu-item"><FaQuestionCircle /> 약관 및 정책</div>
         </div>
       </div>
-        <Footer />
+      <Footer />
     </div>
-    // </div>
   );
 }
 
