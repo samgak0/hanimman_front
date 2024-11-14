@@ -9,6 +9,7 @@ import LocationPage from './pages/Auth/beforemainjs/LocationPage'
 import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
+import ZzimList from './pages/Home/mainjs/ZzimList';
 import "./App.css"
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/notification" element={<Notification />} />
         <Route path="/keynoti" element={<KeyNoti/>} />
         <Route path="/mypage" element={<MyPage/>} />
+        <Route path="/zzimlist" element={<ZzimList/>} />
       </Routes>
     </Router>
   );
