@@ -1,0 +1,77 @@
+.location-select-page {
+  width: 393px;
+  height: 100vh;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.select-close-button {
+  background-image: url("../assets/icons/close.svg");
+  border: none;
+  background-color: white;
+  width: 24px;
+  height: 24px;
+  margin-top: 15px;
+  margin-left: 25px;
+}
+.button-store {
+  display: flex;
+  justify-content: space-around;
+  margin: 90px 15px 10px 15px;
+}
+.costco {
+  color: #E31837;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  font-size: medium;
+}
+.emart {
+  color: #2AD53B;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  font-size: medium;
+}
+.etc {
+  color: black;
+  border: none;
+  background-color: white;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.location-options {
+ height: 30vh;
+ margin-bottom: 60px;
+}
+
+.button-location {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-around;
+  border: none;
+}
+.font-loaction-title {
+  color: white;
+  margin-left: 30px;
+}
+.font-location-back {
+  padding: 10px;
+  background-color:#F4BB44;
+ 
+}
+
+.store-options {
+  height: 30vh;
+  margin-bottom: 30px;
+}
+
+.store-list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
