@@ -33,7 +33,7 @@ const TogetherCreate = () => {
 
   return (
     <div className="registration-page">
-      <header className="header">
+      <header className="list-header">
         <button className="close-button">❌</button>
         <button className="save-draft-button">임시저장</button>
       </header>

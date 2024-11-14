@@ -7,7 +7,7 @@
   align-items: center;
 }
 
-.header {
+.list-header {
   display: flex;
   justify-content: space-between;
   width: 345px;
