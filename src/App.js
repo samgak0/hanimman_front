@@ -11,6 +11,8 @@ import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
 import TogetherList from './pages/Post/TogetherList';
 import TogetherCreate from './pages/Post/TogetherCreate';
+import ZzimList from './pages/Home/mainjs/ZzimList';
+
 import "./App.css"
 
 const App = () => {
@@ -27,6 +29,7 @@ const App = () => {
         <Route path="/mypage" element={<MyPage/>} />
         <Route path='/togetherlist' element={<TogetherList/>} />
         <Route path='/togetherCreate' element={<TogetherCreate/>} />
+        <Route path="/zzimlist" element={<ZzimList/>} />
       </Routes>
     </Router>
   );
