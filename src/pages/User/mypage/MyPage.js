@@ -1,10 +1,11 @@
 import React from 'react';
 import './MyPage.css';
+import Footer from '../../../components/Footer';
 import { FaUser, FaCog, FaHeart, FaClipboardList, FaShoppingBag, FaStore, FaComments, FaHome, FaGift, FaAd, FaLocationArrow, FaQuestionCircle, FaTag } from 'react-icons/fa';
 
 function MyPage() {
   return (
-    <div className="mobile-container">
+    // <div className="mobile-container">
     <div className="myPage">
       <header className="myPage-header">
         <div className="profile">
@@ -49,15 +50,9 @@ function MyPage() {
           <div className="menu-item"><FaQuestionCircle /> 약관 및 정책</div>
         </div>
       </div>
-
-      <footer className="myPage-footer">
-        <div className="footer-icon"><FaHome /> 홈</div>
-        <div className="footer-icon"><FaClipboardList /> 찜목록</div>
-        <div className="footer-icon"><FaComments /> 채팅</div>
-        <div className="footer-icon"><FaUser /> 마이페이지</div>
-      </footer>
+        <Footer />
     </div>
-    </div>
+    // </div>
   );
 }
 

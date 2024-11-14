@@ -1,5 +1,5 @@
 import '../maincss/MainPage.css'
-import Header from '../../../components/Header'
+import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import data from '../../../data/togetherAndShareItems.json'
 import Slider from '../../../components/Slider';
