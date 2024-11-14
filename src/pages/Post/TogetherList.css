@@ -1,0 +1,8 @@
+.together-post {
+  display: flex;
+  flex-direction: column;  /* 세로로 쌓이도록 설정 */
+  align-items: center;     /* 가로 방향으로 가운데 정렬 */
+}
+
+
+
