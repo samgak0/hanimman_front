@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import "./TogetherCreate.css";
+import { ReactComponent as CloseIcon } from '../../../assets/icons/close.svg'
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState('');
   const [price, setPrice] = useState('');
-  const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
   const [people, setPeople] = useState(1);
   const [description, setDescription] = useState('');
 
@@ -21,8 +20,6 @@ const TogetherCreate = () => {
     console.log({
       title,
       price,
-      location,
-      date,
       people,
       description,
       images
@@ -34,12 +31,12 @@ const TogetherCreate = () => {
   return (
     <div className="registration-page">
       <header className="list-header">
-        <button className="close-button">❌</button>
+        <CloseIcon/>
         <button className="save-draft-button">임시저장</button>
       </header>
 
       <div className="image-registration">
-        <h3>사진등록</h3>
+        <h4>사진등록</h4>
         <div className="image-upload-container">
           {Array.from({ length: 5 }).map((_, index) => (
             <div key={index} className="image-upload-box">
@@ -67,7 +64,7 @@ const TogetherCreate = () => {
       </div>
 
       <div className="form-group">
-        <label>제목</label>
+        <h4>제목</h4>
         <input
           type="title"
           value={title}
@@ -77,7 +74,7 @@ const TogetherCreate = () => {
       </div>
 
       <div className="form-group">
-        <label>가격</label>
+        <h4>가격</h4>
         <input
           type="price"
           value={price}
@@ -87,38 +84,29 @@ const TogetherCreate = () => {
       </div>
 
       <div className="button-group">
-        <button className="location-button">장소지정</button>
-        <button className="date-button">날짜지정</button>
+        <button className="locationSelect-button">장소지정</button>
+        <button className="DateSelect-button">날짜지정</button>
         <div className="people-group">
-          <label>인원수</label>
+          <label className='people-font'>인원수</label>
           <input
+            className='people-input'
             type="number"
             value={people}
             onChange={(e) => setPeople(e.target.value)}
             min="1"
             max="99"
           />
-          <span>명</span>
-          <button className="restriction-button">제한없음 ♻️</button>
+          <label className='people-font'>명</label>
+          <label className="people-nolimit">
+            제한없음
+            <input type='checkbox' className='people-checkbox'></input> 
+          </label>
         </div>
       </div>
 
-      {/* <div className="people-group">
-        <label>인원수</label>
-        <input
-          type="number"
-          value={people}
-          onChange={(e) => setPeople(e.target.value)}
-          min="1"
-          max="99"
-        />
-        <span>명</span>
-        <button className="restriction-button">제한없음 ♻️</button>
-      </div> */}
-
       <div className="form-group">
-        <label>내용</label>
-        <textarea
+        <h4>내용</h4>
+        <textarea className='textarea'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="내용을 입력하세요"

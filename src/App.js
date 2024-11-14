@@ -9,8 +9,8 @@ import LocationPage from './pages/Auth/beforemainjs/LocationPage'
 import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
-import TogetherList from './pages/Post/TogetherList';
-import TogetherCreate from './pages/Post/TogetherCreate';
+import TogetherList from './pages/Post/Together/TogetherList';
+import TogetherCreate from './pages/Post/Together/TogetherCreate';
 import ZzimList from './pages/Home/mainjs/ZzimList';
 
 import "./App.css"
