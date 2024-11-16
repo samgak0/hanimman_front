@@ -3,17 +3,14 @@
   margin-top: 100px;
   width: 393px;
   border: none;
-  
 }
 .content {
-  
   overflow: hidden;
 }
 
 .category {
   display: flex;
   justify-content: space-around;
- 
 }
 .together-font, .share-font {
   font-size: small;
