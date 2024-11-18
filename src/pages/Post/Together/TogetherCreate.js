@@ -66,7 +66,7 @@ const TogetherCreate = () => {
             </div>
           ))}
         </div>
-        <button className="select-button">품목선택</button>
+        <button className="category-select-button">품목선택</button>
       </div>
 
       <div className="form-group">

@@ -68,7 +68,7 @@
   border-radius: 5px;
 }
 
-.select-button {
+.category-select-button {
   width: 345px;
   margin-top: 10px;
   background-color: #F4BB44;
@@ -77,6 +77,7 @@
   border-radius: 5px;
   cursor: pointer;
   color: white;
+  font-size: 15px;
   font-weight: bold;
 }
 
@@ -90,6 +91,7 @@ input[type="title"], input[type="price"], textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
+  
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -158,6 +160,7 @@ input[type="title"], input[type="price"], textarea {
   width: 345px;  /* 너비를 300px로 설정 */
   height: 120px; /* 높이를 150px로 설정 */
   resize: both;  /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
+  
 
 }
 
@@ -169,8 +172,15 @@ input[type="title"], input[type="price"], textarea {
   border: none;
   padding: 10px;
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   color: white;
   cursor: pointer;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+textarea::placeholder {
+  color: #ccc;
 }
