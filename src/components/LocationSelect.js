@@ -125,36 +125,36 @@ const LocationSelect = () => {
 
   return (
     <div className="location-select-page">
-     
+      <div className="location-header">
         <button className="select-close-button" onClick={() => window.history.back()}>
           {/* 닫기 버튼 */}
         </button>
-      
-      <div className="button-store">
-        <button
-          className={`costco ${selectedStore === "COSTCO" ? "" : "inactive-shop"}`}
-          onClick={() => {
-            handleStoreSelect("COSTCO");
-          }}
-        >
-          COSTCO
-        </button>
-        <button
-          className={`emart ${selectedStore === "EMART TRADERS" ? "" : "inactive-shop"}`}
-          onClick={() => {
-            handleStoreSelect("EMART TRADERS");
-          }}
-        >
-          EMART TRADERS
-        </button>
-        <button
-          className={`etc ${selectedStore === "ETC" ? "" : "inactive-shop"}`}
-          onClick={() => {
-            handleStoreSelect("ETC");
-          }}
-        >
-          ETC
-        </button>
+        <div className="button-store">
+          <button
+            className={`costco ${selectedStore === "COSTCO" ? "" : "inactive-shop"}`}
+            onClick={() => {
+              handleStoreSelect("COSTCO");
+            }}
+          >
+            COSTCO
+          </button>
+          <button
+            className={`emart ${selectedStore === "EMART TRADERS" ? "" : "inactive-shop"}`}
+            onClick={() => {
+              handleStoreSelect("EMART TRADERS");
+            }}
+          >
+            EMART TRADERS
+          </button>
+          <button
+            className={`etc ${selectedStore === "ETC" ? "" : "inactive-shop"}`}
+            onClick={() => {
+              handleStoreSelect("ETC");
+            }}
+          >
+            ETC
+          </button>
+        </div>
       </div>
 
       {selectedStore === "ETC" ? (
