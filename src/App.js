@@ -48,9 +48,20 @@ const App = () => {
         <Route path='/announcement' element={<Announcement/>} />
         <Route path='/faq' element={<FAQ/>} />
         <Route path='/terms' element={<Terms/>} />
+           
+           
+           {/* Auth 관련 경로 */}
+        {authRoutes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
 
           {/* Main 관련 경로 */}
           {mainRoutes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
+
+           {/* User 관련 경로 */}
+           {userRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
       </Routes>
