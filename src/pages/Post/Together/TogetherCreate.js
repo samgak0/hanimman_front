@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import DateSelect from "../../../components/DateSelect" // 날짜 선택 컴포넌트 가져오기
-import { useNavigate } from "react-router-dom";
+import CategorySelect from "../../../components/CategorySelect";
+
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
@@ -12,6 +14,8 @@ const TogetherCreate = () => {
   const [description, setDescription] = useState("");
   const [showDateSelect, setShowDateSelect] = useState(false); // 날짜 선택 모달 표시 여부
   const [selectedDate, setSelectedDate] = useState(""); // 선택된 날짜
+  const [showCategoryModal, setShowCategoryModal] = useState(false); // 모달 상태
+  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -40,6 +44,13 @@ const TogetherCreate = () => {
   const handleDateSelect = (date) => {
     setSelectedDate(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
     setShowDateSelect(false);
+  };
+
+  const openCategoryModal = () => setShowCategoryModal(true);
+  const closeCategoryModal = () => setShowCategoryModal(false);
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category); // 선택된 카테고리 저장
   };
 
   return (
@@ -76,7 +87,16 @@ const TogetherCreate = () => {
                 </div>
               ))}
             </div>
-            <button className="category-select-button">품목선택</button>
+            <button className="category-select-button" onClick={openCategoryModal}>
+              {selectedCategory ? `선택된 카테고리: ${selectedCategory}` : "품목선택"}
+            </button>
+              {showCategoryModal && (
+                <CategorySelect
+                  onClose={closeCategoryModal}
+                  onCategorySelect={handleCategorySelect}
+                  selectedCategory={selectedCategory}
+                />
+              )}
           </div>
 
           <div className="form-group">

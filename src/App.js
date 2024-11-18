@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import LoadingScreen from './pages/Auth/beforemainjs/LoadingScreen';
 import LoginPage from './pages/Auth/beforemainjs/LoginPage'
-import MainPage from './pages/Home/mainjs/MainPage'
+
 import KeyNoti from './pages/Home/mainjs/KeyNoti';
 import LocationPage from './pages/Auth/beforemainjs/LocationPage'
 import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
@@ -18,10 +18,13 @@ import Announcement from './pages/Home/mainjs/Announcement';
 import FAQ from './pages/Home/mainjs/FAQ';
 import Terms from './pages/Home/mainjs/Terms';
 
+import authRoutes from "./rotes/authRoutes";
+import mainRoutes from "./rotes/mainRoutes";
+import userRoutes from "./rotes/userRoutes";
+
 
 import LocationSelect from './components/LocationSelect';
-import TogetherList from './pages/Post/Together/TogetherList';
-import TogetherCreate from './pages/Post/Together/TogetherCreate';
+
 
 
 const App = () => {
@@ -29,15 +32,14 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
-        <Route path="/main" element={<MainPage />} />
+        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/location" element={<LocationPage />} />
         <Route path="/vertification" element={<VertificationPage />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/keynoti" element={<KeyNoti/>} />
         <Route path="/mypage" element={<MyPage/>} />
-        <Route path='/togetherlist' element={<TogetherList/>} />
-        <Route path='/togethercreate' element={<TogetherCreate/>} />
+       
         <Route path="/zzimlist" element={<ZzimList/>} />
         <Route path='/locationselect' element={<LocationSelect/>} />
         <Route path='/mypost' element={<MyPost/>} />
@@ -46,6 +48,11 @@ const App = () => {
         <Route path='/announcement' element={<Announcement/>} />
         <Route path='/faq' element={<FAQ/>} />
         <Route path='/terms' element={<Terms/>} />
+
+          {/* Main 관련 경로 */}
+          {mainRoutes.map(({ path, element }) => (
+          <Route key={path} path={path} element={element} />
+        ))}
       </Routes>
     </Router>
   );
