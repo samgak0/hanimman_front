@@ -1,7 +1,8 @@
 .location-select-page {
   width: 393px;
+  height: 100vh;
   margin: 0 auto;
-  box-shadow: -1px 0 2px rgba(0, 0, 0, 0.2), 1px 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1), 5px 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -9,8 +10,8 @@
 }
 
 .location-header {
-  margin-left: 25px;
-  margin-top: 25px;
+  margin-left: 23px;
+  margin-top: 18px;
   
 }
 
@@ -88,7 +89,7 @@
 
 }
 .store-options {
-  height: 30vh;
+  height: 35vh;
   overflow: hidden;
   
 }
