@@ -14,6 +14,9 @@ import ZzimList from './pages/Home/mainjs/ZzimList';
 import MyPost from './pages/Home/mainjs/MyPost';
 import MyParticipation from './pages/Home/mainjs/MyParticipation';
 import Events from './pages/Home/mainjs/Events';
+import Announcement from './pages/Home/mainjs/Announcement';
+import FAQ from './pages/Home/mainjs/FAQ';
+import Terms from './pages/Home/mainjs/Terms';
 
 
 import LocationSelect from './components/LocationSelect';
@@ -40,6 +43,9 @@ const App = () => {
         <Route path='/mypost' element={<MyPost/>} />
         <Route path='/myparticipation' element={<MyParticipation/>} />
         <Route path='/events' element={<Events/>} />
+        <Route path='/announcement' element={<Announcement/>} />
+        <Route path='/faq' element={<FAQ/>} />
+        <Route path='/terms' element={<Terms/>} />
       </Routes>
     </Router>
   );
