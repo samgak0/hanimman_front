@@ -1,26 +1,29 @@
 .location-select-page {
   width: 393px;
   margin: 0 auto;
+  box-shadow: -1px 0 2px rgba(0, 0, 0, 0.2), 1px 0 2px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  box-shadow: -1px 0 2px rgba(0, 0, 0, 0.1), 1px 0 2px rgba(0, 0, 0, 0.1);
+
   overflow: hidden;
 }
 
 .select-close-button {
   background-image: url("../assets/icons/close.svg");
   border: none;
-  background-color: white;
+  background-color: transparent; /* 배경 색상을 투명하게 설정 */
   width: 24px;
   height: 24px;
   margin-top: 15px;
   margin-left: 25px;
+
 }
 .button-store {
   display: flex;
   justify-content: space-around;
-  margin: 110px 15px 10px 15px;
+  margin-top: 50px;
+  margin-left: 20px;
   width: 345px;
 }
 
@@ -53,7 +56,7 @@
 }
 .location-options {
  height: 30vh;
- margin-top: 1vh;
+ margin-top: 3vh;
  margin-bottom: 60px;
 }
 .location {
@@ -94,8 +97,9 @@
  
 }
 .store-list.scrollable {
-  max-height: 300px;
-  margin-bottom: 100px;
+  max-height: 500px;
+  margin-bottom: 180px;
+  
 }
 .store-list.scrollable::-webkit-scrollbar {
   width: 8px;
@@ -115,10 +119,38 @@
   cursor: pointer;
 }
 .gps-location{
-  margin-top: 10px;
-  margin-bottom: 70px;
-  height: 70vh;
+  margin-top: 3vh;
+  
+}
+.gps-location-back {
+  background-color: #F4BB44;
 }
 .gps-location-font {
+  color: white;
   margin-left: 20px;
+  padding: 10px;
+}
+.gps-location-name {
+ margin-top: 10px ;
+ margin-left: 22px;
+}
+.gps-location-input {
+  padding: 10px;
+  width: 345px;
+}
+
+
+.complete-button {
+  width: 345px;
+  background-color: #F4BB44;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  margin-left: 2vw;
+  margin-bottom: 20px;
+  margin-top: 3vh;
 }

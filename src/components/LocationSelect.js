@@ -10,6 +10,7 @@ const LocationSelect = () => {
   const [selectedJumpo, setSelectedJumpo] = useState(null);
   const [currentPosition, setCurrentPosition] = useState(null);
   const [clickedPosition, setClickedPosition] = useState(null);
+  const [locationName, setLocationName] = useState('');
 
 
     // 점포 선택 핸들러
@@ -94,13 +95,41 @@ const LocationSelect = () => {
     setShopList(res);
   };
 
+  // 등록 완료 버튼 클릭 핸들러
+  const handleComplete = () => {
+    if (!selectedStore) {
+      alert("상점을 선택해주세요.");
+      return;
+    }
+
+    if (selectedStore !== "ETC" && (!selectedLocation || !selectedJumpo)) {
+      alert("지역과 점포를 모두 선택해주세요.");
+      return;
+    }
+
+    if (selectedStore === "ETC" && !clickedPosition) {
+      alert("위치를 지정해주세요.");
+      return;
+    }
+
+    // 데이터 출력 또는 API 호출
+    console.log("등록 데이터:", {
+      store: selectedStore,
+      location: selectedLocation,
+      jumpo: selectedJumpo,
+      position: clickedPosition,
+    });
+    alert("등록이 완료되었습니다!");
+  };
+  
+
   return (
     <div className="location-select-page">
-      <header className="list-header">
+     
         <button className="select-close-button" onClick={() => window.history.back()}>
           {/* 닫기 버튼 */}
         </button>
-      </header>
+      
       <div className="button-store">
         <button
           className={`costco ${selectedStore === "COSTCO" ? "" : "inactive-shop"}`}
@@ -124,23 +153,35 @@ const LocationSelect = () => {
             handleStoreSelect("ETC");
           }}
         >
-          ETC.
+          ETC
         </button>
       </div>
 
       {selectedStore === "ETC" ? (
         <div className="gps-location">
-          <h3 className="gps-location-font">원하는 위치를 지정해주세요.</h3>
+          <div className="gps-location-back">
+            <h3 className="gps-location-font">원하는 위치를 지정해주세요.</h3>
+          </div>
           <KakaoMap
             currentPosition={currentPosition}
             setClickedPosition={setClickedPosition}
           />
-          {clickedPosition && (
+          <div className="gps-location-name">
+            <p>장소명을 입력해주세요</p>
+            <input
+              className="gps-location-input"
+              type="locationName"
+              value={locationName}
+               onChange={(e) => setLocationName(e.target.value)}
+               placeholder="예) 강남역 1번 출구, 다이소 센텀시티점 앞"
+          /* {clickedPosition && (
             <div id="clickLatlng" className="current-location">
               <p>클릭한 위도: {clickedPosition.lat}</p>
               <p>클릭한 경도: {clickedPosition.lng}</p>
             </div>
-          )}
+          )} */
+           />
+          </div>
         </div>
       ) : (
         <div className="location-options">
@@ -179,8 +220,14 @@ const LocationSelect = () => {
           </div>
         </div>
       )}
+
+      {/* 등록 완료 버튼 */}
+      <button className="complete-button" onClick={handleComplete}>
+        등록 완료
+      </button>
     </div>
   );
+  
 };
 
 export default LocationSelect;

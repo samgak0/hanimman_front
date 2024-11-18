@@ -33,7 +33,11 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
       const script = document.createElement("script");
       script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=dced50809ec042e36d26acfdfabca35b";
       script.async = true;
-      script.onload = initializeMap;
+      script.onload = () => {
+        if (window.kakao && window.kakao.maps) {
+          initializeMap(); // 스크립트가 로드된 후 초기화
+        }
+      };
       document.head.appendChild(script);
     } else {
       initializeMap();
@@ -41,7 +45,7 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
   }, [currentPosition, setClickedPosition]);
 
   return (
-    <div id="map"></div>
+    <div id="map" style={{width:'100%',height:"60vh"}}></div>
   );
 };
 
