@@ -1,0 +1,13 @@
+
+  [
+    { "id": 1, "name": "디지털기기", "icon": "/icons/category-laptop.png" },
+    { "id": 2, "name": "가구", "icon": "/icons/category-furniture.png" },
+    { "id": 3, "name": "주방용품", "icon": "/icons/category-kitchen.png" },
+    { "id": 4, "name": "식품", "icon": "/icons/category-food.png" },
+    { "id": 5, "name": "남성의류", "icon": "/icons/category-suit.png" },
+    { "id": 6, "name": "여성의류", "icon": "/icons/category-dress.png" },
+    { "id": 7, "name": "뷰티", "icon": "/icons/category-cosmetic.png" },
+    { "id": 8, "name": "유아용품", "icon": "/icons/category-toy.png" },
+    { "id": 9, "name": "기타상품", "icon": "/icons/category-etc.png" }
+  ]
+

@@ -17,6 +17,10 @@ const TogetherCreate = () => {
   const [showCategoryModal, setShowCategoryModal] = useState(false); // 모달 상태
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
 
+
+
+  const navigate = useNavigate();
+
   const handleImageUpload = (event) => {
     const files = event.target.files;
     const fileArray = Array.from(files).slice(0, 10); // 최대 10개의 파일만 선택 가능
@@ -35,17 +39,18 @@ const TogetherCreate = () => {
     alert("등록이 완료되었습니다!");
   };
 
-  const navigate = useNavigate();
-
+  /* 장소지정페이지 렌더링 */
   const openLocationPage = () => {
     navigate("/locationselect");
   };
 
+   /* 날짜선택 */
   const handleDateSelect = (date) => {
     setSelectedDate(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
     setShowDateSelect(false);
   };
 
+  /* 품목선택 */
   const openCategoryModal = () => setShowCategoryModal(true);
   const closeCategoryModal = () => setShowCategoryModal(false);
 

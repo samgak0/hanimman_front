@@ -24,8 +24,8 @@ const DateSelect = ({ onClose, onSelectDate}) => {
     <div className="date-select-modal">
       <div className="date-select-container">
         <header className="date-header">
-          {/* <h3>{`${date.getFullYear()}년 ${date.getMonth() + 1}월`}</h3> */}
-          <button className="close-button" onClick={onClose}>
+        <h4 className="date-header-title">날짜 선택</h4>
+          <button className="date-close-button" onClick={onClose}>
             닫기
           </button>
         </header>

@@ -1,0 +1,80 @@
+.category-select-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 배경 반투명 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 다른 요소 위에 표시 */
+}
+
+.category-select-container {
+  background-color: #ffffff;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.category-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.category-grid {
+  display: flex;
+  flex-wrap: wrap; /* 여러 줄로 아이템을 정렬 */
+  justify-content: space-around; /* 각 아이템 간의 간격 균등 분배 */
+  gap: 16px; /* 아이템 간의 간격 */
+  margin-top: 20px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 수직 정렬 */
+  justify-content: center;
+  width: 80px; /* 각 아이템의 고정된 너비 */
+  height: 80px; /* 각 아이템의 고정된 높이 */
+  text-align: center;
+  cursor: pointer;
+  border-radius: 12px; /* 선택 시 강조 */
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.category-item:hover {
+  transform: scale(1.1); /* 호버 시 확대 효과 */
+  background-color: #f5f5f5; /* 배경 색상 변경 */
+}
+
+.category-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between; /* 양쪽 정렬 */
+  align-items: center;
+}
+.category-header-title {
+  margin-left: 15px;
+}
+
+.category-close-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333; /* 닫기 버튼 색상 */
+  margin-right: 15px;
+  cursor: pointer;
+}
