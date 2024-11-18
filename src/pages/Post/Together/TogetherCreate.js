@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from '../../../assets/icons/close.svg'
+import { useNavigate } from 'react-router-dom';
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
@@ -27,6 +28,11 @@ const TogetherCreate = () => {
     alert('등록이 완료되었습니다!');
   };
 
+  const navigate = useNavigate();
+
+  const openLocationPage = () => {
+    navigate('/locationselect');
+  }
 
   return (
     <div className="registration-page">
@@ -84,7 +90,7 @@ const TogetherCreate = () => {
       </div>
 
       <div className="button-group">
-        <button className="locationSelect-button">장소지정</button>
+        <button className="locationSelect-button" onClick={openLocationPage}>장소지정</button>
         <button className="DateSelect-button">날짜지정</button>
         <div className="people-group">
           <label className='people-font'>인원수</label>
