@@ -18,9 +18,9 @@ import Announcement from './pages/Home/mainjs/Announcement';
 import FAQ from './pages/Home/mainjs/FAQ';
 import Terms from './pages/Home/mainjs/Terms';
 
-import authRoutes from "./rotes/authRoutes";
-import mainRoutes from "./rotes/mainRoutes";
-import userRoutes from "./rotes/userRoutes";
+import authRoutes from "./routes/authRoutes";
+import mainRoutes from "./routes/mainRoutes";
+import userRoutes from "./routes/userRoutes";
 
 
 import LocationSelect from './components/LocationSelect';
@@ -39,7 +39,6 @@ const App = () => {
         <Route path="/notification" element={<Notification />} />
         <Route path="/keynoti" element={<KeyNoti/>} />
         <Route path="/mypage" element={<MyPage/>} />
-       
         <Route path="/zzimlist" element={<ZzimList/>} />
         <Route path='/locationselect' element={<LocationSelect/>} />
         <Route path='/mypost' element={<MyPost/>} />
