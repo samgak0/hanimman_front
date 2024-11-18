@@ -1,3 +1,5 @@
+/* 찜목록, 내 글, 참여 글 공통 CSS */
+
 .zzim-list {
   padding: 20px;
   background-color: white;
@@ -66,7 +68,7 @@
 }
 
 .item-price {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: bold;
 }
 

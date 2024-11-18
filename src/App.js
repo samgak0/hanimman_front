@@ -11,6 +11,9 @@ import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
 import ZzimList from './pages/Home/mainjs/ZzimList';
+import MyPost from './pages/Home/mainjs/MyPost';
+import MyParticipation from './pages/Home/mainjs/MyParticipation';
+import Events from './pages/Home/mainjs/Events';
 
 
 import LocationSelect from './components/LocationSelect';
@@ -34,6 +37,9 @@ const App = () => {
         <Route path='/togethercreate' element={<TogetherCreate/>} />
         <Route path="/zzimlist" element={<ZzimList/>} />
         <Route path='/locationselect' element={<LocationSelect/>} />
+        <Route path='/mypost' element={<MyPost/>} />
+        <Route path='/myparticipation' element={<MyParticipation/>} />
+        <Route path='/events' element={<Events/>} />
       </Routes>
     </Router>
   );
