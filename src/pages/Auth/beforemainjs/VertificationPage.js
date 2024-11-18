@@ -4,9 +4,13 @@ import PortOne from "@portone/browser-sdk/v2";
 
 const VerificationPage = () => {
   const [verificationId, setVerificationId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const requestVerification = async () => {
+      setLoading(true); // 로딩 시작
+
       try {
         // 포트원 본인인증 요청
         const response = await PortOne.requestIdentityVerification({
@@ -23,7 +27,7 @@ const VerificationPage = () => {
         // 인증 ID 상태 저장
         setVerificationId(response.identityVerificationId);
 
-        // 본인인증 결과 서버로 전송
+        // 본인 인증 결과 서버로 전송
         const verificationResult = await fetch("http://localhost:8080/identity-verifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -40,8 +44,25 @@ const VerificationPage = () => {
         const resultData = await verificationResult.json();
         console.log(resultData); // 결과 출력
 
+        // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
+        const verifyAndSignupOrLogin = await fetch("http://localhost:8080/users/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(resultData), // resultData를 서버로 전송
+        });
+
+        // 회원가입/로그인 처리 결과 확인
+        if (verifyAndSignupOrLogin.ok) {
+          setMessage("회원가입 또는 로그인 성공!");
+        } else {
+          setMessage("회원가입 또는 로그인 처리 실패.");
+        }
+
       } catch (error) {
         console.error("본인 인증 실패", error);
+        setMessage("본인 인증 실패: " + error.message);
+      } finally {
+        setLoading(false); // 로딩 끝
       }
     };
 
@@ -53,6 +74,8 @@ const VerificationPage = () => {
     <div>
       <h2>본인인증 페이지</h2>
       <p>본인인증 절차를 진행해주세요.</p>
+      {loading && <p>본인 인증을 처리하는 중입니다...</p>}
+      {message && <p>{message}</p>}
       {verificationId && (
         <p>본인인증이 완료되었습니다. 인증 ID: {verificationId}</p>
       )}
