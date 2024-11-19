@@ -17,7 +17,7 @@ const MainPage = () => {
 
   return (
     <div className='main-page'>
-      <Header />
+        <Header showLogo={true} showMenu={false} showSearch={true}  />
       <div className='content'>
         <section className='category'>
           <div className='together-selector'>

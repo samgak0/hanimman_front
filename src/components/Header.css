@@ -12,6 +12,15 @@
   padding: 8px;
   z-index: 1000;
 }
+.header-left {
+  display: flex;
+  margin-left: 10px;
+}
+
+.menu-button {
+  border: none;
+  background: transparent;
+}
 
 .logo-icon {
   width: 50px;
