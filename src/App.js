@@ -11,8 +11,6 @@ import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
 import ZzimList from './pages/Home/mainjs/ZzimList';
-import MyPost from './pages/Home/mainjs/MyPost';
-import MyParticipation from './pages/Home/mainjs/MyParticipation';
 import Events from './pages/Home/mainjs/Events';
 import Announcement from './pages/Home/mainjs/Announcement';
 import FAQ from './pages/Home/mainjs/FAQ';
@@ -32,7 +30,6 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
-        
         <Route path="/login" element={<LoginPage />} />
         <Route path="/location" element={<LocationPage />} />
         <Route path="/vertification" element={<VertificationPage />} />
@@ -41,14 +38,10 @@ const App = () => {
         <Route path="/mypage" element={<MyPage/>} />
         <Route path="/zzimlist" element={<ZzimList/>} />
         <Route path='/locationselect' element={<LocationSelect/>} />
-        <Route path='/mypost' element={<MyPost/>} />
-        <Route path='/myparticipation' element={<MyParticipation/>} />
         <Route path='/events' element={<Events/>} />
         <Route path='/announcement' element={<Announcement/>} />
         <Route path='/faq' element={<FAQ/>} />
         <Route path='/terms' element={<Terms/>} />
-           
-           
            {/* Auth 관련 경로 */}
         {authRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
@@ -59,8 +52,8 @@ const App = () => {
           <Route key={path} path={path} element={element} />
         ))}
 
-           {/* User 관련 경로 */}
-           {userRoutes.map(({ path, element }) => (
+          {/* User 관련 경로 */}
+          {userRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
       </Routes>
