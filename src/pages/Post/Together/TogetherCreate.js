@@ -23,10 +23,19 @@ const TogetherCreate = () => {
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
-    const fileArray = Array.from(files).slice(0, 10); // 최대 10개의 파일만 선택 가능
-    setImages([...images, ...fileArray]);
+    const fileArray = Array.from(files).slice(0, 5); // 최대 10개의 파일만 선택 가능
+    setImages((prevImages) => [...prevImages, ...fileArray]); // 기존 이미지에 추가
+    event.target.value = ""; // 파일 입력 필드 초기화 (같은 파일 다시 선택 가능)
   };
-
+  const handleImageReplace = (event, index) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImages((prevImages) =>
+        prevImages.map((img, i) => (i === index ? file : img))
+      ); // 특정 인덱스의 이미지를 교체
+      event.target.value = ""; // 파일 입력 초기화
+    }
+  };
   const handleSubmit = () => {
     console.log({
       title,
@@ -73,18 +82,28 @@ const TogetherCreate = () => {
               {Array.from({ length: 5 }).map((_, index) => (
                 <div key={index} className="image-upload-box">
                   {images[index] ? (
-                    <img
-                      src={URL.createObjectURL(images[index])}
-                      alt="uploaded"
-                      className="uploaded-image"
-                    />
+                    <>
+                      <img
+                        src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
+                        alt={`uploaded-${index}`}
+                        className="uploaded-image"
+                        onClick={() => document.getElementById(`file-input-${index}`).click()} // 이미지 클릭 시 파일 입력 트리거
+                      />
+                      <input
+                        id={`file-input-${index}`}
+                        type="file"
+                        accept="image/*"
+                        style={{ display: "none" }}
+                        onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
+                      />
+                    </>
                   ) : (
                     <label>
                       <input
                         type="file"
-                        onChange={handleImageUpload}
                         accept="image/*"
                         style={{ display: "none" }}
+                        onChange={handleImageUpload} // 새 이미지 추가
                       />
                       <div className="add-image">+</div>
                     </label>
@@ -140,16 +159,18 @@ const TogetherCreate = () => {
 
             {selectedDate && <p>선택된 날짜: {selectedDate}</p>}
             <div className="people-group">
-              <label className="people-font">인원수</label>
-              <input
-                className="people-input"
-                type="number"
-                value={people}
-                onChange={(e) => setPeople(e.target.value)}
-                min="1"
-                max="99"
-              />
-              <label className="people-font">명</label>
+              <div className="people-group-num">
+                <label className="people-font">인원수</label>
+                <input
+                  className="people-input"
+                  type="number"
+                  value={people}
+                  onChange={(e) => setPeople(e.target.value)}
+                  min="1"
+                  max="99"
+                />
+                <label className="people-font">명</label>
+              </div>
               <label className="people-nolimit">
                 제한없음
                 <input type="checkbox" className="people-checkbox"></input>

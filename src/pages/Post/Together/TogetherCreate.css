@@ -100,7 +100,6 @@ input[type="title"], input[type="price"], textarea {
  display: flex;
  flex-direction: row;
  justify-content: space-around;
-
  margin-top: 10px;
  width: 345px;
  gap: 10px;
@@ -123,19 +122,24 @@ input[type="title"], input[type="price"], textarea {
   align-items: center;
   background-color: #E9E3E3;
   border-radius: 5px;
-  padding: 6px 5px;
-
+  padding: 5px 5px;
+}
+.people-group-num {
+  display: flex;
+  margin-top: 6px;
 }
 .people-font {
   font-size: 10px;
   font-weight: bold;
 }
 .people-input {
-  width: 20px;
-  height: 20px;
+ 
+  width: 19px;
+  height: 19px;
   margin-left: 5px;
   border-radius: 3px;
-  border: 1px solid #ccc;
+  border: 1.5px solid gray;
+
 }
 .people-input::-webkit-outer-spin-button,
 .people-input::-webkit-inner-spin-button {
@@ -153,7 +157,8 @@ input[type="title"], input[type="price"], textarea {
   font-weight: bold;
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 15px;
+  margin-top: 5px;
 }
 
 .textarea {
