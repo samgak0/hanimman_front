@@ -1,0 +1,104 @@
+/* Container and Header */
+.settings-container {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  height: 100vh;
+}
+
+.settings-header {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.back-button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.settings-header h1 {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 20px;
+  margin: 0;
+}
+
+/* Section Titles */
+.settings-section h2 {
+  margin: 16px 16px 8px;
+  font-size: 16px;
+  color: #888888;
+}
+
+/* Settings Items */
+.settings-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.settings-item span {
+  font-size: 16px;
+  color: #333333;
+}
+
+.time-setting .time-value {
+  color: #ff6600;
+  font-weight: bold;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background: #cccccc;
+  border-radius: 10px;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.toggle-switch:checked {
+  background: #ff6600;
+}
+
+.toggle-switch:before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  border-radius: 50%;
+  top: 1px;
+  left: 1px;
+  transition: transform 0.3s;
+}
+
+.toggle-switch:checked:before {
+  transform: translateX(20px);
+}
+
+/* Version Info */
+.version-value {
+  color: #ff6600;
+  font-size: 14px;
+}
+
+/* Logout and Delete */
+.logout {
+  color: #ff3300;
+}
+
+.delete-account {
+  color: #cc0000;
+}
