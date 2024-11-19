@@ -32,24 +32,26 @@
   font-weight: bold;
   margin-bottom: 15px;
   display: flex;
+  margin-top: 10px;
   justify-content:space-between;
- 
-  
+  align-items: center;
 }
+
 .date-header-title {
   margin-left: 15px;
+  font-size: 20px;
 }
 .date-close-button {
-  background: none;
+  background: #F4BB44;
+  padding: 10px;
+  border-radius: 10px;
   border: none;
-  font-size: 16px;
-  font-weight: bold;
-  color:#333;
+  font-size: 15px;
+  font-weight:bold;
+  color:white;
   cursor: pointer;
    /* 버튼 여백 추가 */
    margin-right: 15px;
-  
-
 }
 
 
@@ -92,12 +94,12 @@
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile--active {
-  background-color: #F4BB44;
+  background-color: #f5b3a1;
   color: white;
   border-radius: 8px;
 }
 
-.confirm-button {
+.date-confirm-button {
   background-color: #F4BB44;
   color: white;
   padding: 12px 16px;
@@ -110,9 +112,7 @@
   margin-top: 20px;
 }
 
-.confirm-button:hover {
-  background-color: #ff8a75;
-}
+
 
 
 .time-select-container {

@@ -223,7 +223,7 @@ const LocationSelect = () => {
 
       {/* 등록 완료 버튼 */}
       <button className="complete-button" onClick={handleComplete}>
-        등록 완료
+        등록완료
       </button>
     </div>
   );

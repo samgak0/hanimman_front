@@ -79,7 +79,7 @@ const DateSelect = ({ onClose, onSelectDate}) => {
             </select>
           </label>
         </div>
-        <button className="confirm-button" onClick={handleConfirm}>
+        <button className="date-confirm-button" onClick={handleConfirm}>
         {`${date.getMonth() + 1}월 ${date.getDate()}일(${["일", "월", "화", "수", "목", "금", "토"][date.getDay()]}) 선택`}
         </button>  
       </div>

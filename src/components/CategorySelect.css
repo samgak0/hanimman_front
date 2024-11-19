@@ -51,9 +51,17 @@
   background-color: #f5f5f5; /* 배경 색상 변경 */
 }
 
+.category-item.active {
+  background-color: #f5f5f5; /* 선택된 상태의 배경색 */
+  color: white; /* 텍스트 색상 변경 */
+  border: none; /* 선택된 상태의 테두리 */
+  transform: scale(1.1); /* 약간 확대 */
+}
+
 .category-name {
-  font-size: 14px;
+  font-size: 12px;
   font-weight: bold;
+  margin-top: 1px;
   color: #333333;
   white-space: nowrap; /* 텍스트 줄바꿈 방지 */
   overflow: hidden;
@@ -64,17 +72,34 @@
   display: flex;
   justify-content: space-between; /* 양쪽 정렬 */
   align-items: center;
+  margin-top: 10px;
 }
 .category-header-title {
-  margin-left: 15px;
+  margin-left: 10px;
+  font-size: 20px;
 }
 
 .category-close-button {
-  background: none;
+  background: #F4BB44;
+  padding: 8px;
+  border-radius: 10px;
   border: none;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
-  color: #333; /* 닫기 버튼 색상 */
+  color: white; /* 닫기 버튼 색상 */
   margin-right: 15px;
   cursor: pointer;
+}
+
+.category-confirm-button {
+  background-color: #F4BB44;
+  color: white;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 20px;
 }

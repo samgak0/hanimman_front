@@ -168,7 +168,7 @@ const TogetherCreate = () => {
           </div>
 
           <button className="submit-button" onClick={handleSubmit}>
-            등록확인
+            등록완료
           </button>
         </>
       ) : (

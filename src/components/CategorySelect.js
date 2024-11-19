@@ -38,7 +38,7 @@ return (
           </div>
         ))}
       </div>
-      <button className="confirm-button" onClick={handleConfirm}>
+      <button className="category-confirm-button" onClick={handleConfirm}>
         선택 완료
       </button>
     </div>
