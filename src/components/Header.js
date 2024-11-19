@@ -18,7 +18,7 @@ const Header = () => {
         <img src={`${process.env.PUBLIC_URL}/mangologo.png`} alt='Logo' className='logo-icon'/>
       </button>
       <div className='search-bar'>
-        <input type='text' placeholder='Search'/>
+        <input className='search-bar-input' type='text' placeholder='Search'/>
         <button className='search-button'>
           <SearchIcon/>
         </button>

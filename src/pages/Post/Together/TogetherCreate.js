@@ -46,8 +46,10 @@ const TogetherCreate = () => {
       selectedDate, // 선택된 날짜 추가
     });
     alert("등록이 완료되었습니다!");
-  };
 
+    navigate("/togetherlist");
+  };
+ 
   /* 장소지정페이지 렌더링 */
   const openLocationPage = () => {
     navigate("/locationselect");
