@@ -19,14 +19,14 @@ import Terms from './pages/Home/mainjs/Terms';
 import authRoutes from "./routes/authRoutes";
 import mainRoutes from "./routes/mainRoutes";
 import userRoutes from "./routes/userRoutes";
-
-
 import LocationSelect from './components/LocationSelect';
+import { DataProvider } from "./context/DataContext";
 
 
 
 const App = () => {
   return (
+    <DataProvider>
     <Router>
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
@@ -34,30 +34,32 @@ const App = () => {
         <Route path="/location" element={<LocationPage />} />
         <Route path="/vertification" element={<VertificationPage />} />
         <Route path="/notification" element={<Notification />} />
-        <Route path="/keynoti" element={<KeyNoti/>} />
-        <Route path="/mypage" element={<MyPage/>} />
-        <Route path="/zzimlist" element={<ZzimList/>} />
-        <Route path='/locationselect' element={<LocationSelect/>} />
-        <Route path='/events' element={<Events/>} />
-        <Route path='/announcement' element={<Announcement/>} />
-        <Route path='/faq' element={<FAQ/>} />
-        <Route path='/terms' element={<Terms/>} />
-           {/* Auth 관련 경로 */}
+        <Route path="/keynoti" element={<KeyNoti />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/zzimlist" element={<ZzimList />} />
+        <Route path="/locationselect" element={<LocationSelect />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/announcement" element={<Announcement />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/terms" element={<Terms />} />
+
+        {/* Auth 관련 경로 */}
         {authRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
 
-          {/* Main 관련 경로 */}
-          {mainRoutes.map(({ path, element }) => (
+        {/* Main 관련 경로 */}
+        {mainRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
 
-          {/* User 관련 경로 */}
-          {userRoutes.map(({ path, element }) => (
+        {/* User 관련 경로 */}
+        {userRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
       </Routes>
     </Router>
+  </DataProvider>
   );
 };
 

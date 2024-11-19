@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import DateSelect from "../../../components/DateSelect" // 날짜 선택 컴포넌트 가져오기
 import CategorySelect from "../../../components/CategorySelect";
-
+import { DataContext } from "../../../context/DataContext";
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
@@ -18,8 +18,22 @@ const TogetherCreate = () => {
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
 
 
+  const {setPosts, setTogetherCreateState, togetherCreateState} = useContext(DataContext);
 
   const navigate = useNavigate();
+
+  // 기존 상태 복원
+  useEffect(() => {
+    if (Object.keys(togetherCreateState).length > 0) {
+      setTitle(togetherCreateState.title || "");
+      setPrice(togetherCreateState.price || "");
+      setPeople(togetherCreateState.people || 0);
+      setDescription(togetherCreateState.description || "");
+      setImages(togetherCreateState.images || []);
+      setSelectedDate(togetherCreateState.selectedDate || "");
+      setSelectedCategory(togetherCreateState.selectedCategory || null);
+    }
+  }, [togetherCreateState]);
 
   const handleImageUpload = (event) => {
     const files = event.target.files;
@@ -27,6 +41,8 @@ const TogetherCreate = () => {
     setImages((prevImages) => [...prevImages, ...fileArray]); // 기존 이미지에 추가
     event.target.value = ""; // 파일 입력 필드 초기화 (같은 파일 다시 선택 가능)
   };
+
+
   const handleImageReplace = (event, index) => {
     const file = event.target.files[0];
     if (file) {
@@ -36,24 +52,38 @@ const TogetherCreate = () => {
       event.target.value = ""; // 파일 입력 초기화
     }
   };
-  const handleSubmit = () => {
-    console.log({
-      title,
-      price,
-      people,
-      description,
-      images,
-      selectedDate, // 선택된 날짜 추가
-    });
-    alert("등록이 완료되었습니다!");
 
+
+  const handleSubmit = () => {
+    const newPost = {
+    title,
+    price,
+    people,
+    description,
+    images, // 업로드된 이미지 배열
+    selectedDate, // 선택된 날짜
+    selectedCategory, // 선택된 카테고리
+    id: Date.now(), // 고유 ID (현재 시간 기반)
+    };
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+   
+    setTogetherCreateState({}); // 상태 초기화
     navigate("/togetherlist");
   };
- 
-  /* 장소지정페이지 렌더링 */
+
+
   const openLocationPage = () => {
-    navigate("/locationselect");
-  };
+  setTogetherCreateState({
+    title,
+    price,
+    people,
+    description,
+    images,
+    selectedDate,
+    selectedCategory,
+  });
+  navigate("/locationselect");
+};
 
    /* 날짜선택 */
   const handleDateSelect = (date) => {
@@ -155,11 +185,11 @@ const TogetherCreate = () => {
               날짜지정
             </button>
 
-            {showDateSelect && (
+            {/* {showDateSelect && (
               <DateSelect onClose={() => setShowDateSelect(false)} onSelectDate={handleDateSelect} />
               )}
 
-            {selectedDate && <p>선택된 날짜: {selectedDate}</p>}
+            {selectedDate && <p>선택된 날짜: {selectedDate}</p>} */}
             <div className="people-group">
               <div className="people-group-num">
                 <label className="people-font">인원수</label>

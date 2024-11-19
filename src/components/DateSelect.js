@@ -46,7 +46,7 @@ const DateSelect = ({ onClose, onSelectDate}) => {
             if (view === "month" && date.getDay() === 0) {
               return "sunday-tile";
             }
-            return null;
+            // return null;
           }}
         />
            <div className="time-select-container">
