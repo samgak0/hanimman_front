@@ -12,7 +12,7 @@ function MyPage() {
       <header className="myPage-header">
         <div className="profile">
           <FaUser size={50} className="profile-icon" />
-          <button className="profile-btn">프로필 보기</button>
+          <button className="profile-btn" onClick={() => navigate('/myprofile')}>프로필 보기</button>
         </div>
         <FaCog className="settings-icon" />
       </header>

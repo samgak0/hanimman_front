@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // useNavigate import 추가
-import '../maincss/ZzimList.css';
+import './MyPagePost.css';
 import { ReactComponent as HeartIcon } from '../../../assets/icons/heart.svg';
 import { ReactComponent as CommentIcon } from '../../../assets/icons/chat.svg';
 import zzimData from '../../../data/zzimData.json';
