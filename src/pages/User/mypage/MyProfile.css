@@ -113,3 +113,22 @@
   font-size: 16px;
   font-weight: bold;
 }
+
+/* 매너 당도 프로그래스 바 */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  position: relative;
+  margin-top: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #f9c74f;
+  border-radius: 4px;
+  transition: width 0.3s ease-in-out;
+  min-width: 0.8%;
+  max-width: 100%;
+}
