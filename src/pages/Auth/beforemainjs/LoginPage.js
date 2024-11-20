@@ -7,7 +7,7 @@ const LoginPage = () => {
 
   // "로그인" 버튼 클릭 시 VerificationPage로 이동하는 함수
   const handleLoginRedirect = () => {
-    navigate('/vertification');
+    navigate('/verification');
   };
 
   // "시작하기" 버튼 클릭 시 LocationPage로 이동

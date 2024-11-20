@@ -7,7 +7,7 @@ import LoginPage from './pages/Auth/beforemainjs/LoginPage'
 
 import KeyNoti from './pages/Home/mainjs/KeyNoti';
 import LocationPage from './pages/Auth/beforemainjs/LocationPage'
-import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
+import VerificationPage from './pages/Auth/beforemainjs/VerificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
 import ZzimList from './pages/Home/mainjs/ZzimList';
@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/" element={<LoadingScreen />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/location" element={<LocationPage />} />
-        <Route path="/vertification" element={<VertificationPage />} />
+        <Route path="/verification" element={<VerificationPage />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/keynoti" element={<KeyNoti/>} />
         <Route path="/mypage" element={<MyPage/>} />
