@@ -1,0 +1,31 @@
+.register-button-container {
+  position: fixed; /* 하단에 고정 */
+  bottom: 0; /* 화면 하단에 위치 */
+  left: 50%; /* 화면의 가운데 기준 */
+  transform: translateX(200%) translateY(-150%); /* 가운데 정렬 */
+  height: 60px;
+  display: flex;
+  z-index: 900; /* modal 아래, footer 위 */
+}
+
+.register-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 둥근 모양 */
+  background-color: #f4bb44; /* 버튼 배경색 */
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 */
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.register-button:hover {
+  background-color: #ff8c00;
+  transform: scale(1.1); /* 호버 시 크기 증가 */
+}
+
+.register-button:active {
+  transform: scale(0.95); /* 클릭 시 크기 감소 */
+}

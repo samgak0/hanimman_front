@@ -5,7 +5,8 @@ export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
-  const [togetherCreateState, setTogetherCreateState] = useState({}); // 추가된 상태
+  const [togetherCreateState, setTogetherCreateState] = useState({}); 
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   return (
     <DataContext.Provider
@@ -14,6 +15,8 @@ export const DataProvider = ({ children }) => {
         setPosts,
         togetherCreateState,
         setTogetherCreateState,
+        selectedLocation,
+        setSelectedLocation,
       }}
     >
       {children}

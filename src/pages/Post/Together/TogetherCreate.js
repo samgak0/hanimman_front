@@ -18,8 +18,7 @@ const TogetherCreate = () => {
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
 
 
-  const {setPosts, setTogetherCreateState, togetherCreateState} = useContext(DataContext);
-
+  const {setPosts, setTogetherCreateState, togetherCreateState, selectedLocation} = useContext(DataContext);
   const navigate = useNavigate();
 
   // 기존 상태 복원
@@ -60,13 +59,13 @@ const TogetherCreate = () => {
     price,
     people,
     description,
+    location: selectedLocation, 
     images, // 업로드된 이미지 배열
     selectedDate, // 선택된 날짜
     selectedCategory, // 선택된 카테고리
     id: Date.now(), // 고유 ID (현재 시간 기반)
     };
     setPosts((prevPosts) => [...prevPosts, newPost]);
-   
     setTogetherCreateState({}); // 상태 초기화
     navigate("/togetherlist");
   };
@@ -99,10 +98,16 @@ const TogetherCreate = () => {
     setSelectedCategory(category); // 선택된 카테고리 저장
   };
 
+  const handleClose = () => {
+    navigate(-1); // 이전 페이지로 이동
+  };
+
   return (
     <div className="registration-page">
       <header className="list-header">
-        <CloseIcon />
+      <button onClick={handleClose} className="close-icon-button">
+          <CloseIcon />
+        </button>
         <button className="save-draft-button">임시저장</button>
       </header>
 
@@ -185,11 +190,6 @@ const TogetherCreate = () => {
               날짜지정
             </button>
 
-            {/* {showDateSelect && (
-              <DateSelect onClose={() => setShowDateSelect(false)} onSelectDate={handleDateSelect} />
-              )}
-
-            {selectedDate && <p>선택된 날짜: {selectedDate}</p>} */}
             <div className="people-group">
               <div className="people-group-num">
                 <label className="people-font">인원수</label>

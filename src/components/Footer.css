@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-around; /* 버튼 간격 균등 */
   align-items: center; /* 세로 중앙 정렬 */
-  z-index: 1000; /* 다른 요소 위에 표시 */
+ z-index: 800; /* 가장 아래 */
 }
 
 .footer-button {
