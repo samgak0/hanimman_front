@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const mannerScore = 10; // 매너 당도 예시 값 (1~50)
+  const mannerScore = 26; // 매너 당도 예시 값 (1~50)
 
   // 색상 간 보간(interpolation)을 계산하는 함수
   const interpolateColor = (startColor, endColor, factor) => {
@@ -62,7 +62,7 @@ const MyProfile = () => {
         <div className="profile-stats">
           <div className="stat-item">
             <span>매너 당도</span>
-            <span>{mannerScore}°C 😄</span>
+            <span>{mannerScore}Brix 😄</span>
           </div>
           <div className="progress-bar">
             <div
