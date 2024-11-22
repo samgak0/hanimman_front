@@ -2,11 +2,15 @@
   background-color: #F4BB44;
   position: fixed; /* 하단에 고정 */
   bottom: 0; /* 화면 하단에 위치 */
-  width: 393px; /* 화면 전체 너비로 설정 */
+  left: 50%; /* 화면의 가운데 기준 */
+  transform: translateX(-50%); /* 가운데 정렬 */
+  width: 100%; /* 전체 화면 너비 */
+  max-width: 393px; /* 최대 너비 제한 */
   height: 60px;
   display: flex;
-  z-index: 1000;
-   /* 다른 요소 위에 표시되도록 설정 */
+  justify-content: space-around; /* 버튼 간격 균등 */
+  align-items: center; /* 세로 중앙 정렬 */
+ z-index: 800; /* 가장 아래 */
 }
 
 .footer-button {

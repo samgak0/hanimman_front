@@ -9,7 +9,7 @@ import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.s
 
 const MainPage = () => {
   const {togetherItems, shareItems} = data;
-  const navigate = useNavigate(); // useNavigate 훅
+  const navigate = useNavigate();
 
   const handleTogetherClick = () => {
     navigate("/togetherlist"); 
@@ -17,7 +17,7 @@ const MainPage = () => {
 
   return (
     <div className='main-page'>
-      <Header />
+        <Header showLogo={true} showMenu={false} showSearch={true} showLeft={false}  />
       <div className='content'>
         <section className='category'>
           <div className='together-selector'>

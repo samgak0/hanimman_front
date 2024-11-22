@@ -21,7 +21,7 @@
   
 }
 
-.close-button {
+.close-icon-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -91,7 +91,6 @@ input[type="title"], input[type="price"], textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -133,7 +132,6 @@ input[type="title"], input[type="price"], textarea {
   font-weight: bold;
 }
 .people-input {
- 
   width: 19px;
   height: 19px;
   margin-left: 5px;
@@ -165,8 +163,6 @@ input[type="title"], input[type="price"], textarea {
   width: 345px;  /* 너비를 300px로 설정 */
   height: 120px; /* 높이를 150px로 설정 */
   resize: both;  /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
-  
-
 }
 
 .submit-button {

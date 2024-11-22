@@ -5,6 +5,7 @@ import MyProfile from "../pages/User/mypage/MyProfile";
 import EditProfile from "../pages/User/mypage/EditProfile";
 import MyPost from '../pages/User/mypage/MyPost';
 import MyParticipation from '../pages/User/mypage/MyParticipation';
+import MainSettings from '../pages/User/settings/MainSettings';
 
 
 const userRoutes = [
@@ -14,6 +15,7 @@ const userRoutes = [
   { path: "/editprofile", element: <EditProfile /> },
   { path: "/mypost", element: <MyPost /> },
   { path: "/myparticipation", element: <MyParticipation /> },
+  { path: "/mainsettings", element: <MainSettings /> },
 
 ];
 

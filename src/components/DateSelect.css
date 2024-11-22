@@ -94,7 +94,7 @@
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile--active {
-  background-color: #f5b3a1;
+  background-color: #F4BB44;
   color: white;
   border-radius: 8px;
 }
@@ -111,10 +111,6 @@
   font-weight: bold;
   margin-top: 20px;
 }
-
-
-
-
 .time-select-container {
   display: flex;
   justify-content: center; /* 가운데 정렬 */
