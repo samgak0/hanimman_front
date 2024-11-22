@@ -8,7 +8,7 @@ import RegisterButton from "../../../components/RegisterButton";
 import "./TogetherList.css";
 
 const TogetherList = () => {
-  const { posts } = useContext(DataContext);
+  const { posts, appliedPosts } = useContext(DataContext);
   const navigate = useNavigate();
   const [urls, setUrls] = useState([]);
 
@@ -30,7 +30,10 @@ const TogetherList = () => {
   const handleCardClick = (post) => {
     navigate("/togetherdetail", { state: { post } }); // 게시글 데이터 전달
   };
- 
+  const getRecruitmentStatus = (post) => {
+    const currentApplicants = appliedPosts.filter((id) => id === post.id).length; // 현재 신청 인원
+    return currentApplicants >= post.people ? "completed" : "active"; // 정원 초과 시 모집완료
+  };
 
   return (
     <div className="together-list-page">
@@ -62,7 +65,10 @@ const TogetherList = () => {
                   <span className="meta-item">💬 {post.chats || 0}</span>
                   <span className="meta-item">❤️ {post.likes || 0}</span>
                 </div>
-                <div className="card-tradeEnd">거래완료</div>
+                <div 
+                  className={`card-tradeEnd ${getRecruitmentStatus(post)}`}>
+                  {getRecruitmentStatus(post) === "completed" ? "모집완료" : "모집중"}
+                </div>
               </div>
 
               {/* 날짜 및 위치 정보 섹션 */}

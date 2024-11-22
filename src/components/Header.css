@@ -42,6 +42,7 @@
 
 .search-bar {
   display: flex;
+  align-items:flex-start;
   border-radius: 20px;
   overflow: hidden;
   background-color: #ffffff;
@@ -55,7 +56,6 @@
 .search-bar-input {
   flex: 1; /* 남은 공간을 모두 차지 */
   font-size: 15px;
-  margin-top: 1.2vh;
   margin-left: 1vw;
   border: none !important;
   outline: none; 

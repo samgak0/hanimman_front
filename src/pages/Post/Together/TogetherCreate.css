@@ -134,6 +134,7 @@ input[type="title"], input[type="price"], textarea {
 .people-input {
   width: 19px;
   height: 19px;
+  margin-bottom: 3px;
   margin-left: 5px;
   border-radius: 3px;
   border: 1.5px solid gray;
@@ -150,13 +151,13 @@ input[type="title"], input[type="price"], textarea {
   margin-left: 5px;
   accent-color: #f0c040;
 }
+
 .people-nolimit {
   font-size: 10px;
   font-weight: bold;
   display: flex;
   align-items: center;
   margin-left: 15px;
-  margin-top: 5px;
 }
 
 .textarea {

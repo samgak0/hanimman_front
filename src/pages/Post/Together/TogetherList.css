@@ -6,9 +6,10 @@
   width: 393px; /* 리스트의 최대 너비 설정 */
   height: 100vh;
   margin: 0 auto;
-  margin-top: 100px;
+  margin-top: 110px;
   box-sizing: border-box;
   cursor: pointer;
+  overflow-y: auto none;
 }
 
 /* 카드 스타일 */
@@ -68,13 +69,19 @@
 .card-tradeEnd {
   font-size: 12px;
   text-align: center;
-  background: #ff5722;
   color: white;
   border: none;
   border-radius: 4px;
   padding: 4px;
   width: 60px;
   margin-top: 5px;
+}
+
+.card-tradeEnd.active {
+  background-color: #F4BB44;
+}
+.card-tradeEnd.completed {
+  background-color: #ff8c00;
 }
 
 /* 날짜 및 위치 섹션 */
