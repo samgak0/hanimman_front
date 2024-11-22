@@ -4,13 +4,7 @@
   margin: 0;
   padding: 0;
 }
-body, html {
-  margin: 0;
-  padding: 0;
-  position: relative; /* 스택 컨텍스트 유지 */
-  z-index: auto; /* 기본값 */
-  overflow: hidden; /* 모달 시 스크롤 방지 */
-}
+
 
 /* html, body {
   height: 100%;

@@ -27,7 +27,9 @@ const TogetherList = () => {
   const handleRegister = () => {
     navigate("/togethercreate");
   };
-
+  const handleCardClick = (post) => {
+    navigate("/togetherdetail", { state: { post } }); // 게시글 데이터 전달
+  };
  
 
   return (
@@ -38,7 +40,12 @@ const TogetherList = () => {
       <div className="together-list-container">
         {posts.length > 0 ? (
           posts.map((post, index) => (
-            <div className="together-card" key={index}>
+            <div 
+              className="together-card" 
+              key={index}
+              onClick={() => handleCardClick(post)}
+            >
+
               <div className="card-image-container">
                 {urls[index] ? (
                   <img src={urls[index]} alt={post.title} className="card-image" />

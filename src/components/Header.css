@@ -10,6 +10,7 @@
   margin: 0 auto; /* 가운데 정렬 */
   max-width: 393px; /* 고정 너비 */
   padding: 8px;
+  z-index: 1000;
 }
 
 /* 리스트페이지 장소선택란 */

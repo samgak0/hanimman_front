@@ -3,9 +3,10 @@
   margin-top: 100px;
   width: 393px;
   border: none;
+  overflow-y: auto;
 }
 .content {
-  overflow: hidden;
+
 }
 
 .category {
