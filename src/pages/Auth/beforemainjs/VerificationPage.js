@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from 'uuid';
@@ -7,6 +8,7 @@ const VerificationPage = () => {
   const [verificationId, setVerificationId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     const requestVerification = async () => {
@@ -45,27 +47,20 @@ const VerificationPage = () => {
         }
 
         const resultData = await verificationResult.json();
-        const token = localStorage.getItem("authToken");
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
         const verifyAndSignupOrLogin = await fetch("http://192.168.101.253:8080/users/verify", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(resultData),
-          credentials: "include",
-        });
-
-        verifyAndSignupOrLogin.headers.forEach((value, name) => {
         });
 
         if (verifyAndSignupOrLogin.ok) {
           const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
           if (responseToken) {
-            const tokenWithoutBearer = responseToken.replace("Bearer", "");
+            const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
+            navigate("/main"); // 본인 인증 완료 후 보호된 페이지로 이동
             setMessage("회원가입 또는 로그인 성공!");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
@@ -83,7 +78,7 @@ const VerificationPage = () => {
     };
 
     requestVerification();
-  }, []);
+  }, [navigate]);
 
   return (
     <div>
