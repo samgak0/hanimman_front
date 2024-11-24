@@ -10,11 +10,19 @@ const VerificationPage = () => {
   const [message, setMessage] = useState("");
   const navigate = useNavigate(); // useNavigate 훅 사용
 
+  const jwtToken = localStorage.getItem("authToken");
+   
   useEffect(() => {
     const requestVerification = async () => {
+      // if(jwtToken){
+      //   setMessage("이미 로그인 되어 있습니다. 본인인증 절차를 건너뜁니다.")
+      //   navigate("/main");
+      //   return;
+      // }
+      
       setLoading(true); // 로딩 시작
       const uniqueId = uuidv4();
-
+      
       try {
         // 포트원 본인인증 요청 부분
         const response = await PortOne.requestIdentityVerification({
@@ -25,7 +33,7 @@ const VerificationPage = () => {
             pc: "POPUP",
             mobile: "REDIRECTION",
           },
-          redirectUrl: "http://192.168.101.253:3000/verification/mobile"
+          redirectUrl: "http://192.168.0.23:3000/verification/mobile"
         });
 
         if (response.code !== undefined) {
@@ -34,7 +42,7 @@ const VerificationPage = () => {
         setVerificationId(response.identityVerificationId);
 
         // 본인 인증 결과를 서버로 전송 (API 응답 처리 부분)
-        const verificationResult = await fetch("http://192.168.101.253:8080/identity-verifications", {
+        const verificationResult = await fetch("http://192.168.0.23:8080/identity-verifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -49,7 +57,7 @@ const VerificationPage = () => {
         const resultData = await verificationResult.json();
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
-        const verifyAndSignupOrLogin = await fetch("http://192.168.101.253:8080/users/verify", {
+        const verifyAndSignupOrLogin = await fetch("http://192.168.0.23:8080/users/verify", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(resultData),
@@ -78,7 +86,7 @@ const VerificationPage = () => {
     };
 
     requestVerification();
-  }, [navigate]);
+  }, [navigate, jwtToken]);
 
   return (
     <div>
