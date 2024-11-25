@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
@@ -12,34 +12,40 @@ const TogetherList = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const observer = useRef();
+
+  const fetchPosts = async (page) => {
+    try {
+      const params = { page, size: 10, sort: "createdAt,desc" };
+      const data = await listAllTogethers(params);
+      setPosts((prevPosts) => [...prevPosts, ...data.content]);
+      setHasMore(data.content.length > 0);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const params = { page: 0, size: 10, sort: "createdAt,desc" }; // 페이지네이션 파라미터 추가
-        const data = await listAllTogethers(params);
-        setPosts(data.content);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    fetchPosts(page);
+  }, [page]);
 
-    fetchPosts();
-  }, []);
-
-  useEffect(() => {
-    if (posts.length > 0) {
-      posts.forEach((post, index) => {
-        if (post.imageUrls && post.imageUrls.length > 0) {
-          console.log(`Post ${index} Image URL: ${post.imageUrls[0]}`);
-        } else {
-          console.log(`Post ${index} has no images`);
+  const lastPostElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
         }
       });
-    }
-  }, [posts]);
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore]
+  );
 
   const handleRegister = () => {
     navigate("/togethercreate");
@@ -54,7 +60,7 @@ const TogetherList = () => {
     return currentApplicants >= post.people ? "completed" : "active";
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
   return (
@@ -74,6 +80,7 @@ const TogetherList = () => {
               className="together-card"
               key={index}
               onClick={() => handleCardClick(post)}
+              ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
               <div className="card-image-container">
                 {post.imageUrls && post.imageUrls.length > 0 ? (
@@ -135,6 +142,7 @@ const TogetherList = () => {
           <p className="no-posts">등록된 게시물이 없습니다.</p>
         )}
       </div>
+      {loading && <p>Loading more posts...</p>}
       <RegisterButton onClick={handleRegister} />
       <Footer />
     </div>
