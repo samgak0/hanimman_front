@@ -2,7 +2,7 @@
   position: fixed; /* 하단에 고정 */
   bottom: 0; /* 화면 하단에 위치 */
   left: 50%; /* 화면의 가운데 기준 */
-  transform: translateX(200%) translateY(-150%); /* 가운데 정렬 */
+  transform: translateX(240%) translateY(-130%); /* 가운데 정렬 */
   height: 60px;
   display: flex;
   z-index: 900; /* modal 아래, footer 위 */

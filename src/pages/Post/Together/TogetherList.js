@@ -14,6 +14,8 @@ const TogetherList = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [urls, setUrls] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState(posts);
   const observer = useRef();
 
   const fetchPosts = async (page) => {
@@ -32,6 +34,7 @@ const TogetherList = () => {
   useEffect(() => {
     fetchPosts(page);
   }, [page]);
+
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -52,6 +55,7 @@ const TogetherList = () => {
   };
 
   const handleCardClick = (post) => {
+    console.log(post.id);
     navigate(`/togetherdetail/${post.id}`, { state: { post } });
   };
 
@@ -63,6 +67,42 @@ const TogetherList = () => {
   if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
+     // 날짜를 '24/11/25' 형식으로 변환
+     const formatDate = (date) => {
+      const d = new Date(date);
+      const year = String(d.getFullYear()).slice(-2); // 연도의 뒤 두 자리
+      const month = String(d.getMonth() + 1).padStart(2, "0"); // 두 자리 월
+      const day = String(d.getDate()).padStart(2, "0"); // 두 자리 일
+      return `${year}/${month}/${day}`;
+    };
+  
+    // 시간을 '09:00' 형식으로 변환
+    const formatTime = (date) => {
+      const d = new Date(date);
+      const hours = String(d.getHours()).padStart(2, "0"); // 두 자리 시간
+      const minutes = String(d.getMinutes()).padStart(2, "0"); // 두 자리 분
+      return `${hours}:${minutes}`;
+    };
+
+  // 필터 데이터 업데이트
+  const handleFilterUpdate = (filters) => {
+    const { store, location, jumpo, category } = filters;
+    let newFilteredPosts = posts;
+
+    if (store) {
+      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.store === store);
+    }
+    if (location) {
+      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.location === location);
+    }
+    if (jumpo) {
+      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.jumpo === jumpo);
+    }
+    if (category) {
+      newFilteredPosts = newFilteredPosts.filter((post) => post.category === category);
+    }
+
+  }
   return (
     <div className="together-list-page">
       <Header
@@ -71,7 +111,7 @@ const TogetherList = () => {
         location="양주동"
         showSetting={false}
       />
-      <FilterBar onFilterSelect={(filter) => console.log(filter)} />
+      <FilterBar onFilterUpdate={handleFilterUpdate} onFilterSelect={(filter) => console.log(filter)} />
 
       <div className="together-list-container">
         {posts.length > 0 ? (
@@ -109,16 +149,9 @@ const TogetherList = () => {
               </div>
 
               <div className="card-dateinfo">
-                {post.meetingAt
-                  ? `${new Date(
-                      post.meetingAt
-                    ).toLocaleDateString()} ${new Date(
-                      post.meetingAt
-                    ).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}`
-                  : "날짜 없음"}{" "}
+              {post.selectedDate
+                      ? `${formatDate(post.selectedDate)} ${formatTime(post.selectedDate)}`
+                      : "날짜 없음"}{" "}
                 {post.location ? (
                   <div className="location-info">
                     <p>{post.location.store || "정보 없음"}</p>
@@ -148,5 +181,6 @@ const TogetherList = () => {
     </div>
   );
 };
+
 
 export default TogetherList;

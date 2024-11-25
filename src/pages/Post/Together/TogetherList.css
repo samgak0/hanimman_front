@@ -1,94 +1,113 @@
 .together-list-container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* 세로 정렬 */
   align-items: center; 
-  justify-content: flex-start; /* 세로 정렬 상단부터 시작 */
+  justify-content: flex-start;
   width: 393px; /* 리스트의 최대 너비 설정 */
-  height: 80vh;
+  height: 80vh; /* 화면 높이에 맞추기 */
   margin: 0 auto;
   margin-top: 110px;
   box-sizing: border-box;
-  cursor: pointer;
-  overflow-y: auto;
+  overflow-y: auto; /* 세로 스크롤 활성화 */
+  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+}
+
+.together-list-container::-webkit-scrollbar {
+  display: none; /* Webkit 기반 브라우저에서 스크롤바 숨기기 */
 }
 
 /* 카드 스타일 */
 .together-card {
   display: flex;
   flex-direction: row; /* 가로 정렬 */
-  align-items: flex-start; /* 세로 상단 정렬 */
+  align-items: flex-start;
   background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  padding: 10px 0px;
-  width: 100%;
-  max-width: 393px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px; /* 둥근 모서리 추가 */
+  padding: 10px;
+  margin-top: 10px; /* 카드 간 간격 */
+  margin-bottom: 5px;
+  width: 100%; /* 부모 컨테이너에 맞춤 */
+  max-width: 393px; /* 최대 너비 설정 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+  cursor: pointer;
 }
 
 /* 이미지 섹션 */
 .card-image-container {
-  flex: 0 0 100px; /* 이미지 고정 크기 */
-  height: 100px;
-  overflow: hidden; /* 이미지 넘침 방지 */
+  flex: 0 0 100px; /* 고정된 이미지 크기 */
+  height: 100px; /* 고정된 높이 */
+  overflow: hidden;
   background: transparent;
+  border-radius: 8px;
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover; /* 이미지 비율 유지하며 잘라내기 */
+  border-radius: 8px;
 }
 
 /* 카드 콘텐츠 섹션 */
 .card-content {
   flex: 1;
   margin-left: 16px; /* 이미지와 콘텐츠 간격 */
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: space-between; /* 공간을 위아래로 분리 */
+  position: relative; /* 날짜 섹션 위치 지정 가능 */
 }
 
 .card-title {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   color: black;
-  width: 15vw;
+  margin-bottom: 5px;
 }
 
 .card-meta {
   display: flex;
   align-items: center;
-  width: 200px;
-  gap: 8px; /* 항목 간 간격 */
+  gap: 8px;
   font-size: 12px;
-  margin-top: 5px;
 }
 
 .meta-item {
   display: flex;
-  justify-content: center;
+  align-items: center;
   gap: 4px;
+  font-size: 12px;
+  color: #666;
 }
 
 .card-tradeEnd {
   font-size: 12px;
   text-align: center;
   color: white;
-  border: none;
   border-radius: 4px;
-  padding: 4px;
-  width: 60px;
-  margin-top: 5px;
+  padding: 4px 8px;
+  width: fit-content;
+  margin-top: 8px;
 }
 
 .card-tradeEnd.active {
   background-color: #F4BB44;
 }
+
 .card-tradeEnd.completed {
   background-color: #ff8c00;
 }
 
 /* 날짜 및 위치 섹션 */
 .card-dateinfo {
-  margin-top:auto;
-  margin-right: 20px;
   font-size: 12px;
   color: #888;
-  
+  margin-top: 55px;
+  word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+  word-break: break-word; /* 단어가 길 경우 줄바꿈 */
+  white-space: normal; /* 텍스트를 자동 줄바꿈 */
+  overflow-wrap: break-word; /* 긴 단어 자동 줄바꿈 */
+  max-width: 100px; /* 텍스트 영역의 최대 너비 제한 */
+
 }
