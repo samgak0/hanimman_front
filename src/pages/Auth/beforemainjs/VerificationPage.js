@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from 'uuid';
@@ -8,21 +7,12 @@ const VerificationPage = () => {
   const [verificationId, setVerificationId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate(); // useNavigate 훅 사용
 
-  const jwtToken = localStorage.getItem("authToken");
-   
   useEffect(() => {
     const requestVerification = async () => {
-      // if(jwtToken){
-      //   setMessage("이미 로그인 되어 있습니다. 본인인증 절차를 건너뜁니다.")
-      //   navigate("/main");
-      //   return;
-      // }
-      
       setLoading(true); // 로딩 시작
       const uniqueId = uuidv4();
-      
+
       try {
         // 포트원 본인인증 요청 부분
         const response = await PortOne.requestIdentityVerification({
@@ -33,7 +23,7 @@ const VerificationPage = () => {
             pc: "POPUP",
             mobile: "REDIRECTION",
           },
-          redirectUrl: "http://192.168.0.23:3000/verification/mobile"
+          redirectUrl: "http://192.168.101.253:3000/verification/mobile"
         });
 
         if (response.code !== undefined) {
@@ -42,7 +32,7 @@ const VerificationPage = () => {
         setVerificationId(response.identityVerificationId);
 
         // 본인 인증 결과를 서버로 전송 (API 응답 처리 부분)
-        const verificationResult = await fetch("http://192.168.0.23:8080/identity-verifications", {
+        const verificationResult = await fetch("http://localhost:8080/identity-verifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -55,20 +45,28 @@ const VerificationPage = () => {
         }
 
         const resultData = await verificationResult.json();
+        const token = localStorage.getItem("authToken");
 
-        // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
-        const verifyAndSignupOrLogin = await fetch("http://192.168.0.23:8080/users/verify", {
+        const verifyAndSignupOrLogin = await fetch("http://localhost:8080/users/verify", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,  // Authorization 헤더에 Bearer 토큰 포함
+          },
           body: JSON.stringify(resultData),
+          credentials: "include",  // 쿠키 포함
         });
-
+        
+        // 응답 헤더 디버깅
+        verifyAndSignupOrLogin.headers.forEach((value, name) => {
+          console.log(`${name}: ${value}`); // 헤더 확인
+        });
+        
         if (verifyAndSignupOrLogin.ok) {
           const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
           if (responseToken) {
-            const tokenWithoutBearer = responseToken.replace("Bearer ", "");
-            localStorage.setItem("authToken", tokenWithoutBearer);
-            navigate("/main"); // 본인 인증 완료 후 보호된 페이지로 이동
+            const tokenWithoutBearer = responseToken.replace("Bearer ", "");  // 공백 포함하여 처리
+            localStorage.setItem("authToken", tokenWithoutBearer);  // 액세스 토큰 저장
             setMessage("회원가입 또는 로그인 성공!");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
@@ -77,6 +75,16 @@ const VerificationPage = () => {
           const errorData = await verifyAndSignupOrLogin.json();
           setMessage(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);
         }
+        
+        // 리프레시 토큰 처리
+        const refreshToken = verifyAndSignupOrLogin.headers.get("Refresh-Token");
+        if (refreshToken) {
+          console.log("Refresh-Token", refreshToken);  // 리프레시 토큰 출력
+          localStorage.setItem("refreshToken", refreshToken);  // 리프레시 토큰 저장
+        } else {
+          setMessage("Refresh Token을 찾을 수 없습니다.");
+        }
+
       } catch (error) {
         console.error("Error:", error);
         setMessage("본인 인증 중 오류가 발생했습니다.");
@@ -86,7 +94,7 @@ const VerificationPage = () => {
     };
 
     requestVerification();
-  }, [navigate, jwtToken]);
+  }, []);
 
   return (
     <div>
