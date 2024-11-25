@@ -1,5 +1,4 @@
-import axios from "axios";
-import axiosInstance, { axiosInsnstance } from "./axiosInstance";
+import axiosInstance from "./axiosInstance";
 import jwtAxios from "./jwtAxios";
 
 const host = `${axiosInstance.defaults.baseURL}/api/v1/together`;
@@ -46,10 +45,13 @@ export const deleteTogether = async (id) => {
 
 export const listAllTogethers = async (params) => {
   try {
-    const response = await axiosInstance.get(`${host}/`, { params });
+    const response = await axiosInstance.get(`${host}/list`, { params });
     return response.data;
   } catch (error) {
-    console.error("같이요 게시글 목록 조회에서 에러가 발생하였습니다.");
+    console.error(
+      "같이가요 게시글 리스트 출력에 에러가 발생하였습니다.:",
+      error
+    );
     throw error;
   }
 };
