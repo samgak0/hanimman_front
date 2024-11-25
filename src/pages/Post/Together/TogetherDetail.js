@@ -6,7 +6,6 @@ import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.
 import { ReactComponent as HeartFullIcon } from "../../../assets/icons/zzimOn.svg"
 import { ReactComponent as NotifyIcon } from "../../../assets/icons/notify.svg"
 import { ReactComponent as CalendarIcon } from "../../../assets/icons/calendar.svg"
-import { ReactComponent as TogetherUserIcon } from "../../../assets/icons/togetherUserNum.svg"
 import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg"
 
 
@@ -76,7 +75,7 @@ const TogetherDetail = () => {
 
       {/* Info Section */}
       <div className="detail-title">
-        <h2>{post.title}</h2>
+        <h3>{post.title}</h3>
         <p>{post.price}원</p>
       </div>
       <div className="detail-meta"> 
@@ -90,8 +89,9 @@ const TogetherDetail = () => {
           <ViewIcon className="view-count"/> 13 <HeartEmptyIcon className="favorite-count"/> 10
         </div>
       </div>
+      
+      <div className="detail-info-title">상세정보</div>
       <div className="detail-info">
-        <h2>상세정보</h2>
         <div className="detail-info-category"><strong>카테고리 </strong> <p>{post.selectedCategory || "카테고리 없음"}</p></div>
         <div className="detail-info-category"><strong>출발일 </strong> <p>{post.selectedDate || "날짜 정보 없음"} </p></div> 
         <div className="detail-info-category">

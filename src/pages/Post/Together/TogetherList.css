@@ -4,12 +4,12 @@
   align-items: center; 
   justify-content: flex-start; /* 세로 정렬 상단부터 시작 */
   width: 393px; /* 리스트의 최대 너비 설정 */
-  height: 100vh;
+  height: 80vh;
   margin: 0 auto;
   margin-top: 110px;
   box-sizing: border-box;
   cursor: pointer;
-  overflow-y: auto none;
+  overflow-y: auto;
 }
 
 /* 카드 스타일 */
@@ -46,7 +46,7 @@
 
 .card-title {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
   color: black;
   width: 15vw;
 }

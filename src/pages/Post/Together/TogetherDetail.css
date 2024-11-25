@@ -29,9 +29,10 @@
   margin-left: 10px;
   border-top: 1px solid #ddd;
   padding-top: 10px;
+  font-size: 20px;
 }
 .detail-title p {
-  font-size: 20px;
+  font-size: 18px;
 }
 .detail-meta {
   display: flex;
@@ -39,6 +40,7 @@
   align-items: center;
   font-size: small;
   margin: 0 10px;
+  margin-top: 5px;
   color: #a2a2a2;
 }
 .detail-meta-count {
@@ -82,11 +84,17 @@
   display: flex;
   justify-content: space-between;
 }
+.detail-info-title {
+  border-top: 1px solid #ddd;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+  padding-top: 20px;
+}
 .detail-info {
   margin-left: 10px;
   padding-top: 10px;
-  border-top: 1px solid #ddd;
-  margin-top: 10px;
 }
 .detail-info-category {
   display: flex;

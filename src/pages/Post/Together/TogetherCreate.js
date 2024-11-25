@@ -148,7 +148,9 @@ const TogetherCreate = () => {
                 </div>
               ))}
             </div>
-            <button className="category-select-button" onClick={openCategoryModal}>
+           
+          </div>
+          <button className="category-select-button" onClick={openCategoryModal}>
               {selectedCategory ? `선택된 카테고리: ${selectedCategory}` : "품목선택"}
             </button>
               {showCategoryModal && (
@@ -158,8 +160,6 @@ const TogetherCreate = () => {
                   selectedCategory={selectedCategory}
                 />
               )}
-          </div>
-
           <div className="form-group">
             <h4>제목</h4>
             <input
