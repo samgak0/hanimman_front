@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const VerificationPage = () => {
   const [verificationId, setVerificationId] = useState(null);
@@ -46,34 +46,38 @@ const VerificationPage = () => {
 
         // const resultData = await verificationResult.json();
         // const token = localStorage.getItem("authToken");
-        
+
         const resultData = {
-          identityVerificationId: "port-customer-id-019360cd-30a9-409b-cfeb-ebce8ac3389d",  // 인증 ID
-          name: "홍길동",  // 사용자 이름
-          phoneNumber : "01012345678",  // 사용자 전화번호
+          identityVerificationId:
+            "port-customer-id-019360cd-30a9-409b-cfeb-ebce8ac3389d", // 인증 ID
+          name: "홍길동", // 사용자 이름
+          phoneNumber: "01012345678", // 사용자 전화번호
           gender: "MALE",
           birthDate: "2000-12-31",
-          isForeigner : false
+          isForeigner: false,
         };
 
         const token = "12345678";
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
-        const verifyAndSignupOrLogin = await fetch("http://192.168.101.253:8080/users/verify", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-          body: JSON.stringify(resultData),
-          credentials: "include",
-        });
+        const verifyAndSignupOrLogin = await fetch(
+          "http://192.168.101.253:8080/users/verify",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(resultData),
+            credentials: "include",
+          }
+        );
 
-        verifyAndSignupOrLogin.headers.forEach((value, name) => {
-        });
+        verifyAndSignupOrLogin.headers.forEach((value, name) => {});
 
         if (verifyAndSignupOrLogin.ok) {
-          const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
+          const responseToken =
+            verifyAndSignupOrLogin.headers.get("Authorization");
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer", "");
             localStorage.setItem("authToken", tokenWithoutBearer);

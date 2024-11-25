@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.7",
     "expo": "^52.0.8",
     "hanimman_front": "file:",
     "react": "^18.3.1",
@@ -18,7 +19,9 @@
     "react-native-wheel-picker-expo": "^0.5.4",
     "react-router-dom": "^6.27.0",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
     "react-swipeable": "^7.0.2",
+    "slick-carousel": "^1.8.1",
     "uuid": "^11.0.3",
     "web-vitals": "^2.1.4"
   },
