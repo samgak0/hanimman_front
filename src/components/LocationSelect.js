@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
 import "./LocationSelect.css";
 import KakaoMap from "./KakaoMap";
+import { DataContext } from "../context/DataContext";
 
 const LocationSelect = () => {
   const [shopList, setShopList] = useState([]);
@@ -13,6 +14,7 @@ const LocationSelect = () => {
   const [clickedPosition, setClickedPosition] = useState(null);
   const [locationName, setLocationName] = useState("");
 
+  const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
 
   // 점포 선택 핸들러
@@ -141,12 +143,14 @@ const LocationSelect = () => {
     }
 
     // 데이터 출력 또는 API 호출
-    console.log("등록 데이터:", {
+    const locationData = {
       store: selectedStore,
       location: selectedLocation,
       jumpo: selectedJumpo,
       position: clickedPosition,
-    });
+      name: locationName,
+    };
+    saveLocation(locationData); // DataContext에 위치 정보 저장
     navigate(-1); // 이전 페이지로 이동
   };
 

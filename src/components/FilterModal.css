@@ -1,0 +1,114 @@
+.filter-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  width: 353px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(90deg, #f4bb44, #f5c75d);
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.modal-header h3 {
+  margin: 0;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+}
+
+.modal-content {
+  padding: 20px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.filter-step h4 {
+  margin-bottom: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filter-option {
+  padding: 10px 16px;
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.filter-option:hover {
+  background: #ffe8b3;
+  color: #333;
+  transform: translateY(-2px);
+}
+
+.filter-option.active {
+  background: linear-gradient(90deg, #f4bb44, #f5c75d);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 12px rgba(244, 187, 68, 0.4);
+}
+
+.filter-option:focus {
+  outline: 2px solid #f4bb44;
+}
+
+@media (max-width: 768px) {
+  .filter-option {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+
+  .modal-header {
+    font-size: 16px;
+  }
+}

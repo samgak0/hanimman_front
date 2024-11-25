@@ -5,9 +5,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 전체 뷰포트 높이를 설정 */
   overflow-y: auto; /* 세로 스크롤 활성화 */
-  padding-bottom: 60px; /* 하단 버튼 공간 확보 */
+  padding-bottom: 30px; /* 하단 버튼 공간 확보 */
 }
 
 .list-header {
@@ -15,13 +14,12 @@
   align-items: center;
   justify-content: space-between;
   width: 345px;
-  background-color: white;
-  position: fixed;
-  top: 10px;
+  background-color: transparent;
+  margin-top: 30px;
   
 }
 
-.close-button {
+.close-icon-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -39,7 +37,7 @@
 }
 
 .image-registration {
-  margin-top: 80px;
+  margin-top: 30px;
   
 }
 
@@ -73,7 +71,7 @@
   margin-top: 10px;
   background-color: #F4BB44;
   border: none;
-  padding: 10px 20px;
+  padding: 15px;
   border-radius: 5px;
   cursor: pointer;
   color: white;
@@ -82,7 +80,7 @@
 }
 
 .form-group {
-  margin-top: 20px;
+  margin-top: 30px;
   text-align: left;
   width: 345px;
 }
@@ -111,29 +109,32 @@ input[type="title"], input[type="price"], textarea {
   cursor: pointer;
   color: white;
   width: 80px;
-  height: 40px;
-  font-size: 10px;
+  height: 45px;
+  font-size: 12px;
   font-weight: bold;
 }
 
 .people-group {
+  width: 200px;
   display: flex;
   align-items: center;
   background-color: #E9E3E3;
   border-radius: 5px;
-  padding: 5px 5px;
+  padding: 6px 10px;
+  gap: 10px;
 }
 .people-group-num {
   display: flex;
-  margin-top: 6px;
+  margin-top: 3px;
 }
 .people-font {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
 }
 .people-input {
   width: 19px;
   height: 19px;
+  margin-bottom: 3px;
   margin-left: 5px;
   border-radius: 3px;
   border: 1.5px solid gray;
@@ -150,28 +151,27 @@ input[type="title"], input[type="price"], textarea {
   margin-left: 5px;
   accent-color: #f0c040;
 }
+
 .people-nolimit {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: bold;
   display: flex;
   align-items: center;
-  margin-left: 15px;
-  margin-top: 5px;
+  margin-top: 3px;
 }
 
 .textarea {
   width: 345px;  /* 너비를 300px로 설정 */
-  height: 120px; /* 높이를 150px로 설정 */
+  height: 150px; /* 높이를 150px로 설정 */
   resize: both;  /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
 }
 
 .submit-button {
   width: 345px;
-  position: fixed;
-  bottom: 20px;
+  margin-top: 50px;
   background-color: #F4BB44;
   border: none;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
   font-size: 15px;
   font-weight: bold;

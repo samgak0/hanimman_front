@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import '../maincss/MainPage.css'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -9,15 +10,16 @@ import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.s
 
 const MainPage = () => {
   const {togetherItems, shareItems} = data;
-  const navigate = useNavigate(); // useNavigate 훅
+  const navigate = useNavigate();
 
   const handleTogetherClick = () => {
     navigate("/togetherlist"); 
   }
 
+
   return (
     <div className='main-page'>
-        <Header showLogo={true} showMenu={false} showSearch={true}  />
+        <Header showLogo={true} showMenu={false} showSearch={true} showLeft={false}  />
       <div className='content'>
         <section className='category'>
           <div className='together-selector'>

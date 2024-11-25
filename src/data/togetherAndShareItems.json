@@ -5,7 +5,11 @@
     { "id": 3, "title": "딸기", "members": "현재인원 : 6명", "image": "/images/strawberry.jpg" },
     { "id": 4, "title": "수박", "members": "현재인원 : 10명", "image": "/images/wartermelon.jpg" },
     { "id": 5, "title": "포도", "members": "현재인원 : 7명", "image": "/images/grape.jpg" },
-    { "id": 6, "title": "사과", "members": "현재인원 : 8명", "image": "/images/apple.jpg" }
+    { "id": 6, "title": "사과", "members": "현재인원 : 13명", "image": "/images/apple.jpg" },
+    { "id": 7, "title": "사과", "members": "현재인원 : 2명", "image": "/images/apple.jpg" },
+    { "id": 8, "title": "사과", "members": "현재인원 : 21명", "image": "/images/apple.jpg" },
+    { "id": 9, "title": "사과", "members": "현재인원 : 35명", "image": "/images/apple.jpg" },
+    { "id": 10, "title": "사과", "members": "현재인원 : 22명", "image": "/images/apple.jpg" }
   ],
   "shareItems": [
     { "id": 1, "title": "포도", "quantity": "수량 : 4개", "image": "/images/grape.jpg" },

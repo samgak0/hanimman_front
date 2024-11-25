@@ -1,0 +1,158 @@
+.together-detail-page {
+  max-width: 393px;
+  margin: 0 auto;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  overflow-y: auto;
+}
+.detail-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  margin: 0 10px;
+}
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.notify-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.detail-title {
+  margin-top: 10px;
+  margin-left: 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+  font-size: 20px;
+}
+.detail-title p {
+  font-size: 18px;
+}
+.detail-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: small;
+  margin: 0 10px;
+  margin-top: 5px;
+  color: #a2a2a2;
+}
+.detail-meta-count {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.calendar-icon {
+  width: 12px;
+  height: 12px;
+  fill: #a2a2a2;
+}
+.favorite-count {
+  width: 12px;
+  height: 12px;
+  fill: #a2a2a2;
+}
+.view-count {
+  width: 12px;
+  height: 12px;
+  fill: #a2a2a2;
+}
+.detail-image-container {
+  margin: 10px 0px;
+}
+
+.detail-image {
+  width: 373px;
+  height: 373px;
+  border-radius: 10px;
+}
+
+.no-image {
+  color: #999;
+  font-size: 14px;
+}
+.detail-location {
+  margin-left: 10px;
+  color: #a2a2a2;
+  font-size: small;
+  display: flex;
+  justify-content: space-between;
+}
+.detail-info-title {
+  border-top: 1px solid #ddd;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 10px;
+  padding-top: 20px;
+}
+.detail-info {
+  margin-left: 10px;
+  padding-top: 10px;
+}
+.detail-info-category {
+  display: flex;
+  align-items: center;
+}
+.detail-info-category > p {
+  font-size: 15px;
+  margin-left: 10px;
+}
+.detail-info h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.detail-info strong {
+  color: #a2a2a2;
+}
+.detail-text {
+  margin-left: 10px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+.detail-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.chat-button,
+.apply-button {
+  flex: 0.3;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.chat-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.apply-button {
+  background-color: #ff8c00;
+  color: #fff;
+}
+.favorite-button {
+  background: none;
+  border: none;
+}
+.zzimOff {
+  fill: #ff1493; /* 딥핑크 색상 */
+  cursor: pointer;
+}
+.zzimOn {
+  fill: #ff1493;
+  cursor: pointer;
+}

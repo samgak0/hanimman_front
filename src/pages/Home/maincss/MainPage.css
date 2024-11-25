@@ -3,9 +3,7 @@
   margin-top: 100px;
   width: 393px;
   border: none;
-}
-.content {
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .category {
@@ -20,12 +18,9 @@
 /*  슬라이드 섹션 */
 .together-slider {
   margin-top: 5vh;
-  margin-left: 0.5vw;
 }
 .share-slider {
   margin-top: 5vh;
-  margin-left: 0.5vw;
-  width: 100%;
 }
 .together-button, .share-button {
   display: flex;

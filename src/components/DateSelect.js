@@ -71,9 +71,9 @@ const DateSelect = ({ onClose, onSelectDate}) => {
               onChange={(e) => setMinute(e.target.value)}
               className="time-select"
             >
-              {Array.from({ length: 60 }, (_, i) => (
-                <option key={i} value={i.toString().padStart(2, "0")}>
-                  {i.toString().padStart(2, "0")}분
+              {Array.from({ length: 2 }, (_, i) => (
+                <option key={i} value={(i * 30).toString().padStart(2, "0")}>
+                  {(i * 30).toString().padStart(2, "0")}분
                 </option>
               ))}
             </select>
