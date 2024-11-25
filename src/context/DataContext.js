@@ -5,8 +5,11 @@ export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
   const [posts, setPosts] = useState([]);
-  const [togetherCreateState, setTogetherCreateState] = useState({}); // 생성 상태
-  const [selectedLocation, setSelectedLocation] = useState(null); // 위치 정보
+  const [togetherCreateState, setTogetherCreateState] = useState({}); // 같이가요 생성 상태
+  const [shareCreateState, setShareCreateState] = useState({}) // 나눠요 생성 상태
+  const [shareSelectedLocation, setShareSelectedLocation] = useState(null); // 나눠요 위치정보
+  const [selectedLocation, setSelectedLocation] = useState(null); // 같이가요 위치 정보
+  const [shareAppliedPosts, setShareAppliedPosts] = useState([]); // 나눠요 신청된 게시글 상태
   const [appliedPosts, setAppliedPosts] = useState([]); // 신청된 게시글 상태
 
 

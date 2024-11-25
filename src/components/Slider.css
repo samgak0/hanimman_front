@@ -2,7 +2,7 @@
    --slider-width: 393px; /* 슬라이더 전체 너비 */
   --slide-image-width: 150px;
   --slide-image-height: 120px;
-  --indicator-size: 12px;
+  --indicator-size: 10px;
   --indicator-color: #ddd;
   --indicator-active-color: #333;
   --transition-duration: 0.5s;

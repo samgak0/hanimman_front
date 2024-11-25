@@ -15,7 +15,9 @@ const MainPage = () => {
   const handleTogetherClick = () => {
     navigate("/togetherlist"); 
   }
-
+  const handleShareClick = () => {
+    navigate("/sharelist");
+  }
 
   return (
     <div className='main-page'>
@@ -29,7 +31,7 @@ const MainPage = () => {
             <p className='together-font'>같이가요</p>
           </div>
           <div className='share-selector'>
-            <button className='share-button'>
+            <button className='share-button' onClick={handleShareClick}>
               <ShareIcon/>
             </button>
             <p className='share-font'>나눠요</p>
