@@ -69,7 +69,7 @@ const ShareCreate = () => {
     <div className="registration-page">
       {/* 헤더 */}
       <header className="list-header">
-        <button onClick={() => navigate(-1)} className="close-icon-button">
+        <button onClick={() => navigate("/sharelist")} className="close-icon-button">
           <ShareCloseIcon />
         </button>
         <button className="save-draft-button">임시저장</button>
