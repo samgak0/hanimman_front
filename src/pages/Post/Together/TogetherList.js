@@ -52,7 +52,8 @@ const TogetherList = () => {
   };
 
   const handleCardClick = (post) => {
-    navigate("/togetherdetail", { state: { post } });
+    console.log(post.id);
+    navigate(`/togetherdetail/${post.id}`, { state: { post } });
   };
 
   const getRecruitmentStatus = (post) => {
@@ -109,11 +110,11 @@ const TogetherList = () => {
               </div>
 
               <div className="card-dateinfo">
-                {post.selectedDate
+                {post.meetingAt
                   ? `${new Date(
-                      post.selectedDate
+                      post.meetingAt
                     ).toLocaleDateString()} ${new Date(
-                      post.selectedDate
+                      post.meetingAt
                     ).toLocaleTimeString([], {
                       hour: "2-digit",
                       minute: "2-digit",
