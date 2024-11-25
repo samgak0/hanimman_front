@@ -9,10 +9,6 @@ import "./TogetherList.css";
 
 const TogetherList = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
-  const [urls, setUrls] = useState([]);
-  const [filteredPosts, setFilteredPosts] = useState(posts);
-=======
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -32,7 +28,6 @@ const TogetherList = () => {
       setLoading(false);
     }
   };
->>>>>>> a2dfbf8460394df22b54dbf944a2bd22d7fe2f3b
 
   useEffect(() => {
     fetchPosts(page);
@@ -57,60 +52,12 @@ const TogetherList = () => {
   };
 
   const handleCardClick = (post) => {
-<<<<<<< HEAD
-    navigate("/togetherdetail", { state: { post } });
-  };
-
-  const getRecruitmentStatus = (post) => {
-    const currentApplicants = appliedPosts.filter((id) => id === post.id).length;
-    return currentApplicants >= post.people ? "completed" : "active";
-  };
-
-     // 날짜를 '24/11/25' 형식으로 변환
-     const formatDate = (date) => {
-      const d = new Date(date);
-      const year = String(d.getFullYear()).slice(-2); // 연도의 뒤 두 자리
-      const month = String(d.getMonth() + 1).padStart(2, "0"); // 두 자리 월
-      const day = String(d.getDate()).padStart(2, "0"); // 두 자리 일
-      return `${year}/${month}/${day}`;
-    };
-  
-    // 시간을 '09:00' 형식으로 변환
-    const formatTime = (date) => {
-      const d = new Date(date);
-      const hours = String(d.getHours()).padStart(2, "0"); // 두 자리 시간
-      const minutes = String(d.getMinutes()).padStart(2, "0"); // 두 자리 분
-      return `${hours}:${minutes}`;
-    };
-
-  // 필터 데이터 업데이트
-  const handleFilterUpdate = (filters) => {
-    const { store, location, jumpo, category } = filters;
-    let newFilteredPosts = posts;
-
-    if (store) {
-      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.store === store);
-    }
-    if (location) {
-      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.location === location);
-    }
-    if (jumpo) {
-      newFilteredPosts = newFilteredPosts.filter((post) => post.location?.jumpo === jumpo);
-    }
-    if (category) {
-      newFilteredPosts = newFilteredPosts.filter((post) => post.category === category);
-    }
-
-    setFilteredPosts(newFilteredPosts);
-=======
-    console.log(post.id);
     navigate(`/togetherdetail/${post.id}`, { state: { post } });
   };
 
   const getRecruitmentStatus = (post) => {
     const currentApplicants = post.currentApplicants || 0;
     return currentApplicants >= post.people ? "completed" : "active";
->>>>>>> a2dfbf8460394df22b54dbf944a2bd22d7fe2f3b
   };
 
   if (loading && page === 0) return <p>Loading...</p>;
@@ -118,15 +65,6 @@ const TogetherList = () => {
 
   return (
     <div className="together-list-page">
-<<<<<<< HEAD
-      <Header showMenu={true} showSearch={true} location="양주동" showSetting={false} />
-      <FilterBar onFilterUpdate={handleFilterUpdate} onFilterSelect={(filter) => console.log(filter)} />
-
-      <div className="together-list-container">
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post, index) => (
-            <div className="together-card" key={index} onClick={() => handleCardClick(post)}>
-=======
       <Header
         showMenu={true}
         showSearch={true}
@@ -144,7 +82,6 @@ const TogetherList = () => {
               onClick={() => handleCardClick(post)}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
->>>>>>> a2dfbf8460394df22b54dbf944a2bd22d7fe2f3b
               <div className="card-image-container">
                 {post.imageUrls && post.imageUrls.length > 0 ? (
                   <img
@@ -165,23 +102,13 @@ const TogetherList = () => {
                   <span className="meta-item">❤️ {post.likes || 0}</span>
                 </div>
                 <div className={`card-tradeEnd ${getRecruitmentStatus(post)}`}>
-<<<<<<< HEAD
-                  {getRecruitmentStatus(post) === "completed" ? "모집완료" : "모집중"}
-=======
                   {getRecruitmentStatus(post) === "completed"
                     ? "모집완료"
                     : "모집중"}
->>>>>>> a2dfbf8460394df22b54dbf944a2bd22d7fe2f3b
                 </div>
               </div>
 
               <div className="card-dateinfo">
-<<<<<<< HEAD
-              {post.selectedDate
-                      ? `${formatDate(post.selectedDate)} ${formatTime(post.selectedDate)}`
-                      : "날짜 없음"}{" "}
-
-=======
                 {post.meetingAt
                   ? `${new Date(
                       post.meetingAt
@@ -208,7 +135,6 @@ const TogetherList = () => {
                 ) : (
                   "위치 정보 없음"
                 )}
->>>>>>> a2dfbf8460394df22b54dbf944a2bd22d7fe2f3b
               </div>
             </div>
           ))
