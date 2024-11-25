@@ -1,0 +1,144 @@
+/* 전체 컨테이너 */
+.blocked-user-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* 헤더 */
+.blocked-user-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* 사용자 리스트 */
+.blocked-user-list {
+  margin-top: 20px;
+}
+
+.blocked-user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ccc;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-location {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 차단중 버튼 */
+.blocked-status-btn {
+  background-color: #f4bb44;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.blocked-status-btn:hover {
+  background-color: #e5a933;
+}
+
+/* 모달 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 내용 */
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* 모달 버튼 */
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-confirm-btn {
+  background-color: #f4bb44;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-confirm-btn:hover {
+  background-color: #e5a933;
+}
+
+.modal-cancel-btn {
+  background-color: #ddd;
+  border: none;
+  border-radius: 5px;
+  color: black;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.modal-cancel-btn:hover {
+  background-color: #bbb;
+}

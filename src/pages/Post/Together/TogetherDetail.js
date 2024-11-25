@@ -97,17 +97,25 @@ const TogetherDetail = () => {
       {/* Image Section */}
       <div className="detail-image-container">
         {post.imageUrls && post.imageUrls.length > 0 ? (
-          <Slider {...settings}>
-            {post.imageUrls.map((url, index) => (
-              <div key={index}>
-                <img
-                  src={url}
-                  alt={`Slide ${index}`}
-                  className="detail-image"
-                />
-              </div>
-            ))}
-          </Slider>
+          post.imageUrls.length === 1 ? (
+            <img
+              src={post.imageUrls[0]}
+              alt="상품 이미지"
+              className="detail-image"
+            />
+          ) : (
+            <Slider {...settings}>
+              {post.imageUrls.map((url, index) => (
+                <div key={index}>
+                  <img
+                    src={url}
+                    alt={`Slide ${index}`}
+                    className="detail-image"
+                  />
+                </div>
+              ))}
+            </Slider>
+          )
         ) : (
           <p className="no-image">이미지가 없습니다.</p>
         )}

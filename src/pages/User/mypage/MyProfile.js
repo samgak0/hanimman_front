@@ -62,7 +62,7 @@ const MyProfile = () => {
         <div className="profile-stats">
           <div className="stat-item">
             <span>매너 당도</span>
-            <span>{mannerScore}Brix 😄</span>
+            <span>{mannerScore}Brix</span>
           </div>
           <div className="progress-bar">
             <div
