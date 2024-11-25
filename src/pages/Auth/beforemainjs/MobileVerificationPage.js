@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const MobileVerificationPage = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const identityVerificationId = searchParams.get('identityVerificationId');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const receiveData = async () => {
@@ -40,6 +42,7 @@ const MobileVerificationPage = () => {
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
+            navigate("/main");
             console.error("회원가입 또는 로그인 성공!");
           } else {
             console.error("Authorization 토큰을 찾을 수 없습니다.");
@@ -55,7 +58,7 @@ const MobileVerificationPage = () => {
     };
 
     receiveData();
-  }, [identityVerificationId]);  // 의존성 배열에 identityVerificationId 추가
+  }, [identityVerificationId, navigate]);  // 의존성 배열에 identityVerificationId 추가
 
   return (
     <div>
