@@ -1,0 +1,44 @@
+.account-info-container {
+  font-family: Arial, sans-serif;
+  padding: 16px;
+}
+
+.account-info-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #ddd;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.account-info-section {
+  margin-top: 16px;
+}
+
+.account-info-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.account-info-value {
+  color: #555;
+}
+
+.change-button,
+.confirm-button {
+  background-color: transparent;
+  color: #f4bb44;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}

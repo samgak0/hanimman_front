@@ -49,7 +49,7 @@ const DateSelect = ({ onClose, onSelectDate}) => {
             // return null;
           }}
         />
-           <div className="time-select-container">
+          <div className="time-select-container">
           <label>
             시간:
             <select

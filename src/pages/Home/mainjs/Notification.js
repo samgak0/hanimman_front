@@ -19,7 +19,7 @@ const Notification = () => {
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
-  const handleBackClick = () => navigate('/main'); // MainPage로 이동
+  const handleBackClick = () => navigate(-1); // MainPage로 이동
 
   const handleEditClick = () => setIsEditing(!isEditing);
 

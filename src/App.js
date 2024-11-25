@@ -2,12 +2,9 @@
 import "./App.css"
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import BlockedUserManagement from './components/BlockedUserManagement';
 import LoadingScreen from './pages/Auth/beforemainjs/LoadingScreen';
-import LoginPage from './pages/Auth/beforemainjs/LoginPage'
-
 import KeyNoti from './pages/Home/mainjs/KeyNoti';
-import LocationPage from './pages/Auth/beforemainjs/LocationPage'
-import VertificationPage from './pages/Auth/beforemainjs/VertificationPage'
 import Notification from './pages/Home/mainjs/Notification'
 import MyPage from './pages/User/mypage/MyPage'
 import ZzimList from './pages/Home/mainjs/ZzimList';
@@ -15,7 +12,6 @@ import Events from './pages/Home/mainjs/Events';
 import Announcement from './pages/Home/mainjs/Announcement';
 import FAQ from './pages/Home/mainjs/FAQ';
 import Terms from './pages/Home/mainjs/Terms';
-
 import authRoutes from "./routes/authRoutes";
 import mainRoutes from "./routes/mainRoutes";
 import userRoutes from "./routes/userRoutes";
@@ -30,9 +26,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoadingScreen />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/location" element={<LocationPage />} />
-        <Route path="/vertification" element={<VertificationPage />} />
+        <Route path="/user/blocked" element={<BlockedUserManagement />} />
         <Route path="/notification" element={<Notification />} />
         <Route path="/keynoti" element={<KeyNoti />} />
         <Route path="/mypage" element={<MyPage />} />
