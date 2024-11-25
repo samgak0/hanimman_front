@@ -129,7 +129,7 @@ const TogetherDetail = () => {
       <div className="detail-meta">
         <div className="detail-meta-location">
           <CalendarIcon className="calendar-icon" />{" "}
-          {post.location?.name || "위치 정보 없음"}
+          {post.address || "위치 정보 없음"}
         </div>
         <div className="detail-meta-date">{formatDate(post.meetingAt)}</div>
         <div className="detail-meta-count">

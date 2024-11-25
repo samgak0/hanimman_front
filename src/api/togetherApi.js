@@ -3,12 +3,16 @@ import jwtAxios from "./jwtAxios";
 
 const host = `${axiosInstance.defaults.baseURL}/api/v1/together`;
 
-export const createTogether = async (togetherDTO) => {
+export const createTogether = async (formData) => {
   try {
-    const response = await jwtAxios.post(`${host}/`, togetherDTO);
+    const response = await axiosInstance.post(`${host}/create`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
-    console.error("같이요 게시글 생성에서 에러가 발생하였습니다.");
+    console.error("같이가요 게시글 생성에 에러가 발생했습니다:", error);
     throw error;
   }
 };
