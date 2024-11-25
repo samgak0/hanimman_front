@@ -61,7 +61,7 @@
 .view-count {
   width: 12px;
   height: 12px;
-  fill:#a2a2a2;
+  fill: #a2a2a2;
 }
 .detail-image-container {
   margin: 10px 0px;
@@ -119,7 +119,7 @@
 }
 .detail-actions {
   display: flex;
-  justify-content:space-around;
+  justify-content: space-around;
   align-items: center;
   margin-top: 30px;
   padding: 10px 0;
@@ -149,10 +149,10 @@
   border: none;
 }
 .zzimOff {
-  fill: #FF1493; /* 딥핑크 색상 */
+  fill: #ff1493; /* 딥핑크 색상 */
   cursor: pointer;
 }
 .zzimOn {
-  fill: #FF1493;
+  fill: #ff1493;
   cursor: pointer;
 }
