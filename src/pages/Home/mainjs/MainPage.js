@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+
 import '../maincss/MainPage.css'
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
@@ -14,6 +15,7 @@ const MainPage = () => {
   const handleTogetherClick = () => {
     navigate("/togetherlist"); 
   }
+
 
   return (
     <div className='main-page'>
