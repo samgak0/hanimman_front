@@ -42,3 +42,76 @@
   font-size: 14px;
   cursor: pointer;
 }
+
+/* 모달 오버레이 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+/* 이메일 입력 필드 스타일 추가 */
+.email-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  color: #333;
+}
+
+.email-input::placeholder {
+  color: #aaa; /* 회색 글씨 */
+}
+
+.email-input:focus {
+  border-color: #ff8c00; /* 포커스 시 강조 색상 */
+}
+
+/* 모달 버튼 컨테이너 */
+.modal-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 버튼 스타일 */
+.modal-confirm-button,
+.modal-cancel-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-confirm-button {
+  background-color: #ff8c00;
+  color: white;
+}
+
+.modal-cancel-button {
+  background-color: #ddd;
+  color: black;
+}
