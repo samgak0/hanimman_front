@@ -166,6 +166,7 @@ const TogetherCreate = () => {
                       <input
                         type="file"
                         accept="image/*"
+                        multiple // 여러 파일 선택 가능
                         style={{ display: "none" }}
                         onChange={handleImageUpload} // 새 이미지 추가
                       />

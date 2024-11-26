@@ -56,8 +56,7 @@ const TogetherList = () => {
   };
 
   const getRecruitmentStatus = (post) => {
-    const currentApplicants = post.currentApplicants || 0;
-    return currentApplicants >= post.people ? "completed" : "active";
+    return post.isEnd ? "completed" : "active";
   };
 
   if (loading && page === 0) return <p>Loading...</p>;
@@ -99,11 +98,13 @@ const TogetherList = () => {
                 <div className="card-meta">
                   <span className="meta-item">👥 {post.people}명</span>
                   <span className="meta-item">💬 {post.chats || 0}</span>
-                  <span className="meta-item">❤️ {post.likes || 0}</span>
+                  <span className="meta-item">
+                    ❤️ {post.favoriteCount || 0}
+                  </span>
                 </div>
                 <div className={`card-tradeEnd ${getRecruitmentStatus(post)}`}>
                   {getRecruitmentStatus(post) === "completed"
-                    ? "모집완료"
+                    ? "마감"
                     : "모집중"}
                 </div>
               </div>
