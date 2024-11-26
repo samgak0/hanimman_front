@@ -1,237 +1,56 @@
-/* ShareCreate.css */
-
-/* 전체 페이지 */
-.share-registration-page {
-  width: 393px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+.share-button-group {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
+ margin-top: 10px;
+ width: 345px;
+ gap: 10px;
 }
 
-/* 헤더 */
-.share-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.share-close-icon-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: #333;
-  cursor: pointer;
-}
-
-.share-save-draft-button {
-  background-color: #ffd700;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.share-save-draft-button:hover {
-  background-color: #f4c300;
-}
-
-/* 사진 등록 */
-.share-image-registration {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.share-image-registration h4 {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.share-image-upload-container {
+.share-button-specify {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
-  justify-content: center;
 }
 
-.share-image-upload-box {
-  width: 70px;
-  height: 70px;
-  border: 2px dashed #ccc;
-  border-radius: 8px;
-  background-color: #fff;
+
+.share-quantity {
+  width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: bold;
+  gap: 5px;
+  background-color: #f9ecd1;
+  border-radius: 5px;
 }
 
-.share-image-upload-box:hover {
-  border-color: #ffd700;
-  background-color: #fffbe6;
+.share-quantity-text {
+  font-size: 12px;
+}
+
+.share-quantity-input {
+  width: 35px;
+  height: 25px;
+  padding: 5px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.share-quantity-input::-webkit-outer-spin-button,
+.share-quantity-input::-webkit-inner-spin-button {
+  -webkit-appearance: none; /* 기본 증감 버튼 숨기기 */
+  margin: 0;
+}
+
+.image-slider-container {
+  display: flex;
+  gap: 10px;
+  /* 가로 스크롤 활성화 */
+  cursor: grab;
 }
 
 .share-uploaded-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
-}
-
-/* 품목 선택 버튼 */
-.share-category-select-button {
-  width: 100%;
-  margin-top: 10px;
-  background-color: #ffd700;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: #fff;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.share-category-select-button:hover {
-  background-color: #f4c300;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* 입력 필드 */
-.share-form-group {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.share-form-group h4 {
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.share-input,
-.share-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #333;
-  transition: border-color 0.3s ease;
-}
-
-.share-input:focus,
-.share-textarea:focus {
-  border-color: #ffd700;
-  outline: none;
-}
-
-.share-textarea {
-  height: 100px;
-  resize: none;
-}
-
-/* 버튼 그룹 */
-.share-button-group {
-  display: flex;
-  margin-top: 10px;
-  gap: 10px;
-
-}
-.share-button-specify {
-  display: flex;
-  gap: 10px; /* 장소지정과 날짜지정 버튼 간격 */
-}
-.share-quantity {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #E9E3E3; /* 연한 배경색 */
-  border: none;
-  border-radius: 5px;
-  width: 120px; /* 고정된 크기 */
-  margin-left: 45px;
-}
-.share-quantity-input {
-  width: 40px;
-  height: 25px;
-  margin-left: 5px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 13px;
-  color: #333;
-  transition: border-color 0.3s ease;
-}
-.share-button-group input::-webkit-outer-spin-button,
-.share-button-group input::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* 기본 증감 버튼 숨기기 */
-  margin: 0;
-}
-.share-quantity-label {
-  margin-top: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #333;
-}
-.share-quantity-input:focus {
-  border-color: #ffd700;
-  outline: none;
-}
-
-/* 내용 */
-.share-textarea {
-  width: 100%;
-  padding: 12px;
-  font-size: 14px;
-  border-radius: 8px;
-  color: #333;
-  border: 1px solid #ccc;
-}
-
-/* 등록 버튼 */
-.share-submit-button {
-  width: 100%;
-  padding: 12px;
-  background-color: #ffd700;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.share-submit-button:hover {
-  background-color: #f4c300;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.share-submit-button:active {
-  background-color: #e0a800;
-}
-
-/* Placeholder 스타일 */
-.share-input::placeholder,
-.share-textarea::placeholder {
-  color: #aaa;
 }

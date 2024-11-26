@@ -1,7 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ShareCreate.css";
 import { ReactComponent as ShareCloseIcon } from "../../../assets/icons/close.svg";
+import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg"
 import ShareDateSelect from "../../../components/DateSelect";
 import ShareCategorySelect from "../../../components/CategorySelect";
 import ShareLocation from "../../../components/ShareLocation"; // 변경된 컴포넌트 가져오기
@@ -65,104 +66,144 @@ const ShareCreate = () => {
     setIsShareDateSelectVisible(false);
   };
 
+  const handleCategorySelect = (category) => {
+    setSelectedShareCategory(category);
+    setIsShareCategoryModalVisible(false); // 모달 닫기
+  };
+   // 이미지 드래그 앤 슬라이드 기능
+  const sliderRef = useRef(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  // 드래그 시작
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    sliderRef.current.classList.add("dragging");
+    startX.current = e.pageX - sliderRef.current.offsetLeft;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+  };
+  // 드래그 중
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return; // 드래그 상태가 아니면 무시
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2; // 스크롤 속도 조절
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+  // 드래그 종료
+  const handleMouseUpOrLeave = () => {
+    isDragging.current = false;
+    sliderRef.current.classList.remove("dragging");
+  };
+
+  const handleImageUpload = (event) => {
+    const files = event.target.files;
+    const fileArray = Array.from(files).slice(0, 1); // 한 번에 하나의 파일만 선택
+    setShareImages((prevImages) => [...prevImages, ...fileArray]);
+    event.target.value = ""; // 입력 초기화
+    if (shareImages.length + fileArray.length > 10) {
+      alert("이미지는 최대 10개까지만 업로드 가능합니다.");
+      return;
+    }
+  };
+  
+  const handleImageReplace = (event, index) => {
+    const file = event.target.files[0];
+    if (file) {
+      setShareImages((prevImages) =>
+        prevImages.map((img, i) => (i === index ? file : img))
+      );
+      event.target.value = ""; // 입력 초기화
+    }
+  };
+
   return (
     <div className="registration-page">
-      {/* 헤더 */}
       <header className="list-header">
         <button onClick={() => navigate("/sharelist")} className="close-icon-button">
           <ShareCloseIcon />
         </button>
         <button className="save-draft-button">임시저장</button>
       </header>
-
-      {/* 등록 폼 */}
-      <div>
-        {/* 이미지 업로드 */}
-        <div className="image-registration">
-          <h4>사진등록</h4>
-          <div className="image-upload-container">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="image-upload-box">
-                {shareImages[index] ? (
-                  <>
-                    <img
-                      src={URL.createObjectURL(shareImages[index])}
-                      alt={`uploaded-${index}`}
-                      className="uploaded-image"
-                      onClick={() =>
-                        document.getElementById(`file-input-${index}`).click()
-                      }
-                    />
-                    <input
-                      id={`file-input-${index}`}
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={(e) =>
-                        setShareImages((prev) =>
-                          prev.map((img, i) => (i === index ? e.target.files[0] : img))
-                        )
-                      }
-                    />
-                  </>
-                ) : (
-                  <label>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ display: "none" }}
-                      onChange={(e) =>
-                        setShareImages((prev) => [...prev, ...Array.from(e.target.files)])
-                      }
-                    />
-                    <div className="add-image">+</div>
-                  </label>
-                )}
+      <div className="image-upload-container" style={{ position: "relative" }}>
+        <div 
+          className="image-slider-container"
+          ref={sliderRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}  
+        >{/* 이미지 개수가 10개 미만일 때만 업로드 버튼 표시 */}
+        {shareImages.length < 10 && (
+          <div className="image-upload-box">
+            <label>
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleImageUpload}
+              />
+              <div className="add-image">
+                <CameraIcon className="camera-icon" />
+                <p className="camera-text">사진등록</p>
               </div>
-            ))}
+            </label>
           </div>
-        </div>
-
-        {/* 품목 선택 */}
-        <button
-          className="category-select-button"
-          onClick={() => setIsShareCategoryModalVisible(true)}
-        >
-          {selectedShareCategory
-            ? `선택된 카테고리: ${selectedShareCategory}`
-            : "품목선택"}
-        </button>
-        {isShareCategoryModalVisible && (
-          <ShareCategorySelect
-            onClose={() => setIsShareCategoryModalVisible(false)}
-            onCategorySelect={(category) => setSelectedShareCategory(category)}
-            selectedCategory={selectedShareCategory}
-          />
         )}
 
-        {/* 제목 입력 */}
-        <div className="form-group">
-          <h4>제목</h4>
-          <input
-            type="title"
-            value={shareTitle}
-            onChange={(e) => setShareTitle(e.target.value)}
-            placeholder="제목을 입력하세요"
-          />
+          {/* 업로드된 이미지를 보여주는 박스 */}
+  {shareImages.map((image, index) => (
+    <div key={index} className="image-upload-box">
+      <img
+        src={URL.createObjectURL(image)}
+        alt={`uploaded-${index}`}
+        className="share-uploaded-image"
+        onClick={() => document.getElementById(`file-input-${index}`).click()}
+      />
+      <input
+        id={`file-input-${index}`}
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        onChange={(e) => handleImageReplace(e, index)}
+      />
+    </div>
+  ))}
         </div>
-
-        {/* 가격 입력 */}
-        <div className="form-group">
-          <h4>가격</h4>
-          <input
-            type="price"
-            value={sharePrice}
-            onChange={(e) => setSharePrice(e.target.value)}
-            placeholder="₩ 100,000"
-          />
-        </div>
-
-        <div className="share-button-group">
+      </div>
+      <button
+        className="category-select-button"
+        onClick={() => setIsShareCategoryModalVisible(true)}
+      >
+        {selectedShareCategory
+          ? `선택된 카테고리: ${selectedShareCategory}`
+          : "품목선택"}
+      </button>
+      {isShareCategoryModalVisible && (
+        <ShareCategorySelect
+          onClose={() => setIsShareCategoryModalVisible(false)}
+          onCategorySelect={handleCategorySelect}
+        />
+      )}
+      <div className="form-group">
+        <h4>제목</h4>
+        <input
+          type="title"
+          value={shareTitle}
+          onChange={(e) => setShareTitle(e.target.value)}
+          placeholder="제목을 입력하세요"
+        />
+      </div>
+      <div className="form-group">
+        <h4>가격</h4>
+        <input
+          type="price"
+          value={sharePrice}
+          onChange={(e) => setSharePrice(e.target.value)}
+          placeholder="₩ 100,000"
+        />
+      </div>
+      <div className="share-button-group">
           <div className="share-button-specify">
             <button
               className="locationSelect-button"
@@ -190,16 +231,16 @@ const ShareCreate = () => {
             )}
           </div>
           <div className="share-quantity">
-            <label class="share-quantity-label">수량 :</label>
+            <p class="share-quantity-text">수량</p>
             <input
               className="share-quantity-input"
               type="number"
               value={shareQuantity}
               onChange={(e) => setShareQuantity(e.target.value)}
-              placeholder="1"
-              
+              min="1"
+              max="99"
             />
-            <label class="share-quantity-label">개</label>
+            <p class="share-quantity-text">개</p>
           </div>
          
         </div>
@@ -220,8 +261,9 @@ const ShareCreate = () => {
           등록완료
         </button>
       </div>
-    </div>
+    
   );
 };
+
 
 export default ShareCreate;

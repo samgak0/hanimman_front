@@ -68,6 +68,7 @@ const TogetherCreate = () => {
       content: description,
       views: 0,
       createdAt: new Date().toISOString(),
+      modifiedAt: new Date().toISOString(),
       deletedAt: null,
       addressId: 1111015100,
       meetingLocation: null,
@@ -147,7 +148,7 @@ const TogetherCreate = () => {
     if (!isDragging.current) return; // 드래그 상태가 아니면 무시
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX.current) * 5; // 스크롤 속도 조절
+    const walk = (x - startX.current) * 2; // 스크롤 속도 조절
     sliderRef.current.scrollLeft = scrollLeft.current - walk;
   };
   // 드래그 종료
@@ -198,6 +199,7 @@ const TogetherCreate = () => {
                       />
                     </>
                   ) : (
+                    images.length < 10 && (
                     <label>
                       <input
                         type="file"
@@ -216,6 +218,7 @@ const TogetherCreate = () => {
                         )}
                       </div>
                     </label>
+                    )
                   )}
                 </div>
               ))}
