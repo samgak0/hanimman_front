@@ -2,10 +2,10 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ShareCreate.css";
 import { ReactComponent as ShareCloseIcon } from "../../../assets/icons/close.svg";
-import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg"
+import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import ShareDateSelect from "../../../components/DateSelect";
 import ShareCategorySelect from "../../../components/CategorySelect";
-import ShareLocation from "../../../components/ShareLocation"; // 변경된 컴포넌트 가져오기
+import ShareLocation from "../../../components/ShareLocation";
 import { DataContext } from "../../../context/DataContext";
 
 const ShareCreate = () => {
@@ -19,7 +19,7 @@ const ShareCreate = () => {
   const [isShareCategoryModalVisible, setIsShareCategoryModalVisible] = useState(false);
   const [selectedShareCategory, setSelectedShareCategory] = useState(null);
   const [shareLocationData, setShareLocationData] = useState(null);
-  const [isShareLocationVisible, setIsShareLocationVisible] = useState(false); // 수정된 부분
+  const [isShareLocationVisible, setIsShareLocationVisible] = useState(false);
 
   const {
     setPosts: setSharePosts,
@@ -29,7 +29,7 @@ const ShareCreate = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (shareCreateState && Object.keys(shareCreateState).length > 0) {
+    if (Object.keys(shareCreateState).length > 0) {
       setShareTitle(shareCreateState.title || "");
       setSharePrice(shareCreateState.price || "");
       setShareQuantity(shareCreateState.quantity || 1);
@@ -68,53 +68,55 @@ const ShareCreate = () => {
 
   const handleCategorySelect = (category) => {
     setSelectedShareCategory(category);
-    setIsShareCategoryModalVisible(false); // 모달 닫기
-  };
-   // 이미지 드래그 앤 슬라이드 기능
-  const sliderRef = useRef(null);
-  const isDragging = useRef(false);
-  const startX = useRef(0);
-  const scrollLeft = useRef(0);
-  // 드래그 시작
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    sliderRef.current.classList.add("dragging");
-    startX.current = e.pageX - sliderRef.current.offsetLeft;
-    scrollLeft.current = sliderRef.current.scrollLeft;
-  };
-  // 드래그 중
-  const handleMouseMove = (e) => {
-    if (!isDragging.current) return; // 드래그 상태가 아니면 무시
-    e.preventDefault();
-    const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX.current) * 2; // 스크롤 속도 조절
-    sliderRef.current.scrollLeft = scrollLeft.current - walk;
-  };
-  // 드래그 종료
-  const handleMouseUpOrLeave = () => {
-    isDragging.current = false;
-    sliderRef.current.classList.remove("dragging");
+    setIsShareCategoryModalVisible(false);
   };
 
   const handleImageUpload = (event) => {
-    const files = event.target.files;
-    const fileArray = Array.from(files).slice(0, 1); // 한 번에 하나의 파일만 선택
-    setShareImages((prevImages) => [...prevImages, ...fileArray]);
-    event.target.value = ""; // 입력 초기화
-    if (shareImages.length + fileArray.length > 10) {
+    const files = Array.from(event.target.files).slice(0, 10 - shareImages.length);
+    if (files.length + shareImages.length > 10) {
       alert("이미지는 최대 10개까지만 업로드 가능합니다.");
       return;
     }
+    setShareImages((prevImages) => [...prevImages, ...files]);
+    event.target.value = "";
   };
-  
+
   const handleImageReplace = (event, index) => {
     const file = event.target.files[0];
     if (file) {
       setShareImages((prevImages) =>
         prevImages.map((img, i) => (i === index ? file : img))
       );
-      event.target.value = ""; // 입력 초기화
+      event.target.value = "";
     }
+  };
+
+  const handleImageRemove = (index) => {
+    setShareImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const sliderRef = useRef(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    sliderRef.current.classList.add("dragging");
+    startX.current = e.pageX - sliderRef.current.offsetLeft;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX.current) * 2;
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const handleMouseUpOrLeave = () => {
+    isDragging.current = false;
+    sliderRef.current.classList.remove("dragging");
   };
 
   return (
@@ -125,52 +127,67 @@ const ShareCreate = () => {
         </button>
         <button className="save-draft-button">임시저장</button>
       </header>
-      <div className="image-upload-container" style={{ position: "relative" }}>
-        <div 
-          className="image-slider-container"
-          ref={sliderRef}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUpOrLeave}
-          onMouseLeave={handleMouseUpOrLeave}  
-        >{/* 이미지 개수가 10개 미만일 때만 업로드 버튼 표시 */}
-        {shareImages.length < 10 && (
-          <div className="image-upload-box">
-            <label>
-              <input
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleImageUpload}
-              />
-              <div className="add-image">
-                <CameraIcon className="camera-icon" />
-                <p className="camera-text">사진등록</p>
-              </div>
-            </label>
-          </div>
-        )}
 
-          {/* 업로드된 이미지를 보여주는 박스 */}
-  {shareImages.map((image, index) => (
-    <div key={index} className="image-upload-box">
-      <img
-        src={URL.createObjectURL(image)}
-        alt={`uploaded-${index}`}
-        className="share-uploaded-image"
-        onClick={() => document.getElementById(`file-input-${index}`).click()}
-      />
-      <input
-        id={`file-input-${index}`}
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={(e) => handleImageReplace(e, index)}
-      />
-    </div>
-  ))}
+      <div className="image-slider-container" style={{ position: "relative" }}>
+        <div
+           ref={sliderRef}
+           className="image-upload-container"
+           onMouseDown={handleMouseDown}
+           onMouseMove={handleMouseMove}
+           onMouseUp={handleMouseUpOrLeave}
+           onMouseLeave={handleMouseUpOrLeave}
+        >
+         {/* 고정된 사진등록 버튼 */}
+    <div className="image-upload-box">
+      <label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          style={{ display: "none" }}
+          onChange={handleImageUpload}
+        />
+        <div className="add-image">
+          <CameraIcon className="camera-icon" />
+          <p className="camera-text">사진등록</p>
         </div>
+      </label>
+    </div>
+
+    {/* 업로드된 이미지들 */}
+    {Array.from({ length: 9 }).map((_, index) => (
+      <div key={index} className="image-upload-box">
+        {shareImages[index] ? (
+          <>
+            <img
+              src={URL.createObjectURL(shareImages[index])}
+              alt={`uploaded-${index}`}
+              className="uploaded-image"
+              onClick={() =>
+                document.getElementById(`file-input-${index}`).click()
+              }
+            />
+            <input
+              id={`file-input-${index}`}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(event) => handleImageReplace(event, index)}
+            />
+            <button
+              className="remove-image-button"
+              onClick={() => handleImageRemove(index)}
+            >
+              &times;
+            </button>
+          </>
+        ) : (
+          <div className="placeholder-box">+</div> // 빈 박스는 "+"로 표시
+        )}
       </div>
+    ))}
+  </div>
+</div>
       <button
         className="category-select-button"
         onClick={() => setIsShareCategoryModalVisible(true)}
@@ -204,66 +221,61 @@ const ShareCreate = () => {
         />
       </div>
       <div className="share-button-group">
-          <div className="share-button-specify">
-            <button
-              className="locationSelect-button"
-              onClick={() => setIsShareLocationVisible(true)} // 수정된 부분
-            >
-              장소지정
-            </button>
-            {isShareLocationVisible && (
-              <ShareLocation
-                onClose={() => setIsShareLocationVisible(false)}
-                onComplete={(location) => setShareLocationData(location)}
-              />
-            )}
-            <button
-              className="DateSelect-button"
-              onClick={() => setIsShareDateSelectVisible(true)}
-            >
-              날짜지정
-            </button>
-            {isShareDateSelectVisible && (
-              <ShareDateSelect
-                onClose={() => setIsShareDateSelectVisible(false)}
-                onSelectDate={handleShareDateSelect}
-              />
-            )}
-          </div>
-          <div className="share-quantity">
-            <p class="share-quantity-text">수량</p>
-            <input
-              className="share-quantity-input"
-              type="number"
-              value={shareQuantity}
-              onChange={(e) => setShareQuantity(e.target.value)}
-              min="1"
-              max="99"
+        <div className="share-button-specify">
+          <button
+            className="locationSelect-button"
+            onClick={() => setIsShareLocationVisible(true)}
+          >
+            장소지정
+          </button>
+          {isShareLocationVisible && (
+            <ShareLocation
+              onClose={() => setIsShareLocationVisible(false)}
+              onComplete={(location) => setShareLocationData(location)}
             />
-            <p class="share-quantity-text">개</p>
-          </div>
-         
+          )}
+          <button
+            className="DateSelect-button"
+            onClick={() => setIsShareDateSelectVisible(true)}
+          >
+            날짜지정
+          </button>
+          {isShareDateSelectVisible && (
+            <ShareDateSelect
+              onClose={() => setIsShareDateSelectVisible(false)}
+              onSelectDate={handleShareDateSelect}
+            />
+          )}
         </div>
-
-        {/* 내용 입력 */}
-        <div className="form-group">
-          <h4>내용</h4>
-          <textarea
-            className="textarea"
-            value={shareDescription}
-            onChange={(e) => setShareDescription(e.target.value)}
-            placeholder="내용을 입력하세요"
-          ></textarea>
+        <div className="share-quantity">
+          <p className="share-quantity-text">수량</p>
+          <input
+            className="share-quantity-input"
+            type="number"
+            value={shareQuantity}
+            onChange={(e) => setShareQuantity(e.target.value)}
+            min="1"
+            max="99"
+          />
+          <p className="share-quantity-text">개</p>
         </div>
-
-        {/* 등록 버튼 */}
-        <button className="submit-button" onClick={handleShareSubmit}>
-          등록완료
-        </button>
       </div>
-    
+
+      <div className="form-group">
+        <h4>내용</h4>
+        <textarea
+          className="textarea"
+          value={shareDescription}
+          onChange={(e) => setShareDescription(e.target.value)}
+          placeholder="내용을 입력하세요"
+        ></textarea>
+      </div>
+
+      <button className="submit-button" onClick={handleShareSubmit}>
+        등록완료
+      </button>
+    </div>
   );
 };
-
 
 export default ShareCreate;
