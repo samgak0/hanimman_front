@@ -1,11 +1,13 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
+import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg"
 import DateSelect from "../../../components/DateSelect"; // 날짜 선택 컴포넌트 가져오기
 import CategorySelect from "../../../components/CategorySelect";
 import { DataContext } from "../../../context/DataContext";
 import { createTogether } from "../../../api/togetherApi"; // createTogether API 함수 가져오기
+
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
@@ -18,6 +20,7 @@ const TogetherCreate = () => {
   const [showCategoryModal, setShowCategoryModal] = useState(false); // 모달 상태
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
   const [address, setAddress] = useState(""); // 주소 상태 추가
+
 
   const {
     setPosts,
@@ -127,6 +130,32 @@ const TogetherCreate = () => {
     navigate("/togetherlist"); // 이전 페이지로 이동
   };
 
+  // 이미지 드래그 앤 슬라이드 기능
+  const sliderRef = useRef(null);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  // 드래그 시작
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    sliderRef.current.classList.add("dragging");
+    startX.current = e.pageX - sliderRef.current.offsetLeft;
+    scrollLeft.current = sliderRef.current.scrollLeft;
+  };
+  // 드래그 중
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return; // 드래그 상태가 아니면 무시
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX.current) * 5; // 스크롤 속도 조절
+    sliderRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+  // 드래그 종료
+  const handleMouseUpOrLeave = () => {
+    isDragging.current = false;
+    sliderRef.current.classList.remove("dragging");
+  };
+
   return (
     <div className="registration-page">
       <header className="list-header">
@@ -138,9 +167,16 @@ const TogetherCreate = () => {
 
       {!showDateSelect ? (
         <>
-          <div className="image-registration">
-            <h4>사진등록</h4>
-            <div className="image-upload-container">
+    
+          <div className="image-slider-container" style={{position: "relative"}}>
+            <div       
+              ref={sliderRef}
+              className="image-upload-container"
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUpOrLeave}
+              onMouseLeave={handleMouseUpOrLeave}
+            >
               {Array.from({ length: 10 }).map((_, index) => (
                 <div key={index} className="image-upload-box">
                   {images[index] ? (
@@ -170,13 +206,23 @@ const TogetherCreate = () => {
                         style={{ display: "none" }}
                         onChange={handleImageUpload} // 새 이미지 추가
                       />
-                      <div className="add-image">+</div>
+                      <div className="add-image">
+                        {index === 0 ? (
+                          <>
+                            <CameraIcon className="camera-icon" />
+                            <p className="camera-text">사진등록</p>
+                          </>
+                        ) : (
+                          "+"
+                        )}
+                      </div>
                     </label>
                   )}
                 </div>
               ))}
             </div>
-          </div>
+          </div> 
+  
           <button
             className="category-select-button"
             onClick={openCategoryModal}
