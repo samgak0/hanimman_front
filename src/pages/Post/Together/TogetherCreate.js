@@ -68,7 +68,6 @@ const TogetherCreate = () => {
       content: description,
       views: 0,
       createdAt: new Date().toISOString(),
-      modifiedAt: new Date().toISOString(),
       deletedAt: null,
       addressId: 1111015100,
       meetingLocation: null,
