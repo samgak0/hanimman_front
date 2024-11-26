@@ -14,11 +14,12 @@ const TogetherList = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
+  const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태 추가
   const observer = useRef();
 
-  const fetchPosts = async (page) => {
+  const fetchPosts = async (page, sortBy) => {
     try {
-      const params = { page, size: 10, sort: "createdAt,desc" };
+      const params = { page, size: 10, sortBy: sortBy };
       const data = await listAllTogethers(params);
       setPosts((prevPosts) => [...prevPosts, ...data.content]);
       setHasMore(data.content.length > 0);
@@ -30,8 +31,8 @@ const TogetherList = () => {
   };
 
   useEffect(() => {
-    fetchPosts(page);
-  }, [page]);
+    fetchPosts(page, sortBy);
+  }, [page, sortBy]);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -59,6 +60,16 @@ const TogetherList = () => {
     return post.isEnd ? "completed" : "active";
   };
 
+  const handleFilterSelect = (filter) => {
+    if (filter === "최신순") {
+      setSortBy("createdAt");
+    } else if (filter === "출발임박순") {
+      setSortBy("meetingAt");
+    }
+    setPage(0);
+    setPosts([]);
+  };
+
   if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
@@ -70,7 +81,7 @@ const TogetherList = () => {
         location="양주동"
         showSetting={false}
       />
-      <FilterBar onFilterSelect={(filter) => console.log(filter)} />
+      <FilterBar onFilterSelect={handleFilterSelect} />
 
       <div className="together-list-container">
         {posts.length > 0 ? (
