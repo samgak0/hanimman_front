@@ -16,7 +16,6 @@
   width: 345px;
   background-color: transparent;
   margin-top: 30px;
-  
 }
 
 .close-icon-button {
@@ -24,11 +23,11 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color:black;
+  color: black;
 }
 
 .save-draft-button {
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   border: none;
   padding: 10px;
   border-radius: 5px;
@@ -57,7 +56,6 @@
 .image-upload-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
 }
-
 
 .image-upload-box {
   flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
@@ -93,7 +91,7 @@
 .category-select-button {
   width: 345px;
   margin-top: 10px;
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   border: none;
   padding: 15px;
   border-radius: 5px;
@@ -109,7 +107,9 @@
   width: 345px;
 }
 
-input[type="title"], input[type="price"], textarea {
+input[type="title"],
+input[type="price"],
+textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
@@ -118,16 +118,17 @@ input[type="title"], input[type="price"], textarea {
 }
 
 .button-group {
- display: flex;
- flex-direction: row;
- justify-content: space-around;
- margin-top: 10px;
- width: 345px;
- gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+  width: 345px;
+  gap: 10px;
 }
 
-.locationSelect-button, .DateSelect-button {
-  background-color: #F4BB44;
+.locationSelect-button,
+.DateSelect-button {
+  background-color: #f4bb44;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -142,7 +143,7 @@ input[type="title"], input[type="price"], textarea {
   width: 200px;
   display: flex;
   align-items: center;
-  background-color: #E9E3E3;
+  background-color: #e9e3e3;
   border-radius: 5px;
   padding: 6px 10px;
   gap: 10px;
@@ -164,7 +165,6 @@ input[type="title"], input[type="price"], textarea {
   margin-left: 5px;
   border-radius: 3px;
   border: 1.5px solid gray;
-
 }
 .people-input::-webkit-outer-spin-button,
 .people-input::-webkit-inner-spin-button {
@@ -187,15 +187,15 @@ input[type="title"], input[type="price"], textarea {
 }
 
 .textarea {
-  width: 345px;  /* 너비를 300px로 설정 */
+  width: 345px; /* 너비를 300px로 설정 */
   height: 150px; /* 높이를 150px로 설정 */
-  resize: both;  /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
+  resize: both; /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
 }
 
 .submit-button {
   width: 345px;
   margin-top: 50px;
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   border: none;
   padding: 15px;
   border-radius: 5px;
@@ -212,6 +212,42 @@ textarea::placeholder {
   color: #ccc;
 }
 
+.error-message-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 0, 0, 0.4);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+  text-align: center;
+}
 
+.error-message {
+  margin: 0;
+  font-size: 8px;
+}
 
+.remove-image-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
 
+.image-upload-box {
+  position: relative;
+}
