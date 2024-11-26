@@ -36,19 +36,31 @@
   font-weight: bold;
 }
 
-.image-registration {
-  margin-top: 30px;
-  
+.image-slider-container {
+  position: relative; /* 스크롤 버튼 위치를 위해 부모 컨테이너를 relative로 설정 */
+  width: 345px; /* 부모 너비 */
+  overflow: hidden; /* 부모 컨테이너 밖으로 넘치는 내용 숨김 */
 }
 
 .image-upload-container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  width: 345px;
+  gap: 10px;
+  overflow-x: scroll; /* 가로 스크롤 활성화 */
+  padding: 5px 0;
+  -ms-overflow-style: none; /* IE와 Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+  cursor: grab; /* 기본 상태에서 손 모양 커서 */
+}
+.image-upload-container.dragging {
+  cursor: grabbing; /* 드래그 중일 때 손을 쥔 커서 */
+}
+.image-upload-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
 }
 
+
 .image-upload-box {
+  flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
   width: 60px;
   height: 60px;
   border: 1px solid #ccc;
@@ -58,7 +70,19 @@
   border-radius: 5px;
   cursor: pointer;
 }
-
+.add-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+}
+.camera-icon {
+  margin-top: 8px;
+}
+.camera-text {
+  font-size: 10px;
+  margin-top: 3px;
+}
 .uploaded-image {
   width: 100%;
   height: 100%;
@@ -125,6 +149,7 @@ input[type="title"], input[type="price"], textarea {
 }
 .people-group-num {
   display: flex;
+  align-items: center;
   margin-top: 3px;
 }
 .people-font {
@@ -132,9 +157,10 @@ input[type="title"], input[type="price"], textarea {
   font-weight: bold;
 }
 .people-input {
-  width: 19px;
-  height: 19px;
-  margin-bottom: 3px;
+  width: 25px;
+  height: 20px;
+  padding: 5px;
+  margin-bottom: 5px;
   margin-left: 5px;
   border-radius: 3px;
   border: 1.5px solid gray;
@@ -185,3 +211,7 @@ input::placeholder {
 textarea::placeholder {
   color: #ccc;
 }
+
+
+
+
