@@ -69,6 +69,8 @@ const TogetherDetail = () => {
       month: "long",
       day: "numeric",
       weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
     };
     return date.toLocaleDateString("ko-KR", options);
   };
@@ -131,10 +133,10 @@ const TogetherDetail = () => {
           <CalendarIcon className="calendar-icon" />{" "}
           {post.address || "위치 정보 없음"}
         </div>
-        <div className="detail-meta-date">{formatDate(post.meetingAt)}</div>
+        <div className="detail-meta-date">{formatDate(post.createdAt)}</div>
         <div className="detail-meta-count">
-          <ViewIcon className="view-count" /> 13{" "}
-          <HeartEmptyIcon className="favorite-count" /> 10
+          <ViewIcon className="view-count" /> {post.views}{" "}
+          <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
         </div>
       </div>
       <div className="detail-info">
@@ -153,7 +155,7 @@ const TogetherDetail = () => {
           </p>
         </div>
       </div>
-      <div className="detail-text">{post.description || "내용 없음"}</div>
+      <div className="detail-text">{post.content || "내용 없음"}</div>
 
       {/* Footer Buttons */}
       <div className="detail-actions">

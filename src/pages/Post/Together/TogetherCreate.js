@@ -2,12 +2,11 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
-import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg"
+import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import DateSelect from "../../../components/DateSelect"; // 날짜 선택 컴포넌트 가져오기
 import CategorySelect from "../../../components/CategorySelect";
 import { DataContext } from "../../../context/DataContext";
 import { createTogether } from "../../../api/togetherApi"; // createTogether API 함수 가져오기
-
 
 const TogetherCreate = () => {
   const [images, setImages] = useState([]);
@@ -20,7 +19,7 @@ const TogetherCreate = () => {
   const [showCategoryModal, setShowCategoryModal] = useState(false); // 모달 상태
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
   const [address, setAddress] = useState(""); // 주소 상태 추가
-
+  const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
 
   const {
     setPosts,
@@ -61,6 +60,10 @@ const TogetherCreate = () => {
     }
   };
 
+  const handleImageRemove = (index) => {
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index)); // 특정 인덱스의 이미지를 삭제
+  };
+
   const handleSubmit = async () => {
     const formData = new FormData();
     const togetherDTO = {
@@ -95,7 +98,17 @@ const TogetherCreate = () => {
       setTogetherCreateState({}); // 상태 초기화
       navigate("/togetherlist");
     } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정
+      } else {
+        setErrorMessage("게시글 작성 중 오류가 발생했습니다."); // 일반적인 에러 메시지 설정
+      }
       console.error("Error creating post:", error);
+
+      // 5초 후에 에러 메시지 지우기
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
     }
   };
 
@@ -168,9 +181,17 @@ const TogetherCreate = () => {
 
       {!showDateSelect ? (
         <>
-    
-          <div className="image-slider-container" style={{position: "relative"}}>
-            <div       
+          {errorMessage && (
+            <div className="error-message-container">
+              <p className="error-message">{errorMessage}</p>
+            </div>
+          )}{" "}
+          {/* 에러 메시지 표시 */}
+          <div
+            className="image-slider-container"
+            style={{ position: "relative" }}
+          >
+            <div
               ref={sliderRef}
               className="image-upload-container"
               onMouseDown={handleMouseDown}
@@ -197,6 +218,12 @@ const TogetherCreate = () => {
                         style={{ display: "none" }}
                         onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
                       />
+                      <button
+                        className="remove-image-button"
+                        onClick={() => handleImageRemove(index)}
+                      >
+                        &times;
+                      </button>
                     </>
                   ) : (
                     images.length < 10 && (
@@ -204,6 +231,7 @@ const TogetherCreate = () => {
                       <input
                         type="file"
                         accept="image/*"
+                        multiple // 여러 파일 선택 가능
                         style={{ display: "none" }}
                         onChange={handleImageUpload} // 새 이미지 추가
                       />
@@ -223,8 +251,7 @@ const TogetherCreate = () => {
                 </div>
               ))}
             </div>
-          </div> 
-  
+          </div>
           <button
             className="category-select-button"
             onClick={openCategoryModal}
@@ -249,7 +276,6 @@ const TogetherCreate = () => {
               placeholder="당근 사러가실분"
             />
           </div>
-
           <div className="form-group">
             <h4>가격</h4>
             <input
@@ -259,7 +285,6 @@ const TogetherCreate = () => {
               placeholder="₩ 100,000"
             />
           </div>
-
           <div className="button-group">
             <button
               className="locationSelect-button"
@@ -293,7 +318,6 @@ const TogetherCreate = () => {
               </label>
             </div>
           </div>
-
           <div className="form-group">
             <h4>내용</h4>
             <textarea
@@ -303,7 +327,6 @@ const TogetherCreate = () => {
               placeholder="내용을 입력하세요"
             ></textarea>
           </div>
-
           <button className="submit-button" onClick={handleSubmit}>
             등록완료
           </button>
