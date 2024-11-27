@@ -6,6 +6,7 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
+
 import "./TogetherList.css";
 
 const TogetherList = () => {

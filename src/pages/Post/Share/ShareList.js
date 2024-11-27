@@ -1,38 +1,17 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FilterBar from "../../../components/FilterBar";
 import RegisterButton from "../../../components/RegisterButton";
+import { DataContext } from "../../../context/DataContext";
+
 import "./ShareList.css";
 
 const ShareList = () => {
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([
-    // 예시 데이터
-    {
-      id: 1,
-      title: "포도 나눔합니다",
-      price: 0,
-      quantity: 10,
-      isUnlimited: false,
-      images: ["https://via.placeholder.com/150"],
-      selectedDate: "2024-12-01T10:00:00",
-      location: "서울특별시 강남구",
-      isEnd: false,
-    },
-    {
-      id: 2,
-      title: "사과 나눔",
-      price: 0,
-      quantity: 0,
-      isUnlimited: true,
-      images: [],
-      selectedDate: "2024-12-05T14:00:00",
-      location: "부산광역시 해운대구",
-      isEnd: false,
-    },
-  ]);
+  const { posts } = useContext(DataContext); // Context에서 posts 가져오기
+
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태
   const observer = useRef();
@@ -65,15 +44,6 @@ const ShareList = () => {
     } else if (filter === "출발임박순") {
       setSortBy("selectedDate");
     }
-    // API 호출이 없으므로 정렬 로직만 적용
-    const sortedPosts = [...posts].sort((a, b) => {
-      if (filter === "최신순") {
-        return new Date(b.selectedDate) - new Date(a.selectedDate);
-      } else {
-        return new Date(a.selectedDate) - new Date(b.selectedDate);
-      }
-    });
-    setPosts(sortedPosts);
   };
 
   const getRecruitmentStatus = (post) => {
@@ -95,7 +65,7 @@ const ShareList = () => {
           posts.map((post, index) => (
             <div
               className="share-card"
-              key={index}
+              key={post.id}
               onClick={() => handleCardClick(post)}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
@@ -129,13 +99,11 @@ const ShareList = () => {
 
               <div className="card-dateinfo">
                 {post.selectedDate
-                  ? `${new Date(
-                      post.selectedDate
-                    ).toLocaleDateString()}`
+                  ? `${new Date(post.selectedDate).toLocaleDateString()}`
                   : "날짜 없음"}
                 {post.location ? (
                   <div className="location-info">
-                    <p>{post.location}</p>
+                    <p>{post.location.name || post.location}</p>
                   </div>
                 ) : (
                   "위치 정보 없음"

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CategorySelect from "./CategorySelect";
+import { ReactComponent as ShareCloseIcon } from "../assets/icons/close.svg"
 import "./FilterModal.css";
 
 const FilterModal = ({ onClose, onComplete }) => {
@@ -75,80 +76,75 @@ const FilterModal = ({ onClose, onComplete }) => {
 
   return (
     <div className="filter-modal">
-      <button className="close-button" onClick={onClose}>
-        ✕
-      </button>
-      {/* <div className="modal-content"> */}
-        {/* 상점 선택 단계 */}
-        {activeStep === "store" && (
-          <div className="filter-step">
-            <h4>상점을 선택해주세요</h4>
-            <div className="filter-options">
-              {["COSTCO", "EMART TRADERS", "ETC", "전체"].map((store) => (
-                <button
-                  key={store}
-                  className={`filter-option ${
-                    selectedStore === store ? "active" : ""
-                  }`}
-                  onClick={() => handleSelect("store", store)}
-                >
-                  {store}
-                </button>
-              ))}
-            </div>
+      {activeStep === "store" && (
+        <div className="filter-step">
+          <div className="filter-header">
+          <h4>상점을 선택해주세요</h4>
+          <button className="filter-close-button" onClick={onClose}>
+            X
+          </button>
           </div>
-        )}
-
-        {/* 지역 선택 단계 */}
-        {activeStep === "location" && (
-          <div className="filter-step">
-            <h4>지역을 선택해주세요</h4>
-            <div className="filter-options">
-              {locations[selectedStore]?.map((location) => (
-                <button
-                  key={location}
-                  className={`filter-option ${
-                    selectedLocation === location ? "active" : ""
-                  }`}
-                  onClick={() => handleSelect("location", location)}
-                >
-                  {location}
-                </button>
-              ))}
-            </div>
+          <div className="filter-options">
+            {["COSTCO", "EMART TRADERS", "ETC", "전체"].map((store) => (
+              <button
+                key={store}
+                className={`filter-option ${
+                  selectedStore === store ? "active" : ""
+                }`}
+                onClick={() => handleSelect("store", store)}
+              >
+                {store}
+              </button>
+            ))}
           </div>
-        )}
-
-        {/* 점포 선택 단계 */}
-        {activeStep === "jumpo" && (
-          <div className="filter-step">
-            <h4>점포를 선택해주세요</h4>
-            <div className="filter-options">
-              {jumpos[selectedStore]?.[selectedLocation]?.map((jumpo) => (
-                <button
-                  key={jumpo}
-                  className={`filter-option ${
-                    selectedJumpo === jumpo ? "active" : ""
-                  }`}
-                  onClick={() => handleSelect("jumpo", jumpo)}
-                >
-                  {jumpo}
-                </button>
-              ))}
-            </div>
+        </div>
+      )}
+      {/* 지역 선택 단계 */}
+      {activeStep === "location" && (
+        <div className="filter-step">
+          <h4>지역을 선택해주세요</h4>
+          <div className="filter-options">
+            {locations[selectedStore]?.map((location) => (
+              <button
+                key={location}
+                className={`filter-option ${
+                  selectedLocation === location ? "active" : ""
+                }`}
+                onClick={() => handleSelect("location", location)}
+              >
+                {location}
+              </button>
+            ))}
           </div>
-        )}
-
-        {/* 품목 선택 단계 */}
-        {activeStep === "category" && (
-          <CategorySelect
-            onClose={onClose}
-            onCategorySelect={handleCategorySelect}
-            selectedCategory={selectedCategory}
-          />
-        )}
-      </div>
-    // </div>
+        </div>
+      )}
+      {/* 점포 선택 단계 */}
+      {activeStep === "jumpo" && (
+        <div className="filter-step">
+          <h4>점포를 선택해주세요</h4>
+          <div className="filter-options">
+            {jumpos[selectedStore]?.[selectedLocation]?.map((jumpo) => (
+              <button
+                key={jumpo}
+                className={`filter-option ${
+                  selectedJumpo === jumpo ? "active" : ""
+                }`}
+                onClick={() => handleSelect("jumpo", jumpo)}
+              >
+                {jumpo}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      {activeStep === "category" && (
+        <CategorySelect
+          onClose={onClose}
+          onCategorySelect={handleCategorySelect}
+          selectedCategory={selectedCategory}
+        />
+      )}
+    </div>
   );
 };
 

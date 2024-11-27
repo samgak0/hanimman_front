@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ShareLocation.css";
-import { ReactComponent as CloseIcon } from "../assets/icons/close.svg";
 import KakaoMap from "./KakaoMap";
+import { ReactComponent as ShareCloseIcon } from "../assets/icons/close.svg"
 
 const ShareLocation = ({ onClose, onComplete }) => {
   const [locationName, setLocationName] = useState(""); // 장소명 입력 상태
@@ -22,7 +22,7 @@ const ShareLocation = ({ onClose, onComplete }) => {
         {/* 헤더 부분 */}
         <header className="share-location-header">
           <button className="share-location-close-button" onClick={onClose}>
-            <CloseIcon className="share-location-close-icon" />
+            <ShareCloseIcon className="share-location-close-icon" />
           </button>
           <h3>원하는 위치를 지정해주세요.</h3>
         </header>

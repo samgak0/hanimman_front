@@ -47,11 +47,7 @@
   margin: 0;
 }
 
-.close-button {
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+
 
 /* 지도 컨테이너 스타일 */
 .share-location-map-container {
@@ -90,4 +86,9 @@
 
 .share-location-complete-button:hover {
   background-color: #d9a533;
+}
+
+
+.share-location-close-icon {
+  fill: black;
 }
