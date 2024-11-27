@@ -33,7 +33,7 @@ const LocationPage = () => {
                 alert('유효한 데이터가 없습니다.');
               }
             } else {
-              alert('행정 코드 가져오는 데 실패했습니다.');
+              alert('법정 코드 가져오는 데 실패했습니다.');
             }
           } catch (error) {
             console.error('API 호출 중 오류 발생:', error);
