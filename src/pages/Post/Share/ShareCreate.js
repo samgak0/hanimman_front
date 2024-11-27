@@ -51,7 +51,9 @@ const ShareCreate = () => {
       quantity: shareQuantity,
       description: shareDescription,
       location: shareLocationData,
-      images: shareImages,
+      images: shareImages.map((image) =>
+        typeof image === "string" ? image : URL.createObjectURL(image)
+      ),
       selectedDate: selectedShareDate,
       selectedCategory: selectedShareCategory,
       id: Date.now(),

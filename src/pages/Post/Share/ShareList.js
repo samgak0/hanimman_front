@@ -1,17 +1,15 @@
 import React, { useState, useRef, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { DataContext } from "../../../context/DataContext";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FilterBar from "../../../components/FilterBar";
 import RegisterButton from "../../../components/RegisterButton";
-import { DataContext } from "../../../context/DataContext";
-
 import "./ShareList.css";
 
 const ShareList = () => {
   const navigate = useNavigate();
   const { posts } = useContext(DataContext); // Context에서 posts 가져오기
-
   const [loading, setLoading] = useState(false);
   const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태
   const observer = useRef();
@@ -69,17 +67,17 @@ const ShareList = () => {
               onClick={() => handleCardClick(post)}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
-              <div className="card-image-container">
-                {post.images && post.images.length > 0 ? (
-                  <img
-                    src={post.images[0]}
-                    alt={post.title}
-                    className="card-image"
-                  />
-                ) : (
-                  <div className="no-image">이미지 없음</div>
-                )}
-              </div>
+          <div className="card-image-container">
+          {post.images && post.images.length > 0 ? (
+                <img
+                  src={post.images[0]} // 첫 번째 이미지를 표시
+                  alt={post.title}
+                  className="card-image"
+              />
+            ) : (
+              <div className="no-image">이미지 없음</div>
+            )}
+          </div>
 
               <div className="card-content">
                 <div className="card-title">{post.title}</div>
