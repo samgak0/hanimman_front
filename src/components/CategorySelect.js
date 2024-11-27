@@ -17,7 +17,7 @@ const CategorySelect = ({ onClose, onCategorySelect, selectedCategory }) => {
   
 return (
   <div className="category-select-modal">
-    <div className="category-select-container">
+    {/* <div className="category-select-container"> */}
       <header className="category-header">
         <h4 className="category-header-title">카테고리 선택</h4>
         <button className="category-close-button" onClick={onClose}>
@@ -42,7 +42,7 @@ return (
         선택 완료
       </button>
     </div>
-  </div>
+  // </div>
 );
 };
 

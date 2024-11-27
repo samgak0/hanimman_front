@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import FilterBar from "../../../components/FilterBar";
+import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
 import "./TogetherList.css";
@@ -15,6 +16,7 @@ const TogetherList = () => {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태 추가
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // 필터 모달 상태
   const observer = useRef();
 
   const fetchPosts = async (page, sortBy) => {
@@ -70,6 +72,17 @@ const TogetherList = () => {
     setPosts([]);
   };
 
+  // Toggle the filter modal
+  const handleHamburgerClick = () => {
+    setIsFilterModalOpen(true); // 필터 모달 열기
+  };
+
+  // Handle filter modal completion
+  const handleFilterComplete = (filters) => {
+    console.log(filters); // 필터 데이터 확인
+    setIsFilterModalOpen(false); // 필터 모달 닫기
+  };
+
   if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
@@ -81,8 +94,17 @@ const TogetherList = () => {
         location="양주동"
         showSetting={false}
       />
-      <FilterBar onFilterSelect={handleFilterSelect} />
-
+      <FilterBar
+        onFilterSelect={handleFilterSelect}
+        onHamburgerClick={handleHamburgerClick} // 햄버거 아이콘 클릭 이벤트 추가
+      />
+      {isFilterModalOpen && (
+        <FilterModal
+          mode="together"
+          onClose={() => setIsFilterModalOpen(false)} // 필터 모달 닫기
+          onComplete={handleFilterComplete} // 필터 완료 시 처리
+        />
+      )}
       <div className="together-list-container">
         {posts.length > 0 ? (
           posts.map((post, index) => (
