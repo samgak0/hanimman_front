@@ -39,13 +39,9 @@
   height: 100px;
   overflow: hidden;
   background: transparent;
-  border-radius: 8px;
 }
-
 .card-image {
- 
   object-fit: cover; /* 이미지 비율 유지하며 잘라내기 */
-  border-radius: 8px;
 }
 
 /* 카드 콘텐츠 섹션 */
