@@ -13,6 +13,7 @@ const LocationSelect = () => {
   const [currentPosition, setCurrentPosition] = useState(null);
   const [clickedPosition, setClickedPosition] = useState(null);
   const [locationName, setLocationName] = useState("");
+  const [categoryData, setCategoryData] = useState([]); // 카테고리 데이터 상태 추가
 
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
@@ -23,28 +24,46 @@ const LocationSelect = () => {
   };
 
   // 상점 선택 핸들러
-  const handleStoreSelect = (store) => {
+  const handleStoreSelect = async (store) => {
     setSelectedStore(store);
+
     if (store === "COSTCO") {
-      const locationCostco = [
-        "서울",
-        "경기",
-        "인천/세종/충남",
-        "대전/대구",
-        "부산/울산/경남",
-      ];
-      setLocationList(locationCostco);
-      setShopList([]);
+      try{
+        const response = await fetch(`http://localhost:8080/api/markets/category/1`);
+        const data = await response.json();
+
+        console.log("COSTCO지점 가지고옴? ", data);
+        setCategoryData(data); // 받아온 데이터 설정
+        const locationCostco = [
+          "서울",
+          "경기",
+          "인천/세종/충남",
+          "대전/대구",
+          "부산/울산/경남",
+        ];
+        setLocationList(locationCostco);
+        setShopList([]);
+      } catch (error){
+        console.error("Error fetching category data:", error);
+      }
     } else if (store === "EMART TRADERS") {
-      const locationEmart = [
-        "서울",
-        "경기",
-        "인천/충남",
-        "대전/대구",
-        "부산/경남",
-      ];
-      setLocationList(locationEmart);
-      setShopList([]);
+      try {
+        const response = await fetch(`http://localhost:8080/api/markets/category/2`);
+        const data = await response.json();
+        console.log("EMART TRADERS 지점 가지고옴? ", data);
+        setCategoryData(data); // 받아온 데이터 설정
+          const locationEmart = [
+            "서울",
+            "경기",
+            "인천/충남",
+            "대전/대구",
+            "부산/경남",
+          ];
+          setLocationList(locationEmart);
+          setShopList([]);
+      } catch(error){
+        console.error("Error fetching category data:", error);
+      }
     } else if (store === "ETC") {
       setLocationList([]);
       setShopList([]);
