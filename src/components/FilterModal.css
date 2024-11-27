@@ -1,10 +1,10 @@
 .filter-modal {
   position: fixed;
-  top: 50%;
+  top: 300%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  width: 353px;
+  width: 360px;
+  height: 60vh;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -22,21 +22,6 @@
     opacity: 1;
     transform: translate(-50%, -50%);
   }
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 20px;
-  background: linear-gradient(90deg, #f4bb44, #f5c75d);
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.modal-header h3 {
-  margin: 0;
 }
 
 .close-button {

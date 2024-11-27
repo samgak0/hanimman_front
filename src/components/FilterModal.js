@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import CategorySelect from "./CategorySelect";
 import "./FilterModal.css";
 
 const FilterModal = ({ onClose, onComplete }) => {
-  const [activeStep, setActiveStep] = useState("store"); // 현재 단계: store, location, jumpo
+  const [activeStep, setActiveStep] = useState("store"); // 현재 단계: store, location, jumpo, category
   const [selectedStore, setSelectedStore] = useState(null); // 선택된 상점
   const [selectedLocation, setSelectedLocation] = useState(null); // 선택된 지역
   const [selectedJumpo, setSelectedJumpo] = useState(null); // 선택된 점포
+  const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
 
   const locations = {
     COSTCO: ["서울", "경기", "인천/세종/충남", "대전/대구", "부산/울산/경남"],
@@ -56,24 +58,27 @@ const FilterModal = ({ onClose, onComplete }) => {
       goToStep("jumpo");
     } else if (type === "jumpo") {
       setSelectedJumpo(value);
-      onComplete({
-        store: selectedStore,
-        location: selectedLocation,
-        jumpo: value === "전체" ? jumpos[selectedStore][selectedLocation] : value,
-      });
-      onClose();
+      goToStep("category");
     }
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    onComplete({
+      store: selectedStore,
+      location: selectedLocation,
+      jumpo: selectedJumpo,
+      category,
+    });
+    onClose();
   };
 
   return (
     <div className="filter-modal">
-      <div className="modal-header">
-     
-        <button className="close-button" onClick={onClose}>
-          ✕
-        </button>
-      </div>
-      <div className="modal-content">
+      <button className="close-button" onClick={onClose}>
+        ✕
+      </button>
+      {/* <div className="modal-content"> */}
         {/* 상점 선택 단계 */}
         {activeStep === "store" && (
           <div className="filter-step">
@@ -82,7 +87,9 @@ const FilterModal = ({ onClose, onComplete }) => {
               {["COSTCO", "EMART TRADERS", "ETC", "전체"].map((store) => (
                 <button
                   key={store}
-                  className={`filter-option ${selectedStore === store ? "active" : ""}`}
+                  className={`filter-option ${
+                    selectedStore === store ? "active" : ""
+                  }`}
                   onClick={() => handleSelect("store", store)}
                 >
                   {store}
@@ -131,8 +138,17 @@ const FilterModal = ({ onClose, onComplete }) => {
             </div>
           </div>
         )}
+
+        {/* 품목 선택 단계 */}
+        {activeStep === "category" && (
+          <CategorySelect
+            onClose={onClose}
+            onCategorySelect={handleCategorySelect}
+            selectedCategory={selectedCategory}
+          />
+        )}
       </div>
-    </div>
+    // </div>
   );
 };
 
