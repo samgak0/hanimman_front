@@ -1,7 +1,6 @@
-import axiosInstance from "./axiosInstance";
 import jwtAxios from "./jwtAxios";
 
-const host = `${axiosInstance.defaults.baseURL}/api/v1/together-favorite`;
+const host = `${jwtAxios.defaults.baseURL}/api/v1/together-favorite`;
 
 export const createTogetherFavorite = async (togetheDTO) => {
   try {

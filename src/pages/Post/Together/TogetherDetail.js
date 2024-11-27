@@ -98,19 +98,19 @@ const TogetherDetail = () => {
 
       {/* Image Section */}
       <div className="detail-image-container">
-        {post.imageUrls && post.imageUrls.length > 0 ? (
-          post.imageUrls.length === 1 ? (
+        {post.imageIds && post.imageIds.length > 0 ? (
+          post.imageIds.length === 1 ? (
             <img
-              src={post.imageUrls[0]}
+              src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
               alt="상품 이미지"
               className="detail-image"
             />
           ) : (
             <Slider {...settings}>
-              {post.imageUrls.map((url, index) => (
+              {post.imageIds.map((id, index) => (
                 <div key={index}>
                   <img
-                    src={url}
+                    src={`http://localhost:8080/api/v1/together/download?id=${id}`}
                     alt={`Slide ${index}`}
                     className="detail-image"
                   />

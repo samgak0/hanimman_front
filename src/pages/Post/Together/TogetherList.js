@@ -115,9 +115,9 @@ const TogetherList = () => {
               ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
               <div className="card-image-container">
-                {post.imageUrls && post.imageUrls.length > 0 ? (
+                {post.imageIds[0] ? (
                   <img
-                    src={post.imageUrls[0]}
+                    src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
                     alt={post.title}
                     className="card-image"
                   />
