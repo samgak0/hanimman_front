@@ -105,35 +105,38 @@ const InquiryCreate = () => {
   };
 
   return (
-    <div className="registration-page">
-      <header className="list-header">
-        <button onClick={handleClose} className="close-icon-button">
+    <div className="inquiry-registration-page">
+      <header className="inquiry-list-header">
+        <button onClick={handleClose} className="inquiry-close-icon-button">
           <CloseIcon />
         </button>
       </header>
       {errorMessage && (
-        <div className="error-message-container">
-          <p className="error-message">{errorMessage}</p>
+        <div className="inquiry-error-message-container">
+          <p className="inquiry-error-message">{errorMessage}</p>
         </div>
       )}{" "}
       {/* 에러 메시지 표시 */}
-      <div className="image-slider-container" style={{ position: "relative" }}>
+      <div
+        className="inquiry-image-slider-container"
+        style={{ position: "relative" }}
+      >
         <div
           ref={sliderRef}
-          className="image-upload-container"
+          className="inquiry-image-upload-container"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
         >
           {Array.from({ length: 10 }).map((_, index) => (
-            <div key={index} className="image-upload-box">
+            <div key={index} className="inquiry-image-upload-box">
               {images[index] ? (
                 <>
                   <img
                     src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
                     alt={`uploaded-${index}`}
-                    className="uploaded-image"
+                    className="inquiry-uploaded-image"
                     onClick={() =>
                       document.getElementById(`file-input-${index}`).click()
                     } // 이미지 클릭 시 파일 입력 트리거
@@ -146,7 +149,7 @@ const InquiryCreate = () => {
                     onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
                   />
                   <button
-                    className="remove-image-button"
+                    className="inquiry-remove-image-button"
                     onClick={() => handleImageRemove(index)}
                   >
                     &times;
@@ -162,11 +165,11 @@ const InquiryCreate = () => {
                       style={{ display: "none" }}
                       onChange={handleImageUpload} // 새 이미지 추가
                     />
-                    <div className="add-image">
+                    <div className="inquiry-add-image">
                       {index === 0 ? (
                         <>
-                          <CameraIcon className="camera-icon" />
-                          <p className="camera-text">사진등록</p>
+                          <CameraIcon className="inquiry-camera-icon" />
+                          <p className="inquiry-camera-text">사진등록</p>
                         </>
                       ) : (
                         "+"
@@ -179,7 +182,7 @@ const InquiryCreate = () => {
           ))}
         </div>
       </div>
-      <div className="form-group">
+      <div className="inquiry-form-group">
         <h4>제목</h4>
         <input
           type="text"
@@ -188,16 +191,16 @@ const InquiryCreate = () => {
           placeholder="문의 제목을 입력하세요"
         />
       </div>
-      <div className="form-group">
+      <div className="inquiry-form-group">
         <h4>내용</h4>
         <textarea
-          className="textarea"
+          className="inquiry-textarea"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder="문의 내용을 입력하세요"
         ></textarea>
       </div>
-      <div className="form-group">
+      <div className="inquiry-form-group">
         <h4>답변받을 E-Mail</h4>
         <input
           type="email"
@@ -206,7 +209,7 @@ const InquiryCreate = () => {
           placeholder="답변받을 이메일을 입력하세요"
         />
       </div>
-      <button className="submit-button" onClick={handleSubmit}>
+      <button className="inquiry-submit-button" onClick={handleSubmit}>
         등록완료
       </button>
     </div>
