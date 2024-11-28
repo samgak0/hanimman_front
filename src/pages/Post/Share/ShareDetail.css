@@ -30,18 +30,18 @@
 .share-detail-image-container {
   width: 100%;
   margin: 0 auto; /* 가운데 정렬 */
-
 }
 
 .share-detail-image {
   width: 100%; /* 이미지가 슬라이더 너비에 맞게 */
-  height: 50vh; /* 비율 유지 */
+  height: 35vh; /* 비율 유지 */
   object-fit: cover; /* 이미지 잘림 없이 채우기 */
   border-radius: 8px; /* 이미지 둥근 모서리 */
 }
 
 .share-detail-title {
   margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .share-detail-title h2 {
@@ -64,7 +64,7 @@
 .share-detail-info {
   background: #FFF5D7; /* 밝은 노란색 계열로 변경 */
   border-radius: 12px; /* 모서리를 더 둥글게 */
-  padding: 20px 30px;
+  padding: 10px 30px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
