@@ -42,7 +42,7 @@ const FilterBar = ({ onFilterUpdate, onFilterSelect, isShareList }) => {
           className="filter-modal"
           onClose={handleCloseModal} // 모달 닫기 핸들러
           onComplete={handleCompleteFilter} // 필터 완료 핸들러
-          isShareList={isShareList}
+          isShareList={true}
         />
       )}
     </div>
