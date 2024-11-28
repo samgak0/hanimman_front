@@ -58,14 +58,13 @@
   gap: 10px;
   margin-bottom: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #7A7676;
   color: #7A7676;
 }
 
 .share-detail-info {
   background: #FFF5D7; /* 밝은 노란색 계열로 변경 */
   border-radius: 12px; /* 모서리를 더 둥글게 */
-  padding: 15px;
+  padding: 20px 30px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
