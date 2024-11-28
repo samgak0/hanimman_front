@@ -1,7 +1,8 @@
 .main-page {
   margin: 120px auto;
   margin-top: 100px;
-  width: 393px;
+  width: 100%; /* 고정 크기 대신 유연한 크기 */
+  max-width: 393px; /* 최대 크기 제한 */
   border: none;
   overflow-y: auto;
 }
@@ -9,30 +10,39 @@
 .category {
   display: flex;
   justify-content: space-around;
-}
-.together-font, .share-font {
-  font-size: small;
-  text-align: center;
+  padding: 0 10px; /* 좌우 패딩 추가 */
 }
 
-/*  슬라이드 섹션 */
-.together-slider {
-  margin-top: 5vh;
+.together-font, .share-font {
+  font-size: 14px; /* 기본 글자 크기 조정 */
+  text-align: center;
+  word-wrap: break-word; /* 글자가 너무 길면 줄바꿈 */
 }
-.share-slider {
+
+/* 슬라이드 섹션 */
+.together-slider, .share-slider {
   margin-top: 5vh;
+  padding: 0 10px; /* 좌우 패딩 추가 */
 }
+
 .together-button, .share-button {
   display: flex;
   border: none; 
   cursor: pointer; 
   background: transparent;
 }
-.neighborhood-together {
-  margin-bottom: 5px;
-  margin-left: 5px;
-}
-.neighborhood-share {
-  margin-bottom: 5px;
-  margin-left: 5px;
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+  .together-font, .share-font {
+    font-size: 12px; /* 작은 화면에서는 글자 크기 축소 */
+  }
+
+  .main-page {
+    margin-top: 80px; /* 상단 여백 조정 */
+  }
+
+  .category {
+    padding: 0 5px; /* 작은 화면에서 패딩 조정 */
+  }
 }

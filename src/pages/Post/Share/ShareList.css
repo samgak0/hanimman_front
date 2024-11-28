@@ -3,13 +3,15 @@
   display: flex;
   flex-direction: column; /* 세로 정렬 */
   align-items: center; /* 가로 가운데 정렬 */
-  gap: 5px;
+  gap: 3px;
   padding: 20px; /* 컨테이너 내부 여백 */
   overflow-y: auto; /* 세로 스크롤 활성화 */
   position: absolute; /* 페이지 내 고정 위치 설정 */
   top: 90px; /* 헤더의 높이만큼 아래로 이동 */
   left: 0;
   right: 0;
+  height: 880px;
+  border-bottom: #888;
 }
 
 /* Share 카드 스타일 */
@@ -22,7 +24,7 @@
   overflow: hidden; /* 내용 넘침 숨기기 */
   cursor: pointer; /* 커서 스타일 변경 */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.1); /* 기본 그림자 */
   display: flex; /* 가로 정렬 */
   align-items: center; /* 세로 가운데 정렬 */
   
