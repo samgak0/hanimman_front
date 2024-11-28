@@ -46,6 +46,20 @@
   margin-bottom: 16px;
 }
 
+.announcement-detail-images {
+  display: flex;
+  flex-direction: column; /* 세로로 나열 */
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.announcement-detail-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
 .announcement-detail-text {
   font-size: 16px;
   line-height: 1.5;

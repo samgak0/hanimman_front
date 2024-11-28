@@ -36,13 +36,24 @@ const AnnouncementDetail = () => {
           ◀
         </button>{" "}
         {/* 뒤로가기 버튼 */}
-        <h1>공지사항 상세</h1>
+        <h1>공지사항</h1>
       </header>
       <div className="announcement-detail-content">
         <h2 className="announcement-detail-title">{announcement.title}</h2>
         <p className="announcement-detail-date">
           {new Date(announcement.createdAt).toLocaleDateString()}
         </p>
+        <div className="announcement-detail-images">
+          {announcement.imageIds &&
+            announcement.imageIds.map((id) => (
+              <img
+                key={id}
+                src={`http://localhost:8080/api/v1/notice/download?id=${id}`}
+                alt="공지사항 이미지"
+                className="announcement-detail-image"
+              />
+            ))}
+        </div>
         <p className="announcement-detail-text">{announcement.content}</p>
       </div>
     </div>
