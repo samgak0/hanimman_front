@@ -13,9 +13,21 @@ const ShareList = () => {
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false); // 필터 모달 상태
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
   const { posts } = useContext(DataContext); // Context에서 posts 가져오기
+  const { setShareDetailState } = useContext(DataContext);
   const [loading, setLoading] = useState(false);
   const observer = useRef();
 
+  // 날짜 형식 변경 함수
+const formatDate = (dateString) => {
+  if (!dateString) return "날짜 없음";
+  const date = new Date(dateString);
+  const year = date.getFullYear().toString().slice(2); // 연도 두 자리
+  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // 월 두 자리
+  const day = date.getDate().toString().padStart(2, "0"); // 일 두 자리
+  const hours = date.getHours().toString().padStart(2, "0"); // 시간 두 자리
+  const minutes = date.getMinutes().toString().padStart(2, "0"); // 분 두 자리
+  return `${year}/${month}/${day} ${hours}시${minutes}분`; // 날짜와 시간 반환
+};
   const handleOpenFilterModal = () => {
     setIsFilterModalVisible(true); // 필터 모달 열기
   };
@@ -43,13 +55,17 @@ const ShareList = () => {
     navigate("/sharecreate"); // 공유 등록 페이지로 이동
   };
 
+
   const handleCardClick = (post) => {
-    navigate(`/sharedetail/${post.id}`, { state: { post } }); // 공유 상세 페이지로 이동
+    setShareDetailState(post);
+    navigate(`/sharedetail/${post.id}`); // 공유 상세 페이지로 이동
   };
 
   const getRecruitmentStatus = (post) => {
     return post.isEnd ? "completed" : "active";
   };
+
+
 
   return (
     <>
@@ -86,43 +102,49 @@ const ShareList = () => {
                 onClick={() => handleCardClick(post)}
                 ref={index === posts.length - 1 ? lastPostElementRef : null}
               >
-                <div className="card-image-container">
+                <div className="share-card-image-container">
                   {post.images && post.images.length > 0 ? (
                     <img
                       src={post.images[0]} // 첫 번째 이미지를 표시
                       alt={post.title}
-                      className="card-image"
+                      className="share-card-image"
                     />
                   ) : (
                     <div className="no-image">이미지 없음</div>
                   )}
                 </div>
-                <div className="card-content">
-                  <div className="card-title">{post.title}</div>
-                  <div className="card-meta">
-                    <span className="meta-item">💰 {post.price || 0} 원</span>
-                    <span className="meta-item">📦 수량: {post.quantity}개</span>
+                <div className="share-card-content">
+                  <div className="share-card-title">{post.title}</div>
+                  <div className="share-card-meta">
+                    <span className="share-card-meta-item">💰 {post.price || 0}</span>
+                    <span className="share-card-meta-item">📦 {post.quantity}</span>
                     {post.isUnlimited && (
-                      <span className="meta-item">🌐 제한없음</span>
+                      <span className="share-card-meta-item">🌐 제한없음</span>
                     )}
                   </div>
-                  <div className={`card-tradeEnd ${getRecruitmentStatus(post)}`}>
+                  <div className={`share-card-tradeEnd ${getRecruitmentStatus(post)}`}>
                     {getRecruitmentStatus(post) === "completed"
                       ? "마감"
                       : "모집중"}
                   </div>
+               
                 </div>
-                <div className="card-dateinfo">
-                  {post.selectedDate
-                    ? `${new Date(post.selectedDate).toLocaleDateString()}`
-                    : "날짜 없음"}
-                  {post.location ? (
-                    <div className="location-info">
-                      <p>{post.location.name || post.location}</p>
-                    </div>
-                  ) : (
-                    "위치 정보 없음"
-                  )}
+             <div className="share-card-dateinfo">
+                {post.selectedDate ? (
+                  <>
+                    <div className="share-date">{formatDate(post.selectedDate).split(" ")[0]}</div>
+                    <div className="share-time">{formatDate(post.selectedDate).split(" ")[1]}</div>
+                  </>
+                ) : (
+                  "날짜 없음"
+                )}
+                {post.location ? (
+                  <div className="location-info">
+                    <p>{post.location.name || post.location}</p>
+                  </div>
+                ) : (
+                  "위치 정보 없음"
+                )}
                 </div>
               </div>
             ))
@@ -138,5 +160,4 @@ const ShareList = () => {
     </>
   );
 };
-
 export default ShareList;

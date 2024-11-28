@@ -1,0 +1,101 @@
+/* 슬라이더 이미지 컨테이너 */
+.detail-image-container {
+  width: 393px;
+  max-width: 768px;
+  height: 100vh;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.detail-image {
+  width: 100%; /* 컨테이너 너비에 맞게 조정 */
+  height: 100%; /* 고정 높이 설정 */
+  object-fit: cover; /* 비율 유지하며 잘림 */
+  border-radius: 5px;
+}
+
+/* 상세 제목과 가격 섹션 */
+.detail-title {
+  padding: 15px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.detail-title h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-title p {
+  margin: 10px 0 0;
+  font-size: 18px;
+  color: #f57c00;
+  font-weight: bold;
+}
+
+/* 상세 정보 섹션 */
+.detail-info {
+  padding: 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-info h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.detail-info-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.detail-info-category strong {
+  font-size: 14px;
+  color: #555;
+}
+
+.detail-info-category p {
+  font-size: 14px;
+  color: #777;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 하단 버튼 섹션 */
+.detail-actions {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-actions button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+
+
+.detail-actions button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

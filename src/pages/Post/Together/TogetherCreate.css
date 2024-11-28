@@ -1,14 +1,22 @@
 .registration-page {
   width: 393px;
+  height: 100vh;
   margin: 0 auto;
   box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1), 5px 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: auto; /* 세로 스크롤 활성화 */
+  overflow-y: scroll; /* 세로 스크롤 활성화 */
   padding-bottom: 30px; /* 하단 버튼 공간 확보 */
 }
+.registration-page::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨김 */
+}
 
+.registration-page {
+  -ms-overflow-style: none; /* IE와 Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
+}
 .list-header {
   display: flex;
   align-items: center;
@@ -39,7 +47,6 @@
 .image-slider-container {
   position: relative; /* 스크롤 버튼 위치를 위해 부모 컨테이너를 relative로 설정 */
   width: 345px; /* 부모 너비 */
-  overflow: hidden; /* 부모 컨테이너 밖으로 넘치는 내용 숨김 */
   margin-top: 30px;
 }
 
