@@ -2,18 +2,9 @@ import jwtAxios from "./jwtAxios";
 
 const host = `${jwtAxios.defaults.baseURL}/api/v1/inquiry`;
 
-export const createInquiry = async (inquiryDTO, files) => {
+export const createInquiry = async (formData) => {
+  console.log("확인" + formData.inquiryDTO);
   try {
-    const formData = new FormData();
-    formData.append(
-      "inquiryDTO",
-      new Blob([JSON.stringify(inquiryDTO)], { type: "application/json" })
-    );
-    if (files) {
-      files.forEach((file) => {
-        formData.append("files", file);
-      });
-    }
     const response = await jwtAxios.post(`${host}/create`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
