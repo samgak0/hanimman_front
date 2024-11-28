@@ -1,0 +1,52 @@
+/* 전체 컨테이너 스타일 */
+.announcement-detail-container {
+  font-family: Arial, sans-serif;
+  padding: 16px;
+  background-color: #fff;
+  height: 100vh; /* 전체 화면 높이 */
+  overflow-y: auto; /* 스크롤 활성화 */
+}
+
+/* 헤더 스타일 */
+.announcement-detail-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.announcement-detail-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* 공지사항 상세 내용 스타일 */
+.announcement-detail-content {
+  padding-top: 16px;
+}
+
+.announcement-detail-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.announcement-detail-date {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.announcement-detail-text {
+  font-size: 16px;
+  line-height: 1.5;
+}

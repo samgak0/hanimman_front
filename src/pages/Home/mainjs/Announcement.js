@@ -39,7 +39,11 @@ const Announcement = () => {
       </header>
       <ul className="announcement-list">
         {announcements.map((announcement) => (
-          <li key={announcement.id} className="announcement-item">
+          <li
+            key={announcement.id}
+            className="announcement-item"
+            onClick={() => navigate(`/announcement/${announcement.id}`)} // 클릭 시 상세 페이지로 이동
+          >
             <h2 className="announcement-title">{announcement.title}</h2>
             <p className="announcement-date">
               {new Date(announcement.createdAt).toLocaleDateString()}

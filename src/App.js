@@ -12,6 +12,7 @@ import MyPage from "./pages/User/mypage/MyPage";
 import ZzimList from "./pages/Home/mainjs/ZzimList";
 import Events from "./pages/Home/mainjs/Events";
 import Announcement from "./pages/Home/mainjs/Announcement";
+import AnnouncementDetail from "./pages/Home/mainjs/AnnouncementDetail";
 import FAQ from "./pages/Home/mainjs/FAQ";
 import Terms from "./pages/Home/mainjs/Terms";
 import authRoutes from "./routes/authRoutes";
@@ -69,6 +70,10 @@ const App = () => {
           <Route
             path="/announcement"
             element={<PrivateRoute element={<Announcement />} />}
+          />
+          <Route
+            path="/announcement/:id"
+            element={<PrivateRoute element={<AnnouncementDetail />} />}
           />
           <Route path="/faq" element={<PrivateRoute element={<FAQ />} />} />
           <Route path="/terms" element={<PrivateRoute element={<Terms />} />} />
