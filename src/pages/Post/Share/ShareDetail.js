@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./ShareDetail.css";
 import { ReactComponent as BackIcon } from "../../../assets/icons/back.svg";
@@ -16,13 +16,12 @@ import "slick-carousel/slick/slick-theme.css";
 const ShareDetail = () => {
   const navigate = useNavigate();
   const { applyForPost, appliedPosts, shareDetailState } = useContext(DataContext); // DataContext에서 데이터 가져오기
-  const post = shareDetailState; // post를 shareDetailState로 대체
-  const location = useLocation();
+  const post = shareDetailState;
 
   const [isFavorite, setIsFavorite] = useState(post?.favorite || false);
 
-  if(!shareDetailState) return <p> 게시글을 찾을 수 없습니다. </p>
-  
+  if (!post) return <p>게시글을 찾을 수 없습니다.</p>;
+
   const isApplied = appliedPosts.includes(post.id); // 현재 게시글이 이미 신청되었는지 확인
 
   const handleApply = () => {
@@ -46,19 +45,19 @@ const ShareDetail = () => {
     const minute = date.getMinutes().toString().padStart(2, "0");
     return `${year}/${month}/${day} ${hour}:${minute}`;
   };
+
   // 슬라이더 설정
   const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    dots: true, // 하단 점 표시
+    infinite: true, // 무한 반복
+    speed: 500, // 전환 속도
+    slidesToShow: 1, // 한 번에 하나의 이미지만 표시
+    slidesToScroll: 1, // 스크롤 시 하나씩 이동
   };
 
   return (
-    <div className="share-detail-page">
-      {/* Header */}
-      <header className="detail-header">
+    <>
+      <header className="share-detail-header">
         <button className="back-button" onClick={() => navigate(-1)}>
           <BackIcon />
         </button>
@@ -66,75 +65,79 @@ const ShareDetail = () => {
           <NotifyIcon />
         </button>
       </header>
-
-      <div className="detail-image-container">
-        {post.images && post.images.length > 0 ? (
-          <Slider {...settings}>
-            {post.images.map((url, index) => (
-              <div key={index}>
-                <img src={url} alt={`Slide ${index}`} className="detail-image" />
-              </div>
-            ))}
-          </Slider>
-        ) : (
-          <p className="no-image">이미지가 없습니다.</p>
-        )}
-      </div>
-
-      {/* Info Section */}
-      <div className="detail-title">
-        <h2>{post.title || "제목 없음"}</h2>
-        <p>{post.price ? `${post.price}원` : "가격 정보 없음"}</p>
-      </div>
-
-      <div className="detail-meta">
-        <div className="detail-meta-location">
-          <CalendarIcon className="calendar-icon" />{" "}
-          {post.address || "위치 정보 없음"}
-        </div>
-        <div className="detail-meta-date">{formatDate(post.createdAt)}</div>
-        <div className="detail-meta-count">
-          <ViewIcon className="view-count" /> {post.views}{" "}
-          <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
-        </div>
-      </div>
-      <div className="detail-info">
-        <h2>상세정보</h2>
-        <div className="detail-info-category">
-          <strong>카테고리 </strong> 
-          <p>{post.selectedCategory || "카테고리 없음"}</p>
-        </div>
-        <div className="detail-info-category">
-          <strong>출발일 </strong> 
-          <p>{formatDate(post.selectedDate)} </p>
-        </div>
-        <div className="detail-info-category">
-          <strong>남은 수량 </strong>
-          <p>{post.quantity || 0}개</p>
-        </div>
-      </div>
-      <div className="detail-text">{post.content || "내용 없음"}</div>
-
-      {/* Footer Buttons */}
-      <div className="detail-actions">
-        <button className="favorite-button" onClick={toggleFavorite}>
-          {isFavorite ? (
-            <HeartFullIcon className="zzimOn" />
+      <div className="share-detail-page">      
+        {/* Image Section */}
+        <div className="share-detail-image-container">
+          {post.images && post.images.length > 0 ? (
+            <Slider {...settings} className="share-detail-slider">
+              {post.images.map((url, index) => (
+                <div key={index} className="share-detail-slide">
+                  <img src={url} alt={`Slide ${index}`} className="share-detail-image" />
+                </div>
+              ))}
+            </Slider>
           ) : (
-            <HeartEmptyIcon className="zzimOff" />
+            <p className="no-image">이미지가 없습니다.</p>
           )}
-        </button>
+        </div>
 
-        <button className="chat-button">채팅하기</button>
-        <button
-          className="apply-button"
-          onClick={handleApply}
-          disabled={isApplied}
-        >
-          {isApplied ? "신청완료" : "신청하기"}
-        </button>
+        {/* Info Section */}
+        <div className="share-detail-title">
+          <h2>{post.title || "제목 없음"}</h2>
+          <p>{post.price ? `${post.price}원` : "가격 정보 없음"}</p>
+        </div>
+
+        <div className="share-detail-meta">
+          <div className="share-detail-meta-location">
+            <CalendarIcon className="calendar-icon" />{" "}
+            {post.address || "위치 정보 없음"}
+            {formatDate(post.createdAt)}
+          </div>
+      
+          <div className="share-detail-meta-count">
+            <ViewIcon className="view-count" /> {post.views}{" "}
+            <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
+          </div>
+        </div>
+
+        <div className="share-detail-info">
+          <h3>상세정보</h3>
+          <div className="share-detail-info-category">
+            <strong>카테고리 </strong>
+            <p>{post.selectedCategory || "카테고리 없음"}</p>
+          </div>
+          <div className="share-detail-info-category">
+            <strong>출발일 </strong>
+            <p>{formatDate(post.selectedDate)} </p>
+          </div>
+          <div className="share-detail-info-category">
+            <strong>남은 수량 </strong>
+            <p>{post.quantity || 0}개</p>
+          </div>
+        </div>
+        <div className="share-detail-text">{post.content || "내용 없음"}</div>
+
+        {/* Footer Buttons */}
+        <div className="share-detail-footer">
+          <button className="favorite-button" onClick={toggleFavorite}>
+            {isFavorite ? (
+              <HeartFullIcon className="zzimOn" />
+            ) : (
+              <HeartEmptyIcon className="zzimOff" />
+            )}
+          </button>
+
+          <button className="chat-button">채팅하기</button>
+          <button
+            className="apply-button"
+            onClick={handleApply}
+            disabled={isApplied}
+          >
+            {isApplied ? "신청완료" : "신청하기"}
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
