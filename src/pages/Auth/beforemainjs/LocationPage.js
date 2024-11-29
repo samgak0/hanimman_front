@@ -58,7 +58,7 @@ const LocationPage = () => {
       </button>
       {location && (
         <div>
-          <p>행정 코드: {location.id}</p>
+          <p>법정 코드: {location.id}</p>
           <p>시: {location.cityName}</p>
           <p>구: {location.districtName}</p>
           <p>동: {location.neighborhoodName}</p>
