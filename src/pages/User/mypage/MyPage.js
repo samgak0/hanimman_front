@@ -21,6 +21,7 @@ function MyPage() {
   const navigate = useNavigate();
 
   return (
+    <div className='mobile-container'>
     <div className="myPage">
       <header className="myPage-header">
         <div className="profile">
@@ -90,8 +91,8 @@ function MyPage() {
           </div>
         </div>
       </div>
-
       <Footer />
+    </div>
     </div>
   );
 }
