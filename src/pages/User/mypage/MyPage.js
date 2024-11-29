@@ -39,7 +39,7 @@ function MyPage() {
         <div className="section-title">나의 거래</div>
         <div className="menu">
           <div className="menu-item" onClick={() => navigate('/zzimlist')}>
-            <FaHeart /> 관심목록
+            <FaHeart /> 관심 목록
           </div>
           <div className="menu-item" onClick={() => navigate('/mypost')}>
             <FaClipboardList /> 내 글
