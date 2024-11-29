@@ -13,7 +13,7 @@ const Slider = ({ items }) => {
       setCurrentIndex((prevIndex) =>
         (prevIndex + imagesPerPage) % (totalPages * imagesPerPage)
       );
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval); // 클린업
   }, [items]);
 
@@ -37,7 +37,7 @@ const Slider = ({ items }) => {
         className="slider-track"
         style={{
           transform: `translateX(-${(currentIndex / imagesPerPage) * 100}%)`,
-          transition: 'transform 0.5s ease-in-out',
+          transition: 'transform 1s ease-in-out',
         }}
       >
         {items.map((item, index) => (

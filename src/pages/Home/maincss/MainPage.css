@@ -6,11 +6,16 @@
   border: none;
   overflow-y: auto;
 }
-
+.main-content {
+  margin-top: 35vh;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  height: 100vh;
+}
 .category {
   display: flex;
   justify-content: space-around;
-  padding: 0 10px; /* 좌우 패딩 추가 */
+  padding: 0 20px; /* 좌우 패딩 추가 */
+  margin-left: 10px;
 }
 
 .together-font, .share-font {
@@ -21,8 +26,8 @@
 
 /* 슬라이드 섹션 */
 .together-slider, .share-slider {
-  margin-top: 5vh;
   padding: 0 10px; /* 좌우 패딩 추가 */
+  margin-top: 7vh;
 }
 
 .together-button, .share-button {
@@ -31,7 +36,10 @@
   cursor: pointer; 
   background: transparent;
 }
-
+.neighborhood-font {
+  padding: 15px;
+  margin-left: 5px;
+}
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .together-font, .share-font {
