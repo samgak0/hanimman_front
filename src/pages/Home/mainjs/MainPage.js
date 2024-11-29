@@ -7,6 +7,8 @@ import data from '../../../data/togetherAndShareItems.json';
 import Slider from '../../../components/Slider';
 import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg';
 import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.svg';
+import axios from 'axios';
+import jwtAxios from '../../../api/jwtAxios';
 
 const MainPage = () => {
   const {togetherItems, shareItems} = data;
@@ -18,6 +20,14 @@ const MainPage = () => {
   const handleShareClick = () => {
     navigate("/sharelist");
   }
+
+  const resultData = jwtAxios("http://localhost:8080/main", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+  
+    });
+
+    console.log(resultData);
 
   return (
     <div className='main-page'>
