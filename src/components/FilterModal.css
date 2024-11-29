@@ -1,16 +1,31 @@
-.filter-modal {
+.filter-modal-togetherlist {
   position: fixed;
   top: 300%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 360px;
-  height: 60vh;
+  height: 500px;
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   z-index: 1000;
   animation: fadeIn 0.3s ease-in-out;
   overflow: hidden;
+}
+.filter-modal-sharelist {
+  position: fixed;
+  top: 450%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 450px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  z-index: 1003;
+  animation: fadeIn 0.3s ease-in-out;
+  overflow: hidden;
+
 }
 
 @keyframes fadeIn {
@@ -31,6 +46,7 @@
   color: #fff;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  ;
 }
 
 .close-button:hover {
@@ -43,12 +59,6 @@
   font-family: "Inter", sans-serif;
 }
 
-.filter-step h4 {
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
-}
 
 .filter-options {
   display: flex;
@@ -92,8 +102,24 @@
     font-size: 12px;
     padding: 8px 12px;
   }
-
   .modal-header {
     font-size: 16px;
   }
+}
+
+.filter-close-button {
+  padding: 8px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  background: none;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between; /* h4와 닫기 버튼을 양쪽 정렬 */
+  padding: 0 10px; /* 헤더 양쪽 여백 추가 */
 }

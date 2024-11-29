@@ -1,5 +1,5 @@
 /* 전체 컨테이너 스타일 */
-.faq-container {
+.announcement-detail-container {
   font-family: Arial, sans-serif;
   padding: 16px;
   background-color: #fff;
@@ -8,7 +8,7 @@
 }
 
 /* 헤더 스타일 */
-.faq-header {
+.announcement-detail-header {
   display: flex;
   align-items: center;
   padding-bottom: 16px;
@@ -23,53 +23,44 @@
   margin-right: 16px;
 }
 
-.faq-header h1 {
+.announcement-detail-header h1 {
   font-size: 18px;
   font-weight: bold;
   margin: 0;
 }
 
-/* FAQ 목록 스타일 */
-.faq-list {
+/* 공지사항 상세 내용 스타일 */
+.announcement-detail-content {
   padding-top: 16px;
 }
 
-.faq-item {
-  cursor: pointer;
-  padding: 8px 0;
-}
-
-.faq-question {
-  font-size: 18px;
+.announcement-detail-title {
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 8px;
 }
 
-.faq-divider {
-  border: none;
-  border-top: 1px solid #e0e0e0;
-  margin: 8px 0;
+.announcement-detail-date {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
 }
 
-/* 푸터 스타일 */
-.faq-footer {
-  margin-top: 32px;
-  text-align: center;
+.announcement-detail-images {
+  display: flex;
+  flex-direction: column; /* 세로로 나열 */
+  gap: 10px;
+  margin-bottom: 16px;
 }
 
-.inquiry-button,
-.my-inquiries-button {
-  background-color: #f4bb44;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
+.announcement-detail-image {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #e0e0e0;
   border-radius: 4px;
-  margin-top: 8px;
 }
 
-.inquiry-button:hover,
-.my-inquiries-button:hover {
-  background-color: #b88e33;
+.announcement-detail-text {
+  font-size: 16px;
+  line-height: 1.5;
 }

@@ -11,7 +11,7 @@ const MobileVerificationPage = () => {
   useEffect(() => {
     const receiveData = async () => {
       try {
-        const response = await fetch("http://192.168.101.253:8080/identity-verifications", {
+        const response = await fetch("http://localhost:8080/identity-verifications", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -27,7 +27,7 @@ const MobileVerificationPage = () => {
         const token = localStorage.getItem("authToken");
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
-        const verifyAndSignupOrLogin = await fetch("http://192.168.101.253:8080/users/verify", {
+        const verifyAndSignupOrLogin = await fetch("http://localhost:8080/users/verify", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

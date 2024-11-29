@@ -6,6 +6,7 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
+
 import "./TogetherList.css";
 
 const TogetherList = () => {
@@ -114,12 +115,12 @@ const TogetherList = () => {
               onClick={() => handleCardClick(post)}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
-              <div className="card-image-container">
+              <div className="together-card-image-container">
                 {post.imageIds[0] ? (
                   <img
                     src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
                     alt={post.title}
-                    className="card-image"
+                    className="together-card-image"
                   />
                 ) : (
                   <div className="no-image">이미지 없음</div>

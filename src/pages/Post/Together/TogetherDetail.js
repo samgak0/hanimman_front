@@ -12,6 +12,10 @@ import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg";
 
 import { DataContext } from "../../../context/DataContext";
 import { readTogether } from "../../../api/togetherApi";
+import {
+  createTogetherFavorite,
+  deleteTogetherFavorite,
+} from "../../../api/togetherFavoriteApi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -29,6 +33,7 @@ const TogetherDetail = () => {
       try {
         const data = await readTogether(id); // readTogether 함수에 id 전달
         setPost(data);
+        setIsFavorite(data.favorite); // 좋아요 상태 설정
       } catch (error) {
         setError(error);
       } finally {
@@ -56,8 +61,18 @@ const TogetherDetail = () => {
   const currentApplicants = appliedPosts.filter((id) => id === post.id).length;
   const totalPeople = post.people || 0;
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+  const toggleFavorite = async () => {
+    try {
+      if (isFavorite) {
+        await deleteTogetherFavorite(post.id);
+        setIsFavorite(false);
+      } else {
+        await createTogetherFavorite({ togetherId: post.id });
+        setIsFavorite(true);
+      }
+    } catch (error) {
+      console.error("Error toggling favorite:", error);
+    }
   };
 
   // 날짜 포맷 함수

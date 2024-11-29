@@ -1,12 +1,14 @@
-import axios from "axios";
-import axiosInstance, { axiosInsnstance } from "./axiosInstance";
 import jwtAxios from "./jwtAxios";
 
-const host = `${axiosInstance.defaults.baseURL}/api/v1/share`;
+const host = `${jwtAxios.defaults.baseURL}/api/v1/share`;
 
-export const createShare = async (shareDTO) => {
+export const createShare = async (formData) => {
   try {
-    const response = await jwtAxios.post(`${host}/`, shareDTO);
+    const response = await jwtAxios.post(`${host}/create`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("나눠요 게시글 생성에서 에러가 발생하였습니다.");
@@ -16,7 +18,7 @@ export const createShare = async (shareDTO) => {
 
 export const readShare = async (id) => {
   try {
-    const response = await axiosInstance.get(`${host}/${id}`);
+    const response = await jwtAxios.get(`${host}/${id}`);
     return response.data;
   } catch (error) {
     console.error("나눠요 게시글 조회에서 에러가 발생하였습니다.");
@@ -46,7 +48,7 @@ export const deleteShare = async (id) => {
 
 export const listAllShares = async (params) => {
   try {
-    const response = await axiosInstance.get(`${host}/`, { params });
+    const response = await jwtAxios.get(`${host}/list`, { params });
     return response.data;
   } catch (error) {
     console.error("나눠요 게시글 목록 조회에서 에러가 발생하였습니다.");
@@ -56,7 +58,7 @@ export const listAllShares = async (params) => {
 
 export const searchShares = async (params) => {
   try {
-    const response = await axiosInstance.get(`${host}/search`, { params });
+    const response = await jwtAxios.get(`${host}/search`, { params });
     return response.data;
   } catch (error) {
     console.error("나눠요 게시글 검색에서 에러가 발생하였습니다.");

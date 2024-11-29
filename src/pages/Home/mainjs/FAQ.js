@@ -1,42 +1,68 @@
-import React from 'react';
-import '../maincss/FAQ.css'; // CSS 파일 import
-import { useNavigate } from 'react-router-dom';
-
-const faqData = [
-  {
-    id: 1,
-    question: '회원 가입은 어떻게 하나요?',
-    answer: '회원 가입은 메인 화면의 회원 가입 버튼을 눌러 진행할 수 있습니다.',
-  },
-  {
-    id: 2,
-    question: '비밀번호를 잊어버렸어요. 어떻게 복구하죠?',
-    answer: '로그인 화면에서 비밀번호 찾기를 통해 이메일로 복구할 수 있습니다.',
-  },
-  {
-    id: 3,
-    question: '상품 교환/환불은 어떻게 하나요?',
-    answer: '상품 교환 및 환불은 판매자와 직접 협의해야 합니다.',
-  },
-];
+import React, { useEffect, useState } from "react";
+import "../maincss/FAQ.css"; // CSS 파일 import
+import { useNavigate } from "react-router-dom";
+import { listAllFaqs } from "../../../api/faqApi"; // listAllFaqs 함수 import
 
 const FAQ = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // useNavigate 훅 사용
+  const [faqs, setFaqs] = useState([]); // FAQ 목록 상태 추가
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+  const [error, setError] = useState(null); // 에러 상태 추가
+
+  useEffect(() => {
+    const fetchFaqs = async () => {
+      try {
+        const pageable = { page: 0, size: 10, sort: "createdAt,desc" }; // 페이지네이션 설정
+        const data = await listAllFaqs(pageable); // FAQ 목록 불러오기
+        setFaqs(data.content); // FAQ 목록 상태 설정
+      } catch (error) {
+        setError(error); // 에러 상태 설정
+      } finally {
+        setLoading(false); // 로딩 상태 해제
+      }
+    };
+
+    fetchFaqs();
+  }, []);
+
+  if (loading) return <p>Loading...</p>; // 로딩 중일 때 표시
+  if (error) return <p>Error loading FAQs: {error.message}</p>; // 에러 발생 시 표시
 
   return (
+    <div className='mobile-container'>
     <div className="faq-container">
       <header className="faq-header">
-        <button className="back-button" onClick={() => navigate(-1)}>◀</button>
+        <button className="back-button" onClick={() => navigate(-1)}>
+          ◀
+        </button>{" "}
+        {/* 뒤로가기 버튼 */}
         <h1>자주 묻는 질문</h1>
       </header>
       <div className="faq-list">
-        {faqData.map((item) => (
-          <div key={item.id} className="faq-item">
-            <h2 className="faq-question">{item.question}</h2>
-            <p className="faq-answer">{item.answer}</p>
+        {faqs.map((faq) => (
+          <div
+            key={faq.id}
+            className="faq-item"
+            onClick={() => navigate(`/faq/${faq.id}`)} // 클릭 시 상세 페이지로 이동
+          >
+            <h2 className="faq-question">{faq.title}</h2>
+            <hr className="faq-divider" /> {/* 항목 사이에 선 추가 */}
           </div>
         ))}
       </div>
+      <div className="faq-footer">
+        <p>원하는 답변이 없으신가요?</p>
+        <button className="inquiry-button" onClick={() => navigate("/inquiry")}>
+          1:1 문의하기
+        </button>
+        <button
+          className="my-inquiries-button"
+          onClick={() => navigate("/my-inquiries")}
+        >
+          내가한 문의
+        </button>
+      </div>
+    </div>
     </div>
   );
 };

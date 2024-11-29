@@ -68,8 +68,7 @@
 }
 
 .detail-image {
-  width: 373px;
-  height: 373px;
+  width: 100%;
   border-radius: 10px;
 }
 

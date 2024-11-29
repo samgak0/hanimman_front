@@ -14,7 +14,7 @@ const VerificationPage = () => {
       const uniqueId = uuidv4();
 
       try {
-        // 포트원 본인인증 요청 부분
+        // // 포트원 본인인증 요청 부분
         // const response = await PortOne.requestIdentityVerification({
         //   storeId: "store-302994fc-3ebb-4893-9225-815b7ece31f7",
         //   identityVerificationId: `identity-verification-${uniqueId}`,
@@ -23,7 +23,7 @@ const VerificationPage = () => {
         //     pc: "POPUP",
         //     mobile: "REDIRECTION",
         //   },
-        //   redirectUrl: "http://192.168.101.253:3000/verification/mobile"
+        //   redirectUrl: "http://localhost:3000/verification/mobile"
         // });
 
         // if (response.code !== undefined) {
@@ -32,7 +32,7 @@ const VerificationPage = () => {
         // setVerificationId(response.identityVerificationId);
 
         // // 본인 인증 결과를 서버로 전송 (API 응답 처리 부분)
-        // const verificationResult = await fetch("http://192.168.101.253:8080/identity-verifications", {
+        // const verificationResult = await fetch("http://localhost:8080/identity-verifications", {
         //   method: "POST",
         //   headers: { "Content-Type": "application/json" },
         //   body: JSON.stringify({
@@ -44,12 +44,13 @@ const VerificationPage = () => {
         //   throw new Error("본인 인증 결과 조회 실패");
         // }
 
+        
+
         // const resultData = await verificationResult.json();
-        // const token = localStorage.getItem("authToken");
 
         const resultData = {
           identityVerificationId:
-            "port-customer-id-019360cd-30a9-409b-cfeb-ebce8ac3389d", // 인증 ID
+            "port-customer-id-019360cd-30a9-409b-cfeb-ebce8ac3389e", // 인증 ID
           name: "홍길동", // 사용자 이름
           phoneNumber: "01012345678", // 사용자 전화번호
           gender: "MALE",
@@ -57,27 +58,24 @@ const VerificationPage = () => {
           isForeigner: false,
         };
 
-        const token = "12345678";
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
         const verifyAndSignupOrLogin = await fetch(
-          "http://192.168.101.253:8080/users/verify",
+          "http://localhost:8080/users/verify",
           {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify(resultData),
             credentials: "include",
           }
         );
 
-        verifyAndSignupOrLogin.headers.forEach((value, name) => {});
-
         if (verifyAndSignupOrLogin.ok) {
           const responseToken =
             verifyAndSignupOrLogin.headers.get("Authorization");
+          const responseRefreshToken = verifyAndSignupOrLogin.headers.get("Refresh-Token");
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
@@ -85,6 +83,11 @@ const VerificationPage = () => {
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
           }
+
+           if(responseRefreshToken){
+            localStorage.setItem("refreshToken", responseRefreshToken);
+           } 
+
         } else {
           const errorData = await verifyAndSignupOrLogin.json();
           setMessage(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);

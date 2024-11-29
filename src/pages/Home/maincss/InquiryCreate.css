@@ -1,33 +1,24 @@
-.registration-page {
+.inquiry-registration-page {
   width: 393px;
-  height: 100vh;
   margin: 0 auto;
   box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1), 5px 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-y: scroll; /* 세로 스크롤 활성화 */
+  overflow-y: auto; /* 세로 스크롤 활성화 */
   padding-bottom: 30px; /* 하단 버튼 공간 확보 */
 }
-.registration-page::-webkit-scrollbar {
-  display: none; /* 스크롤바 숨김 */
-}
 
-.registration-page {
-  -ms-overflow-style: none; /* IE와 Edge에서 스크롤바 숨기기 */
-  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
-}
-.list-header {
+.inquiry-list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 345px;
   background-color: transparent;
   margin-top: 30px;
-  
 }
 
-.close-icon-button {
+.inquiry-close-icon-button {
   background: none;
   border: none;
   font-size: 24px;
@@ -35,7 +26,7 @@
   color: black;
 }
 
-.save-draft-button {
+.inquiry-save-draft-button {
   background-color: #f4bb44;
   border: none;
   padding: 10px;
@@ -44,13 +35,14 @@
   font-weight: bold;
 }
 
-.image-slider-container {
+.inquiry-image-slider-container {
   position: relative; /* 스크롤 버튼 위치를 위해 부모 컨테이너를 relative로 설정 */
   width: 345px; /* 부모 너비 */
+  overflow: hidden; /* 부모 컨테이너 밖으로 넘치는 내용 숨김 */
   margin-top: 30px;
 }
 
-.image-upload-container {
+.inquiry-image-upload-container {
   display: flex;
   gap: 10px;
   overflow-x: scroll; /* 가로 스크롤 활성화 */
@@ -59,14 +51,14 @@
   scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
   cursor: grab; /* 기본 상태에서 손 모양 커서 */
 }
-.image-upload-container.dragging {
+.inquiry-image-upload-container.dragging {
   cursor: grabbing; /* 드래그 중일 때 손을 쥔 커서 */
 }
-.image-upload-container::-webkit-scrollbar {
+.inquiry-image-upload-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
 }
 
-.image-upload-box {
+.inquiry-image-upload-box {
   flex-shrink: 0; /* 크기가 줄어들지 않도록 설정 */
   width: 75px;
   height: 75px;
@@ -77,47 +69,33 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.add-image {
+.inquiry-add-image {
   display: flex;
   flex-direction: column;
   justify-content: center; /* 수직 중앙 정렬 */
   align-items: center; /* 수평 중앙 정렬 */
 }
-.camera-icon {
+.inquiry-camera-icon {
   margin-top: 8px;
 }
-.camera-text {
+.inquiry-camera-text {
   font-size: 10px;
   margin-top: 3px;
 }
-.uploaded-image {
+.inquiry-uploaded-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
 }
 
-.category-select-button {
-  width: 345px;
-  margin-top: 10px;
-  background-color: #f4bb44;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  font-size: 15px;
-  font-weight: bold;
-}
-
-.form-group {
+.inquiry-form-group {
   margin-top: 30px;
   text-align: left;
   width: 345px;
 }
 
 input[type="title"],
-input[type="price"],
 textarea {
   width: 100%;
   padding: 10px;
@@ -126,82 +104,13 @@ textarea {
   border-radius: 5px;
 }
 
-.button-group {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 10px;
-  width: 345px;
-  gap: 10px;
-}
-
-.locationSelect-button,
-.DateSelect-button {
-  background-color: #f4bb44;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: white;
-  width: 80px;
-  height: 45px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-.people-group {
-  width: 200px;
-  display: flex;
-  align-items: center;
-  background-color: #E9E3E3;
-  border-radius: 5px;
-  padding: 6px 10px;
-  gap: 10px;
-}
-.people-group-num {
-  display: flex;
-  align-items: center;
-  margin-top: 3px;
-}
-.people-font {
-  font-size: 12px;
-  font-weight: bold;
-}
-.people-input {
-  width: 25px;
-  height: 20px;
-  padding: 5px;
-  margin-bottom: 5px;
-  margin-left: 5px;
-  border-radius: 3px;
-  border: 1.5px solid gray;
-}
-.people-input::-webkit-outer-spin-button,
-.people-input::-webkit-inner-spin-button {
-  -webkit-appearance: none; /* 기본 증감 버튼 숨기기 */
-  margin: 0;
-}
-.people-checkbox {
-  width: 20px;
-  height: 20px;
-  margin-left: 5px;
-  accent-color: #f0c040;
-}
-
-.people-nolimit {
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  margin-top: 3px;
-}
-
-.textarea {
+.inquiry-textarea {
   width: 345px; /* 너비를 300px로 설정 */
   height: 150px; /* 높이를 150px로 설정 */
   resize: both; /* 사용자가 너비와 높이를 조절할 수 있도록 함 */
 }
 
-.submit-button {
+.inquiry-submit-button {
   width: 345px;
   margin-top: 50px;
   background-color: #f4bb44;
@@ -221,7 +130,7 @@ textarea::placeholder {
   color: #ccc;
 }
 
-.error-message-container {
+.inquiry-error-message-container {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -234,12 +143,12 @@ textarea::placeholder {
   text-align: center;
 }
 
-.error-message {
+.inquiry-error-message {
   margin: 0;
   font-size: 8px;
 }
 
-.remove-image-button {
+.inquiry-remove-image-button {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -257,6 +166,6 @@ textarea::placeholder {
   line-height: 1;
 }
 
-.image-upload-box {
+.inquiry-image-upload-box {
   position: relative;
 }

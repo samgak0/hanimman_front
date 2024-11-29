@@ -3,7 +3,7 @@ import './FilterBar.css';
 import { ReactComponent as BurgerIcon } from '../assets/icons/burger.svg';
 import FilterModal from './FilterModal'; // FilterModal 가져오기
 
-const FilterBar = ({ onFilterUpdate, onFilterSelect }) => {
+const FilterBar = ({ onFilterUpdate, onFilterSelect, isShareList }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
 
   // 모달 열기
@@ -42,6 +42,7 @@ const FilterBar = ({ onFilterUpdate, onFilterSelect }) => {
           className="filter-modal"
           onClose={handleCloseModal} // 모달 닫기 핸들러
           onComplete={handleCompleteFilter} // 필터 완료 핸들러
+          isShareList={true}
         />
       )}
     </div>
