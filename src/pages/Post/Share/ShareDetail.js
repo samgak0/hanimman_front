@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Slider from "react-slick";
+import ShareDetailSlider from "../../../components/ShareDetailSlider"
 import "./ShareDetail.css";
 import { ReactComponent as BackIcon } from "../../../assets/icons/back.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.svg";
@@ -46,14 +46,7 @@ const ShareDetail = () => {
     return `${year}/${month}/${day} ${hour}:${minute}`;
   };
 
-  // 슬라이더 설정
-  const settings = {
-    dots: true, // 하단 점 표시
-    infinite: true, // 무한 반복
-    speed: 500, // 전환 속도
-    slidesToShow: 1, // 한 번에 하나의 이미지만 표시
-    slidesToScroll: 1, // 스크롤 시 하나씩 이동
-  };
+ 
 
   return (
     <>
@@ -66,20 +59,9 @@ const ShareDetail = () => {
         </button>
       </header>
       <div className="share-detail-page">      
-        {/* Image Section */}
-        <div className="share-detail-image-container">
-          {post.images && post.images.length > 0 ? (
-            <Slider {...settings} className="share-detail-slider">
-              {post.images.map((url, index) => (
-                <div key={index} className="share-detail-slide">
-                  <img src={url} alt={`Slide ${index}`} className="share-detail-image" />
-                </div>
-              ))}
-            </Slider>
-          ) : (
-            <p className="no-image">이미지가 없습니다.</p>
-          )}
-        </div>
+        {/* 새로 만든 슬라이더 사용 */}
+        <ShareDetailSlider images={post.images} />
+      </div>
 
         {/* Info Section */}
         <div className="share-detail-title">
@@ -136,7 +118,7 @@ const ShareDetail = () => {
             {isApplied ? "신청완료" : "신청하기"}
           </button>
         </div>
-      </div>
+  
     </>
   );
 };

@@ -32,8 +32,6 @@
   .footer {
     width: calc(100vh * (9 / 20)); /* 20:9 비율로 고정, height 기준 */
     height: 8vh; /* 화면 높이에 맞추기 */
-    overflow-y: auto; /* 스크롤 가능 */
-    border-radius: 10px; /* 테두리 곡선 (옵션) */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
   }
 }
