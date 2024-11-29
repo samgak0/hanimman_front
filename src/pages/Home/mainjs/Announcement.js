@@ -29,6 +29,7 @@ const Announcement = () => {
   if (error) return <p>Error loading announcements: {error.message}</p>; // 에러 발생 시 표시
 
   return (
+    <div className='mobile-container'>
     <div className="announcement-container">
       <header className="announcement-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -51,6 +52,7 @@ const Announcement = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };

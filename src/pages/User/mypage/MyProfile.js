@@ -43,6 +43,7 @@ const MyProfile = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="profile-container">
       <header className="profile-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button>
@@ -75,6 +76,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

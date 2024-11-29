@@ -20,6 +20,7 @@ const MainPage = () => {
   }
 
   return (
+    <div className='mobile-container'>
     <div className='main-page'>
         <Header showLogo={true} showMenu={false} showSearch={true} showLeft={false}  />
       <div className='main-content'>
@@ -48,6 +49,7 @@ const MainPage = () => {
       </div>
       <Footer />
     </div> 
+    </div>
   )
 }
 export default MainPage;

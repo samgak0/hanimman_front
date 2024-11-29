@@ -54,6 +54,7 @@ const AccountInfo = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="account-info-container">
       <header className="account-info-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -113,6 +114,7 @@ const AccountInfo = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -29,6 +29,7 @@ const FAQ = () => {
   if (error) return <p>Error loading FAQs: {error.message}</p>; // 에러 발생 시 표시
 
   return (
+    <div className='mobile-container'>
     <div className="faq-container">
       <header className="faq-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -61,6 +62,7 @@ const FAQ = () => {
           내가한 문의
         </button>
       </div>
+    </div>
     </div>
   );
 };

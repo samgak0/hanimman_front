@@ -105,6 +105,7 @@ const InquiryCreate = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="inquiry-registration-page">
       <header className="inquiry-list-header">
         <button onClick={handleClose} className="inquiry-close-icon-button">
@@ -212,6 +213,7 @@ const InquiryCreate = () => {
       <button className="inquiry-submit-button" onClick={handleSubmit}>
         등록완료
       </button>
+    </div>
     </div>
   );
 };
