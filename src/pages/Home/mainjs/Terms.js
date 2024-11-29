@@ -27,6 +27,7 @@ const Terms = () => {
   const navigate = useNavigate();
 
   return (
+    <div className='mobile-container'>
     <div className="terms-container">
       <header className="terms-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button>
@@ -40,6 +41,7 @@ const Terms = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

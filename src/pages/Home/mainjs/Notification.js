@@ -33,6 +33,7 @@ const Notification = () => {
   const handleSettingsClick = () => navigate('/keynoti'); // KeyNoti 페이지로 이동
 
   return (
+    <div className='mobile-container'>
     <div className="notification-container">
       <header className="notification-header">
         <button className="back-button" onClick={handleBackClick}>◀︎</button>
@@ -91,6 +92,7 @@ const Notification = () => {
           </>
         )}
       </div>
+    </div>
     </div>
   );
 };

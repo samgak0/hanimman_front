@@ -30,6 +30,7 @@ const KeyNoti = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="keynoti-container">
       <header className="keynoti-header">
         <button className="back-button" onClick={handleBackClick}>◀︎</button>
@@ -54,6 +55,7 @@ const KeyNoti = () => {
           </li>
         ))}
       </ul>
+    </div>
     </div>
   );
 };
