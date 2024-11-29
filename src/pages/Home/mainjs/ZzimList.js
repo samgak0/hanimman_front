@@ -14,6 +14,7 @@ const ZzimList = () => {
   }, []);
 
   return (
+    <div className='mobile-container'>
     <div className="zzim-list">
       <header className="zzim-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button> {/* 이전 페이지로 이동 */}
@@ -40,6 +41,7 @@ const ZzimList = () => {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 };

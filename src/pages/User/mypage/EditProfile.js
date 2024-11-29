@@ -21,6 +21,7 @@ const EditProfile = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="edit-profile-container">
       <header className="edit-profile-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button>
@@ -40,6 +41,7 @@ const EditProfile = () => {
 
         <button className="save-button" onClick={handleSave}>저장</button>
       </div>
+    </div>
     </div>
   );
 };

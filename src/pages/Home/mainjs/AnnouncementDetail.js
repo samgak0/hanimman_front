@@ -30,6 +30,7 @@ const AnnouncementDetail = () => {
   if (!announcement) return <p>Announcement not found</p>; // 공지사항이 없을 때 표시
 
   return (
+    <div className='mobile-container'>
     <div className="announcement-detail-container">
       <header className="announcement-detail-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -56,6 +57,7 @@ const AnnouncementDetail = () => {
         </div>
         <p className="announcement-detail-text">{announcement.content}</p>
       </div>
+    </div>
     </div>
   );
 };

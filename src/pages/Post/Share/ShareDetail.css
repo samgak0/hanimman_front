@@ -1,0 +1,143 @@
+.share-detail-page {
+  width: 393px;
+  height: 83vh;
+  margin: 0 auto;
+  background: #fff;
+  font-family: Arial, sans-serif;
+  overflow-y: auto;
+}
+
+.share-detail-page::-webkit-scrollbar {
+  display: none; /* 웹킷 브라우저에서 스크롤바 숨기기 */
+}
+
+.share-detail-header {
+  display: flex;
+  justify-content: space-between;
+  width: 393px;
+  top: 0; /* 화면 하단 위치 */
+  margin: 0 auto;
+  padding: 15px 25px;
+  position: fixed; /* 화면 하단에 고정 */
+  background-color: #fff; /* 배경색 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+  z-index: 10; /* 다른 요소 위에 표시 */
+}
+.share-detail-slider > .slick-dots {
+  height: 10vh;
+}
+
+.share-detail-image-container {
+  width: 100%;
+  margin: 0 auto; /* 가운데 정렬 */
+}
+
+.share-detail-image {
+  width: 100%; /* 이미지가 슬라이더 너비에 맞게 */
+  height: 35vh; /* 비율 유지 */
+  object-fit: cover; /* 이미지 잘림 없이 채우기 */
+  border-radius: 8px; /* 이미지 둥근 모서리 */
+}
+
+.share-detail-title {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.share-detail-title h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.share-detail-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: bold;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  color: #7A7676;
+}
+
+.share-detail-info {
+  background: #FFF5D7; /* 밝은 노란색 계열로 변경 */
+  border-radius: 12px; /* 모서리를 더 둥글게 */
+  padding: 10px 30px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.share-detail-info h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #FF9247; /* 오렌지색으로 강조 */
+}
+
+.share-detail-text {
+  width: 10vw;
+  height: 30vh;
+  padding: 0 10px;
+}
+.share-detail-info-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* 텍스트와 아이콘 수직 정렬 */
+  font-size: 14px; /* 텍스트 크기 */
+  margin-bottom: 10px;
+}
+
+
+.share-detail-info-category > strong {
+  color: #9e9898;
+}
+
+.share-detail-actions {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #7A7676;
+  padding-top: 10px;
+  gap: 10px;
+}
+
+.share-detail-footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed; /* 화면 하단에 고정 */
+  bottom: 0; /* 화면 하단 위치 */
+  width: 385px;
+  background-color: #fff; /* 배경색 */
+  height: 60px;
+  z-index: 10; /* 다른 요소 위에 표시 */
+  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
+
+}
+
+.favorite-button,
+.chat-button,
+.apply-button {
+
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.favorite-button {
+  background: none;
+  border: none;
+}
+
+.chat-button {
+  background: #f0f0f0;
+  border: none;
+}
+
+.apply-button {
+  background: #ff9247;
+  color: #fff;
+  border: none;
+}

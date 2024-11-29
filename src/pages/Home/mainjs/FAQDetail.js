@@ -30,6 +30,7 @@ const FAQDetail = () => {
   if (!faq) return <p>FAQ not found</p>; // FAQ가 없을 때 표시
 
   return (
+    <div className='mobile-container'>
     <div className="faq-detail-container">
       <header className="faq-detail-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -53,6 +54,7 @@ const FAQDetail = () => {
         </div>
         <p className="faq-detail-text">{faq.content}</p>
       </div>
+    </div>
     </div>
   );
 };

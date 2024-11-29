@@ -15,6 +15,7 @@ import Announcement from "./pages/Home/mainjs/Announcement";
 import AnnouncementDetail from "./pages/Home/mainjs/AnnouncementDetail";
 import FAQ from "./pages/Home/mainjs/FAQ";
 import FAQDetail from "./pages/Home/mainjs/FAQDetail";
+import InquiryCreate from "./pages/Home/mainjs/InquiryCreate";
 import Terms from "./pages/Home/mainjs/Terms";
 import authRoutes from "./routes/authRoutes";
 import mainRoutes from "./routes/mainRoutes";
@@ -82,6 +83,10 @@ const App = () => {
             element={<PrivateRoute element={<FAQDetail />} />}
           />
           <Route path="/terms" element={<PrivateRoute element={<Terms />} />} />
+          <Route
+            path="/inquiry"
+            element={<PrivateRoute element={<InquiryCreate />} />}
+          />
 
           {/* Main 관련 경로 */}
           {mainRoutes.map(({ path, element }) => (

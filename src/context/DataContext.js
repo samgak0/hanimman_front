@@ -10,6 +10,8 @@ export const DataProvider = ({ children }) => {
   const [selectedLocation, setSelectedLocation] = useState(null); // 같이가요 위치 정보
   const [shareAppliedPosts, setShareAppliedPosts] = useState([]); // 나눠요 신청된 게시글 상태
   const [appliedPosts, setAppliedPosts] = useState([]); // 같이가요 신청된 게시글 상태
+  const [shareDetailState, setShareDetailState] = useState(null); // 선택된 게시글 상태
+
 
   // 나눠요 신청 처리 함수
   const applyForSharePost = (postId) => {
@@ -49,6 +51,8 @@ export const DataProvider = ({ children }) => {
         applyForSharePost,
         appliedPosts,
         applyForTogetherPost,
+        shareDetailState,
+        setShareDetailState
       }}
     >
       {children}
