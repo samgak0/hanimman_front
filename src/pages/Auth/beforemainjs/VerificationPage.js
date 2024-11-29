@@ -1,9 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from "uuid";
 
 const VerificationPage = () => {
+  const location = useLocation(); // URL 정보 가져오기
+  const queryParams = new URLSearchParams(location.search); // 쿼리 파라미터 처리
+  const legalCode = queryParams.get('address'); // 법정 코드 가져오기
+
   const [verificationId, setVerificationId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -14,50 +19,37 @@ const VerificationPage = () => {
       const uniqueId = uuidv4();
 
       try {
-        // // 포트원 본인인증 요청 부분
-        // const response = await PortOne.requestIdentityVerification({
-        //   storeId: "store-302994fc-3ebb-4893-9225-815b7ece31f7",
-        //   identityVerificationId: `identity-verification-${uniqueId}`,
-        //   channelKey: "channel-key-d057bd45-bd94-4a77-9988-64084b164fd6",
-        //   windowType: {
-        //     pc: "POPUP",
-        //     mobile: "REDIRECTION",
-        //   },
-        //   redirectUrl: "http://localhost:3000/verification/mobile"
-        // });
+        // 포트원 본인인증 요청 부분
+        const response = await PortOne.requestIdentityVerification({
+          storeId: "store-302994fc-3ebb-4893-9225-815b7ece31f7",
+          identityVerificationId: `identity-verification-${uniqueId}`,
+          channelKey: "channel-key-d057bd45-bd94-4a77-9988-64084b164fd6",
+          windowType: {
+            pc: "POPUP",
+            mobile: "REDIRECTION",
+          },
+          redirectUrl: "http://localhost:3000/verification/mobile"
+        });
 
-        // if (response.code !== undefined) {
-        //   return alert(response.message);
-        // }
-        // setVerificationId(response.identityVerificationId);
+        if (response.code !== undefined) {
+          return alert(response.message);
+        }
+        setVerificationId(response.identityVerificationId);
 
-        // // 본인 인증 결과를 서버로 전송 (API 응답 처리 부분)
-        // const verificationResult = await fetch("http://localhost:8080/identity-verifications", {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify({
-        //     identityVerificationId: response.identityVerificationId,
-        //   }),
-        // });
+        // 본인 인증 결과를 서버로 전송 (API 응답 처리 부분)
+        const verificationResult = await fetch("http://localhost:8080/identity-verifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            identityVerificationId: response.identityVerificationId,
+          }),
+        });
 
-        // if (!verificationResult.ok) {
-        //   throw new Error("본인 인증 결과 조회 실패");
-        // }
+        if (!verificationResult.ok) {
+          throw new Error("본인 인증 결과 조회 실패");
+        }
 
-        
-
-        // const resultData = await verificationResult.json();
-
-        const resultData = {
-          identityVerificationId:
-            "port-customer-id-019360cd-30a9-409b-cfeb-ebce8ac3389e", // 인증 ID
-          name: "홍길동", // 사용자 이름
-          phoneNumber: "01012345678", // 사용자 전화번호
-          gender: "MALE",
-          birthDate: "2000-12-31",
-          isForeigner: false,
-        };
-
+        const resultData = await verificationResult.json();
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
         const verifyAndSignupOrLogin = await fetch(
@@ -67,26 +59,29 @@ const VerificationPage = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(resultData),
+            body: JSON.stringify({
+              ...resultData,
+              legalCode, // 법정 코드 추가
+            }),
             credentials: "include",
           }
         );
 
         if (verifyAndSignupOrLogin.ok) {
-          const responseToken =
-            verifyAndSignupOrLogin.headers.get("Authorization");
+          const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
           const responseRefreshToken = verifyAndSignupOrLogin.headers.get("Refresh-Token");
+
           if (responseToken) {
-            const tokenWithoutBearer = responseToken.replace("Bearer", "");
+            const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
             setMessage("회원가입 또는 로그인 성공!");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
           }
 
-           if(responseRefreshToken){
+          if (responseRefreshToken) {
             localStorage.setItem("refreshToken", responseRefreshToken);
-           } 
+          }
 
         } else {
           const errorData = await verifyAndSignupOrLogin.json();
@@ -101,7 +96,7 @@ const VerificationPage = () => {
     };
 
     requestVerification();
-  }, []);
+  }, [legalCode]); // legalCode가 변경될 때마다 effect 실행
 
   return (
     <div>
