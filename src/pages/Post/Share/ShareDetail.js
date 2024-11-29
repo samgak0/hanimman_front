@@ -49,7 +49,7 @@ const ShareDetail = () => {
  
 
   return (
-    <>
+    <div className="share-detail-root">
       <header className="share-detail-header">
         <button className="back-button" onClick={() => navigate(-1)}>
           <BackIcon />
@@ -119,7 +119,7 @@ const ShareDetail = () => {
           </button>
         </div>
   
-    </>
+    </div>
   );
 };
 

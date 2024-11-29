@@ -1,68 +1,65 @@
+
 /* 슬라이더 컨테이너 */
 .sharedetail-slider {
-  
   width: 100%;
   max-width: 393px;
   margin: 0 auto;
   overflow: hidden;
- 
+  position: relative;
 }
 
 /* 슬라이드 이미지 컨테이너 */
 .sharedetail-slider-container {
+  margin-top: 30vh;
   display: flex;
   transition: transform 0.5s ease-in-out;
-  margin-top: 48%;
-  border: 1px solid black;
-  height: 50vh;
+  height: 50vh; /* 슬라이드 높이 */
 }
 
 /* 각 슬라이드 */
 .sharedetail-slide {
+  flex: 0 0 100%; /* 한 번에 하나의 슬라이드만 보이도록 설정 */
   display: none;
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative; /* 인디케이터 버튼 위치를 위한 기준 설정 */
 }
 
 .sharedetail-slide.active {
-  display: flex;
-  width: 100%;
-  height: 100%; /* 상위 컨테이너의 높이를 채움 */
-  object-fit: cover; /* 비율을 유지하면서 잘리지 않고 꽉 차게 */
+  display: flex; /* 활성화된 슬라이드만 보이도록 설정 */
 }
 
 /* 슬라이드 이미지 */
 .sharedetail-slide-image {
   width: 100%;
   height: 100%; /* 상위 컨테이너의 높이를 채움 */
-  object-fit: cover; /* 비율을 유지하면서 잘리지 않고 꽉 차게 */
-
+  object-fit: cover; /* 비율을 유지하며 잘리지 않고 꽉 차게 */
 }
 
-/* 슬라이더 컨트롤 버튼 */
-.slider-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+/* 슬라이더 인디케이터 */
+.slider-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* 이미지 내부에 위치하도록 */
+  bottom: 10px; /* 이미지 하단에 배치 */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; /* 이미지 위에 표시 */
+}
+
+/* 각 인디케이터 */
+.slider-indicator {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
   border-radius: 50%;
-  z-index: 10;
+  background-color: rgba(214, 212, 212, 0.6); /* 반투명 흰색 */
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.slider-button.prev {
-  left: 10px;
-}
-
-.slider-button.next {
-  right: 10px;
-}
-
-.slider-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
+.slider-indicator.active {
+  background-color: rgb(250, 191, 79); /* 활성화된 인디케이터는 불투명 */
 }
