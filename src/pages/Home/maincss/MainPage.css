@@ -1,5 +1,4 @@
 .main-page {
-  max-width: 393px; /* 최대 크기 제한 */
   border: none;
   overflow-y: auto;
 }
