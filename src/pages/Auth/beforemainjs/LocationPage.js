@@ -12,7 +12,7 @@ const LocationPage = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
 
-          // 위도와 경도를 백엔드로 전송
+          // 위도와 경도를 백엔드로 전송주소
           try {
             const response = await fetch(`http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`, {
               method: 'GET',
