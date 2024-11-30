@@ -42,6 +42,7 @@ const MainSettings = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="settings-container">
       <header className="settings-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -219,6 +220,7 @@ const MainSettings = () => {
 )}
 
 
+    </div>
     </div>
   );
 };

@@ -171,6 +171,7 @@ const TogetherCreate = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="registration-page">
       <header className="list-header">
         <button onClick={handleClose} className="close-icon-button">
@@ -337,6 +338,7 @@ const TogetherCreate = () => {
           onSelectDate={handleDateSelect}
         />
       )}
+    </div>
     </div>
   );
 };
