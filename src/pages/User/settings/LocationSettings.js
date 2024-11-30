@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../beforemaincss/LocationPage.css';
+import './MainSettings.css';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
@@ -27,16 +27,8 @@ const LocationPage = () => {
 
               if (data) {
                 setLocation(data); // 백엔드에서 받은 데이터를 상태로 설정
-                
-                // 알림창으로 정보 표시
-                const message = `${data.cityName}\n${data.districtName}\n${data.neighborhoodName}\n"현재주소로 등록 하시겠습니까?"`;
-                const userConfirmed = window.confirm(message);
-                
-                if (userConfirmed) {
-                  // 확인 버튼 클릭 시 이동
-                  navigate(`/verification?address=${encodeURIComponent(data.id)}`);
-                }
-                // 취소 버튼 클릭 시 현재 페이지에 머무릅니다.
+                // 법정 코드만 URL 파라미터로 이동
+                navigate(`/verification?address=${encodeURIComponent(data.id)}`);
               } else {
                 alert('유효한 데이터가 없습니다.');
               }
@@ -65,6 +57,14 @@ const LocationPage = () => {
       <button onClick={fetchLocation} className="location-button">
         현재 위치로 찾기
       </button>
+      {location && (
+        <div>
+          <p>법정 코드: {location.id}</p>
+          <p>시: {location.cityName}</p>
+          <p>구: {location.districtName}</p>
+          <p>동: {location.neighborhoodName}</p>
+        </div>
+      )}
     </div>
     </div>
   );

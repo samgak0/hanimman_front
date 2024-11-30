@@ -61,8 +61,10 @@ const MobileVerificationPage = () => {
   }, [identityVerificationId, navigate]);  // 의존성 배열에 identityVerificationId 추가
 
   return (
+    <div className='mobile-container'>
     <div>
       {/* 페이지 내용 */}
+    </div>
     </div>
   );
 };
