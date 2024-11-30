@@ -4,18 +4,9 @@ import "./ShareDetailSlider.css";
 const ShareDetailSlider = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 다음 슬라이드로 이동
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-  };
-
-  // 이전 슬라이드로 이동
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+  // 특정 슬라이드로 이동
+  const goToSlide = (index) => {
+    setCurrentIndex(index);
   };
 
   if (!images || images.length === 0) {
@@ -24,6 +15,7 @@ const ShareDetailSlider = ({ images }) => {
 
   return (
     <div className="sharedetail-slider">
+      {/* 슬라이드 컨테이너 */}
       <div className="sharedetail-slider-container">
         {images.map((image, index) => (
           <div
@@ -43,13 +35,18 @@ const ShareDetailSlider = ({ images }) => {
         ))}
       </div>
 
-      {/* 슬라이더 컨트롤 버튼 */}
-      <button className="slider-button prev" onClick={prevSlide}>
-        &#8249;
-      </button>
-      <button className="slider-button next" onClick={nextSlide}>
-        &#8250;
-      </button>
+      {/* 인디케이터 버튼 */}
+      <div className="slider-indicators">
+        {images.map((_, index) => (
+          <div
+            key={index}
+            className={`slider-indicator ${
+              index === currentIndex ? "active" : ""
+            }`}
+            onClick={() => goToSlide(index)}
+          ></div>
+        ))}
+      </div>
     </div>
   );
 };

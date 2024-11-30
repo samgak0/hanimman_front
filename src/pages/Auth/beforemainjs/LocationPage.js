@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';  // useHistory -> useNavigate로 수정
+import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LocationPage.css';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
-  const navigate = useNavigate();  // useNavigate 훅 사용
-// navigate('/verification')
+  const navigate = useNavigate();
+
   const fetchLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
 
-          // 위도와 경도를 백엔드로 전송주소
+          // 위도와 경도를 백엔드로 전송
           try {
             const response = await fetch(`http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`, {
               method: 'GET',
@@ -21,14 +21,14 @@ const LocationPage = () => {
               },
             });
 
+            if (response.ok) {
+              const data = await response.json();
+              console.log('API Response:', data); // API 응답 확인
 
-          if (response.ok) {
-            const data = await response.json();
-            console.log('API Response:', data); // API 응답 확인
-            
-              // API 응답에서 직접 데이터 사용
               if (data) {
                 setLocation(data); // 백엔드에서 받은 데이터를 상태로 설정
+                // 법정 코드만 URL 파라미터로 이동
+                navigate(`/verification?address=${encodeURIComponent(data.id)}`);
               } else {
                 alert('유효한 데이터가 없습니다.');
               }
