@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../beforemaincss/LocationPage.css';
+import './MainSettings.css';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
