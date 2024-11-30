@@ -67,7 +67,7 @@ const TogetherDetail = () => {
         await deleteTogetherFavorite(post.id);
         setIsFavorite(false);
       } else {
-        await createTogetherFavorite({ togetherId: post.id });
+        await createTogetherFavorite({ parentId: post.id });
         setIsFavorite(true);
       }
     } catch (error) {
@@ -100,99 +100,99 @@ const TogetherDetail = () => {
   };
 
   return (
-    <div className='mobile-container'>
-    <div className="together-detail-page">
-      {/* Header */}
-      <header className="detail-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          <BackIcon />
-        </button>
-        <button className="notify-button" onClick={() => navigate}>
-          <NotifyIcon />
-        </button>
-      </header>
+    <div className="mobile-container">
+      <div className="together-detail-page">
+        {/* Header */}
+        <header className="detail-header">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            <BackIcon />
+          </button>
+          <button className="notify-button" onClick={() => navigate}>
+            <NotifyIcon />
+          </button>
+        </header>
 
-      {/* Image Section */}
-      <div className="detail-image-container">
-        {post.imageIds && post.imageIds.length > 0 ? (
-          post.imageIds.length === 1 ? (
-            <img
-              src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
-              alt="상품 이미지"
-              className="detail-image"
-            />
+        {/* Image Section */}
+        <div className="detail-image-container">
+          {post.imageIds && post.imageIds.length > 0 ? (
+            post.imageIds.length === 1 ? (
+              <img
+                src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
+                alt="상품 이미지"
+                className="detail-image"
+              />
+            ) : (
+              <Slider {...settings}>
+                {post.imageIds.map((id, index) => (
+                  <div key={index}>
+                    <img
+                      src={`http://localhost:8080/api/v1/together/download?id=${id}`}
+                      alt={`Slide ${index}`}
+                      className="detail-image"
+                    />
+                  </div>
+                ))}
+              </Slider>
+            )
           ) : (
-            <Slider {...settings}>
-              {post.imageIds.map((id, index) => (
-                <div key={index}>
-                  <img
-                    src={`http://localhost:8080/api/v1/together/download?id=${id}`}
-                    alt={`Slide ${index}`}
-                    className="detail-image"
-                  />
-                </div>
-              ))}
-            </Slider>
-          )
-        ) : (
-          <p className="no-image">이미지가 없습니다.</p>
-        )}
-      </div>
-
-      {/* Info Section */}
-      <div className="detail-title">
-        <h2>{post.title}</h2>
-        <p>{post.price}원</p>
-      </div>
-      <div className="detail-meta">
-        <div className="detail-meta-location">
-          <CalendarIcon className="calendar-icon" />{" "}
-          {post.address || "위치 정보 없음"}
-        </div>
-        <div className="detail-meta-date">{formatDate(post.createdAt)}</div>
-        <div className="detail-meta-count">
-          <ViewIcon className="view-count" /> {post.views}{" "}
-          <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
-        </div>
-      </div>
-      <div className="detail-info">
-        <h2>상세정보</h2>
-        <div className="detail-info-category">
-          <strong>카테고리 </strong>{" "}
-          <p>{post.selectedCategory || "카테고리 없음"}</p>
-        </div>
-        <div className="detail-info-category">
-          <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>
-        </div>
-        <div className="detail-info-category">
-          <strong>현재인원 </strong>
-          <p>
-            {currentApplicants}/{totalPeople}명{" "}
-          </p>
-        </div>
-      </div>
-      <div className="detail-text">{post.content || "내용 없음"}</div>
-
-      {/* Footer Buttons */}
-      <div className="detail-actions">
-        <button className="favorite-button" onClick={toggleFavorite}>
-          {isFavorite ? (
-            <HeartFullIcon className="zzimOn" />
-          ) : (
-            <HeartEmptyIcon className="zzimOff" />
+            <p className="no-image">이미지가 없습니다.</p>
           )}
-        </button>
+        </div>
 
-        <button className="chat-button">채팅하기</button>
-        <button
-          className="apply-button"
-          onClick={handleApply}
-          disabled={isApplied}
-        >
-          {isApplied ? "신청완료" : "신청하기"}
-        </button>
+        {/* Info Section */}
+        <div className="detail-title">
+          <h2>{post.title}</h2>
+          <p>{post.price}원</p>
+        </div>
+        <div className="detail-meta">
+          <div className="detail-meta-location">
+            <CalendarIcon className="calendar-icon" />{" "}
+            {post.address || "위치 정보 없음"}
+          </div>
+          <div className="detail-meta-date">{formatDate(post.createdAt)}</div>
+          <div className="detail-meta-count">
+            <ViewIcon className="view-count" /> {post.views}{" "}
+            <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
+          </div>
+        </div>
+        <div className="detail-info">
+          <h2>상세정보</h2>
+          <div className="detail-info-category">
+            <strong>카테고리 </strong>{" "}
+            <p>{post.selectedCategory || "카테고리 없음"}</p>
+          </div>
+          <div className="detail-info-category">
+            <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>
+          </div>
+          <div className="detail-info-category">
+            <strong>현재인원 </strong>
+            <p>
+              {currentApplicants}/{totalPeople}명{" "}
+            </p>
+          </div>
+        </div>
+        <div className="detail-text">{post.content || "내용 없음"}</div>
+
+        {/* Footer Buttons */}
+        <div className="detail-actions">
+          <button className="favorite-button" onClick={toggleFavorite}>
+            {isFavorite ? (
+              <HeartFullIcon className="zzimOn" />
+            ) : (
+              <HeartEmptyIcon className="zzimOff" />
+            )}
+          </button>
+
+          <button className="chat-button">채팅하기</button>
+          <button
+            className="apply-button"
+            onClick={handleApply}
+            disabled={isApplied}
+          >
+            {isApplied ? "신청완료" : "신청하기"}
+          </button>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
