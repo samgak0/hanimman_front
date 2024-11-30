@@ -1,13 +1,14 @@
+/* 기본 버튼 스타일 */
 .register-button-container {
   position: fixed; /* 하단에 고정 */
   bottom: 0; /* 화면 하단에 위치 */
   left: 50%; /* 화면의 가운데 기준 */
-  transform: translateX(240%) translateY(-130%); /* 가운데 정렬 */
-  height: 60px;
+  transform: translateX(240%) translateY(-130%); /* 기본적인 중앙 위치 */
   display: flex;
   z-index: 900; /* modal 아래, footer 위 */
 }
 
+/* 기본 버튼 스타일 */
 .register-button {
   width: 50px;
   height: 50px;
@@ -28,4 +29,31 @@
 
 .register-button:active {
   transform: scale(0.95); /* 클릭 시 크기 감소 */
+}
+
+/* Desktop (min-width: 1025px) */
+@media all and (min-width: 1025px) {
+  .register-button-container {
+    bottom: 10vh; /* 화면 하단에서 10vh 위 */
+    left: 50%; /* 화면의 가로 중앙 */
+    transform: translateX(calc(30% * (100vh * (9 / 20)))) translateY(-130%); /* 가로 중앙을 기준으로 30%만큼 오른쪽으로 이동 */
+  }
+}
+
+/* Tablet (768px ≤ width ≤ 1024px) */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .register-button-container {
+    bottom: 8vh; /* 화면 하단에서 8vh 위 */
+    left: 50%; /* 화면의 가로 중앙 */
+    transform: translateX(calc(20% * (100vh * (9 / 20)))) translateY(-120%); /* 20%만큼 오른쪽으로 이동 */
+  }
+}
+
+/*모바일 가로, 세로 : -767px*/
+@media all and (max-width:767px){
+  .register-button-container {
+    bottom: 8vh; /* 화면 하단에서 8vh 위 */
+    left: 50%; /* 화면의 가로 중앙 */
+    transform: translateX(calc(20% * (100vh * (9 / 20)))) translateY(-120%); /* 20%만큼 오른쪽으로 이동 */
+  }
 }

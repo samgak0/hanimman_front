@@ -23,8 +23,10 @@ const LoadingScreen = () => {
   }, [navigate]);
 
   return (
+    <div className='mobile-container'>
     <div className="loading-container">
       <img src={`${process.env.PUBLIC_URL}/mangologo.png`} alt="Loading Logo" className="logo" />
+    </div>
     </div>
   );
 };
