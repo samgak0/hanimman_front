@@ -46,10 +46,8 @@ const ShareDetail = () => {
     return `${year}/${month}/${day} ${hour}:${minute}`;
   };
 
- 
-
   return (
-    <>
+    <div className='mobile-container'>
       <header className="share-detail-header">
         <button className="back-button" onClick={() => navigate(-1)}>
           <BackIcon />
@@ -119,7 +117,7 @@ const ShareDetail = () => {
           </button>
         </div>
   
-    </>
+    </div>
   );
 };
 

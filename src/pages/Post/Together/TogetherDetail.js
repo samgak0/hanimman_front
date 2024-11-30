@@ -100,6 +100,7 @@ const TogetherDetail = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="together-detail-page">
       {/* Header */}
       <header className="detail-header">
@@ -191,6 +192,7 @@ const TogetherDetail = () => {
           {isApplied ? "신청완료" : "신청하기"}
         </button>
       </div>
+    </div>
     </div>
   );
 };

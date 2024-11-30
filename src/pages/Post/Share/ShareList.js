@@ -68,7 +68,7 @@ const formatDate = (dateString) => {
 
 
   return (
-    <>
+    <div className='mobile-container'>
       <Header
         showMenu={true}
         showSearch={true}
@@ -152,12 +152,12 @@ const formatDate = (dateString) => {
           <p className="no-posts">등록된 게시물이 없습니다.</p>
         )}
       </div>
-      <>
+      <div>
         {loading && <p>Loading more posts...</p>}
         <RegisterButton onClick={handleRegister} />
         <Footer />
-      </>
-    </>
+      </div>
+    </div>
   );
 };
 export default ShareList;

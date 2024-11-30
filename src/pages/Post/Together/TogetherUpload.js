@@ -2,8 +2,10 @@ import "./TogetherUpload.css";
 
 const TogetherUpload = () => {
   return (
+    <div className='mobile-container'>
     <>
     </>
+    </div>
   )
 }
 

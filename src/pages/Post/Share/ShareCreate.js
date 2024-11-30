@@ -122,6 +122,7 @@ const ShareCreate = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="registration-page">
       <header className="list-header">
         <button onClick={() => navigate("/sharelist")} className="close-icon-button">
@@ -132,12 +133,12 @@ const ShareCreate = () => {
 
       <div className="image-slider-container" style={{ position: "relative" }}>
         <div
-           ref={sliderRef}
-           className="image-upload-container"
-           onMouseDown={handleMouseDown}
-           onMouseMove={handleMouseMove}
-           onMouseUp={handleMouseUpOrLeave}
-           onMouseLeave={handleMouseUpOrLeave}
+          ref={sliderRef}
+          className="image-upload-container"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUpOrLeave}
+          onMouseLeave={handleMouseUpOrLeave}
         >
          {/* 고정된 사진등록 버튼 */}
     <div className="image-upload-box">
@@ -276,6 +277,7 @@ const ShareCreate = () => {
       <button className="submit-button" onClick={handleShareSubmit}>
         등록완료
       </button>
+    </div>
     </div>
   );
 };

@@ -88,6 +88,7 @@ const TogetherList = () => {
   if (error) return <p>Error loading posts: {error.message}</p>;
 
   return (
+    <div className='mobile-container'>
     <div className="together-list-page">
       <Header
         showMenu={true}
@@ -171,6 +172,7 @@ const TogetherList = () => {
       {loading && <p>Loading more posts...</p>}
       <RegisterButton onClick={handleRegister} />
       <Footer />
+    </div>
     </div>
   );
 };

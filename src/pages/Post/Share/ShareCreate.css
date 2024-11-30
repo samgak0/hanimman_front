@@ -1,8 +1,13 @@
+.registration-page {
+  width: 100%;
+  height: 100%;
+}
+
 .share-button-group {
   display: flex;
- margin-top: 10px;
- width: 345px;
- gap: 10px;
+  margin-top: 10px;
+  width: 345px;
+  gap: 10px;
 }
 
 .share-button-specify {
@@ -42,10 +47,9 @@
   margin: 0;
 }
 
-
-
 .share-uploaded-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
