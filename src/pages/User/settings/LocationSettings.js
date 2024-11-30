@@ -4,7 +4,7 @@ import './MainSettings.css';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const fetchLocation = () => {
     if (navigator.geolocation) {
@@ -28,7 +28,7 @@ const LocationPage = () => {
               if (data) {
                 setLocation(data); // 백엔드에서 받은 데이터를 상태로 설정
                 // 법정 코드만 URL 파라미터로 이동
-                navigate(`/verification?address=${encodeURIComponent(data.id)}`);
+                // navigate(`/verification?address=${encodeURIComponent(data.id)}`);
               } else {
                 alert('유효한 데이터가 없습니다.');
               }
