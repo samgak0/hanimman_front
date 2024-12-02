@@ -7,6 +7,7 @@ import MyPost from '../pages/User/mypage/MyPost';
 import MyParticipation from '../pages/User/mypage/MyParticipation';
 import AccountInfo from '../pages/User/mypage/AccountInfo';
 import MainSettings from '../pages/User/settings/MainSettings';
+import LocationSettings from '../pages/User/settings/LocationSettings';
 
 
 const userRoutes = [
@@ -18,6 +19,7 @@ const userRoutes = [
   { path: "/myparticipation", element: <MyParticipation /> },
   { path: "/mainsettings", element: <MainSettings /> },
   { path: "/user/account", element: <AccountInfo /> },
+  { path: "/locationsettings", element: <LocationSettings /> },
 
 ];
 

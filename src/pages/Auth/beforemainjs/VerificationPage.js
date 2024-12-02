@@ -99,6 +99,7 @@ const VerificationPage = () => {
   }, [legalCode]); // legalCode가 변경될 때마다 effect 실행
 
   return (
+    <div className='mobile-container'>
     <div>
       <h2>본인인증 페이지</h2>
       <p>본인인증 절차를 진행해주세요.</p>
@@ -107,6 +108,7 @@ const VerificationPage = () => {
       {verificationId && (
         <p>본인인증이 완료되었습니다. 인증 ID: {verificationId}</p>
       )}
+    </div>
     </div>
   );
 };

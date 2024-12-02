@@ -16,12 +16,14 @@ const LoginPage = () => {
   };
 
   return (
+    <div className='mobile-container'>
     <div className="login-container">
       <img src={`${process.env.PUBLIC_URL}/mangologo.png`} alt="Loading Logo" className="logo" />
       <button className="start-button" onClick={handleStart}>시작하기</button>
       <div className="login-prompt">
         이미 계정이 있나요? <button className="login-button" onClick={handleLoginRedirect}>로그인</button>
       </div>
+    </div>
     </div>
   );
 };
