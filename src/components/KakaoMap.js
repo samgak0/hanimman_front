@@ -20,7 +20,6 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
 
       window.kakao.maps.event.addListener(map, "click", async function (mouseEvent) {
         const latlng = mouseEvent.latLng;
-        console.log(latlng);
         marker.setPosition(latlng);
 
         const clickedPosition = {

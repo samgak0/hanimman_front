@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'; // useState, useEffect 추가
 import './MyProfile.css';
 import { useNavigate } from 'react-router-dom';
+import jwtAxios from '../../../api/jwtAxios';
 
 const MyProfile = () => {
   const navigate = useNavigate();
-  const mannerScore = 26; // 매너 당도 예시 값 (1~50)
+  const [mannerScore, setMannerScore] = useState(null); // 매너 당도 예시 값 (1~50)
+  const [nickname, setNickname] = useState(null);
+  const [profiles, setProfiles] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    // API 호출
+    jwtAxios.get("http://localhost:8080/users/myprofile")
+    .then(response => {
+      // 성공적으로 응답이 오면 처리
+      setNickname(response.data.nickname);
+      setMannerScore(response.data.brix);
+    })
+    .catch(error => {
+      // 오류 처리
+      if (error.response) {
+        // 서버가 응답했지만 상태 코드가 2xx 범위를 벗어난 경우
+        console.error("오류 상태:", error.response.status);
+        console.error("오류 메시지:", error.response.data);
+      } else if (error.request) {
+        // 요청이 전송되었지만 응답이 없는 경우
+        console.error("응답 없음:", error.request);
+      } else {
+        // 요청을 설정하는 중에 문제가 발생한 경우
+        console.error("요청 오류:", error.message);
+      }
+    });
+  }, []);  // 빈 배열을 넣어 컴포넌트가 처음 렌더링될 때만 호출되도록 함
 
   // 색상 간 보간(interpolation)을 계산하는 함수
   const interpolateColor = (startColor, endColor, factor) => {
@@ -44,39 +72,39 @@ const MyProfile = () => {
 
   return (
     <div className='mobile-container'>
-    <div className="profile-container">
-      <header className="profile-header">
-        <button className="back-button" onClick={() => navigate(-1)}>◀</button>
-        <h1>프로필</h1>
-        <button className="share-button">🔗</button>
-      </header>
+      <div className="profile-container">
+        <header className="profile-header">
+          <button className="back-button" onClick={() => navigate(-1)}>◀</button>
+          <h1>프로필</h1>
+          <button className="share-button">🔗</button>
+        </header>
 
-      <div className="profile-main">
-        <div className="profile-info">
-          <img className="profile-avatar" src="/images/default-avatar.png" alt="프로필 사진" />
-          <div className="profile-details">
-            <h2>어느새 <span>#5039366</span></h2>
-            <button className="edit-profile-btn" onClick={() => navigate('/editprofile')}>프로필 수정</button>
+        <div className="profile-main">
+          <div className="profile-info">
+            <img className="profile-avatar" src="/images/default-avatar.png" alt="프로필 사진" />
+            <div className="profile-details">
+              <h2>{nickname}<span>#5039366</span></h2>
+              <button className="edit-profile-btn" onClick={() => navigate('/editprofile')}>프로필 수정</button>
+            </div>
           </div>
-        </div>
 
-        <div className="profile-stats">
-          <div className="stat-item">
-            <span>매너 당도</span>
-            <span>{mannerScore}Brix</span>
-          </div>
-          <div className="progress-bar">
-            <div
-              className="progress-fill"
-              style={{
-                width: `${(mannerScore / 50) * 100}%`, // 당도 비율로 너비 계산
-                backgroundColor: getDynamicColor(mannerScore), // 당도에 따른 색상 적용
-              }}
-            ></div>
+          <div className="profile-stats">
+            <div className="stat-item">
+              <span>매너 당도</span>
+              <span>{mannerScore}Brix</span>
+            </div>
+            <div className="progress-bar">
+              <div
+                className="progress-fill"
+                style={{
+                  width: `${(mannerScore / 50) * 100}%`, // 당도 비율로 너비 계산
+                  backgroundColor: getDynamicColor(mannerScore), // 당도에 따른 색상 적용
+                }}
+              ></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
