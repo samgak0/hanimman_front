@@ -18,14 +18,39 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
       });
       marker.setMap(map);
 
-      window.kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+      window.kakao.maps.event.addListener(map, "click", async function (mouseEvent) {
         const latlng = mouseEvent.latLng;
+        console.log(latlng);
         marker.setPosition(latlng);
 
-        setClickedPosition({
+        const clickedPosition = {
           lat: latlng.getLat(),
           lng: latlng.getLng(),
-        });
+        };
+
+        setClickedPosition(clickedPosition);
+
+        // 클릭한 위치의 위도와 경도를 백엔드로 전송 (GET 방식)
+        try {
+          const response = await fetch(`http://localhost:8080/api/location/save?lat=${clickedPosition.lat}&lng=${clickedPosition.lng}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            // 응답 데이터를 프론트에 출력
+            console.log('백엔드 응답:', data);
+            alert(`위치 저장 완료: 위도 ${data.lat}, 경도 ${data.lng}`);
+          } else {
+            alert('위치 저장 실패');
+          }
+        } catch (error) {
+          console.error('API 호출 중 오류 발생:', error);
+          alert('API 호출 중 오류가 발생했습니다.');
+        }
       });
     };
 
@@ -45,7 +70,7 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
   }, [currentPosition, setClickedPosition]);
 
   return (
-    <div id="map" style={{width:'100%',height:"60vh"}}></div>
+    <div id="map" style={{ width: '100%', height: "60vh" }}></div>
   );
 };
 
