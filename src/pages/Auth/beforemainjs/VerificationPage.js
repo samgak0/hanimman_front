@@ -62,7 +62,6 @@ const VerificationPage = () => {
             },
             body: JSON.stringify({
               ...resultData,
-              legalCode, // 법정 코드 추가
             }),
             credentials: "include",
           }
@@ -70,20 +69,15 @@ const VerificationPage = () => {
 
         if (verifyAndSignupOrLogin.ok) {
           const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
-          const responseRefreshToken = verifyAndSignupOrLogin.headers.get("Refresh-Token");
 
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
             setMessage("회원가입 또는 로그인 성공!");
+            navigate("/location");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
           }
-
-          if (responseRefreshToken) {
-            localStorage.setItem("refreshToken", responseRefreshToken);
-          }
-
           // 리다이렉트: 법정 코드 없이 페이지 전환
           navigate("/verification");
           

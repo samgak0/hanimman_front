@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LocationPage.css';
+import jwtAxios from '../../../api/jwtAxios';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
