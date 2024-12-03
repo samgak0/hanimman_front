@@ -15,19 +15,21 @@ const ShareList = () => {
   const { posts } = useContext(DataContext); // Context에서 posts 가져오기
   const { setShareDetailState } = useContext(DataContext);
   const [loading, setLoading] = useState(false);
+  const [currentLocation, setCurrentLocation] = useState("우동"); // 선택된 위치 초기값
   const observer = useRef();
 
   // 날짜 형식 변경 함수
-const formatDate = (dateString) => {
-  if (!dateString) return "날짜 없음";
-  const date = new Date(dateString);
-  const year = date.getFullYear().toString().slice(2); // 연도 두 자리
-  const month = (date.getMonth() + 1).toString().padStart(2, "0"); // 월 두 자리
-  const day = date.getDate().toString().padStart(2, "0"); // 일 두 자리
-  const hours = date.getHours().toString().padStart(2, "0"); // 시간 두 자리
-  const minutes = date.getMinutes().toString().padStart(2, "0"); // 분 두 자리
-  return `${year}/${month}/${day} ${hours}시${minutes}분`; // 날짜와 시간 반환
-};
+  const formatDate = (dateString) => {
+    if (!dateString) return "날짜 없음";
+    const date = new Date(dateString);
+    const year = date.getFullYear().toString().slice(2); // 연도 두 자리
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // 월 두 자리
+    const day = date.getDate().toString().padStart(2, "0"); // 일 두 자리
+    const hours = date.getHours().toString().padStart(2, "0"); // 시간 두 자리
+    const minutes = date.getMinutes().toString().padStart(2, "0"); // 분 두 자리
+    return `${year}/${month}/${day} ${hours}시${minutes}분`; // 날짜와 시간 반환
+  };
+
   const handleOpenFilterModal = () => {
     setIsFilterModalVisible(true); // 필터 모달 열기
   };
@@ -55,7 +57,6 @@ const formatDate = (dateString) => {
     navigate("/sharecreate"); // 공유 등록 페이지로 이동
   };
 
-
   const handleCardClick = (post) => {
     setShareDetailState(post);
     navigate(`/sharedetail/${post.id}`); // 공유 상세 페이지로 이동
@@ -65,19 +66,16 @@ const formatDate = (dateString) => {
     return post.isEnd ? "completed" : "active";
   };
 
-
-
   return (
-    <div className='mobile-container'>
+    <div className="mobile-container">
+      {/* Header에서 선택된 위치 반영 */}
       <Header
         showMenu={true}
         showSearch={true}
-        location="양주동"
         showSetting={false}
+        onLocationChange={setCurrentLocation} // 선택된 위치를 업데이트
       />
-      <FilterBar 
-        onFilterSelect={handleOpenFilterModal} 
-      />
+      <FilterBar onFilterSelect={handleOpenFilterModal} />
 
       {/* FilterModal 표시 */}
       {isFilterModalVisible && (
@@ -127,24 +125,23 @@ const formatDate = (dateString) => {
                       ? "마감"
                       : "모집중"}
                   </div>
-               
                 </div>
-             <div className="share-card-dateinfo">
-                {post.selectedDate ? (
-                  <>
-                    <div className="share-date">{formatDate(post.selectedDate).split(" ")[0]}</div>
-                    <div className="share-time">{formatDate(post.selectedDate).split(" ")[1]}</div>
-                  </>
-                ) : (
-                  "날짜 없음"
-                )}
-                {post.location ? (
-                  <div className="location-info">
-                    <p>{post.location.name || post.location}</p>
-                  </div>
-                ) : (
-                  "위치 정보 없음"
-                )}
+                <div className="share-card-dateinfo">
+                  {post.selectedDate ? (
+                    <>
+                      <div className="share-date">{formatDate(post.selectedDate).split(" ")[0]}</div>
+                      <div className="share-time">{formatDate(post.selectedDate).split(" ")[1]}</div>
+                    </>
+                  ) : (
+                    "날짜 없음"
+                  )}
+                  {post.location ? (
+                    <div className="location-info">
+                      <p>{post.location.name || post.location}</p>
+                    </div>
+                  ) : (
+                    "위치 정보 없음"
+                  )}
                 </div>
               </div>
             ))
@@ -160,4 +157,5 @@ const formatDate = (dateString) => {
     </div>
   );
 };
+
 export default ShareList;

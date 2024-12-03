@@ -77,8 +77,8 @@ function MyPage() {
       <div className="section">
         <div className="section-title">기타</div>
         <div className="menu">
-          <div className="menu-item" onClick={() => navigate('/location')}>
-            <FaLocationArrow /> 동네 인증하기
+          <div className="menu-item" onClick={() => navigate('/locationsettings')}>
+            <FaLocationArrow /> 내 동네 설정
           </div>
           <div className="menu-item" onClick={() => navigate('/keynoti')}>
             <FaTag /> 키워드 알림 설정
