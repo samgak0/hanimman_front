@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from "uuid";
 
 const VerificationPage = () => {
   const location = useLocation(); // URL 정보 가져오기
+  const navigate = useNavigate(); // navigate 함수 가져오기
   const queryParams = new URLSearchParams(location.search); // 쿼리 파라미터 처리
   const legalCode = queryParams.get('address'); // 법정 코드 가져오기
 
@@ -83,6 +84,9 @@ const VerificationPage = () => {
             localStorage.setItem("refreshToken", responseRefreshToken);
           }
 
+          // 리다이렉트: 법정 코드 없이 페이지 전환
+          navigate("/verification");
+          
         } else {
           const errorData = await verifyAndSignupOrLogin.json();
           setMessage(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);
@@ -96,19 +100,19 @@ const VerificationPage = () => {
     };
 
     requestVerification();
-  }, [legalCode]); // legalCode가 변경될 때마다 effect 실행
+  }, [legalCode, navigate]); // legalCode와 navigate가 변경될 때마다 effect 실행
 
   return (
     <div className='mobile-container'>
-    <div>
-      <h2>본인인증 페이지</h2>
-      <p>본인인증 절차를 진행해주세요.</p>
-      {loading && <p>본인 인증을 처리하는 중입니다...</p>}
-      {message && <p>{message}</p>}
-      {verificationId && (
-        <p>본인인증이 완료되었습니다. 인증 ID: {verificationId}</p>
-      )}
-    </div>
+      <div>
+        <h2>본인인증 페이지</h2>
+        <p>본인인증 절차를 진행해주세요.</p>
+        {loading && <p>본인 인증을 처리하는 중입니다...</p>}
+        {message && <p>{message}</p>}
+        {verificationId && (
+          <p>본인인증이 완료되었습니다. 인증 ID: {verificationId}</p>
+        )}
+      </div>
     </div>
   );
 };
