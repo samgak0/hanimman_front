@@ -68,7 +68,7 @@ const ShareList = () => {
     if (filter === "최신순") {
       setSortBy("createdAt");
     } else if (filter === "출발임박순") {
-      setSortBy("meetingAt");
+      setSortBy("locationDate");
     }
     setPage(0);
     setPosts([]);
@@ -156,11 +156,11 @@ const ShareList = () => {
                 </div>
 
                 <div className="card-dateinfo">
-                  {post.meetingAt
+                  {post.locationDate
                     ? `${new Date(
-                        post.meetingAt
+                        post.locationDate
                       ).toLocaleDateString()} ${new Date(
-                        post.meetingAt
+                        post.locationDate
                       ).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",

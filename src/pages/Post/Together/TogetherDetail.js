@@ -196,6 +196,10 @@ const TogetherDetail = () => {
             <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>
           </div>
           <div className="detail-info-category">
+            <strong>만남장소 </strong>
+            <p>{post.meetingLocation || "정보 없음"}</p>
+          </div>
+          <div className="detail-info-category">
             <strong>현재인원 </strong>
             <p>
               {currentApplicants}/{totalPeople}명{" "}
