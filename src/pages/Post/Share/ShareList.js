@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useContext } from "react";
+import React, { useState, useEffect, useRef, useCallback, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../../context/DataContext";
 import Header from "../../../components/Header";
@@ -17,6 +17,14 @@ const ShareList = () => {
   const [loading, setLoading] = useState(false);
   const [currentLocation, setCurrentLocation] = useState("우동"); // 선택된 위치 초기값
   const observer = useRef();
+
+  // 로컬 스토리지에서 마지막 사용 위치 불러오기
+  useEffect(() => {
+    const savedLocation = localStorage.getItem("lastUsedLocation");
+    if (savedLocation) {
+      setCurrentLocation(savedLocation);
+    }
+  }, []);
 
   // 날짜 형식 변경 함수
   const formatDate = (dateString) => {
@@ -66,6 +74,12 @@ const ShareList = () => {
     return post.isEnd ? "completed" : "active";
   };
 
+  // 현재 위치 변경 및 로컬 스토리지 저장
+  const updateLocation = (location) => {
+    setCurrentLocation(location);
+    localStorage.setItem("lastUsedLocation", location);
+  };
+
   return (
     <div className="mobile-container">
       {/* Header에서 선택된 위치 반영 */}
@@ -73,7 +87,8 @@ const ShareList = () => {
         showMenu={true}
         showSearch={true}
         showSetting={false}
-        onLocationChange={setCurrentLocation} // 선택된 위치를 업데이트
+        location={currentLocation}
+        onLocationChange={updateLocation} // 선택된 위치를 업데이트
       />
       <FilterBar onFilterSelect={handleOpenFilterModal} />
 
