@@ -17,12 +17,13 @@ const TogetherList = () => {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태 추가
+  const [isEnd, setIsEnd] = useState(false); // 마감 상태 추가
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // 필터 모달 상태
   const observer = useRef();
 
-  const fetchPosts = async (page, sortBy) => {
+  const fetchPosts = async (page, sortBy, isEnd) => {
     try {
-      const params = { page, size: 10, sortBy: sortBy };
+      const params = { page, size: 10, sortBy: sortBy, isEnd: isEnd };
       const data = await listAllTogethers(params);
       setPosts((prevPosts) => [...prevPosts, ...data.content]);
       setHasMore(data.content.length > 0);
@@ -34,8 +35,8 @@ const TogetherList = () => {
   };
 
   useEffect(() => {
-    fetchPosts(page, sortBy);
-  }, [page, sortBy]);
+    fetchPosts(page, sortBy, isEnd);
+  }, [page, sortBy, isEnd]);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -84,6 +85,13 @@ const TogetherList = () => {
     setIsFilterModalOpen(false); // 필터 모달 닫기
   };
 
+  // Handle toggle end
+  const handleToggleEnd = (newIsEnd) => {
+    setIsEnd(newIsEnd);
+    setPage(0);
+    setPosts([]);
+  };
+
   if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
@@ -99,6 +107,7 @@ const TogetherList = () => {
         <FilterBar
           onFilterSelect={handleFilterSelect}
           onHamburgerClick={handleHamburgerClick} // 햄버거 아이콘 클릭 이벤트 추가
+          onToggleEnd={handleToggleEnd} // 마감 버튼 클릭 이벤트 추가
         />
         {isFilterModalOpen && (
           <FilterModal

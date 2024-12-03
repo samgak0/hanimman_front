@@ -59,8 +59,19 @@
   margin-top: 100px;
 }
 
+.isend-button {
+  border-style: none;
+  background-color: #f9f9f9;
+}
+
+.isend-button2 {
+  border-style: none;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
+
 /*노트북 & PC : 1025px-*  맥북 프로가 1024px */
-@media all and (min-width:1025px){
+@media all and (min-width: 1025px) {
   .filter-bar {
     width: calc(100vh * (9 / 20)); /* 20:9 비율로 고정, height 기준 */
     height: 8vh; /* 화면 높이에 맞추기 */
@@ -68,8 +79,8 @@
 }
 
 /*태블릿 가로, 세로 : 768px-1024px*/
-@media all and (min-width:768px) and (max-width:1024px){
-	.filter-bar {
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .filter-bar {
     width: 100vw; /* 100% 화면 너비 */
     height: 8vh; /* 화면 높이에 맞춤 */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
@@ -77,8 +88,8 @@
 }
 
 /*모바일 가로, 세로 : -767px*/
-@media all and (max-width:767px){
-	.filter-bar {
+@media all and (max-width: 767px) {
+  .filter-bar {
     width: 100vw; /* 100% 화면 너비 */
     height: 8vh; /* 화면 높이에 맞춤 */
   }

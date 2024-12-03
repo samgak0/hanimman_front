@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
-import './FilterBar.css';
-import { ReactComponent as BurgerIcon } from '../assets/icons/burger.svg';
-import FilterModal from './FilterModal'; // FilterModal 가져오기
+import React, { useState } from "react";
+import "./FilterBar.css";
+import { ReactComponent as BurgerIcon } from "../assets/icons/burger.svg";
+import FilterModal from "./FilterModal"; // FilterModal 가져오기
 
-const FilterBar = ({ onFilterUpdate, onFilterSelect, isShareList }) => {
+const FilterBar = ({
+  onFilterUpdate,
+  onFilterSelect,
+  isShareList,
+  onToggleEnd,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 열림 상태 관리
+  const [isEnd, setIsEnd] = useState(false); // 마감 상태 관리
 
   // 모달 열기
   const handleOpenModal = () => {
@@ -22,6 +28,12 @@ const FilterBar = ({ onFilterUpdate, onFilterSelect, isShareList }) => {
     setIsModalOpen(false); // 모달 닫기
   };
 
+  // 마감 버튼 클릭 시 상태 변경 및 상위 컴포넌트로 전달
+  const handleToggleEnd = () => {
+    const newIsEnd = !isEnd;
+    setIsEnd(newIsEnd);
+    onToggleEnd(newIsEnd);
+  };
   return (
     <div className="filter-bar">
       {/* 햄버거 버튼 */}
@@ -29,11 +41,19 @@ const FilterBar = ({ onFilterUpdate, onFilterSelect, isShareList }) => {
         <BurgerIcon />
       </button>
 
+      {/* 마감 여부 */}
+      <button
+        className={isEnd ? "isend-button2" : "isend-button"}
+        onClick={handleToggleEnd}
+      >
+        마감보기
+      </button>
+
       {/* 정렬 버튼 */}
       <div className="filter-bar-button">
-        <button onClick={() => onFilterSelect('최신순')}>최신순</button>
-        <button onClick={() => onFilterSelect('좋아요순')}>좋아요순</button>
-        <button onClick={() => onFilterSelect('출발임박순')}>출발임박순</button>
+        <button onClick={() => onFilterSelect("최신순")}>최신순</button>
+        <button onClick={() => onFilterSelect("좋아요순")}>좋아요순</button>
+        <button onClick={() => onFilterSelect("출발임박순")}>출발임박순</button>
       </div>
 
       {/* 필터 모달 */}
