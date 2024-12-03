@@ -1,3 +1,4 @@
+/* 전체 컨테이너 스타일 */
 .together-detail-page {
   max-width: 393px;
   margin: 0 auto;
@@ -25,9 +26,11 @@
   cursor: pointer;
 }
 .detail-title {
+  margin-top: 10px;
   margin-left: 10px;
-
+  border-top: 1px solid #ddd;
   padding-top: 10px;
+  font-size: 20px;
 }
 .detail-title p {
   font-size: 18px;
@@ -62,15 +65,12 @@
   fill: #a2a2a2;
 }
 .detail-image-container {
-  margin-top: 10px;
-  width: 100%; /* 컨테이너 너비를 100%로 설정 */
-  height: 40vh; /* 원하는 고정 높이 설정 */
+  margin: 10px 0px;
 }
 
 .detail-image {
-  width: 100%; /* 컨테이너의 너비를 꽉 채움 */
-  height: 100%; /* 컨테이너의 높이를 꽉 채움 */
-  object-fit: cover; /* 이미지가 컨테이너를 채우도록 조정 */
+  width: 100%;
+  border-radius: 10px;
 }
 
 .no-image {
@@ -127,7 +127,9 @@
 }
 
 .chat-button,
-.apply-button {
+.apply-button,
+.delete-button,
+.edit-button {
   flex: 0.3;
   padding: 10px;
   border: none;
@@ -137,6 +139,14 @@
 }
 
 .chat-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.edit-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+.delete-button {
   background-color: #f0f0f0;
   color: #333;
 }
@@ -155,4 +165,37 @@
 .zzimOn {
   fill: #ff1493;
   cursor: pointer;
+}
+
+/* 삭제 확인 메시지 스타일 */
+.delete-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+.confirm-button,
+.cancel-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: #ff8c00;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #333;
 }

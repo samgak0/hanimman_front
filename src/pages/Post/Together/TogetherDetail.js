@@ -11,7 +11,7 @@ import { ReactComponent as TogetherUserIcon } from "../../../assets/icons/togeth
 import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg";
 
 import { DataContext } from "../../../context/DataContext";
-import { readTogether } from "../../../api/togetherApi";
+import { readTogether, deleteTogether } from "../../../api/togetherApi";
 import {
   createTogetherFavorite,
   deleteTogetherFavorite,
@@ -25,8 +25,10 @@ const TogetherDetail = () => {
   const { applyForPost, appliedPosts } = useContext(DataContext);
   const [post, setPost] = useState(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isWriter, setIsWriter] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -34,6 +36,8 @@ const TogetherDetail = () => {
         const data = await readTogether(id); // readTogether 함수에 id 전달
         setPost(data);
         setIsFavorite(data.favorite); // 좋아요 상태 설정
+        setIsWriter(data.writer);
+        console.log("작성자인가요", data.writer);
         console.log("좋아요", data.favorite);
       } catch (error) {
         setError(error);
@@ -55,6 +59,23 @@ const TogetherDetail = () => {
   const handleApply = () => {
     if (!isApplied) {
       applyForPost(post.id);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteTogether(post.id);
+      navigate("/togetherlist"); // 삭제 후 리스트 페이지로 이동
+    } catch (error) {
+      console.error("게시글 삭제 중 에러가 발생했습니다:", error);
+    }
+  };
+
+  const handleEdit = () => {
+    try {
+      navigate(`/togethercreate`, { state: { post } });
+    } catch (error) {
+      console.error("게시글 수정 중 에러가 발생했습니다:", error);
     }
   };
 
@@ -185,15 +206,47 @@ const TogetherDetail = () => {
 
         {/* Footer Buttons */}
         <div className="detail-actions">
-          <button className="favorite-button" onClick={toggleFavorite}>
-            {isFavorite ? (
-              <HeartFullIcon className="zzimOn" />
-            ) : (
-              <HeartEmptyIcon className="zzimOff" />
-            )}
-          </button>
+          {isWriter ? (
+            <>
+              <button
+                className="delete-button"
+                onClick={() => setShowDeleteConfirm(true)}
+              >
+                삭제하기
+              </button>
+              {showDeleteConfirm && (
+                <div className="delete-confirm">
+                  <p>정말로 삭제하시겠습니까?</p>
+                  <button className="confirm-button" onClick={handleDelete}>
+                    예
+                  </button>
+                  <button
+                    className="cancel-button"
+                    onClick={() => setShowDeleteConfirm(false)}
+                  >
+                    아니오
+                  </button>
+                </div>
+              )}
+            </>
+          ) : (
+            <button className="favorite-button" onClick={toggleFavorite}>
+              {isFavorite ? (
+                <HeartFullIcon className="zzimOn" />
+              ) : (
+                <HeartEmptyIcon className="zzimOff" />
+              )}
+            </button>
+          )}
 
-          <button className="chat-button">채팅하기</button>
+          {isWriter ? (
+            <button className="edit-button" onClick={handleEdit}>
+              수정하기
+            </button>
+          ) : (
+            <button className="chat-button">채팅하기</button>
+          )}
+
           <button
             className="apply-button"
             onClick={handleApply}

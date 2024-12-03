@@ -69,3 +69,13 @@ export const searchTogethers = async (params) => {
     throw error;
   }
 };
+
+export const listFavoriteTogethers = async (params) => {
+  try {
+    const response = await jwtAxios.get(`${host}/favorite/list`, { params });
+    return response.data;
+  } catch (error) {
+    console.error("같이요 게시글 좋아요 리스트에서 에러가 발생하였습니다.");
+    throw error;
+  }
+};

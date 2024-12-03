@@ -7,18 +7,22 @@ import DateSelect from "../../../components/DateSelect"; // 날짜 선택 컴포
 import CategorySelect from "../../../components/CategorySelect";
 import { DataContext } from "../../../context/DataContext";
 import { createTogether } from "../../../api/togetherApi"; // createTogether API 함수 가져오기
+import { useLocation } from "react-router-dom";
 
 const TogetherCreate = () => {
+  const location = useLocation();
+  const post = location.state?.post || {};
+
   const [images, setImages] = useState([]);
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [people, setPeople] = useState(0);
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState(post.title || "");
+  const [price, setPrice] = useState(post.price || "");
+  const [people, setPeople] = useState(post.people || 0);
+  const [description, setDescription] = useState(post.content || "");
   const [showDateSelect, setShowDateSelect] = useState(false); // 날짜 선택 모달 표시 여부
-  const [selectedDate, setSelectedDate] = useState(""); // 선택된 날짜
+  const [selectedDate, setSelectedDate] = useState(post.meetingAt || ""); // 선택된 날짜
   const [showCategoryModal, setShowCategoryModal] = useState(false); // 모달 상태
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
-  const [address, setAddress] = useState(""); // 주소 상태 추가
+  const [address, setAddress] = useState(post.address || ""); // 주소 상태 추가
   const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
 
   const {
@@ -275,7 +279,7 @@ const TogetherCreate = () => {
                 type="title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="당근 사러가실분"
+                placeholder="제목을 입력하세요"
               />
             </div>
             <div className="form-group">
