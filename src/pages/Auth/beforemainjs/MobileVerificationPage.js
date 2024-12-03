@@ -42,7 +42,7 @@ const MobileVerificationPage = () => {
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
-            navigate("/main");
+            navigate("/location");
             console.error("회원가입 또는 로그인 성공!");
           } else {
             console.error("Authorization 토큰을 찾을 수 없습니다.");

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LocationPage.css';
+import jwtAxios from '../../../api/jwtAxios';
 
 const LocationPage = () => {
   const [location, setLocation] = useState(null);
@@ -34,7 +35,13 @@ const LocationPage = () => {
                 
                 if (userConfirmed) {
                   // 확인 버튼 클릭 시 이동
-                  navigate(`/verification?address=${encodeURIComponent(data.id)}`);
+                  jwtAxios.post("http://localhost:8080/api/user-address")
+                  .then((respopnse)=>{
+
+                  })
+                  .catch()
+      
+                  // navigate(`/main`);
                 }
                 // 취소 버튼 클릭 시 현재 페이지에 머무릅니다.
               } else {

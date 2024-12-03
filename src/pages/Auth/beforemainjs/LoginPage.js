@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   // "시작하기" 버튼 클릭 시 LocationPage로 이동
   const handleStart = () => {
-    navigate('/location');
+    navigate('/verification');
   };
 
   return (

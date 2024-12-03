@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from "uuid";
@@ -61,7 +61,6 @@ const VerificationPage = () => {
             },
             body: JSON.stringify({
               ...resultData,
-              legalCode, // 법정 코드 추가
             }),
             credentials: "include",
           }
@@ -69,18 +68,14 @@ const VerificationPage = () => {
 
         if (verifyAndSignupOrLogin.ok) {
           const responseToken = verifyAndSignupOrLogin.headers.get("Authorization");
-          const responseRefreshToken = verifyAndSignupOrLogin.headers.get("Refresh-Token");
 
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
             setMessage("회원가입 또는 로그인 성공!");
+            Navigate("/location");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
-          }
-
-          if (responseRefreshToken) {
-            localStorage.setItem("refreshToken", responseRefreshToken);
           }
 
         } else {
