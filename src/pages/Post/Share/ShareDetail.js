@@ -239,9 +239,7 @@ const ShareDetail = () => {
             <button className="edit-button" onClick={handleEdit}>
               수정하기
             </button>
-          ) : (
-            <button className="chat-button">채팅하기</button>
-          )}
+          ) : null}
 
           <button
             className="apply-button"
