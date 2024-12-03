@@ -34,6 +34,7 @@ const TogetherDetail = () => {
         const data = await readTogether(id); // readTogether 함수에 id 전달
         setPost(data);
         setIsFavorite(data.favorite); // 좋아요 상태 설정
+        console.log("좋아요", data.favorite);
       } catch (error) {
         setError(error);
       } finally {
@@ -62,12 +63,21 @@ const TogetherDetail = () => {
   const totalPeople = post.people || 0;
 
   const toggleFavorite = async () => {
+    const togetherDTO = {
+      views: 0,
+      createdAt: new Date().toISOString(),
+      modifiedAt: new Date().toISOString(),
+      deletedAt: null,
+      addressId: 1111015100,
+      meetingLocation: null,
+      id: post.id,
+    };
     try {
       if (isFavorite) {
-        await deleteTogetherFavorite(post.id);
+        await deleteTogetherFavorite(togetherDTO);
         setIsFavorite(false);
       } else {
-        await createTogetherFavorite({ parentId: post.id });
+        await createTogetherFavorite(togetherDTO);
         setIsFavorite(true);
       }
     } catch (error) {

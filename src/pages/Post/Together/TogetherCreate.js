@@ -79,7 +79,6 @@ const TogetherCreate = () => {
       item: selectedCategory,
       quantity: people,
       isEnd: false,
-      userId: 1, // 예시로 사용자 ID를 1로 설정
       imageUrls: [], // 이미지 URL은 서버에서 처리
       address,
     };
@@ -171,174 +170,176 @@ const TogetherCreate = () => {
   };
 
   return (
-    <div className='mobile-container'>
-    <div className="registration-page">
-      <header className="list-header">
-        <button onClick={handleClose} className="close-icon-button">
-          <CloseIcon />
-        </button>
-        <button className="save-draft-button">임시저장</button>
-      </header>
-
-      {!showDateSelect ? (
-        <>
-          {errorMessage && (
-            <div className="error-message-container">
-              <p className="error-message">{errorMessage}</p>
-            </div>
-          )}{" "}
-          {/* 에러 메시지 표시 */}
-          <div
-            className="image-slider-container"
-            style={{ position: "relative" }}
-          >
-            <div
-              ref={sliderRef}
-              className="image-upload-container"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUpOrLeave}
-              onMouseLeave={handleMouseUpOrLeave}
-            >
-              {Array.from({ length: 10 }).map((_, index) => (
-                <div key={index} className="image-upload-box">
-                  {images[index] ? (
-                    <>
-                      <img
-                        src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
-                        alt={`uploaded-${index}`}
-                        className="uploaded-image"
-                        onClick={() =>
-                          document.getElementById(`file-input-${index}`).click()
-                        } // 이미지 클릭 시 파일 입력 트리거
-                      />
-                      <input
-                        id={`file-input-${index}`}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
-                      />
-                      <button
-                        className="remove-image-button"
-                        onClick={() => handleImageRemove(index)}
-                      >
-                        &times;
-                      </button>
-                    </>
-                  ) : (
-                    images.length < 10 && (
-                    <label>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        multiple // 여러 파일 선택 가능
-                        style={{ display: "none" }}
-                        onChange={handleImageUpload} // 새 이미지 추가
-                      />
-                      <div className="add-image">
-                        {index === 0 ? (
-                          <>
-                            <CameraIcon className="camera-icon" />
-                            <p className="camera-text">사진등록</p>
-                          </>
-                        ) : (
-                          "+"
-                        )}
-                      </div>
-                    </label>
-                    )
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-          <button
-            className="category-select-button"
-            onClick={openCategoryModal}
-          >
-            {selectedCategory
-              ? `선택된 카테고리: ${selectedCategory}`
-              : "품목선택"}
+    <div className="mobile-container">
+      <div className="registration-page">
+        <header className="list-header">
+          <button onClick={handleClose} className="close-icon-button">
+            <CloseIcon />
           </button>
-          {showCategoryModal && (
-            <CategorySelect
-              onClose={closeCategoryModal}
-              onCategorySelect={handleCategorySelect}
-              selectedCategory={selectedCategory}
-            />
-          )}
-          <div className="form-group">
-            <h4>제목</h4>
-            <input
-              type="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="당근 사러가실분"
-            />
-          </div>
-          <div className="form-group">
-            <h4>가격</h4>
-            <input
-              type="price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="₩ 100,000"
-            />
-          </div>
-          <div className="button-group">
-            <button
-              className="locationSelect-button"
-              onClick={openLocationPage}
-            >
-              장소지정
-            </button>
-            <button
-              className="DateSelect-button"
-              onClick={() => setShowDateSelect(true)}
-            >
-              날짜지정
-            </button>
+          <button className="save-draft-button">임시저장</button>
+        </header>
 
-            <div className="people-group">
-              <div className="people-group-num">
-                <label className="people-font">인원수</label>
-                <input
-                  className="people-input"
-                  type="number"
-                  value={people}
-                  onChange={(e) => setPeople(e.target.value)}
-                  min="1"
-                  max="99"
-                />
-                <label className="people-font">명</label>
+        {!showDateSelect ? (
+          <>
+            {errorMessage && (
+              <div className="error-message-container">
+                <p className="error-message">{errorMessage}</p>
               </div>
-              <label className="people-nolimit">
-                제한없음
-                <input type="checkbox" className="people-checkbox"></input>
-              </label>
+            )}{" "}
+            {/* 에러 메시지 표시 */}
+            <div
+              className="image-slider-container"
+              style={{ position: "relative" }}
+            >
+              <div
+                ref={sliderRef}
+                className="image-upload-container"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUpOrLeave}
+                onMouseLeave={handleMouseUpOrLeave}
+              >
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <div key={index} className="image-upload-box">
+                    {images[index] ? (
+                      <>
+                        <img
+                          src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
+                          alt={`uploaded-${index}`}
+                          className="uploaded-image"
+                          onClick={() =>
+                            document
+                              .getElementById(`file-input-${index}`)
+                              .click()
+                          } // 이미지 클릭 시 파일 입력 트리거
+                        />
+                        <input
+                          id={`file-input-${index}`}
+                          type="file"
+                          accept="image/*"
+                          style={{ display: "none" }}
+                          onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
+                        />
+                        <button
+                          className="remove-image-button"
+                          onClick={() => handleImageRemove(index)}
+                        >
+                          &times;
+                        </button>
+                      </>
+                    ) : (
+                      images.length < 10 && (
+                        <label>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            multiple // 여러 파일 선택 가능
+                            style={{ display: "none" }}
+                            onChange={handleImageUpload} // 새 이미지 추가
+                          />
+                          <div className="add-image">
+                            {index === 0 ? (
+                              <>
+                                <CameraIcon className="camera-icon" />
+                                <p className="camera-text">사진등록</p>
+                              </>
+                            ) : (
+                              "+"
+                            )}
+                          </div>
+                        </label>
+                      )
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <h4>내용</h4>
-            <textarea
-              className="textarea"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="내용을 입력하세요"
-            ></textarea>
-          </div>
-          <button className="submit-button" onClick={handleSubmit}>
-            등록완료
-          </button>
-        </>
-      ) : (
-        <DateSelect
-          onClose={() => setShowDateSelect(false)}
-          onSelectDate={handleDateSelect}
-        />
-      )}
-    </div>
+            <button
+              className="category-select-button"
+              onClick={openCategoryModal}
+            >
+              {selectedCategory
+                ? `선택된 카테고리: ${selectedCategory}`
+                : "품목선택"}
+            </button>
+            {showCategoryModal && (
+              <CategorySelect
+                onClose={closeCategoryModal}
+                onCategorySelect={handleCategorySelect}
+                selectedCategory={selectedCategory}
+              />
+            )}
+            <div className="form-group">
+              <h4>제목</h4>
+              <input
+                type="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="당근 사러가실분"
+              />
+            </div>
+            <div className="form-group">
+              <h4>가격</h4>
+              <input
+                type="price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="₩ 100,000"
+              />
+            </div>
+            <div className="button-group">
+              <button
+                className="locationSelect-button"
+                onClick={openLocationPage}
+              >
+                장소지정
+              </button>
+              <button
+                className="DateSelect-button"
+                onClick={() => setShowDateSelect(true)}
+              >
+                날짜지정
+              </button>
+
+              <div className="people-group">
+                <div className="people-group-num">
+                  <label className="people-font">인원수</label>
+                  <input
+                    className="people-input"
+                    type="number"
+                    value={people}
+                    onChange={(e) => setPeople(e.target.value)}
+                    min="1"
+                    max="99"
+                  />
+                  <label className="people-font">명</label>
+                </div>
+                <label className="people-nolimit">
+                  제한없음
+                  <input type="checkbox" className="people-checkbox"></input>
+                </label>
+              </div>
+            </div>
+            <div className="form-group">
+              <h4>내용</h4>
+              <textarea
+                className="textarea"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="내용을 입력하세요"
+              ></textarea>
+            </div>
+            <button className="submit-button" onClick={handleSubmit}>
+              등록완료
+            </button>
+          </>
+        ) : (
+          <DateSelect
+            onClose={() => setShowDateSelect(false)}
+            onSelectDate={handleDateSelect}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ const host = `${jwtAxios.defaults.baseURL}/api/v1/together`;
 
 export const createTogether = async (formData) => {
   try {
+    console.log("formData", formData);
     const response = await jwtAxios.post(`${host}/create`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
