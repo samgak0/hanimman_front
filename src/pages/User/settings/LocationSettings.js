@@ -1,73 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import "./LocationSettings.css";
+import locationData from "../../../data/location.json";
 import { useNavigate } from 'react-router-dom';
-import './MainSettings.css';
 
-const LocationPage = () => {
-  const [location, setLocation] = useState(null);
-  // const navigate = useNavigate();
+const LocationSettings = () => {
+  const [registeredLocations, setRegisteredLocations] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const navigate = useNavigate();
+  const [availableLocations, setAvailableLocations] = useState([
+    "부산 해운대구 우제2동",
+    "부산 수영구 수영동",
+    "부산 해운대구 재송제1동",
+    "부산 해운대구 재송동",
+    "부산 수영구 망미제2동",
+    "부산 해운대구 우동",
+    "부산 수영구 민락동",
+    "부산 수영구 광안제3동",
+    "부산 해운대구 우제3동",
+    "부산 해운대구 재송제2동",
+    "부산 수영구 광안제1동",
+    "부산 수영구 망미동",
+  ]);
 
-  const fetchLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords;
-
-          // 위도와 경도를 백엔드로 전송
-          try {
-            const response = await fetch(`http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`, {
-              method: 'GET',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            });
-
-            if (response.ok) {
-              const data = await response.json();
-              console.log('API Response:', data); // API 응답 확인
-
-              if (data) {
-                setLocation(data); // 백엔드에서 받은 데이터를 상태로 설정
-                // 법정 코드만 URL 파라미터로 이동
-                // navigate(`/verification?address=${encodeURIComponent(data.id)}`);
-              } else {
-                alert('유효한 데이터가 없습니다.');
-              }
-            } else {
-              alert('법정 코드 가져오는 데 실패했습니다.');
-            }
-          } catch (error) {
-            console.error('API 호출 중 오류 발생:', error);
-            alert('API 호출 중 오류가 발생했습니다.');
-          }
-        },
-        (error) => {
-          console.error('위치 정보를 가져오지 못했습니다:', error);
-          alert('위치 정보를 가져오는 데 실패했습니다.');
-        }
-      );
-    } else {
-      alert('GPS를 지원하지 않는 브라우저입니다.');
-    }
-  };
+  useEffect(() => {
+    // `location.json`에서 등록된 동네 불러오기
+    setRegisteredLocations(locationData.locations);
+  }, []);
 
   return (
-    <div className='mobile-container'>
-    <div className="location-container">
-      <h2>위치 정보 페이지</h2>
-      <button onClick={fetchLocation} className="location-button">
-        현재 위치로 찾기
-      </button>
-      {location && (
-        <div>
-          <p>법정 코드: {location.id}</p>
-          <p>시: {location.cityName}</p>
-          <p>구: {location.districtName}</p>
-          <p>동: {location.neighborhoodName}</p>
+    <div className="mobile-container">
+      <div className="location-settings">
+        {/* 헤더 */}
+        <div className="header">
+          <button className="back-button" onClick={() => navigate(-1)} >✕</button>
+          <h1>내 동네 설정</h1>
         </div>
-      )}
-    </div>
+  
+        {/* 고정된 등록된 동네 영역 */}
+        <div className="registered-locations">
+          {registeredLocations.map((location, index) => (
+            <div key={index} className="location-tag">
+              {location}
+              <button
+                className="remove-button"
+                onClick={() =>
+                  setRegisteredLocations((prev) =>
+                    prev.filter((loc) => loc !== location)
+                  )
+                }
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+          {registeredLocations.length < 2 && (
+            <button className="add-location-button">+</button>
+          )}
+        </div>
+  
+        {/* 스크롤 가능한 콘텐츠 */}
+        <div className="content">
+          {/* 검색 입력 */}
+          <input
+            type="text"
+            className="search-input"
+            placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+          />
+  
+          {/* 현재 위치 찾기 버튼 */}
+          <button className="current-location-button">📍 현재위치로 찾기</button>
+  
+          {/* 근처 동네 리스트 */}
+          <div className="nearby-locations">
+            <h2>근처 동네</h2>
+            <ul className="location-list">
+              {availableLocations
+                .filter((location) =>
+                  location.toLowerCase().includes(searchText.toLowerCase())
+                )
+                .map((location, index) => (
+                  <li
+                    key={index}
+                    onClick={() =>
+                      setRegisteredLocations((prev) =>
+                        prev.length < 2 && !prev.includes(location)
+                          ? [...prev, location]
+                          : prev
+                      )
+                    }
+                  >
+                    {location}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default LocationPage;
+export default LocationSettings;

@@ -1,25 +1,119 @@
-/* src/css/LocationPage.css */
-.location-container {
+.location-settings {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  text-align: center;
+  height: 100%; /* 부모 요소의 높이에 맞춤 */
+  overflow: hidden; /* 고정 영역과 스크롤 영역을 분리하기 위해 사용 */
 }
 
-.location-button {
-  width: 200px;
+.header {
+  position: sticky; /* 스크롤 시 상단에 고정 */
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.registered-locations,
+.nearby-locations {
+  flex-shrink: 0;
+}
+
+.registered-locations {
   padding: 10px;
-  margin: 20px 0;
-  font-size: 16px;
-  background-color: #f4bb44; /* 버튼 색상 */
+  background-color: #f9f9f9;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* 아이템들이 여러 줄로 나열되도록 설정 */
+}
+
+.location-tag {
+  display: flex;
+  align-items: center;
+  background-color: orange;
   color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.remove-button {
+  margin-left: 5px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.add-location-button {
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search-input {
+  width: calc(100% - 40px); /* 패딩 보정을 위해 사용 */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px auto; /* 상하 간격 추가 */
+}
+
+.current-location-button {
+  width: calc(100% - 40px); /* 패딩 보정을 위해 사용 */
+  padding: 10px;
+  margin: 10px auto; /* 상하 간격 추가 */
+  background-color: orange;
+  color: white;
+  font-size: 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.location-button:hover {
-  background-color: #ff8c00;
+.current-location-button:hover {
+  background-color: #e68a00;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto; /* 스크롤 가능한 영역 */
+  padding: 10px;
+}
+
+.nearby-locations {
+  margin-top: 10px;
+}
+
+.nearby-locations h2 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.location-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.location-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+.location-list li:hover {
+  background-color: #f9f9f9;
 }

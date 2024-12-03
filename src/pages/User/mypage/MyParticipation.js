@@ -18,7 +18,7 @@ const MyParticipation = () => {
     <div className="zzim-list">
       <header className="zzim-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button> {/* 이전 페이지로 이동 */}
-        <h1>내 글</h1>
+        <h1>참여 글</h1>
       </header>
       {items.map(item => (
         <div key={item.id} className="zzim-item">
