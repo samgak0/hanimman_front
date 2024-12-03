@@ -24,6 +24,36 @@
   font-size: 20px;
 }
 
+.zzim-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.zzim-tab {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 2px solid #ff8c00;
+  background-color: white;
+  color: #ff8c00;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.zzim-tab.active {
+  background-color: #ff8c00;
+  color: white;
+  font-weight: bold;
+}
+
+.zzim-tab:hover {
+  background-color: #ff8c00;
+  color: white;
+}
+
+/* 찜목록 아이템 스타일 */
 .zzim-item {
   display: flex;
   align-items: center;
