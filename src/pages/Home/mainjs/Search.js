@@ -96,7 +96,11 @@ const Search = () => {
                 <h2 className="item-title">{item.title}</h2>
                 <p className="item-location">{item.address}</p>
                 <div className="item-status-price">
-                  <span className="item-status">
+                  <span
+                    className={`item-status ${
+                      item.isEnd ? "completed" : "active"
+                    }`}
+                  >
                     {item.isEnd ? "마감" : "모집중"}
                   </span>
                   <span className="item-price">수량 {item.quantity}</span>

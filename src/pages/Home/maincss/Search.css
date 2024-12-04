@@ -91,10 +91,17 @@
 .item-status {
   font-size: 14px;
   color: white;
-  background-color: #999;
   padding: 2px 6px;
   border-radius: 4px;
   margin-right: 10px;
+}
+
+.item-status.active {
+  background-color: #ff8c00; /* 노란색으로 변경 */
+}
+
+.item-status.completed {
+  background-color: #999; /* 회색으로 설정 */
 }
 
 .item-price {
