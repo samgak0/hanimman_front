@@ -11,12 +11,8 @@ const jwtAxios = axios.create({
 jwtAxios.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken"); // 로컬 스토리지에서 토큰을 가져옵니다.
-    const refreshToken = localStorage.getItem("refreshToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    }
-    if (refreshToken){
-      config.headers.refreshToken = `${refreshToken}`;
     }
     return config;
   },

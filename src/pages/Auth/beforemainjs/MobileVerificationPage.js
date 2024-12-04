@@ -24,14 +24,13 @@ const MobileVerificationPage = () => {
         }
 
         const resultData = await response.json();
-        const token = localStorage.getItem("authToken");
+
 
         // 본인 인증 결과를 바탕으로 회원가입/로그인 처리
         const verifyAndSignupOrLogin = await fetch("http://localhost:8080/users/verify", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
           },
           body: JSON.stringify(resultData),
           credentials: "include",
