@@ -48,12 +48,11 @@ const MyProfile = () => {
       <header className="profile-header">
         <button className="back-button" onClick={() => navigate(-1)}>◀</button>
         <h1>프로필</h1>
-        <button className="share-button">🔗</button>
       </header>
 
       <div className="profile-main">
         <div className="profile-info">
-          <img className="profile-avatar" src="/images/default-avatar.png" alt="프로필 사진" />
+        <img className="profile-avatar" src="/images/defaultavatar.jpg" alt="프로필 사진" />
           <div className="profile-details">
             <h2>어느새 <span>#5039366</span></h2>
             <button className="edit-profile-btn" onClick={() => navigate('/editprofile')}>프로필 수정</button>
