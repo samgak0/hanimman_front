@@ -82,10 +82,14 @@ const ZzimList = () => {
                 <img
                   src={`http://localhost:8080/api/v1/together/download?id=${item.imageIds[0]}`}
                   alt={item.title}
-                  className="together-card-image"
+                  className="zzim-card-image"
                 />
               ) : (
-                <div className="no-image">이미지 없음</div>
+                <img
+                  src="/images/noimage.png"
+                  alt={item.title}
+                  className="zzim-card-image"
+                />
               )}
               <div className="item-details">
                 <h2 className="item-title">{item.title}</h2>

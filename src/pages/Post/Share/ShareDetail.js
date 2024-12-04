@@ -159,7 +159,11 @@ const ShareDetail = () => {
               </Slider>
             )
           ) : (
-            <p className="no-image">이미지가 없습니다.</p>
+            <img
+              src="/images/noimage.png"
+              alt={post.title}
+              className="share-card-image"
+            />
           )}
         </div>
 

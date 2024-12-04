@@ -133,7 +133,11 @@ const ShareList = () => {
                       className="share-card-image"
                     />
                   ) : (
-                    <div className="no-image">이미지 없음</div>
+                    <img
+                      src="/images/noimage.png"
+                      alt={post.title}
+                      className="share-card-image"
+                    />
                   )}
                 </div>
 

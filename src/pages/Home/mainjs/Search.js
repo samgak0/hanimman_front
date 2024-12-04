@@ -90,7 +90,11 @@ const Search = () => {
                   className="search-card-image"
                 />
               ) : (
-                <div className="no-image">이미지 없음</div>
+                <img
+                  src="/images/noimage.png"
+                  alt="No Image"
+                  className="search-card-image"
+                />
               )}
               <div className="item-details">
                 <h2 className="item-title">{item.title}</h2>
