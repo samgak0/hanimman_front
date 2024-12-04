@@ -31,7 +31,7 @@ const LocationSettings = () => {
     <div className="mobile-container">
       <div className="location-settings">
         {/* 헤더 */}
-        <div className="header">
+        <div className="locationsettings-header">
           <button className="back-button" onClick={() => navigate(-1)} >✕</button>
           <h1>내 동네 설정</h1>
         </div>
