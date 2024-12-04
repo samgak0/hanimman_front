@@ -12,14 +12,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 16px;
   background-color: white;
   border-bottom: 1px solid #ddd;
 }
 
 h1 {
   margin: 0 auto; /* 좌우 균등 배치 */
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
   text-align: center; /* 텍스트 중앙 정렬 */
 }
 

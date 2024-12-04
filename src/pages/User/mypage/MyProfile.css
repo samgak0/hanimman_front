@@ -8,13 +8,15 @@
 .profile-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 16px;
 }
 
 h1 {
+  font-size: 18px;
+  font-weight: bold;
   margin: 0;
-  font-size: 24px;
 }
 
 /* 메인 프로필 영역 */
