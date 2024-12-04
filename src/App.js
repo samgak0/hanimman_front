@@ -2,6 +2,8 @@
 import "./App.css";
 import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify"; // ToastContainer 추가
+import "react-toastify/dist/ReactToastify.css"; // Toastify 기본 CSS 추가
 import LoadingScreen from "./pages/Auth/beforemainjs/LoadingScreen";
 import LoginPage from "./pages/Auth/beforemainjs/LoginPage";
 import KeyNoti from "./pages/Home/mainjs/KeyNoti";
@@ -22,7 +24,7 @@ import mainRoutes from "./routes/mainRoutes";
 import userRoutes from "./routes/userRoutes";
 import LocationSelect from "./components/LocationSelect";
 import { DataProvider } from "./context/DataContext";
-import PrivateRoute from "./routes/privateRoute"; // PrivateRoute 컴포넌트 import
+import PrivateRoute from "./routes/privateRoute";
 import TogetherList from "./pages/Post/Together/TogetherList";
 import TogetherDetail from "./pages/Post/Together/TogetherDetail";
 import Search from "./pages/Home/mainjs/Search";
@@ -31,17 +33,16 @@ const App = () => {
   return (
     <DataProvider>
       <Router>
+        {/* ToastContainer를 최상위에 추가 */}
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover />
         <Routes>
           {/* 기본 경로들 */}
           <Route path="/" element={<LoadingScreen />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/verification" element={<VerificationPage />} />
-          {/* 인증이 필요 없는 경로들 */}
           {authRoutes.map(({ path, element }) => (
             <Route key={path} path={path} element={element} />
           ))}
-
-          {/* 인증이 필요한 경로들 */}
           <Route
             path="/location"
             element={<PrivateRoute element={<LocationPage />} />}
