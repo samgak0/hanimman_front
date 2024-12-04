@@ -11,13 +11,6 @@
   margin-bottom: 20px;
 }
 
-.back-button {
-  font-size: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
 .zzim-header h1 {
   flex-grow: 1;
   text-align: center;
@@ -33,9 +26,9 @@
 .zzim-tab {
   padding: 10px 20px;
   margin: 0 5px;
-  border: 2px solid #ff8c00;
+  border: 2px solid #f4bb44;
   background-color: white;
-  color: #ff8c00;
+  color: #f4bb44;
   cursor: pointer;
   font-size: 16px;
   border-radius: 20px;
@@ -43,13 +36,13 @@
 }
 
 .zzim-tab.active {
-  background-color: #ff8c00;
+  background-color: #f4bb44;
   color: white;
   font-weight: bold;
 }
 
 .zzim-tab:hover {
-  background-color: #ff8c00;
+  background-color: #f4bb44;
   color: white;
 }
 
