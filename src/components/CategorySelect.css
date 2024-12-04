@@ -14,7 +14,6 @@
   border-radius: 16px;
   width: 90%;
   max-width: 400px;
- 
   text-align: center;
   z-index: 1001; /* 모달 내부 컨텐츠 */
 }
