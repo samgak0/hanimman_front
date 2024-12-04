@@ -1,0 +1,36 @@
+.toast-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.toast-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.toast-button.success {
+  background-color: #28a745; /* 초록색 */
+}
+
+.toast-button.error {
+  background-color: #dc3545; /* 빨간색 */
+}
+
+.toast-button.info {
+  background-color: #17a2b8; /* 파란색 */
+}
+
+.toast-button.warning {
+  background-color: #ffc107; /* 노란색 */
+}
+
+.toast-button:hover {
+  opacity: 0.8;
+}
