@@ -25,6 +25,7 @@ import { DataProvider } from "./context/DataContext";
 import PrivateRoute from "./routes/privateRoute"; // PrivateRoute 컴포넌트 import
 import TogetherList from "./pages/Post/Together/TogetherList";
 import TogetherDetail from "./pages/Post/Together/TogetherDetail";
+import Search from "./pages/Home/mainjs/Search";
 
 const App = () => {
   return (
@@ -86,6 +87,10 @@ const App = () => {
           <Route
             path="/inquiry"
             element={<PrivateRoute element={<InquiryCreate />} />}
+          />
+          <Route
+            path="/search"
+            element={<PrivateRoute element={<Search />} />}
           />
 
           {/* Main 관련 경로 */}
