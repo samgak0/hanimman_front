@@ -5,6 +5,24 @@
   overflow: hidden; /* 고정 영역과 스크롤 영역을 분리하기 위해 사용 */
 }
 
+.locationsettings-header {
+  position: sticky; /* 스크롤 시 상단에 고정 */
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  margin: 0 auto; /* 좌우 균등 배치 */
+  font-size: 20px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
 .registered-locations,
 .nearby-locations {
   flex-shrink: 0;

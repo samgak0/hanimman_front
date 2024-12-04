@@ -10,12 +10,6 @@
   height: calc(90vh); /* 화면 높이에서 Header와 FilterBar 높이를 뺀 값 */
   margin: 0 auto;
   box-sizing: border-box;
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
-}
-
-.together-list-container::-webkit-scrollbar {
-  display: none; /* Webkit 기반 브라우저에서 스크롤바 숨기기 */
 }
 
 /* 카드 스타일 */
@@ -95,7 +89,7 @@
 }
 
 .card-tradeEnd.completed {
-  background-color: #ff8c00;
+  background-color: #999;
 }
 
 /* 날짜 및 위치 섹션 */

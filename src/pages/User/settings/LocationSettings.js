@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 const LocationSettings = () => {
   const [registeredLocations, setRegisteredLocations] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const navigate = useNavigate();
   const [availableLocations, setAvailableLocations] = useState([
     "부산 해운대구 우제2동",
     "부산 수영구 수영동",
@@ -21,6 +20,54 @@ const LocationSettings = () => {
     "부산 수영구 광안제1동",
     "부산 수영구 망미동",
   ]);
+  const navigate = useNavigate();
+
+  const fetchLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+
+          // 위도와 경도를 백엔드로 전송
+          try {
+            const response = await fetch(`http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.ok) {
+              const data = await response.json(); // API 응답 확인
+              console.log('API Response:', data);
+
+              if (data) {
+                // API 응답에서 동네 이름을 가져와 등록된 동네에 추가
+                const neighborhood = data.neighborhoodName;
+                setRegisteredLocations((prev) => {
+                  if (!prev.includes(neighborhood) && prev.length < 2) {
+                    return [...prev, neighborhood];
+                  }
+                  return prev;
+                });
+              } else {
+                alert('법정 코드 가져오는 데 실패했습니다.');
+              }
+            }
+          } catch (error) {
+            console.error('API 호출 중 오류 발생:', error);
+            alert('API 호출 중 오류가 발생했습니다: ' + error.message);
+          }
+        },
+        (error) => {
+          console.error('위치 정보를 가져오지 못했습니다:', error);
+          alert('위치 정보를 가져오는 데 실패했습니다.');
+        },
+      );
+    } else {
+      alert('GPS를 지원하지 않는 브라우저입니다.');
+    }
+  };
 
   useEffect(() => {
     // `location.json`에서 등록된 동네 불러오기
@@ -31,8 +78,8 @@ const LocationSettings = () => {
     <div className="mobile-container">
       <div className="location-settings">
         {/* 헤더 */}
-        <div className="header">
-          <button className="back-button" onClick={() => navigate(-1)} >✕</button>
+        <div className="locationsettings-header">
+          <button className="back-button" onClick={() => navigate(-1)} >◀</button>
           <h1>내 동네 설정</h1>
         </div>
   
@@ -57,7 +104,6 @@ const LocationSettings = () => {
             <button className="add-location-button">+</button>
           )}
         </div>
-  
         {/* 스크롤 가능한 콘텐츠 */}
         <div className="content">
           {/* 검색 입력 */}
@@ -70,7 +116,7 @@ const LocationSettings = () => {
           />
   
           {/* 현재 위치 찾기 버튼 */}
-          <button className="current-location-button">📍 현재위치로 찾기</button>
+          <button onClick={fetchLocation} className="location-button">📍 현재위치로 찾기</button>
   
           {/* 근처 동네 리스트 */}
           <div className="nearby-locations">

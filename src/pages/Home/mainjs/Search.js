@@ -1,94 +1,99 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "../maincss/ZzimList.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import "../maincss/Search.css";
 import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg";
 import { ReactComponent as CommentIcon } from "../../../assets/icons/chat.svg";
-import { listFavoriteTogethers } from "../../../api/togetherApi";
-import { listFavoriteShares } from "../../../api/shareApi";
+import { searchTogethers } from "../../../api/togetherApi";
+import { searchShares } from "../../../api/shareApi";
 
-const ZzimList = () => {
+const Search = () => {
   const [posts, setPosts] = useState([]);
   const [activeTab, setActiveTab] = useState("together"); // 현재 활성화된 탭 상태
   const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("q"); // 검색어 가져오기
 
   useEffect(() => {
-    fetchFavoriteTogethers();
-  }, []);
-
-  const fetchFavoriteTogethers = async () => {
-    try {
-      const response = await listFavoriteTogethers();
-      setPosts(response.content); // Assuming the API returns a paginated response
-    } catch (error) {
-      console.error("Failed to fetch favorite togethers:", error);
+    if (query) {
+      fetchSearchResults(query);
     }
-  };
+  }, [query, activeTab]);
 
-  const fetchFavoriteShare = async () => {
+  const fetchSearchResults = async (query) => {
     try {
-      const response = await listFavoriteShares();
+      let response;
+      if (activeTab === "together") {
+        response = await searchTogethers({ keyword: query });
+      } else {
+        response = await searchShares({ keyword: query });
+      }
       setPosts(response.content); // Assuming the API returns a paginated response
     } catch (error) {
-      console.error("Failed to fetch favorite shares:", error);
+      console.error("Failed to fetch search results:", error);
     }
   };
 
   const handleItemClick = (id) => {
-    navigate(`/togetherdetail/${id}`);
+    if (activeTab === "together") {
+      navigate(`/togetherdetail/${id}`);
+    } else {
+      navigate(`/sharedetail/${id}`);
+    }
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === "together") {
-      fetchFavoriteTogethers();
-    } else if (tab === "share") {
-      fetchFavoriteShare();
-    }
   };
+
+  useEffect(() => {
+    if (query) {
+      fetchSearchResults(query);
+    }
+  }, [activeTab]);
 
   return (
     <div className="mobile-container">
-      <div className="zzim-list">
-        <header className="zzim-header">
+      <div className="search-list">
+        <header className="search-header">
           <button className="back-button" onClick={() => navigate(-1)}>
             ◀
           </button>
-          <h1>관심목록</h1>
+          <h1>검색 결과</h1>
         </header>
-        <div className="zzim-tabs">
+        <div className="search-tabs">
           <button
-            className={`zzim-tab ${activeTab === "together" ? "active" : ""}`}
+            className={`search-tab ${activeTab === "together" ? "active" : ""}`}
             onClick={() => handleTabClick("together")}
           >
             같이가요
           </button>
           <button
-            className={`zzim-tab ${activeTab === "share" ? "active" : ""}`}
+            className={`search-tab ${activeTab === "share" ? "active" : ""}`}
             onClick={() => handleTabClick("share")}
           >
             나눠요
           </button>
         </div>
         {posts.length === 0 ? (
-          <p className="no-posts">찜한 게시물이 없습니다</p>
+          <p className="no-posts">검색 결과가 없습니다</p>
         ) : (
           posts.map((item) => (
             <div
               key={item.id}
-              className="zzim-item"
+              className="search-item"
               onClick={() => handleItemClick(item.id)}
             >
               {item.imageIds[0] ? (
                 <img
-                  src={`http://localhost:8080/api/v1/together/download?id=${item.imageIds[0]}`}
+                  src={`http://localhost:8080/api/v1/${activeTab}/download?id=${item.imageIds[0]}`}
                   alt={item.title}
-                  className="zzim-card-image"
+                  className="search-card-image"
                 />
               ) : (
                 <img
                   src="/images/noimage.png"
-                  alt={item.title}
-                  className="zzim-card-image"
+                  alt="No Image"
+                  className="search-card-image"
                 />
               )}
               <div className="item-details">
@@ -121,4 +126,4 @@ const ZzimList = () => {
   );
 };
 
-export default ZzimList;
+export default Search;

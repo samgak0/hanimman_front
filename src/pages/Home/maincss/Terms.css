@@ -15,18 +15,10 @@
   margin-bottom: 16px;
 }
 
-.back-button {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  margin-right: 16px;
-}
-
 .terms-header h1 {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+  font-size: 20px;
 }
 
 /* 약관 리스트 */

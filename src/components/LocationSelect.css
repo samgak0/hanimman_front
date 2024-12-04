@@ -60,10 +60,10 @@
   color: #BEBBBB; /* 비활성화된 버튼의 텍스트 색상 */
 }
 .location-options {
- height: 250px;
- margin-top: 20px;
- margin-bottom: 35px;
- overflow: hidden;
+  height: 250px;
+  margin-top: 20px;
+  margin-bottom: 35px;
+  overflow: hidden;
 }
 .location-select {
   display: flex;

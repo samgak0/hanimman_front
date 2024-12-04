@@ -16,6 +16,7 @@ import {
   createTogetherFavorite,
   deleteTogetherFavorite,
 } from "../../../api/togetherFavoriteApi";
+import { createParticipant } from "../../../api/togetherParticipantApi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -56,12 +57,24 @@ const TogetherDetail = () => {
   // 현재 게시글이 이미 신청되었는지 확인
   const isApplied = appliedPosts.includes(post.id);
 
-  const handleApply = () => {
+  // 신청하기
+  const handleApply = async () => {
     if (!isApplied) {
-      applyForPost(post.id);
+      const togetherParticipantDTO = {
+        parentId: post.id,
+        date: new Date().toISOString(),
+        quantity: post.quantity,
+      };
+      console.log("참여자 생성", togetherParticipantDTO);
+      try {
+        await createParticipant(togetherParticipantDTO);
+      } catch (error) {
+        console.error("참여자 생성 중 에러가 발생했습니다:", error);
+      }
     }
   };
 
+  // 삭제하기
   const handleDelete = async () => {
     try {
       await deleteTogether(post.id);
@@ -71,6 +84,7 @@ const TogetherDetail = () => {
     }
   };
 
+  // 수정하기
   const handleEdit = () => {
     try {
       navigate(`/togethercreate`, { state: { post } });
@@ -166,7 +180,11 @@ const TogetherDetail = () => {
               </Slider>
             )
           ) : (
-            <p className="no-image">이미지가 없습니다.</p>
+            <img
+              src="/images/noimage.png"
+              alt={post.title}
+              className="together-card-image"
+            />
           )}
         </div>
 
@@ -247,9 +265,7 @@ const TogetherDetail = () => {
             <button className="edit-button" onClick={handleEdit}>
               수정하기
             </button>
-          ) : (
-            <button className="chat-button">채팅하기</button>
-          )}
+          ) : null}
 
           <button
             className="apply-button"

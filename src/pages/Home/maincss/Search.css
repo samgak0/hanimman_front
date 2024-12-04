@@ -1,59 +1,66 @@
-/* 찜목록, 내 글, 참여 글 공통 CSS */
+/* 검색 결과 페이지 공통 CSS */
 
-.zzim-list {
+.search-list {
   padding: 20px;
   background-color: white;
 }
 
-.zzim-header {
+.search-header {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.zzim-header h1 {
+.back-button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.search-header h1 {
   flex-grow: 1;
   text-align: center;
   font-size: 20px;
 }
 
-.zzim-tabs {
+.search-tabs {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
 }
 
-.zzim-tab {
+.search-tab {
   padding: 10px 20px;
   margin: 0 5px;
-  border: 2px solid #f4bb44;
+  border: 2px solid #ff8c00;
   background-color: white;
-  color: #f4bb44;
+  color: #ff8c00;
   cursor: pointer;
   font-size: 16px;
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s;
 }
 
-.zzim-tab.active {
-  background-color: #f4bb44;
+.search-tab.active {
+  background-color: #ff8c00;
   color: white;
   font-weight: bold;
 }
 
-.zzim-tab:hover {
-  background-color: #f4bb44;
+.search-tab:hover {
+  background-color: #ff8c00;
   color: white;
 }
 
-/* 찜목록 아이템 스타일 */
-.zzim-item {
+/* 검색 결과 아이템 스타일 */
+.search-item {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.zzim-card-image {
+.search-card-image {
   width: 100px;
   height: 100px;
   border-radius: 8px;
