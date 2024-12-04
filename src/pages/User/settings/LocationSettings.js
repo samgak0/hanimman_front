@@ -6,7 +6,22 @@ import { useNavigate } from 'react-router-dom';
 const LocationSettings = () => {
   const [registeredLocations, setRegisteredLocations] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [availableLocations, setAvailableLocations] = useState([
+    "부산 해운대구 우제2동",
+    "부산 수영구 수영동",
+    "부산 해운대구 재송제1동",
+    "부산 해운대구 재송동",
+    "부산 수영구 망미제2동",
+    "부산 해운대구 우동",
+    "부산 수영구 민락동",
+    "부산 수영구 광안제3동",
+    "부산 해운대구 우제3동",
+    "부산 해운대구 재송제2동",
+    "부산 수영구 광안제1동",
+    "부산 수영구 망미동",
+  ]);
   const navigate = useNavigate();
+
   const fetchLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -27,42 +42,32 @@ const LocationSettings = () => {
               console.log('API Response:', data);
 
               if (data) {
-                const addressId = data.id; // 법정 코드 (주소 ID)
-                const neighborhood = data.neighborhoodName; // 동 이름
-
-                // 사용자 ID를 가져오는 방법 (예: 로컬 스토리지 또는 상태에서)
-                const userId = localStorage.getItem('userId'); // 예시: 로컬 스토리지에서 가져오기
+                // API 응답에서 동네 이름을 가져와 등록된 동네에 추가
+                const neighborhood = data.neighborhoodName;
+                setRegisteredLocations((prev) => {
+                  if (!prev.includes(neighborhood) && prev.length < 2) {
+                    return [...prev, neighborhood];
+                  }
+                  return prev;
+                });
               } else {
                 alert('법정 코드 가져오는 데 실패했습니다.');
               }
             }
           } catch (error) {
-            console.error('API 호출 중 오류 발생:', error.response.data); // 서버의 에러 응답 내용 출력
-            alert('API 호출 중 오류가 발생했습니다: ' + error.response.data.message);
+            console.error('API 호출 중 오류 발생:', error);
+            alert('API 호출 중 오류가 발생했습니다: ' + error.message);
           }
         },
         (error) => {
           console.error('위치 정보를 가져오지 못했습니다:', error);
           alert('위치 정보를 가져오는 데 실패했습니다.');
         },
-      )} else {
-        alert('GPS를 지원하지 않는 브라우저입니다.');
-      }
+      );
+    } else {
+      alert('GPS를 지원하지 않는 브라우저입니다.');
+    }
   };
-  const [availableLocations, setAvailableLocations] = useState([
-    "부산 해운대구 우제2동",
-    "부산 수영구 수영동",
-    "부산 해운대구 재송제1동",
-    "부산 해운대구 재송동",
-    "부산 수영구 망미제2동",
-    "부산 해운대구 우동",
-    "부산 수영구 민락동",
-    "부산 수영구 광안제3동",
-    "부산 해운대구 우제3동",
-    "부산 해운대구 재송제2동",
-    "부산 수영구 광안제1동",
-    "부산 수영구 망미동",
-  ]);
 
   useEffect(() => {
     // `location.json`에서 등록된 동네 불러오기
