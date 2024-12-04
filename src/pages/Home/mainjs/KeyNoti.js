@@ -34,7 +34,7 @@ const KeyNoti = () => {
     <div className="keynoti-container">
       <header className="keynoti-header">
         <button className="back-button" onClick={handleBackClick}>◀︎</button>
-        <h1>키워드 알림 설정 ( {keywords.length}/30 )</h1>
+        <h1>키워드 알림 설정 ({keywords.length}/30)</h1>
       </header>
 
       <div className="input-container">
