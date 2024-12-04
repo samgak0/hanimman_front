@@ -17,6 +17,12 @@
   border-bottom: 1px solid #ddd;
 }
 
+h1 {
+  margin: 0 auto; /* 좌우 균등 배치 */
+  font-size: 20px;
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
 .registered-locations,
 .nearby-locations {
   flex-shrink: 0;
