@@ -19,6 +19,7 @@
 .keynoti-header h1 {
   font-size: 18px;
   font-weight: bold;
+  transform: translateX(-16px);
 }
 
 /* 입력 컨테이너 스타일 */
