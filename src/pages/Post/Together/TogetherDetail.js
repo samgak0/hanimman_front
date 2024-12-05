@@ -30,6 +30,7 @@ const TogetherDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showApplyConfirm, setShowApplyConfirm] = useState(false); // 참여 신청 확인 창 상태 추가
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -40,6 +41,7 @@ const TogetherDetail = () => {
         setIsWriter(data.writer);
         console.log("작성자인가요", data.writer);
         console.log("좋아요", data.favorite);
+        console.log("참여신청유무", data.participant);
       } catch (error) {
         setError(error);
       } finally {
@@ -68,6 +70,7 @@ const TogetherDetail = () => {
       console.log("참여자 생성", togetherParticipantDTO);
       try {
         await createParticipant(togetherParticipantDTO);
+        navigate("/chat"); // 채팅 페이지로 이동
       } catch (error) {
         console.error("참여자 생성 중 에러가 발생했습니다:", error);
       }
@@ -268,12 +271,34 @@ const TogetherDetail = () => {
           ) : null}
 
           <button
-            className="apply-button"
-            onClick={handleApply}
-            disabled={isApplied}
+            className={`apply-button ${post.isEnd ? "ended" : ""}`}
+            onClick={() =>
+              post.participant ? navigate("/chat") : setShowApplyConfirm(true)
+            } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
+            disabled={isApplied || post.isEnd}
           >
-            {isApplied ? "신청완료" : "신청하기"}
+            {post.isEnd
+              ? "마감됨"
+              : post.participant
+              ? "채팅방이동"
+              : isApplied
+              ? "신청완료"
+              : "신청하기"}
           </button>
+          {showApplyConfirm && (
+            <div className="apply-confirm">
+              <p>참여신청을 하시겠습니까?</p>
+              <button className="confirm-button" onClick={handleApply}>
+                예
+              </button>
+              <button
+                className="cancel-button"
+                onClick={() => setShowApplyConfirm(false)}
+              >
+                아니오
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
