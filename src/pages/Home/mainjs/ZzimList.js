@@ -8,16 +8,17 @@ import { listFavoriteShares } from "../../../api/shareApi";
 
 const ZzimList = () => {
   const [posts, setPosts] = useState([]);
-  const [activeTab, setActiveTab] = useState("together"); // 현재 활성화된 탭 상태
+  const [activeTab, setActiveTab] = useState("together");
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const observer = useRef();
 
   useEffect(() => {
-    setPage(0);
     setPosts([]);
+    setPage(0);
+    setHasMore(true);
     if (activeTab === "together") {
       fetchFavoriteTogethers(0);
     } else {
@@ -25,31 +26,68 @@ const ZzimList = () => {
     }
   }, [activeTab]);
 
-  const fetchFavoriteTogethers = async (page) => {
+  const fetchFavoriteTogethers = async (currentPage) => {
+    if (!hasMore || loading) return;
+
     setLoading(true);
     try {
-      const response = await listFavoriteTogethers({ page, size: 10 });
-      setPosts((prevPosts) =>
-        page === 0 ? response.content : [...prevPosts, ...response.content]
-      );
-      setHasMore(response.content.length > 0);
+      const response = await listFavoriteTogethers({
+        page: currentPage,
+        size: 10,
+      });
+      if (response.content && response.content.length > 0) {
+        setPosts((prevPosts) => {
+          if (currentPage === 0) return response.content;
+
+          // 중복 제거를 위해 Set 사용
+          const uniquePosts = [...prevPosts];
+          response.content.forEach((newPost) => {
+            if (!uniquePosts.find((post) => post.id === newPost.id)) {
+              uniquePosts.push(newPost);
+            }
+          });
+          return uniquePosts;
+        });
+        setHasMore(!response.last && response.content.length === 10);
+      } else {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error("Failed to fetch favorite togethers:", error);
+      setHasMore(false);
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchFavoriteShares = async (page) => {
+  const fetchFavoriteShares = async (currentPage) => {
+    if (!hasMore || loading) return;
+
     setLoading(true);
     try {
-      const response = await listFavoriteShares({ page, size: 10 });
-      setPosts((prevPosts) =>
-        page === 0 ? response.content : [...prevPosts, ...response.content]
-      );
-      setHasMore(response.content.length > 0);
+      const response = await listFavoriteShares({
+        page: currentPage,
+        size: 10,
+      });
+      if (response.content && response.content.length > 0) {
+        setPosts((prevPosts) => {
+          if (currentPage === 0) return response.content;
+
+          const uniquePosts = [...prevPosts];
+          response.content.forEach((newPost) => {
+            if (!uniquePosts.find((post) => post.id === newPost.id)) {
+              uniquePosts.push(newPost);
+            }
+          });
+          return uniquePosts;
+        });
+        setHasMore(!response.last && response.content.length === 10);
+      } else {
+        setHasMore(false);
+      }
     } catch (error) {
       console.error("Failed to fetch favorite shares:", error);
+      setHasMore(false);
     } finally {
       setLoading(false);
     }
@@ -64,7 +102,12 @@ const ZzimList = () => {
   };
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
+    if (tab !== activeTab) {
+      setActiveTab(tab);
+      setPosts([]);
+      setPage(0);
+      setHasMore(true);
+    }
   };
 
   const lastPostElementRef = useCallback(
@@ -85,7 +128,7 @@ const ZzimList = () => {
     if (page > 0) {
       if (activeTab === "together") {
         fetchFavoriteTogethers(page);
-      } else if (activeTab === "share") {
+      } else {
         fetchFavoriteShares(page);
       }
     }
@@ -119,7 +162,7 @@ const ZzimList = () => {
         ) : (
           posts.map((item, index) => (
             <div
-              key={`${item.id}-${index}`} // 고유한 key 설정
+              key={`${activeTab}-${item.id}`}
               className="zzim-item"
               onClick={() => handleItemClick(item.id)}
               ref={index === posts.length - 1 ? lastPostElementRef : null}
