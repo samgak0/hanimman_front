@@ -1,4 +1,4 @@
-.share-detail-root{
+.share-detail-root {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 약간의 그림자 추가 */
 }
 
@@ -24,7 +24,6 @@
   padding: 15px 25px;
   position: fixed; /* 화면 하단에 고정 */
   background-color: #fff; /* 배경색 */
-
   z-index: 10; /* 다른 요소 위에 표시 */
 }
 
@@ -37,7 +36,6 @@
 .share-detail-title h2 {
   font-size: 24px;
   font-weight: bold;
-  
 }
 
 .share-detail-meta {
@@ -48,23 +46,23 @@
   font-weight: bold;
   gap: 10px;
   margin-bottom: 10px;
-  color: #7A7676;
+  color: #7a7676;
   padding: 0 10px;
 }
 
 .share-detail-info {
-  background: #FFF5D7; /* 밝은 노란색 계열로 변경 */
+  background: #fff5d7; /* 밝은 노란색 계열로 변경 */
   padding: 10px 20px;
   margin-bottom: 20px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border-top: 0.5px solid #F4BB44;
-  border-bottom: 0.5px solid #F4BB44;;
+  border-top: 0.5px solid #f4bb44;
+  border-bottom: 0.5px solid #f4bb44;
 }
 .share-detail-info h3 {
   margin-bottom: 15px;
   font-size: 18px;
   font-weight: bold;
-  color: #FF9247; /* 오렌지색으로 강조 */
+  color: #ff9247; /* 오렌지색으로 강조 */
 }
 .share-detail-text {
   height: 30vh;
@@ -76,7 +74,6 @@
   align-items: center; /* 텍스트와 아이콘 수직 정렬 */
   font-size: 14px; /* 텍스트 크기 */
   margin-bottom: 10px;
-  
 }
 .share-detail-info-category > strong {
   color: #9e9898;
@@ -84,7 +81,7 @@
 .share-detail-actions {
   display: flex;
   justify-content: space-around;
-  border-top: 1px solid #7A7676;
+  border-top: 1px solid #7a7676;
   padding-top: 10px;
   gap: 10px;
 }
@@ -99,14 +96,12 @@
   background-color: #fff; /* 배경색 */
   height: 60px;
   z-index: 10; /* 다른 요소 위에 표시 */
-  border-top: 0.5px solid #F4BB44;
-
+  border-top: 0.5px solid #f4bb44;
 }
 
 .favorite-button,
 .chat-button,
 .apply-button {
-
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
@@ -127,4 +122,56 @@
   background: #ff9247;
   color: #fff;
   border: none;
+}
+
+.apply-button.ended {
+  background-color: #999; /* 회색으로 설정 */
+  cursor: not-allowed; /* 클릭 불가 커서 */
+}
+
+/* 삭제 확인 메시지 스타일 */
+.delete-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+.confirm-button,
+.cancel-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: #ff8c00;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* 참여 신청 확인 메시지 스타일 */
+.apply-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
 }
