@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../maincss/Announcement.css"; // CSS 파일 import
 import { useNavigate } from "react-router-dom"; // useNavigate import
 import { listAllNotices } from "../../../api/noticeApi"; // listAllNotices 함수 import
+import { toast } from "react-toastify"; // 토스트 import
 
 const Announcement = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -17,6 +18,7 @@ const Announcement = () => {
         setAnnouncements(data.content); // 공지사항 목록 상태 설정
       } catch (error) {
         setError(error); // 에러 상태 설정
+        toast.error(`공지사항 불러오기 실패: ${error.message}`); // 실패 시 토스트 메시지
       } finally {
         setLoading(false); // 로딩 상태 해제
       }
@@ -30,29 +32,29 @@ const Announcement = () => {
 
   return (
     <div className='mobile-container'>
-    <div className="announcement-container">
-      <header className="announcement-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          ◀
-        </button>{" "}
-        {/* 뒤로가기 버튼 */}
-        <h1>공지사항</h1>
-      </header>
-      <ul className="announcement-list">
-        {announcements.map((announcement) => (
-          <li
-            key={announcement.id}
-            className="announcement-item"
-            onClick={() => navigate(`/announcement/${announcement.id}`)} // 클릭 시 상세 페이지로 이동
-          >
-            <h2 className="announcement-title">{announcement.title}</h2>
-            <p className="announcement-date">
-              {new Date(announcement.createdAt).toLocaleDateString()}
-            </p>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div className="announcement-container">
+        <header className="announcement-header">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            ◀
+          </button>{" "}
+          {/* 뒤로가기 버튼 */}
+          <h1>공지사항</h1>
+        </header>
+        <ul className="announcement-list">
+          {announcements.map((announcement) => (
+            <li
+              key={announcement.id}
+              className="announcement-item"
+              onClick={() => navigate(`/announcement/${announcement.id}`)} // 클릭 시 상세 페이지로 이동
+            >
+              <h2 className="announcement-title">{announcement.title}</h2>
+              <p className="announcement-date">
+                {new Date(announcement.createdAt).toLocaleDateString()}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

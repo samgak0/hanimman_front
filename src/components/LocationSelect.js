@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate 가져오기
+import { toast } from "react-toastify";
 import "./LocationSelect.css";
 import KakaoMap from "./KakaoMap";
 import { DataContext } from "../context/DataContext";
@@ -18,20 +19,17 @@ const LocationSelect = () => {
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
 
-  // 점포 선택 핸들러
   const handleJumpoSelect = (jumpo) => {
     setSelectedJumpo(jumpo);
   };
 
-  // 상점 선택 핸들러
   const handleStoreSelect = async (store) => {
     setSelectedStore(store);
 
     if (store === "COSTCO") {
-      try{
+      try {
         const response = await fetch(`http://localhost:8080/api/markets/category/1`);
         const data = await response.json();
-
         console.log("COSTCO지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationCostco = [
@@ -43,7 +41,7 @@ const LocationSelect = () => {
         ];
         setLocationList(locationCostco);
         setShopList([]);
-      } catch (error){
+      } catch (error) {
         console.error("Error fetching category data:", error);
       }
     } else if (store === "EMART TRADERS") {
@@ -52,16 +50,16 @@ const LocationSelect = () => {
         const data = await response.json();
         console.log("EMART TRADERS 지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
-          const locationEmart = [
-            "서울",
-            "경기",
-            "인천/충남",
-            "대전/대구",
-            "부산/경남",
-          ];
-          setLocationList(locationEmart);
-          setShopList([]);
-      } catch(error){
+        const locationEmart = [
+          "서울",
+          "경기",
+          "인천/충남",
+          "대전/대구",
+          "부산/경남",
+        ];
+        setLocationList(locationEmart);
+        setShopList([]);
+      } catch (error) {
         console.error("Error fetching category data:", error);
       }
     } else if (store === "ETC") {
@@ -84,15 +82,18 @@ const LocationSelect = () => {
         },
         (error) => {
           console.error("Error fetching geolocation:", error);
-          alert("위치 정보를 사용할 수 없습니다.");
+          toast.error("위치 정보를 사용할 수 없습니다.", {
+            position: "bottom-center",
+          });
         }
       );
     } else {
-      alert("Geolocation을 지원하지 않는 브라우저입니다.");
+      toast.error("Geolocation을 지원하지 않는 브라우저입니다.", {
+        position: "bottom-center",
+      });
     }
   };
 
-  // 지역 선택 핸들러
   const handleLocationSelect = (local) => {
     setSelectedLocation(local);
     let res;
@@ -144,24 +145,22 @@ const LocationSelect = () => {
     setShopList(res);
   };
 
-  // 등록 완료 버튼 클릭 핸들러
   const handleComplete = () => {
     if (!selectedStore) {
-      alert("상점을 선택해주세요.");
+      toast.error("상점을 선택해주세요.", { position: "bottom-center" });
       return;
     }
 
     if (selectedStore !== "ETC" && (!selectedLocation || !selectedJumpo)) {
-      alert("지역과 점포를 모두 선택해주세요.");
+      toast.error("지역과 점포를 모두 선택해주세요.", { position: "bottom-center" });
       return;
     }
 
     if (selectedStore === "ETC" && !clickedPosition) {
-      alert("위치를 지정해주세요.");
+      toast.error("위치를 지정해주세요.", { position: "bottom-center" });
       return;
     }
 
-    // 데이터 출력 또는 API 호출
     const locationData = {
       store: selectedStore,
       location: selectedLocation,
@@ -278,7 +277,6 @@ const LocationSelect = () => {
         </div>
       )}
 
-      {/* 등록 완료 버튼 */}
       <button className="complete-button" onClick={handleComplete}>
         등록완료
       </button>

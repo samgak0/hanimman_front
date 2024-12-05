@@ -34,7 +34,7 @@ const App = () => {
     <DataProvider>
       <Router>
         {/* ToastContainer를 최상위에 추가 */}
-        <ToastContainer position="top-right" autoClose={3000} hideProgressBar closeOnClick pauseOnHover />
+        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar closeOnClick pauseOnHover />
         <Routes>
           {/* 기본 경로들 */}
           <Route path="/" element={<LoadingScreen />} />
