@@ -19,6 +19,7 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  transform: translateX(-16px);
 }
 
 /* FAQ 목록 스타일 */
