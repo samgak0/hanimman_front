@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const MobileVerificationPage = () => {
   const location = useLocation();
@@ -42,17 +43,17 @@ const MobileVerificationPage = () => {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
             navigate("/location");
-            console.error("회원가입 또는 로그인 성공!");
+            toast.success("회원가입 또는 로그인 성공!");
           } else {
-            console.error("Authorization 토큰을 찾을 수 없습니다.");
+            toast.error("Authorization 토큰을 찾을 수 없습니다.");
           }
         } else {
           const errorData = await verifyAndSignupOrLogin.json();
-          console.error(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);
+          toast.error(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);
         }
       } catch (error) {
-        console.error("Error:", error);
-        console.error("본인 인증 중 오류가 발생했습니다.");
+        toast.error("Error:", error);
+        toast.error("본인 인증 중 오류가 발생했습니다.");
       }
     };
 

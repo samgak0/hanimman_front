@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // react-toastify 임포트
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
-import DateSelect from "../../../components/DateSelect"; // 날짜 선택 컴포넌트 가져오기
+import DateSelect from "../../../components/DateSelect";
 import CategorySelect from "../../../components/CategorySelect";
 import { DataContext } from "../../../context/DataContext";
-import { createTogether } from "../../../api/togetherApi"; // createTogether API 함수 가져오기
+import { createTogether } from "../../../api/togetherApi";
 import { useLocation } from "react-router-dom";
 
 const TogetherCreate = () => {
@@ -100,6 +101,7 @@ const TogetherCreate = () => {
       setPosts((prevPosts) => [...prevPosts, togetherDTO]);
       setTogetherCreateState({}); // 상태 초기화
       navigate("/togetherlist");
+      toast.success("게시글이 성공적으로 등록되었습니다."); // 성공 메시지
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정
@@ -107,6 +109,7 @@ const TogetherCreate = () => {
         setErrorMessage("게시글 작성 중 오류가 발생했습니다."); // 일반적인 에러 메시지 설정
       }
       console.error("Error creating post:", error);
+      toast.error("게시글 작성 중 오류가 발생했습니다."); // 에러 메시지 처리
 
       // 5초 후에 에러 메시지 지우기
       setTimeout(() => {
@@ -189,8 +192,7 @@ const TogetherCreate = () => {
               <div className="error-message-container">
                 <p className="error-message">{errorMessage}</p>
               </div>
-            )}{" "}
-            {/* 에러 메시지 표시 */}
+            )}
             <div
               className="image-slider-container"
               style={{ position: "relative" }}
@@ -208,21 +210,21 @@ const TogetherCreate = () => {
                     {images[index] ? (
                       <>
                         <img
-                          src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
+                          src={URL.createObjectURL(images[index])}
                           alt={`uploaded-${index}`}
                           className="uploaded-image"
                           onClick={() =>
                             document
                               .getElementById(`file-input-${index}`)
                               .click()
-                          } // 이미지 클릭 시 파일 입력 트리거
+                          }
                         />
                         <input
                           id={`file-input-${index}`}
                           type="file"
                           accept="image/*"
                           style={{ display: "none" }}
-                          onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
+                          onChange={(event) => handleImageReplace(event, index)}
                         />
                         <button
                           className="remove-image-button"
@@ -237,9 +239,9 @@ const TogetherCreate = () => {
                           <input
                             type="file"
                             accept="image/*"
-                            multiple // 여러 파일 선택 가능
+                            multiple
                             style={{ display: "none" }}
-                            onChange={handleImageUpload} // 새 이미지 추가
+                            onChange={handleImageUpload}
                           />
                           <div className="add-image">
                             {index === 0 ? (

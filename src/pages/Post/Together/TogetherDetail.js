@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { toast } from "react-toastify";  // react-toastify 추가
 import "./TogetherDetail.css";
 import { ReactComponent as BackIcon } from "../../../assets/icons/back.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.svg";
@@ -68,9 +69,12 @@ const TogetherDetail = () => {
       console.log("참여자 생성", togetherParticipantDTO);
       try {
         await createParticipant(togetherParticipantDTO);
+        toast.success("신청이 완료되었습니다.");
       } catch (error) {
-        console.error("참여자 생성 중 에러가 발생했습니다:", error);
+        toast.error("참여자 생성 중 오류가 발생했습니다.");
       }
+    } else {
+      toast.info("이미 신청한 게시글입니다.");
     }
   };
 
@@ -78,9 +82,10 @@ const TogetherDetail = () => {
   const handleDelete = async () => {
     try {
       await deleteTogether(post.id);
+      toast.success("게시글이 삭제되었습니다.");
       navigate("/togetherlist"); // 삭제 후 리스트 페이지로 이동
     } catch (error) {
-      console.error("게시글 삭제 중 에러가 발생했습니다:", error);
+      toast.error("게시글 삭제 중 오류가 발생했습니다.");
     }
   };
 
@@ -89,7 +94,7 @@ const TogetherDetail = () => {
     try {
       navigate(`/togethercreate`, { state: { post } });
     } catch (error) {
-      console.error("게시글 수정 중 에러가 발생했습니다:", error);
+      toast.error("게시글 수정 중 오류가 발생했습니다.");
     }
   };
 
@@ -111,12 +116,14 @@ const TogetherDetail = () => {
       if (isFavorite) {
         await deleteTogetherFavorite(togetherDTO);
         setIsFavorite(false);
+        toast.info("좋아요가 취소되었습니다.");
       } else {
         await createTogetherFavorite(togetherDTO);
         setIsFavorite(true);
+        toast.success("좋아요가 추가되었습니다.");
       }
     } catch (error) {
-      console.error("Error toggling favorite:", error);
+      toast.error("좋아요 처리 중 오류가 발생했습니다.");
     }
   };
 

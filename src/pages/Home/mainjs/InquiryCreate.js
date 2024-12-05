@@ -4,6 +4,7 @@ import "../maincss/InquiryCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import { createInquiry } from "../../../api/inquiryApi"; // createInquiry API 함수 가져오기
+import { toast } from "react-toastify"; // 토스트 알림 라이브러리 가져오기
 
 const InquiryCreate = () => {
   const [images, setImages] = useState([]);
@@ -62,8 +63,10 @@ const InquiryCreate = () => {
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정
+        toast.error(`문의 작성 실패: ${error.response.data.message}`); // 실패 시 토스트 메시지 표시
       } else {
         setErrorMessage("문의 작성 중 오류가 발생했습니다."); // 일반적인 에러 메시지 설정
+        toast.error("문의 작성 중 오류가 발생했습니다."); // 실패 시 토스트 메시지 표시
       }
       console.error("Error creating inquiry:", error);
 
@@ -106,114 +109,113 @@ const InquiryCreate = () => {
 
   return (
     <div className='mobile-container'>
-    <div className="inquiry-registration-page">
-      <header className="inquiry-list-header">
-        <button onClick={handleClose} className="inquiry-close-icon-button">
-          <CloseIcon />
-        </button>
-      </header>
-      {errorMessage && (
-        <div className="inquiry-error-message-container">
-          <p className="inquiry-error-message">{errorMessage}</p>
-        </div>
-      )}{" "}
-      {/* 에러 메시지 표시 */}
-      <div
-        className="inquiry-image-slider-container"
-        style={{ position: "relative" }}
-      >
+      <div className="inquiry-registration-page">
+        <header className="inquiry-list-header">
+          <button onClick={handleClose} className="inquiry-close-icon-button">
+            <CloseIcon />
+          </button>
+        </header>
+        {errorMessage && (
+          <div className="inquiry-error-message-container">
+            <p className="inquiry-error-message">{errorMessage}</p>
+          </div>
+        )}
         <div
-          ref={sliderRef}
-          className="inquiry-image-upload-container"
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUpOrLeave}
-          onMouseLeave={handleMouseUpOrLeave}
+          className="inquiry-image-slider-container"
+          style={{ position: "relative" }}
         >
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div key={index} className="inquiry-image-upload-box">
-              {images[index] ? (
-                <>
-                  <img
-                    src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
-                    alt={`uploaded-${index}`}
-                    className="inquiry-uploaded-image"
-                    onClick={() =>
-                      document.getElementById(`file-input-${index}`).click()
-                    } // 이미지 클릭 시 파일 입력 트리거
-                  />
-                  <input
-                    id={`file-input-${index}`}
-                    type="file"
-                    accept="image/*"
-                    style={{ display: "none" }}
-                    onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
-                  />
-                  <button
-                    className="inquiry-remove-image-button"
-                    onClick={() => handleImageRemove(index)}
-                  >
-                    &times;
-                  </button>
-                </>
-              ) : (
-                images.length < 10 && (
-                  <label>
+          <div
+            ref={sliderRef}
+            className="inquiry-image-upload-container"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUpOrLeave}
+            onMouseLeave={handleMouseUpOrLeave}
+          >
+            {Array.from({ length: 10 }).map((_, index) => (
+              <div key={index} className="inquiry-image-upload-box">
+                {images[index] ? (
+                  <>
+                    <img
+                      src={URL.createObjectURL(images[index])} // 미리보기 URL 생성
+                      alt={`uploaded-${index}`}
+                      className="inquiry-uploaded-image"
+                      onClick={() =>
+                        document.getElementById(`file-input-${index}`).click()
+                      } // 이미지 클릭 시 파일 입력 트리거
+                    />
                     <input
+                      id={`file-input-${index}`}
                       type="file"
                       accept="image/*"
-                      multiple // 여러 파일 선택 가능
                       style={{ display: "none" }}
-                      onChange={handleImageUpload} // 새 이미지 추가
+                      onChange={(event) => handleImageReplace(event, index)} // 이미지 교체
                     />
-                    <div className="inquiry-add-image">
-                      {index === 0 ? (
-                        <>
-                          <CameraIcon className="inquiry-camera-icon" />
-                          <p className="inquiry-camera-text">사진등록</p>
-                        </>
-                      ) : (
-                        "+"
-                      )}
-                    </div>
-                  </label>
-                )
-              )}
-            </div>
-          ))}
+                    <button
+                      className="inquiry-remove-image-button"
+                      onClick={() => handleImageRemove(index)}
+                    >
+                      &times;
+                    </button>
+                  </>
+                ) : (
+                  images.length < 10 && (
+                    <label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple // 여러 파일 선택 가능
+                        style={{ display: "none" }}
+                        onChange={handleImageUpload} // 새 이미지 추가
+                      />
+                      <div className="inquiry-add-image">
+                        {index === 0 ? (
+                          <>
+                            <CameraIcon className="inquiry-camera-icon" />
+                            <p className="inquiry-camera-text">사진등록</p>
+                          </>
+                        ) : (
+                          "+"
+                        )}
+                      </div>
+                    </label>
+                  )
+                )}
+              </div>
+            ))}
+          </div>
         </div>
+        <div className="inquiry-form-group">
+          <h4>제목</h4>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="문의 제목을 입력하세요"
+          />
+        </div>
+        <div className="inquiry-form-group">
+          <h4>내용</h4>
+          <textarea
+            className="inquiry-textarea"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="문의 내용을 입력하세요"
+          ></textarea>
+        </div>
+        <div className="inquiry-form-group">
+          <h4>답변받을 E-Mail</h4>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="답변받을 이메일을 입력하세요"
+          />
+        </div>
+        <button className="inquiry-submit-button" onClick={handleSubmit}>
+          등록완료
+        </button>
       </div>
-      <div className="inquiry-form-group">
-        <h4>제목</h4>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="문의 제목을 입력하세요"
-        />
-      </div>
-      <div className="inquiry-form-group">
-        <h4>내용</h4>
-        <textarea
-          className="inquiry-textarea"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="문의 내용을 입력하세요"
-        ></textarea>
-      </div>
-      <div className="inquiry-form-group">
-        <h4>답변받을 E-Mail</h4>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="답변받을 이메일을 입력하세요"
-        />
-      </div>
-      <button className="inquiry-submit-button" onClick={handleSubmit}>
-        등록완료
-      </button>
-    </div>
     </div>
   );
 };
