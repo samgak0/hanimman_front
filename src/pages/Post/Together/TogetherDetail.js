@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
-import { toast } from "react-toastify";  // react-toastify 추가
+import { toast } from "react-toastify"; // react-toastify 추가
 import "./TogetherDetail.css";
 import { ReactComponent as BackIcon } from "../../../assets/icons/back.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.svg";
@@ -101,6 +101,15 @@ const TogetherDetail = () => {
     }
   };
 
+  //신고하기
+  const handleReport = () => {
+    try {
+      navigate(`/togetherreport`, { state: { post } });
+    } catch (error) {
+      toast.error("게시글 신고 중 오류가 발생했습니다.");
+    }
+  };
+
   // 현재 신청된 인원 계산
   const currentApplicants = appliedPosts.filter((id) => id === post.id).length;
   const totalPeople = post.people || 0;
@@ -162,7 +171,7 @@ const TogetherDetail = () => {
           <button className="back-button" onClick={() => navigate(-1)}>
             <BackIcon />
           </button>
-          <button className="notify-button" onClick={() => navigate}>
+          <button className="notify-button" onClick={handleReport}>
             <NotifyIcon />
           </button>
         </header>

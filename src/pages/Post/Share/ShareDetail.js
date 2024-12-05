@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "./ShareDetail.css";
+import { toast } from "react-toastify"; // react-toastify 추가
 import { ReactComponent as BackIcon } from "../../../assets/icons/back.svg";
 import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.svg";
 import { ReactComponent as HeartFullIcon } from "../../../assets/icons/zzimOn.svg";
@@ -89,6 +90,15 @@ const ShareDetail = () => {
     }
   };
 
+  //신고하기
+  const handleReport = () => {
+    try {
+      navigate(`/sharereport`, { state: { post } });
+    } catch (error) {
+      toast.error("게시글 신고 중 오류가 발생했습니다.");
+    }
+  };
+
   const toggleFavorite = async () => {
     const shareDTO = {
       views: 0,
@@ -144,7 +154,7 @@ const ShareDetail = () => {
           <button className="back-button" onClick={() => navigate(-1)}>
             <BackIcon />
           </button>
-          <button className="notify-button" onClick={() => alert("신고하기")}>
+          <button className="notify-button" onClick={handleReport}>
             <NotifyIcon />
           </button>
         </header>

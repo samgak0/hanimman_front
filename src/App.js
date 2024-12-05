@@ -28,13 +28,21 @@ import PrivateRoute from "./routes/privateRoute";
 import TogetherList from "./pages/Post/Together/TogetherList";
 import TogetherDetail from "./pages/Post/Together/TogetherDetail";
 import Search from "./pages/Home/mainjs/Search";
+import TogetherReport from "./pages/Post/Together/TogetherReport";
+import ShareReport from "./pages/Post/Share/ShareReport";
 
 const App = () => {
   return (
     <DataProvider>
       <Router>
         {/* ToastContainer를 최상위에 추가 */}
-        <ToastContainer position="bottom-center" autoClose={3000} hideProgressBar closeOnClick pauseOnHover />
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar
+          closeOnClick
+          pauseOnHover
+        />
         <Routes>
           {/* 기본 경로들 */}
           <Route path="/" element={<LoadingScreen />} />
@@ -92,6 +100,14 @@ const App = () => {
           <Route
             path="/search"
             element={<PrivateRoute element={<Search />} />}
+          />
+          <Route
+            path="/togetherreport"
+            element={<PrivateRoute element={<TogetherReport />} />}
+          />
+          <Route
+            path="/sharereport"
+            element={<PrivateRoute element={<ShareReport />} />}
           />
 
           {/* Main 관련 경로 */}

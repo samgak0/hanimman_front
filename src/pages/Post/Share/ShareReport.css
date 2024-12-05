@@ -1,0 +1,105 @@
+/* 신고 페이지 공통 CSS */
+
+.report-page {
+  padding: 20px;
+  background-color: white;
+}
+
+.report-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 16px;
+}
+
+.report-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.back-button {
+  font-size: 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px; /* 둥근 모서리 정도를 줄임 */
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  width: 100%; /* 버튼을 전체 너비로 설정 */
+  text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+.category-item.selected {
+  background-color: #f4bb44;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category-item:hover {
+  background-color: #f4bb44;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.report-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f4bb44;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.report-button:hover {
+  background-color: #e0a832;
+}
+
+/* 확인 다이얼로그 스타일 */
+.confirm-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  text-align: center;
+}
+
+.confirm-button,
+.cancel-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-button {
+  background-color: #ff8c00;
+  color: white;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
