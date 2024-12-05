@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "../maincss/ZzimList.css";
 import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg";
@@ -9,42 +9,87 @@ import { listFavoriteShares } from "../../../api/shareApi";
 const ZzimList = () => {
   const [posts, setPosts] = useState([]);
   const [activeTab, setActiveTab] = useState("together"); // 현재 활성화된 탭 상태
+  const [page, setPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const observer = useRef();
 
   useEffect(() => {
-    fetchFavoriteTogethers();
-  }, []);
+    setPage(0);
+    setPosts([]);
+    if (activeTab === "together") {
+      fetchFavoriteTogethers(0);
+    } else {
+      fetchFavoriteShares(0);
+    }
+  }, [activeTab]);
 
-  const fetchFavoriteTogethers = async () => {
+  const fetchFavoriteTogethers = async (page) => {
+    setLoading(true);
     try {
-      const response = await listFavoriteTogethers();
-      setPosts(response.content); // Assuming the API returns a paginated response
+      const response = await listFavoriteTogethers({ page, size: 10 });
+      setPosts((prevPosts) =>
+        page === 0 ? response.content : [...prevPosts, ...response.content]
+      );
+      setHasMore(response.content.length > 0);
     } catch (error) {
       console.error("Failed to fetch favorite togethers:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const fetchFavoriteShare = async () => {
+  const fetchFavoriteShares = async (page) => {
+    setLoading(true);
     try {
-      const response = await listFavoriteShares();
-      setPosts(response.content); // Assuming the API returns a paginated response
+      const response = await listFavoriteShares({ page, size: 10 });
+      setPosts((prevPosts) =>
+        page === 0 ? response.content : [...prevPosts, ...response.content]
+      );
+      setHasMore(response.content.length > 0);
     } catch (error) {
       console.error("Failed to fetch favorite shares:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleItemClick = (id) => {
-    navigate(`/togetherdetail/${id}`);
+    if (activeTab === "together") {
+      navigate(`/togetherdetail/${id}`);
+    } else {
+      navigate(`/sharedetail/${id}`);
+    }
   };
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === "together") {
-      fetchFavoriteTogethers();
-    } else if (tab === "share") {
-      fetchFavoriteShare();
-    }
   };
+
+  const lastPostElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore]
+  );
+
+  useEffect(() => {
+    if (page > 0) {
+      if (activeTab === "together") {
+        fetchFavoriteTogethers(page);
+      } else if (activeTab === "share") {
+        fetchFavoriteShares(page);
+      }
+    }
+  }, [page, activeTab]);
 
   return (
     <div className="mobile-container">
@@ -72,15 +117,16 @@ const ZzimList = () => {
         {posts.length === 0 ? (
           <p className="no-posts">찜한 게시물이 없습니다</p>
         ) : (
-          posts.map((item) => (
+          posts.map((item, index) => (
             <div
-              key={item.id}
+              key={`${item.id}-${index}`} // 고유한 key 설정
               className="zzim-item"
               onClick={() => handleItemClick(item.id)}
+              ref={index === posts.length - 1 ? lastPostElementRef : null}
             >
               {item.imageIds[0] ? (
                 <img
-                  src={`http://localhost:8080/api/v1/together/download?id=${item.imageIds[0]}`}
+                  src={`http://localhost:8080/api/v1/${activeTab}/download?id=${item.imageIds[0]}`}
                   alt={item.title}
                   className="zzim-card-image"
                 />
@@ -116,6 +162,7 @@ const ZzimList = () => {
             </div>
           ))
         )}
+        {loading && <p>Loading more posts...</p>}
       </div>
     </div>
   );

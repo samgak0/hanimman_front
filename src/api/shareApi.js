@@ -75,3 +75,13 @@ export const listFavoriteShares = async (params) => {
     throw error;
   }
 };
+
+export const listMyShares = async (params) => {
+  try {
+    const response = await jwtAxios.get(`${host}/list/user`, { params });
+    return response.data;
+  } catch (error) {
+    console.error("나눠요 게시글 내가 쓴 글 리스트에서 에러가 발생하였습니다.");
+    throw error;
+  }
+};

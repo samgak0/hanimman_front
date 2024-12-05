@@ -63,7 +63,6 @@ const ShareDetail = () => {
         date: new Date().toISOString(),
         quantity: post.quantity,
       };
-      console.log("참여자 생성", shareParticipantDTO);
       try {
         await createParticipant(shareParticipantDTO);
         navigate("/chat"); // 채팅 페이지로 이동

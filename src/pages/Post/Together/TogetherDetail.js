@@ -40,9 +40,6 @@ const TogetherDetail = () => {
         setPost(data);
         setIsFavorite(data.favorite); // 좋아요 상태 설정
         setIsWriter(data.writer);
-        console.log("작성자인가요", data.writer);
-        console.log("좋아요", data.favorite);
-        console.log("참여신청유무", data.participant);
       } catch (error) {
         setError(error);
       } finally {
