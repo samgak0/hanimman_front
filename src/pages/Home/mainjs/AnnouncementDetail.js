@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../maincss/AnnouncementDetail.css"; // CSS 파일 import
 import { readNotice } from "../../../api/noticeApi"; // readNotice 함수 import
+import { toast } from "react-toastify"; // 토스트 import
 
 const AnnouncementDetail = () => {
   const { id } = useParams(); // URL에서 id를 가져옴
@@ -17,6 +18,7 @@ const AnnouncementDetail = () => {
         setAnnouncement(data); // 공지사항 상태 설정
       } catch (error) {
         setError(error); // 에러 상태 설정
+        toast.error(`공지사항 불러오기 실패: ${error.message}`); // 실패 시 토스트 메시지
       } finally {
         setLoading(false); // 로딩 상태 해제
       }
@@ -31,33 +33,33 @@ const AnnouncementDetail = () => {
 
   return (
     <div className='mobile-container'>
-    <div className="announcement-detail-container">
-      <header className="announcement-detail-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          ◀
-        </button>{" "}
-        {/* 뒤로가기 버튼 */}
-        <h1>공지사항</h1>
-      </header>
-      <div className="announcement-detail-content">
-        <h2 className="announcement-detail-title">{announcement.title}</h2>
-        <p className="announcement-detail-date">
-          {new Date(announcement.createdAt).toLocaleDateString()}
-        </p>
-        <div className="announcement-detail-images">
-          {announcement.imageIds &&
-            announcement.imageIds.map((id) => (
-              <img
-                key={id}
-                src={`http://localhost:8080/api/v1/notice/download?id=${id}`}
-                alt="공지사항 이미지"
-                className="announcement-detail-image"
-              />
-            ))}
+      <div className="announcement-detail-container">
+        <header className="announcement-detail-header">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            ◀
+          </button>{" "}
+          {/* 뒤로가기 버튼 */}
+          <h1>공지사항</h1>
+        </header>
+        <div className="announcement-detail-content">
+          <h2 className="announcement-detail-title">{announcement.title}</h2>
+          <p className="announcement-detail-date">
+            {new Date(announcement.createdAt).toLocaleDateString()}
+          </p>
+          <div className="announcement-detail-images">
+            {announcement.imageIds &&
+              announcement.imageIds.map((id) => (
+                <img
+                  key={id}
+                  src={`http://localhost:8080/api/v1/notice/download?id=${id}`}
+                  alt="공지사항 이미지"
+                  className="announcement-detail-image"
+                />
+              ))}
+          </div>
+          <p className="announcement-detail-text">{announcement.content}</p>
         </div>
-        <p className="announcement-detail-text">{announcement.content}</p>
       </div>
-    </div>
     </div>
   );
 };

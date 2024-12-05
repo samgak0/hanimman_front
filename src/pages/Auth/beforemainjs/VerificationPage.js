@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import "../beforemaincss/VerificationPage.css";
 import PortOne from "@portone/browser-sdk/v2";
 import { v4 as uuidv4 } from "uuid";
+import { toast } from "react-toastify"; // 토스트 import 추가
 
 const VerificationPage = () => {
   const location = useLocation(); // URL 정보 가져오기
@@ -33,7 +34,8 @@ const VerificationPage = () => {
         });
 
         if (response.code !== undefined) {
-          return alert(response.message);
+          toast.error(response.message); // 실패 시 toast.error
+          return;
         }
         setVerificationId(response.identityVerificationId);
 
@@ -73,21 +75,21 @@ const VerificationPage = () => {
           if (responseToken) {
             const tokenWithoutBearer = responseToken.replace("Bearer ", "");
             localStorage.setItem("authToken", tokenWithoutBearer);
-            setMessage("회원가입 또는 로그인 성공!");
+            toast.success("회원가입 또는 로그인 성공!"); // 성공 시 toast.success
             navigate("/location");
           } else {
             setMessage("Authorization 토큰을 찾을 수 없습니다.");
+            toast.error("Authorization 토큰을 찾을 수 없습니다."); // 실패 시 toast.error
           }
-          // 리다이렉트: 법정 코드 없이 페이지 전환
-          navigate("/verification");
-          
         } else {
           const errorData = await verifyAndSignupOrLogin.json();
           setMessage(`회원가입 또는 로그인 처리 실패: ${errorData.message}`);
+          toast.error(`회원가입 또는 로그인 처리 실패: ${errorData.message}`); // 실패 시 toast.error
         }
       } catch (error) {
         console.error("Error:", error);
         setMessage("본인 인증 중 오류가 발생했습니다.");
+        toast.error("본인 인증 중 오류가 발생했습니다."); // 실패 시 toast.error
       } finally {
         setLoading(false); // 로딩 끝
       }

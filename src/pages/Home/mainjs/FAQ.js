@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../maincss/FAQ.css"; // CSS 파일 import
 import { useNavigate } from "react-router-dom";
 import { listAllFaqs } from "../../../api/faqApi"; // listAllFaqs 함수 import
+import { toast } from "react-toastify"; // 토스트 import
 
 const FAQ = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -17,6 +18,7 @@ const FAQ = () => {
         setFaqs(data.content); // FAQ 목록 상태 설정
       } catch (error) {
         setError(error); // 에러 상태 설정
+        toast.error(`FAQ 불러오기 실패: ${error.message}`); // 실패 시 토스트 메시지
       } finally {
         setLoading(false); // 로딩 상태 해제
       }
@@ -30,39 +32,39 @@ const FAQ = () => {
 
   return (
     <div className='mobile-container'>
-    <div className="faq-container">
-      <header className="faq-header">
-        <button className="back-button" onClick={() => navigate(-1)}>
-          ◀
-        </button>{" "}
-        {/* 뒤로가기 버튼 */}
-        <h1>자주 묻는 질문</h1>
-      </header>
-      <div className="faq-list">
-        {faqs.map((faq) => (
-          <div
-            key={faq.id}
-            className="faq-item"
-            onClick={() => navigate(`/faq/${faq.id}`)} // 클릭 시 상세 페이지로 이동
+      <div className="faq-container">
+        <header className="faq-header">
+          <button className="back-button" onClick={() => navigate(-1)}>
+            ◀
+          </button>{" "}
+          {/* 뒤로가기 버튼 */}
+          <h1>자주 묻는 질문</h1>
+        </header>
+        <div className="faq-list">
+          {faqs.map((faq) => (
+            <div
+              key={faq.id}
+              className="faq-item"
+              onClick={() => navigate(`/faq/${faq.id}`)} // 클릭 시 상세 페이지로 이동
+            >
+              <h2 className="faq-question">{faq.title}</h2>
+              <hr className="faq-divider" /> {/* 항목 사이에 선 추가 */}
+            </div>
+          ))}
+        </div>
+        <div className="faq-footer">
+          <p>원하는 답변이 없으신가요?</p>
+          <button className="inquiry-button" onClick={() => navigate("/inquiry")}>
+            1:1 문의하기
+          </button>
+          <button
+            className="my-inquiries-button"
+            onClick={() => navigate("/my-inquiries")}
           >
-            <h2 className="faq-question">{faq.title}</h2>
-            <hr className="faq-divider" /> {/* 항목 사이에 선 추가 */}
-          </div>
-        ))}
+            내가한 문의
+          </button>
+        </div>
       </div>
-      <div className="faq-footer">
-        <p>원하는 답변이 없으신가요?</p>
-        <button className="inquiry-button" onClick={() => navigate("/inquiry")}>
-          1:1 문의하기
-        </button>
-        <button
-          className="my-inquiries-button"
-          onClick={() => navigate("/my-inquiries")}
-        >
-          내가한 문의
-        </button>
-      </div>
-    </div>
     </div>
   );
 };

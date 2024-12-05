@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./ShareLocation.css";
 import KakaoMap from "./KakaoMap";
+import { toast } from "react-toastify";
 import { ReactComponent as ShareCloseIcon } from "../assets/icons/close.svg"
 
 const ShareLocation = ({ onClose, onComplete }) => {
@@ -9,7 +10,7 @@ const ShareLocation = ({ onClose, onComplete }) => {
 
   const handleComplete = () => {
     if (!selectedPosition) {
-      alert("위치를 선택해주세요!");
+      toast.error("위치를 선택해주세요!");
       return;
     }
     onComplete({ position: selectedPosition, name: locationName });

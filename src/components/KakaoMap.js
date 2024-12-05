@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const KakaoMap = ({ currentPosition, setClickedPosition }) => {
   useEffect(() => {
@@ -42,13 +43,19 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
             const data = await response.json();
             // 응답 데이터를 프론트에 출력
             console.log('백엔드 응답:', data);
-            alert(`위치 저장 완료: 위도 ${data.lat}, 경도 ${data.lng}`);
+            toast.success(`위치 저장 완료: 위도 ${data.lat}, 경도 ${data.lng}`, {
+              position: "bottom-center",
+            });
           } else {
-            alert('위치 저장 실패');
+            toast.error('위치 저장 실패', {
+              position: "bottom-center",
+            });
           }
         } catch (error) {
           console.error('API 호출 중 오류 발생:', error);
-          alert('API 호출 중 오류가 발생했습니다.');
+          toast.error('API 호출 중 오류가 발생했습니다.', {
+            position: "bottom-center",
+          });
         }
       });
     };
