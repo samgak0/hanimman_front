@@ -19,6 +19,7 @@
   font-size: 18px;
   font-weight: bold;
   margin: 0;
+  transform: translateX(-16px);
 }
 
 /* 공지사항 상세 내용 스타일 */
