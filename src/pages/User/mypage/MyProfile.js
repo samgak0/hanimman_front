@@ -7,7 +7,7 @@ const MyProfile = () => {
   const navigate = useNavigate();
   const [mannerScore, setMannerScore] = useState(null); // 매너 당도 예시 값 (1~50)
   const [nickname, setNickname] = useState(null);
-  const [profiles, setProfiles] = useState([]);
+  const [profileImage, setProfileImage] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -15,8 +15,13 @@ const MyProfile = () => {
     jwtAxios.get("http://localhost:8080/users/myprofile")
     .then(response => {
       // 성공적으로 응답이 오면 처리
+      console.log(response);
       setNickname(response.data.nickname);
       setMannerScore(response.data.brix);
+      const imageUrl = response.data.profileImage
+      ? `http://localhost:8080/images/${response.data.profileImage}` // 이미지 경로 생성
+      : '/default-profile.png'; // 기본 이미지
+      setProfileImage(imageUrl);
     })
     .catch(error => {
       // 오류 처리
@@ -81,7 +86,8 @@ const MyProfile = () => {
 
         <div className="profile-main">
           <div className="profile-info">
-            <img className="profile-avatar" src="/images/default-avatar.png" alt="프로필 사진" />
+            {/* images/default-avatar.png */}
+            <img className="profile-avatar" src={profileImage? profileImage : "/images/defaultavatar.jpg"} alt="프로필 사진" />
             <div className="profile-details">
               <h2>{nickname}<span>#5039366</span></h2>
               <button className="edit-profile-btn" onClick={() => navigate('/editprofile')}>프로필 수정</button>
