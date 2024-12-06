@@ -164,11 +164,11 @@ const TogetherDetail = () => {
     <div className="mobile-container">
       <div className="together-detail-page">
         {/* Header */}
-        <header className="detail-header">
-          <button className="back-button" onClick={() => navigate(-1)}>
+        <header className="together-detail-header">
+          <button className="together-back-button" onClick={() => navigate(-1)}>
             <BackIcon />
           </button>
-          <button className="notify-button" onClick={handleReport}>
+          <button className="together-notify-button" onClick={handleReport}>
             <NotifyIcon />
           </button>
         </header>

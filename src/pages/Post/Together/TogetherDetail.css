@@ -2,70 +2,77 @@
 .together-detail-page {
   max-width: 393px;
   margin: 0 auto;
-  padding: 10px;
+  padding: 16px;
   font-family: Arial, sans-serif;
   background-color: #fff;
   border: 1px solid #ddd;
   overflow-y: auto;
+  box-sizing: border-box;
 }
-.detail-header {
+
+.together-detail-header {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 0 0 16px 0;
   border-bottom: 1px solid #ddd;
-  margin: 0 10px;
+  margin-bottom: 16px;
 }
-.back-button {
+
+.together-back-button,
+.together-notify-button {
   background: none;
   border: none;
   cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.notify-button {
-  background: none;
-  border: none;
-  cursor: pointer;
+
+.together-back-button svg,
+.together-notify-button svg {
+  width: 24px;
+  height: 24px;
 }
+
 .detail-title {
-  margin-top: 10px;
-  margin-left: 10px;
+  margin-top: 16px;
   border-top: 1px solid #ddd;
-  padding-top: 10px;
+  padding-top: 16px;
   font-size: 20px;
 }
+
 .detail-title p {
   font-size: 18px;
 }
+
 .detail-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: small;
-  margin: 0 10px;
-  margin-top: 5px;
+  margin-top: 8px;
   color: #a2a2a2;
 }
+
 .detail-meta-count {
   display: flex;
   align-items: center;
   gap: 3px;
 }
-.calendar-icon {
-  width: 12px;
-  height: 12px;
-  fill: #a2a2a2;
-}
-.favorite-count {
-  width: 12px;
-  height: 12px;
-  fill: #a2a2a2;
-}
+
+.calendar-icon,
+.favorite-count,
 .view-count {
   width: 12px;
   height: 12px;
   fill: #a2a2a2;
 }
+
 .detail-image-container {
-  margin: 10px 0px;
+  margin: 16px 0;
 }
 
 .detail-image {
@@ -77,52 +84,57 @@
   color: #999;
   font-size: 14px;
 }
+
 .detail-location {
-  margin-left: 10px;
   color: #a2a2a2;
   font-size: small;
   display: flex;
   justify-content: space-between;
 }
+
 .detail-info-title {
   border-top: 1px solid #ddd;
-  margin-left: 10px;
   font-weight: 600;
   font-size: 18px;
-  margin-top: 10px;
+  margin-top: 16px;
   padding-top: 20px;
 }
+
 .detail-info {
-  margin-left: 10px;
-  padding-top: 10px;
+  padding-top: 16px;
 }
+
 .detail-info-category {
   display: flex;
   align-items: center;
 }
+
 .detail-info-category > p {
   font-size: 15px;
   margin-left: 10px;
 }
+
 .detail-info h2 {
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 10px;
 }
+
 .detail-info strong {
   color: #a2a2a2;
 }
+
 .detail-text {
-  margin-left: 10px;
   margin-top: 20px;
   font-size: 20px;
 }
+
 .detail-actions {
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin-top: 30px;
-  padding: 10px 0;
+  padding: 16px 0;
   border-top: 1px solid #ddd;
 }
 
@@ -138,41 +150,37 @@
   cursor: pointer;
 }
 
-.chat-button {
-  background-color: #f0f0f0;
-  color: #333;
-}
-.edit-button {
-  background-color: #f0f0f0;
-  color: #333;
-}
+.chat-button,
+.edit-button,
 .delete-button {
   background-color: #f0f0f0;
   color: #333;
 }
+
 .apply-button {
   background-color: #ff8c00;
   color: #fff;
 }
+
 .apply-button.ended {
-  background-color: #999; /* 회색으로 설정 */
-  cursor: not-allowed; /* 클릭 불가 커서 */
+  background-color: #999;
+  cursor: not-allowed;
 }
+
 .favorite-button {
   background: none;
   border: none;
 }
-.zzimOff {
-  fill: #ff1493; /* 딥핑크 색상 */
-  cursor: pointer;
-}
+
+.zzimOff,
 .zzimOn {
   fill: #ff1493;
   cursor: pointer;
 }
 
 /* 삭제 확인 메시지 스타일 */
-.delete-confirm {
+.delete-confirm,
+.apply-confirm {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -202,18 +210,4 @@
 .cancel-button {
   background-color: #f0f0f0;
   color: #333;
-}
-
-/* 참여 신청 확인 메시지 스타일 */
-.apply-confirm {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  text-align: center;
 }

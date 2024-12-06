@@ -149,11 +149,11 @@ const ShareDetail = () => {
     <div className="mobile-container">
       <div className="share-detail-page">
         {/* Header */}
-        <header className="detail-header">
-          <button className="back-button" onClick={() => navigate(-1)}>
+        <header className="share-detail-header">
+          <button className="share-back-button" onClick={() => navigate(-1)}>
             <BackIcon />
           </button>
-          <button className="notify-button" onClick={handleReport}>
+          <button className="share-notify-button" onClick={handleReport}>
             <NotifyIcon />
           </button>
         </header>

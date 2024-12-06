@@ -20,6 +20,21 @@
   transform: translateX(-16px);
 }
 
+.zzim-back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zzim-back-button svg {
+  width: 24px;
+  height: 24px;
+}
+
 .zzim-tabs {
   display: flex;
   justify-content: center;

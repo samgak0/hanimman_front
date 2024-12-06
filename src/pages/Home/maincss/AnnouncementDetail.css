@@ -3,8 +3,8 @@
   font-family: Arial, sans-serif;
   padding: 16px;
   background-color: #fff;
-  height: 100vh; /* 전체 화면 높이 */
-  overflow-y: auto; /* 스크롤 활성화 */
+  height: 100vh;
+  overflow-y: auto;
 }
 
 /* 헤더 스타일 */
@@ -13,13 +13,24 @@
   align-items: center;
   padding-bottom: 16px;
   border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .announcement-detail-header h1 {
+  flex: 1;
   font-size: 18px;
   font-weight: bold;
   margin: 0;
-  transform: translateX(-16px);
+  text-align: center;
 }
 
 /* 공지사항 상세 내용 스타일 */
@@ -41,7 +52,7 @@
 
 .announcement-detail-images {
   display: flex;
-  flex-direction: column; /* 세로로 나열 */
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 16px;
 }
