@@ -6,10 +6,12 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
+import { useLocalStorage } from "react-use";
 
 import "./TogetherList.css";
 
 const TogetherList = () => {
+  const scrollYRef = useRef(0);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +22,14 @@ const TogetherList = () => {
   const [isEnd, setIsEnd] = useState(false); // 마감 상태 추가
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // 필터 모달 상태
   const observer = useRef();
+
+  const [position, setPosition] = useState(0);
+  const bottomSheefRef = useRef < HTMLDivElement > null;
+  const [scrollTop, setScrollTop] = useState(0);
+
+  function onScroll() {
+    setPosition(window.scrollY);
+  }
 
   const fetchPosts = async (page, sortBy, isEnd) => {
     try {
@@ -35,7 +45,19 @@ const TogetherList = () => {
   };
 
   useEffect(() => {
+    const posts = JSON.parse(sessionStorage.getItem("posts"));
+    console.log("시작", document.body.scrollTop);
+
     fetchPosts(page, sortBy, isEnd);
+    // if (!posts) {
+    //   fetchPosts(page, sortBy, isEnd);
+    // } else {
+    //   console.log(posts);
+
+    //   setPosts(posts);
+    //   setLoading(false);
+    // }
+    // document.body.scrollTo(0, sessionStorage.getItem("scrollTop"));
   }, [page, sortBy, isEnd]);
 
   const lastPostElementRef = useCallback(
@@ -57,6 +79,10 @@ const TogetherList = () => {
   };
 
   const handleCardClick = (post) => {
+    const scrollTop = document.body.scrollTop;
+    console.log("스크롤 위치:", scrollTop);
+    sessionStorage.setItem("scrollTop", scrollTop);
+    sessionStorage.setItem("posts", JSON.stringify(posts));
     navigate(`/togetherdetail/${post.id}`, { state: { post } });
   };
 
@@ -157,11 +183,6 @@ const TogetherList = () => {
                           minute: "2-digit",
                         })}`
                       : "날짜 없음"}{" "}
-                    {/* <span className="meta-item">👥 {post.people}명</span>
-                    <span className="meta-item">💬 {post.chats || 0}</span>
-                    <span className="meta-item">
-                      ❤️ {post.favoriteCount || 0}
-                    </span> */}
                   </div>
                   <div
                     className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
@@ -178,26 +199,6 @@ const TogetherList = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* <div className="card-dateinfo">
-                  {post.meetingAt
-                    ? `${new Date(
-                        post.meetingAt
-                      ).toLocaleDateString()} ${new Date(
-                        post.meetingAt
-                      ).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}`
-                    : "날짜 없음"}{" "}
-                  {post.address ? (
-                    <div className="location-info">
-                      <p>{post.address || "정보 없음"}</p>
-                    </div>
-                  ) : (
-                    "위치 정보 없음"
-                  )}
-                </div> */}
               </div>
             ))
           ) : (

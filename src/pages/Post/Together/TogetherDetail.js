@@ -20,6 +20,7 @@ import {
 import { createParticipant } from "../../../api/togetherParticipantApi";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useLocalStorage } from "react-use";
 
 const TogetherDetail = () => {
   const { id } = useParams(); // URL에서 id를 가져옴
@@ -32,6 +33,12 @@ const TogetherDetail = () => {
   const [error, setError] = useState(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showApplyConfirm, setShowApplyConfirm] = useState(false); // 참여 신청 확인 창 상태 추가
+  const [scrollY] = useLocalStorage("places_list_scroll", 0);
+
+  useEffect(() => {
+    // 기본값이 "0"이기 때문에 스크롤 값이 저장됐을 때에만 window를 스크롤시킨다.
+    if (scrollY !== 0) window.scrollTo(0, scrollY);
+  }, [scrollY]);
 
   useEffect(() => {
     const fetchPost = async () => {
