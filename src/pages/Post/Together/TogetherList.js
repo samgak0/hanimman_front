@@ -141,14 +141,27 @@ const TogetherList = () => {
                   )}
                 </div>
 
-                <div className="card-content">
+                <div className="together-card-content">
                   <div className="card-title">{post.title}</div>
                   <div className="card-meta">
-                    <span className="meta-item">👥 {post.people}명</span>
+                    <div className="location-info">
+                      <p>{post.address || "정보 없음"}</p>
+                    </div>
+                    {post.meetingAt
+                      ? `${new Date(
+                          post.meetingAt
+                        ).toLocaleDateString()} ${new Date(
+                          post.meetingAt
+                        ).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}`
+                      : "날짜 없음"}{" "}
+                    {/* <span className="meta-item">👥 {post.people}명</span>
                     <span className="meta-item">💬 {post.chats || 0}</span>
                     <span className="meta-item">
                       ❤️ {post.favoriteCount || 0}
-                    </span>
+                    </span> */}
                   </div>
                   <div
                     className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
@@ -157,9 +170,16 @@ const TogetherList = () => {
                       ? "마감"
                       : "모집중"}
                   </div>
+                  <div className="together-card-chat">
+                    {/* <span className="meta-item">👥 {post.people}명</span> */}
+                    <span className="meta-item">💬 {post.chats || 0}</span>
+                    <span className="meta-item">
+                      ❤️ {post.favoriteCount || 0}
+                    </span>
+                  </div>
                 </div>
 
-                <div className="card-dateinfo">
+                {/* <div className="card-dateinfo">
                   {post.meetingAt
                     ? `${new Date(
                         post.meetingAt
@@ -177,7 +197,7 @@ const TogetherList = () => {
                   ) : (
                     "위치 정보 없음"
                   )}
-                </div>
+                </div> */}
               </div>
             ))
           ) : (
