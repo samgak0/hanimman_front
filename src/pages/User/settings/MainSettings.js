@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./MainSettings.css";
 import { useNavigate } from "react-router-dom";
+import jwtAxios from '../../../api/jwtAxios';
 
 const MainSettings = () => {
   const navigate = useNavigate();
@@ -10,12 +11,12 @@ const MainSettings = () => {
   const [isLogoutModalOpen, setLogoutModalOpen] = useState(false); // 로그아웃 모달 상태 관리
   const [isTimeSettingModalOpen, setTimeSettingModalOpen] = useState(false); // 시간설정 모달 상태 관리
   const [startTime, setStartTime] = useState(new Date()); // 시작 시간 상태
-  const [endTime, setEndTime] = useState(new Date()); // 종료 시간 상태
-  const [timeType, setTimeType] = useState(""); // "시작 시간" 또는 "종료 시간"
-
+  const [endTime, setEndTime] = useState(new Date()); // 종료 시간 상태}
+  const [timeType, setTimeType] = useState(""); // "시작 시간" 또는 "종료 시간
   // 로그아웃 모달
   const openLogoutModal = () => setLogoutModalOpen(true);
   const closeLogoutModal = () => setLogoutModalOpen(false);
+  
 
   // 시간 설정 모달
   const openTimeSettingModal = (type) => {
@@ -35,11 +36,31 @@ const MainSettings = () => {
     closeTimeSettingModal();
   };
 
+  // 버튼 클릭 시 로그아웃
   const handleLogout = () => {
-    console.log("Logged out");
     closeLogoutModal();
+    localStorage.removeItem('authToken');
+    alert("로그아옷 되었습니다.");    
     navigate("/login");
   };
+
+  const handleSignout = () => {
+    const result = window.confirm("정말 탈퇴하시겠습니까?");
+    if(result){
+      jwtAxios.post("http://localhost:8080/users/delete",{
+      }).then(response =>{
+        alert(response.data);
+           // 클라이언트 측에서 JWT 토큰 삭제
+        localStorage.removeItem("authToken");  // 로컬 스토리지에서 JWT 제거
+        localStorage.removeItem("refreshToken");
+        // 로그아웃 후 리디렉션 처리 (예시)
+        window.location.href = "/login";  // 로그인 페이지로 리디렉트
+      }).catch(error => {
+        // 오류 처리
+        console.error("로그아웃 실패:", error);
+      });
+    }
+  }
 
   return (
     <div className='mobile-container'>
@@ -101,7 +122,7 @@ const MainSettings = () => {
         </div>
         <div
           className="settings-item delete-account"
-          onClick={() => alert("탈퇴하기")}
+          onClick={handleSignout}
         >
           <span>탈퇴하기</span>
         </div>
