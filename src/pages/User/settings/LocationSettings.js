@@ -20,7 +20,7 @@ const LocationSettings = () => {
             "Content-Type": "application/json",
           },
         });
-        console.log(response);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -109,6 +109,8 @@ const LocationSettings = () => {
 
   const handleAddLocation = (location) => {
     setRegisteredLocations((prev) => {
+      console.log(location);
+      console.log(prev);
       if (prev.length < 2 && !prev.includes(location.fullAddress)) {
         return [...prev, location.fullAddress];
       }
