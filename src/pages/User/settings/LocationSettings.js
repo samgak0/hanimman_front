@@ -1,25 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./LocationSettings.css";
-import locationData from "../../../data/location.json";
 import { useNavigate } from 'react-router-dom';
+import jwtAxios from "../../../api/jwtAxios";
+import { toast } from "react-toastify"; // toast 추가
 
 const LocationSettings = () => {
-  const [registeredLocations, setRegisteredLocations] = useState([]);
+  const [registeredLocations, setRegisteredLocations] = useState([]); // 초기값을 빈 배열로 설정
   const [searchText, setSearchText] = useState("");
-  const [availableLocations, setAvailableLocations] = useState([
-    "부산 해운대구 우제2동",
-    "부산 수영구 수영동",
-    "부산 해운대구 재송제1동",
-    "부산 해운대구 재송동",
-    "부산 수영구 망미제2동",
-    "부산 해운대구 우동",
-    "부산 수영구 민락동",
-    "부산 수영구 광안제3동",
-    "부산 해운대구 우제3동",
-    "부산 해운대구 재송제2동",
-    "부산 수영구 광안제1동",
-    "부산 수영구 망미동",
-  ]);
+  const [availableLocations, setAvailableLocations] = useState([]); // 검색 결과를 저장
   const navigate = useNavigate();
 
   const fetchLocation = () => {
@@ -28,7 +16,6 @@ const LocationSettings = () => {
         async (position) => {
           const { latitude, longitude } = position.coords;
 
-          // 위도와 경도를 백엔드로 전송
           try {
             const response = await fetch(`http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`, {
               method: 'GET',
@@ -38,15 +25,21 @@ const LocationSettings = () => {
             });
 
             if (response.ok) {
-              const data = await response.json(); // API 응답 확인
+              const data = await response.json();
               console.log('API Response:', data);
 
               if (data) {
-                // API 응답에서 동네 이름을 가져와 등록된 동네에 추가
-                const neighborhood = data.neighborhoodName;
-                setRegisteredLocations((prev) => {
-                  if (!prev.includes(neighborhood) && prev.length < 2) {
-                    return [...prev, neighborhood];
+                const { id, cityName, districtName, neighborhoodName } = data; // ID 추출
+                const fullAddress = `${cityName} ${districtName} ${neighborhoodName}`; // 전체 주소 형식화
+
+                // 주소 추가
+                setAvailableLocations((prev) => {
+                  const newLocation = {
+                    id: id, // ID 저장
+                    fullAddress: fullAddress // 전체 주소 저장
+                  };
+                  if (!prev.some(location => location.fullAddress === newLocation.fullAddress)) {
+                    return [...prev, newLocation];
                   }
                   return prev;
                 });
@@ -62,28 +55,96 @@ const LocationSettings = () => {
         (error) => {
           console.error('위치 정보를 가져오지 못했습니다:', error);
           alert('위치 정보를 가져오는 데 실패했습니다.');
-        },
+        }
       );
     } else {
       alert('GPS를 지원하지 않는 브라우저입니다.');
     }
   };
 
+  const handleSearch = async () => {
+    if (searchText.trim() === "") {
+      setAvailableLocations([]);
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/location/search?query=${encodeURIComponent(searchText)}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('API Response:', data);
+        const formattedLocations = data.map(address => ({
+          id: address.id,
+          fullAddress: `${address.cityName} ${address.districtName} ${address.neighborhoodName}`
+        }));
+        setAvailableLocations(formattedLocations);
+      } else {
+        alert('주소 검색에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('주소 검색 중 오류 발생:', error);
+      alert('주소 검색 중 오류가 발생했습니다.');
+    }
+  };
+
+  const handleAddLocation = (location) => {
+    setRegisteredLocations((prev) => {
+      if (prev.length < 2 && !prev.includes(location.fullAddress)) {
+        return [...prev, location.fullAddress];
+      }
+      return prev;
+    });
+    toast.success(`${location.fullAddress}이(가) 추가되었습니다!`);
+  };
+
+  const handleSaveAddresses = async () => {
+    // 등록된 주소 ID 가져오기
+    const addressId = registeredLocations.map(location => {
+      const foundLocation = availableLocations.find(loc => loc.fullAddress === location);
+      return foundLocation ? foundLocation.id : null; // ID를 찾고 없으면 null 반환
+    }).filter(id => id !== null); // null 제외
+
+    console.log('Saving addresses with IDs:', addressId); // 디버깅 로그
+
+    try {
+      const addressDTO = {
+        primaryAddressId: addressId[0], // 주소 ID
+        secondlyAddressId: addressId[1], // 선택적 필드
+        validatedAt: new Date().toISOString(), // 현재 시간
+        modifiedAt: new Date().toISOString(), // 현재 시간
+        createdAt: new Date().toISOString() // 현재 시간
+        }; // ID 배열을 DTO로 변환
+
+      const response = await jwtAxios.post("/api/user-address/save/secondary", addressDTO, {
+        secondlyAddressId:addressId,
+      });
+
+      if(response.data){
+        console.log('Response from server:', response.data); // 서버 응답 로그
+      }
+      if (response.status === 200) {
+        toast.success("주소가 성공적으로 저장되었습니다!");
+      } else {
+        toast.error("주소 저장에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error('주소 저장 중 오류 발생:', error); // 오류 로그
+      toast.error("주소 저장 중 오류가 발생했습니다.");
+    }
+  };
+
   useEffect(() => {
-    // `location.json`에서 등록된 동네 불러오기
-    setRegisteredLocations(locationData.locations);
+    setRegisteredLocations([]);
   }, []);
 
   return (
     <div className="mobile-container">
       <div className="location-settings">
-        {/* 헤더 */}
         <div className="locationsettings-header">
-          <button className="back-button" onClick={() => navigate(-1)} >◀</button>
+          <button className="back-button" onClick={() => navigate(-1)}>◀</button>
           <h1>내 동네 설정</h1>
         </div>
-  
-        {/* 고정된 등록된 동네 영역 */}
+
         <div className="registered-locations">
           {registeredLocations.map((location, index) => (
             <div key={index} className="location-tag">
@@ -104,44 +165,40 @@ const LocationSettings = () => {
             <button className="add-location-button">+</button>
           )}
         </div>
-        {/* 스크롤 가능한 콘텐츠 */}
+
         <div className="content">
-          {/* 검색 입력 */}
           <input
             type="text"
             className="search-input"
             placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                handleSearch(); // Enter 키를 눌렀을 때 검색
+              }
+            }}
           />
-  
-          {/* 현재 위치 찾기 버튼 */}
+
           <button onClick={fetchLocation} className="location-button">📍 현재위치로 찾기</button>
-  
-          {/* 근처 동네 리스트 */}
+
           <div className="nearby-locations">
             <h2>근처 동네</h2>
             <ul className="location-list">
-              {availableLocations
-                .filter((location) =>
-                  location.toLowerCase().includes(searchText.toLowerCase())
-                )
-                .map((location, index) => (
-                  <li
-                    key={index}
-                    onClick={() =>
-                      setRegisteredLocations((prev) =>
-                        prev.length < 2 && !prev.includes(location)
-                          ? [...prev, location]
-                          : prev
-                      )
-                    }
-                  >
-                    {location}
-                  </li>
-                ))}
+              {availableLocations.map((location, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleAddLocation(location)} // 클릭 시 주소 추가
+                >
+                  {location.fullAddress} {/* 전체 주소 표시 */}
+                </li>
+              ))}
             </ul>
           </div>
+
+          <button className="location-button" style={{ marginTop: '10px' }} onClick={handleSaveAddresses}>
+            주소 등록
+          </button>
         </div>
       </div>
     </div>
