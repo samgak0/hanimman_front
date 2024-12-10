@@ -11,6 +11,7 @@ const LocationSettings = () => {
   const navigate = useNavigate();
 
 
+  //주소 조회
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,8 +28,9 @@ const LocationSettings = () => {
     fetchData();
   }, []);
 
-  const fetchLocation = () => {
-    
+
+  //위도경도 통해서 주소 정보 추출
+  const fetchLocation = () => {  
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -118,38 +120,61 @@ const LocationSettings = () => {
   const handleSaveAddresses = async () => {
     // 등록된 주소 ID 가져오기
     const addressId = registeredLocations.map(location => {
-      const foundLocation = availableLocations.find(loc => loc.fullAddress === location);
-      return foundLocation ? foundLocation.id : null; // ID를 찾고 없으면 null 반환
+        const foundLocation = availableLocations.find(loc => loc.fullAddress === location);
+        return foundLocation ? foundLocation.id : null; // ID를 찾고 없으면 null 반환
     }).filter(id => id !== null); // null 제외
 
     console.log('Saving addresses with IDs:', addressId); // 디버깅 로그
 
-    try {
-      const addressDTO = {
+    // UserAddressDTO 생성
+    const userAddressDTO = {
         primaryAddressId: addressId[0], // 주소 ID
-        secondlyAddressId: addressId[1], // 선택적 필드
+        secondlyAddressId: addressId[1] || null, // 선택적 필드
         validatedAt: new Date().toISOString(), // 현재 시간
         modifiedAt: new Date().toISOString(), // 현재 시간
-        createdAt: new Date().toISOString() // 현재 시간
-        }; // ID 배열을 DTO로 변환
+        createdAt: new Date().toISOString(), // 현재 시간
+    };
 
-      const response = await jwtAxios.post("/api/user-address/save/secondary", addressDTO, {
-        secondlyAddressId:addressId,
-      });
+    console.log('User Address DTO:', userAddressDTO); // DTO 확인
 
-      if(response.data){
-        console.log('Response from server:', response.data); // 서버 응답 로그
-      }
-      if (response.status === 200) {
-        toast.success("주소가 성공적으로 저장되었습니다!");
-      } else {
-        toast.error("주소 저장에 실패했습니다.");
-      }
+    try {
+        // 기존 주소가 있는지 확인
+        const response = await jwtAxios.get("/api/user-address/select", {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (response.data && response.data.length > 0) {
+            // 기존 주소가 있으면 업데이트 요청
+            const existingAddress = response.data[0]; // 첫 번째 주소 데이터 가져오기
+            userAddressDTO.id = existingAddress.id; // 기존 주소 ID 추가
+            
+            console.log('Updating address with ID:', userAddressDTO.id); // ID 확인
+
+            const updateResponse = await jwtAxios.put("/api/user-address/update", userAddressDTO);
+            if (updateResponse.status === 200) {
+                toast.success("주소가 성공적으로 업데이트되었습니다!");
+            } else {
+                toast.error("주소 업데이트에 실패했습니다.");
+            }
+        } else {
+            // 기존 주소가 없으면 신규 주소 저장 요청
+            const saveResponse = await jwtAxios.post("/api/user-address/save/secondary", userAddressDTO);
+            if (saveResponse.status === 200) {
+                toast.success("주소가 성공적으로 저장되었습니다!");
+            } else {
+                toast.error("주소 저장에 실패했습니다.");
+            }
+        }
     } catch (error) {
-      console.error('주소 저장 중 오류 발생:', error); // 오류 로그
-      toast.error("주소 저장 중 오류가 발생했습니다.");
+        console.error('주소 저장 중 오류 발생:', error); // 오류 로그
+        toast.error("주소 저장 중 오류가 발생했습니다.");
     }
-  };
+};
+
+
+
 
   useEffect(() => {
     setRegisteredLocations([]);
