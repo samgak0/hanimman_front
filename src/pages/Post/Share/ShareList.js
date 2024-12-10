@@ -92,6 +92,21 @@ const ShareList = () => {
     setPosts([]);
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const options = {
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    if (date.getFullYear() !== now.getFullYear()) {
+      options.year = "numeric";
+    }
+    return date.toLocaleDateString("ko-KR", options);
+  };
+
   if (loading && page === 0) return <p>Loading...</p>;
   if (error) return <p>Error loading posts: {error.message}</p>;
 
@@ -141,42 +156,39 @@ const ShareList = () => {
                   )}
                 </div>
 
-                <div className="card-content">
+                <div className="share-card-content">
                   <div className="card-title">{post.title}</div>
                   <div className="card-meta">
-                    <span className="meta-item">💰 {post.price || 0}</span>
-                    <span className="meta-item">📦 {post.quantity}</span>
-                    {post.isUnlimited && (
-                      <span className="meta-item">🌐 제한없음</span>
-                    )}
-                  </div>
-                  <div
-                    className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
-                  >
-                    {getRecruitmentStatus(post) === "completed"
-                      ? "마감"
-                      : "모집중"}
-                  </div>
-                </div>
-
-                <div className="card-dateinfo">
-                  {post.locationDate
-                    ? `${new Date(
-                        post.locationDate
-                      ).toLocaleDateString()} ${new Date(
-                        post.locationDate
-                      ).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}`
-                    : "날짜 없음"}{" "}
-                  {post.address ? (
                     <div className="location-info">
                       <p>{post.address || "정보 없음"}</p>
                     </div>
-                  ) : (
-                    "위치 정보 없음"
-                  )}
+                    {post.locationDate
+                      ? formatDate(post.locationDate)
+                      : "날짜 없음"}{" "}
+                  </div>
+                  <div className="card-status-price">
+                    <div
+                      className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
+                    >
+                      {getRecruitmentStatus(post) === "completed"
+                        ? "마감"
+                        : "모집중"}
+                    </div>
+                    <div className="card-price">
+                      {post.price
+                        ? `${new Intl.NumberFormat("ko-KR").format(
+                            post.price
+                          )}원`
+                        : "가격정보없음"}
+                      /{post.quantity}개
+                    </div>
+                  </div>
+                  <div className="share-card-chat">
+                    <span className="meta-item">💬 {post.chats || 0}</span>
+                    <span className="meta-item">
+                      ❤️ {post.favoriteCount || 0}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))

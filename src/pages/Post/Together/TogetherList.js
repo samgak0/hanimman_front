@@ -6,12 +6,10 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
-import { useLocalStorage } from "react-use";
 
 import "./TogetherList.css";
 
 const TogetherList = () => {
-  const scrollYRef = useRef(0);
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,14 +20,6 @@ const TogetherList = () => {
   const [isEnd, setIsEnd] = useState(false); // 마감 상태 추가
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // 필터 모달 상태
   const observer = useRef();
-
-  const [position, setPosition] = useState(0);
-  const bottomSheefRef = useRef < HTMLDivElement > null;
-  const [scrollTop, setScrollTop] = useState(0);
-
-  function onScroll() {
-    setPosition(window.scrollY);
-  }
 
   const fetchPosts = async (page, sortBy, isEnd) => {
     try {
@@ -45,19 +35,7 @@ const TogetherList = () => {
   };
 
   useEffect(() => {
-    const posts = JSON.parse(sessionStorage.getItem("posts"));
-    console.log("시작", document.body.scrollTop);
-
     fetchPosts(page, sortBy, isEnd);
-    // if (!posts) {
-    //   fetchPosts(page, sortBy, isEnd);
-    // } else {
-    //   console.log(posts);
-
-    //   setPosts(posts);
-    //   setLoading(false);
-    // }
-    // document.body.scrollTo(0, sessionStorage.getItem("scrollTop"));
   }, [page, sortBy, isEnd]);
 
   const lastPostElementRef = useCallback(
@@ -79,10 +57,6 @@ const TogetherList = () => {
   };
 
   const handleCardClick = (post) => {
-    const scrollTop = document.body.scrollTop;
-    console.log("스크롤 위치:", scrollTop);
-    sessionStorage.setItem("scrollTop", scrollTop);
-    sessionStorage.setItem("posts", JSON.stringify(posts));
     navigate(`/togetherdetail/${post.id}`, { state: { post } });
   };
 
@@ -116,6 +90,21 @@ const TogetherList = () => {
     setIsEnd(newIsEnd);
     setPage(0);
     setPosts([]);
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const options = {
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    };
+    if (date.getFullYear() !== now.getFullYear()) {
+      options.year = "numeric";
+    }
+    return date.toLocaleDateString("ko-KR", options);
   };
 
   if (loading && page === 0) return <p>Loading...</p>;
@@ -173,23 +162,24 @@ const TogetherList = () => {
                     <div className="location-info">
                       <p>{post.address || "정보 없음"}</p>
                     </div>
-                    {post.meetingAt
-                      ? `${new Date(
-                          post.meetingAt
-                        ).toLocaleDateString()} ${new Date(
-                          post.meetingAt
-                        ).toLocaleTimeString([], {
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}`
-                      : "날짜 없음"}{" "}
+                    {post.meetingAt ? formatDate(post.meetingAt) : "날짜 없음"}{" "}
                   </div>
-                  <div
-                    className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
-                  >
-                    {getRecruitmentStatus(post) === "completed"
-                      ? "마감"
-                      : "모집중"}
+                  <div className="card-status-price">
+                    <div
+                      className={`card-tradeEnd ${getRecruitmentStatus(post)}`}
+                    >
+                      {getRecruitmentStatus(post) === "completed"
+                        ? "마감"
+                        : "모집중"}
+                    </div>
+                    <div className="card-price">
+                      {post.price
+                        ? `${new Intl.NumberFormat("ko-KR").format(
+                            post.price
+                          )}원`
+                        : "가격정보없음"}
+                      /{post.quantity}개
+                    </div>
                   </div>
                   <div className="together-card-chat">
                     {/* <span className="meta-item">👥 {post.people}명</span> */}

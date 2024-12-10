@@ -16,6 +16,7 @@ const TogetherCreate = () => {
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState(post.title || "");
+  const [item, setItem] = useState(post.item || "");
   const [price, setPrice] = useState(post.price || "");
   const [people, setPeople] = useState(post.people || 0);
   const [description, setDescription] = useState(post.content || "");
@@ -38,6 +39,7 @@ const TogetherCreate = () => {
   useEffect(() => {
     if (Object.keys(togetherCreateState).length > 0) {
       setTitle(togetherCreateState.title || "");
+      setItem(togetherCreateState.item || "");
       setPrice(togetherCreateState.price || "");
       setPeople(togetherCreateState.people || 0);
       setDescription(togetherCreateState.description || "");
@@ -76,12 +78,10 @@ const TogetherCreate = () => {
       content: description,
       views: 0,
       createdAt: new Date().toISOString(),
-      modifiedAt: new Date().toISOString(),
-      deletedAt: null,
-      addressId: 1111015100,
       meetingLocation: null,
       meetingAt: new Date(selectedDate).toISOString(), // Instant 형식으로 변환
-      item: selectedCategory,
+      item: item,
+      price: price,
       quantity: people,
       isEnd: false,
       imageUrls: [], // 이미지 URL은 서버에서 처리
@@ -284,6 +284,16 @@ const TogetherCreate = () => {
                 placeholder="제목을 입력하세요"
               />
             </div>
+
+            <div className="form-group">
+              <h4>제품명</h4>
+              <input
+                type="item"
+                value={item}
+                onChange={(e) => setItem(e.target.value)}
+                placeholder="제품명을 입력하세요"
+              />
+            </div>
             <div className="form-group">
               <h4>가격</h4>
               <input
@@ -309,7 +319,7 @@ const TogetherCreate = () => {
 
               <div className="people-group">
                 <div className="people-group-num">
-                  <label className="people-font">인원수</label>
+                  <label className="people-font">수량</label>
                   <input
                     className="people-input"
                     type="number"
@@ -318,13 +328,20 @@ const TogetherCreate = () => {
                     min="1"
                     max="99"
                   />
-                  <label className="people-font">명</label>
+                  <label className="people-font">개</label>
                 </div>
-                <label className="people-nolimit">
+                {/* <label className="people-nolimit">
                   제한없음
                   <input type="checkbox" className="people-checkbox"></input>
-                </label>
+                </label> */}
               </div>
+            </div>
+            <div className="form-group">
+              {selectedDate && (
+                <div className="selected-date">
+                  선택된 날짜: {new Date(selectedDate).toLocaleString()}
+                </div>
+              )}
             </div>
             <div className="form-group">
               <h4>내용</h4>

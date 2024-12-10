@@ -214,24 +214,69 @@ const TogetherDetail = () => {
         {/* Info Section */}
         <div className="detail-title">
           <h2>{post.title}</h2>
-          <p>{post.price}원</p>
-        </div>
-        <div className="detail-meta">
-          <div className="detail-meta-location">
-            <CalendarIcon className="calendar-icon" />{" "}
-            {post.address || "위치 정보 없음"}
+          <div className="together-detail-user">
+            <div className="together-user-info">
+              {post.userProfileImage ? (
+                <img
+                  src={`http://localhost:8080/api/v1/together/download?id=${post.userProfileImage}`}
+                  alt={post.userNickname}
+                  className="together-user-image"
+                />
+              ) : (
+                <img
+                  src="/images/noprofileimage.png"
+                  alt={post.userNickname}
+                  className="together-user-image"
+                />
+              )}
+              <p>{post.userNickname}</p>
+            </div>
           </div>
-          <div className="detail-meta-date">{formatDate(post.createdAt)}</div>
-          <div className="detail-meta-count">
-            <ViewIcon className="view-count" /> {post.views}{" "}
-            <HeartEmptyIcon className="favorite-count" /> {post.favoriteCount}
+          <div className="together-detail-info">
+            <div className="detail-meta">
+              <div className="detail-meta-location">
+                <CalendarIcon className="calendar-icon" />{" "}
+                {post.address || "위치 정보 없음"}
+              </div>
+              <div className="detail-meta-date">
+                {formatDate(post.createdAt)}
+              </div>
+            </div>
+            <div className="detail-metacontainer">
+              <div className="detail-meta-count">
+                <ViewIcon className="view-count" /> {post.views}{" "}
+                <HeartEmptyIcon className="favorite-count" />{" "}
+                {post.favoriteCount}
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="detail-info">
           <h2>상세정보</h2>
-          <div className="detail-info-category">
+          {/* <div className="detail-info-category">
             <strong>카테고리 </strong>{" "}
             <p>{post.selectedCategory || "카테고리 없음"}</p>
+          </div> */}
+          <div className="detail-info-category">
+            <strong>제품명 </strong> <p>{post.item} </p>
+          </div>
+          <div className="detail-info-category">
+            <strong>가격정보 </strong>{" "}
+            <p>
+              {`${new Intl.NumberFormat("ko-KR").format(post.price)}원`} /{" "}
+              {post.quantity}개{" "}
+            </p>
+          </div>
+          <div className="detail-info-category">
+            <strong>개당가격 </strong>{" "}
+            <p>
+              {post.price && post.quantity
+                ? `${new Intl.NumberFormat("ko-KR").format(
+                    Math.floor(post.price / post.quantity)
+                  )}원 / 1개`
+                : "가격 정보 없음"}{" "}
+            </p>
           </div>
           <div className="detail-info-category">
             <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>

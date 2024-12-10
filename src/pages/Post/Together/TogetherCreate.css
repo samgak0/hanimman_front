@@ -24,7 +24,6 @@
   width: 345px;
   background-color: transparent;
   margin-top: 30px;
-  
 }
 
 .close-icon-button {
@@ -118,6 +117,7 @@
 
 input[type="title"],
 input[type="price"],
+input[type="item"],
 textarea {
   width: 100%;
   padding: 10px;
@@ -152,7 +152,7 @@ textarea {
   width: 200px;
   display: flex;
   align-items: center;
-  background-color: #E9E3E3;
+  background-color: #e9e3e3;
   border-radius: 5px;
   padding: 6px 10px;
   gap: 10px;

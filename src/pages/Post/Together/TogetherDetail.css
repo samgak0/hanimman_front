@@ -47,11 +47,46 @@
 .detail-title p {
   font-size: 18px;
 }
-
-.detail-meta {
+.together-detail-user {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 16px;
+}
+
+.together-detail-user p {
+  font-size: 14px;
+  font-weight: 600;
+}
+.together-user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.together-detail-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.together-user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail-meta {
+  display: flex;
+  flex-direction: column;
+  /* align-items: top; */
+  font-size: small;
+  margin-top: 8px;
+  color: #a2a2a2;
+}
+.detail-metacontainer {
+  display: flex;
+  gap: 10px;
   font-size: small;
   margin-top: 8px;
   color: #a2a2a2;
