@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { toast } from "react-toastify"; // react-toastify 추가
@@ -35,6 +35,8 @@ const TogetherDetail = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showApplyConfirm, setShowApplyConfirm] = useState(false); // 참여 신청 확인 창 상태 추가
   const [scrollY] = useLocalStorage("places_list_scroll", 0);
+  const [showTooltip, setShowTooltip] = useState(false); // Tooltip 상태 추가
+  const tooltipRef = useRef(null);
 
   useEffect(() => {
     // 기본값이 "0"이기 때문에 스크롤 값이 저장됐을 때에만 window를 스크롤시킨다.
@@ -58,6 +60,19 @@ const TogetherDetail = () => {
 
     fetchPost();
   }, [id]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+        setShowTooltip(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [tooltipRef]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading post: {error.message}</p>;
@@ -89,6 +104,7 @@ const TogetherDetail = () => {
 
   // 삭제하기
   const handleDelete = async () => {
+    console.log("마우스위치", document.scrollY);
     try {
       await deleteTogether(post.id);
       toast.success("게시글이 삭제되었습니다.");
@@ -280,6 +296,15 @@ const TogetherDetail = () => {
                   }}
                 ></div>
               </div>
+              <p className="together-brix-infomation">
+                <span class="tooltip">
+                  매너당도
+                  <span class="tooltip-text">
+                    매너당도는 망고 이용자로부터 받은 칭찬, 비매너평가, 운영자
+                    제재 등을 종합해서 만든 매너 지표 입니다.
+                  </span>
+                </span>
+              </p>
             </div>
           </div>
           <div className="together-detail-info">
@@ -329,17 +354,11 @@ const TogetherDetail = () => {
             </p>
           </div>
           <div className="detail-info-category">
-            <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>
+            <strong>만남일 </strong> <p>{formatDate(post.meetingAt)} </p>
           </div>
           <div className="detail-info-category">
             <strong>만남장소 </strong>
             <p>{post.meetingLocation || "정보 없음"}</p>
-          </div>
-          <div className="detail-info-category">
-            <strong>현재인원 </strong>
-            <p>
-              {currentApplicants}/{totalPeople}명{" "}
-            </p>
           </div>
         </div>
         <div className="detail-text">{post.content || "내용 없음"}</div>
@@ -385,21 +404,30 @@ const TogetherDetail = () => {
             </button>
           ) : null}
 
-          <button
-            className={`apply-button ${post.isEnd ? "ended" : ""}`}
-            onClick={() =>
-              post.participant ? navigate("/chat") : setShowApplyConfirm(true)
-            } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
-            disabled={isApplied || post.isEnd}
-          >
-            {post.isEnd
-              ? "마감됨"
-              : post.participant
-              ? "채팅방이동"
-              : isApplied
-              ? "신청완료"
-              : "신청하기"}
-          </button>
+          {isWriter ? (
+            <button
+              className="apply-button"
+              onClick={() => navigate(`/applicationlist/${post.id}`)}
+            >
+              신청목록
+            </button>
+          ) : (
+            <button
+              className={`apply-button ${post.isEnd ? "ended" : ""}`}
+              onClick={() =>
+                post.participant ? navigate("/chat") : setShowApplyConfirm(true)
+              } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
+              disabled={isApplied || post.isEnd}
+            >
+              {post.isEnd
+                ? "마감됨"
+                : post.participant
+                ? "채팅방이동"
+                : isApplied
+                ? "신청완료"
+                : "신청하기"}
+            </button>
+          )}
           {showApplyConfirm && (
             <div className="apply-confirm">
               <p>참여신청을 하시겠습니까?</p>
