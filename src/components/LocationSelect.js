@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "./LocationSelect.css";
 import KakaoMap from "./KakaoMap";
 import { DataContext } from "../context/DataContext";
-import { fetchCategoryData } from "../api/marketApi"; // marketApi.js에서 함수 임포트
+import { fetchCategoryData, searchName } from "../api/marketApi"; // marketApi.js에서 함수 임포트
 
 const LocationSelect = () => {
   const [shopList, setShopList] = useState([]);
@@ -20,8 +20,25 @@ const LocationSelect = () => {
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
 
-  const handleJumpoSelect = (jumpo) => {
+  const handleJumpoSelect = async (jumpo) => {
     setSelectedJumpo(jumpo);
+
+    let categoryId;
+    if (selectedStore === "COSTCO") {
+      categoryId = 1;
+    } else if (selectedStore === "EMART TRADERS") {
+      categoryId = 2;
+    }
+
+    if (categoryId) {
+      try {
+        const marketData = await searchName(categoryId, jumpo);
+        console.log("Market Data:", marketData);
+        // marketData를 필요에 따라 처리합니다.
+      } catch (error) {
+        console.error("Error fetching market data:", error);
+      }
+    }
   };
 
   const handleStoreSelect = async (store) => {

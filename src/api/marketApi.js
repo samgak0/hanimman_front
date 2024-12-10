@@ -15,3 +15,17 @@ export const fetchCategoryData = async (categoryId) => {
     throw error;
   }
 };
+
+export const searchName = async (categoryId, name) => {
+  try {
+    const response = await fetch(`${host}/${categoryId}/${name}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching search data:", error);
+    throw error;
+  }
+};
