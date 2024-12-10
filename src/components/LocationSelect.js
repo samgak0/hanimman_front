@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "./LocationSelect.css";
 import KakaoMap from "./KakaoMap";
 import { DataContext } from "../context/DataContext";
+import { fetchCategoryData } from "../api/marketApi"; // marketApi.js에서 함수 임포트
 
 const LocationSelect = () => {
   const [shopList, setShopList] = useState([]);
@@ -28,8 +29,7 @@ const LocationSelect = () => {
 
     if (store === "COSTCO") {
       try {
-        const response = await fetch(`http://localhost:8080/api/markets/category/1`);
-        const data = await response.json();
+        const data = await fetchCategoryData(1); // fetchCategoryData 함수 호출
         console.log("COSTCO지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationCostco = [
@@ -46,8 +46,7 @@ const LocationSelect = () => {
       }
     } else if (store === "EMART TRADERS") {
       try {
-        const response = await fetch(`http://localhost:8080/api/markets/category/2`);
-        const data = await response.json();
+        const data = await fetchCategoryData(2); // fetchCategoryData 함수 호출
         console.log("EMART TRADERS 지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationEmart = [
@@ -152,7 +151,9 @@ const LocationSelect = () => {
     }
 
     if (selectedStore !== "ETC" && (!selectedLocation || !selectedJumpo)) {
-      toast.error("지역과 점포를 모두 선택해주세요.", { position: "bottom-center" });
+      toast.error("지역과 점포를 모두 선택해주세요.", {
+        position: "bottom-center",
+      });
       return;
     }
 
@@ -203,9 +204,7 @@ const LocationSelect = () => {
             EMART TRADERS
           </button>
           <button
-            className={`etc ${
-              selectedStore === "ETC" ? "" : "inactive-shop"
-            }`}
+            className={`etc ${selectedStore === "ETC" ? "" : "inactive-shop"}`}
             onClick={() => {
               handleStoreSelect("ETC");
             }}
