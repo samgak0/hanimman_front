@@ -79,9 +79,15 @@
 }
 
 .together-user-brix {
-  font-size: 12px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 300;
+}
+
+.together-brix-infomation {
+  font-size: 8px;
+  text-decoration: underline;
+  justify-content: center;
 }
 
 /* 그라데이션 프로그레스 바 */
@@ -270,4 +276,27 @@
 .cancel-button {
   background-color: #f0f0f0;
   color: #333;
+}
+
+.tooltip {
+  display: inline-block;
+  color: hsl(0, 0%, 71%);
+  font-weight: bold;
+  text-decoration: underline;
+}
+.tooltip-text {
+  display: none;
+  position: absolute;
+  left: 50%;
+  max-width: 300px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1.5em;
+  color: white;
+  background: #ff8c00;
+}
+
+.tooltip:hover .tooltip-text {
+  display: grid;
 }
