@@ -358,7 +358,7 @@ const TogetherDetail = () => {
           </div>
           <div className="detail-info-category">
             <strong>만남장소 </strong>
-            <p>{post.meetingLocation || "정보 없음"}</p>
+            <p>{post.togetherLocationDTO.detail || "정보 없음"}</p>
           </div>
         </div>
         <div className="detail-text">{post.content || "내용 없음"}</div>

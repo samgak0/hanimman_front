@@ -16,6 +16,7 @@ const LocationSelect = () => {
   const [clickedPosition, setClickedPosition] = useState(null);
   const [locationName, setLocationName] = useState("");
   const [categoryData, setCategoryData] = useState([]); // 카테고리 데이터 상태 추가
+  const [marketData, setMarketData] = useState(null); // 마켓 데이터 상태 추가
 
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
@@ -32,7 +33,9 @@ const LocationSelect = () => {
 
     if (categoryId) {
       try {
-        const marketData = await searchName(categoryId, jumpo);
+        const marketDTO = await searchName(categoryId, jumpo);
+        // console.log("Market DTO:", marketDTO);
+        setMarketData(marketDTO); // 받아온 데이터 설정
         console.log("Market Data:", marketData);
         // marketData를 필요에 따라 처리합니다.
       } catch (error) {
@@ -121,7 +124,7 @@ const LocationSelect = () => {
       } else if (local === "인천/세종/충남") {
         res = ["송도점", "청라점", "세종점", "천안점"];
       } else if (local === "대전/대구") {
-        res = ["대전점", "대구점", "대구 혁신도시점"];
+        res = ["대전점", "대구점", "대구혁신도시점"];
       } else if (local === "부산/울산/경남") {
         res = ["부산점", "울산점", "김해점"];
       } else {
@@ -180,14 +183,24 @@ const LocationSelect = () => {
     }
 
     const locationData = {
-      store: selectedStore,
-      location: selectedLocation,
-      jumpo: selectedJumpo,
-      position: clickedPosition,
-      name: locationName,
+      id: marketData.id,
+      category: marketData.category,
+      name: marketData.name,
+      addressDetail: marketData.addressDetail,
+      addressId: marketData.addressId,
+      cityCode: marketData.cityCode,
+      districtCode: marketData.districtCode,
+      latitude: marketData.latitude,
+      longitude: marketData.longitude,
+      neighborhood: marketData.neighborhood,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
-    navigate(-1); // 이전 페이지로 이동
+    navigate("/togetherCreate", {
+      state: {
+        marketCategory: marketData.category,
+        marketName: marketData.name,
+      },
+    }); // 이전 페이지로 이동
   };
 
   return (

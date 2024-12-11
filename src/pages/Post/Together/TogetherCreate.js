@@ -13,6 +13,8 @@ import { useLocation } from "react-router-dom";
 const TogetherCreate = () => {
   const location = useLocation();
   const post = location.state?.post || {};
+  const marketCategory = location.state?.marketCategory || "";
+  const marketName = location.state?.marketName || "";
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState(post.title || "");
@@ -86,6 +88,8 @@ const TogetherCreate = () => {
       isEnd: false,
       imageUrls: [], // 이미지 URL은 서버에서 처리
       address,
+      marketCategory, // marketCategory 추가
+      marketName, // marketName 추가
     };
 
     formData.append(
@@ -122,12 +126,15 @@ const TogetherCreate = () => {
     setTogetherCreateState({
       title,
       price,
+      item,
       people,
       description,
       images,
       selectedDate,
       selectedCategory,
       address,
+      marketCategory,
+      marketName,
     });
     navigate("/locationselect");
   };
@@ -335,6 +342,11 @@ const TogetherCreate = () => {
                   <input type="checkbox" className="people-checkbox"></input>
                 </label> */}
               </div>
+            </div>
+            <div className="form-group">
+              {marketName && (
+                <div className="selected-date">선택된 날짜: {marketName}</div>
+              )}
             </div>
             <div className="form-group">
               {selectedDate && (
