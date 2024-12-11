@@ -1,5 +1,7 @@
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+import React, { useEffect } from "react";
+import jwtAxios from "../api/jwtAxios"; // jwtAxios 가져오기
+
+const host = `${jwtAxios.defaults.baseURL}/api/location`;
 
 const KakaoMap = ({ currentPosition, setClickedPosition }) => {
   useEffect(() => {
@@ -7,8 +9,11 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
       const container = document.getElementById("map");
       const options = {
         center: currentPosition
-          ? new window.kakao.maps.LatLng(currentPosition.lat, currentPosition.lng)
-          : new window.kakao.maps.LatLng(37.5665, 126.9780), // 기본값: 서울 시청
+          ? new window.kakao.maps.LatLng(
+              currentPosition.lat,
+              currentPosition.lng
+            )
+          : new window.kakao.maps.LatLng(37.5665, 126.978), // 기본값: 서울 시청
         level: 3,
       };
 
@@ -19,50 +24,39 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
       });
       marker.setMap(map);
 
-      window.kakao.maps.event.addListener(map, "click", async function (mouseEvent) {
-        const latlng = mouseEvent.latLng;
-        marker.setPosition(latlng);
+      window.kakao.maps.event.addListener(
+        map,
+        "click",
+        async function (mouseEvent) {
+          const latlng = mouseEvent.latLng;
+          marker.setPosition(latlng);
 
-        const clickedPosition = {
-          lat: latlng.getLat(),
-          lng: latlng.getLng(),
-        };
+          const clickedPosition = {
+            lat: latlng.getLat(),
+            lng: latlng.getLng(),
+          };
 
-        setClickedPosition(clickedPosition);
-
-        // 클릭한 위치의 위도와 경도를 백엔드로 전송 (GET 방식)
-        try {
-          const response = await fetch(`http://localhost:8080/api/location/save?lat=${clickedPosition.lat}&lng=${clickedPosition.lng}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            // 응답 데이터를 프론트에 출력
-            console.log('백엔드 응답:', data);
-            toast.success(`위치 저장 완료: 위도 ${data.lat}, 경도 ${data.lng}`, {
-              position: "bottom-center",
+          try {
+            const response = await jwtAxios.get(`${host}/administrative`, {
+              params: {
+                latitude: clickedPosition.lat,
+                longitude: clickedPosition.lng,
+              },
             });
-          } else {
-            toast.error('위치 저장 실패', {
-              position: "bottom-center",
-            });
+
+            const addressDTO = response.data;
+            setClickedPosition({ ...clickedPosition, addressDTO });
+          } catch (error) {
+            console.error("Error fetching address data:", error);
           }
-        } catch (error) {
-          console.error('API 호출 중 오류 발생:', error);
-          toast.error('API 호출 중 오류가 발생했습니다.', {
-            position: "bottom-center",
-          });
         }
-      });
+      );
     };
 
     if (!window.kakao || !window.kakao.maps) {
       const script = document.createElement("script");
-      script.src = "https://dapi.kakao.com/v2/maps/sdk.js?appkey=dced50809ec042e36d26acfdfabca35b";
+      script.src =
+        "https://dapi.kakao.com/v2/maps/sdk.js?appkey=dced50809ec042e36d26acfdfabca35b&libraries=services";
       script.async = true;
       script.onload = () => {
         if (window.kakao && window.kakao.maps) {
@@ -75,9 +69,7 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
     }
   }, [currentPosition, setClickedPosition]);
 
-  return (
-    <div id="map" style={{ width: '100%', height: "60vh" }}></div>
-  );
+  return <div id="map" style={{ width: "100%", height: "60vh" }}></div>;
 };
 
 export default KakaoMap;

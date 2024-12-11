@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; // react-toastify 임포트
 import "./ShareCreate.css";
-import { ReactComponent as ShareCloseIcon } from "../../../assets/icons/close.svg";
+import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import ShareDateSelect from "../../../components/DateSelect";
 import ShareCategorySelect from "../../../components/CategorySelect";
@@ -16,6 +17,7 @@ const ShareCreate = () => {
 
   const [shareImages, setShareImages] = useState([]);
   const [shareTitle, setShareTitle] = useState(post.title || "");
+  const [item, setItem] = useState(post.item || "");
   const [sharePrice, setSharePrice] = useState(post.price || "");
   const [shareQuantity, setShareQuantity] = useState(post.quantity || 1);
   const [shareDescription, setShareDescription] = useState(
@@ -47,6 +49,7 @@ const ShareCreate = () => {
   useEffect(() => {
     if (Object.keys(shareCreateState).length > 0) {
       setShareTitle(shareCreateState.title || "");
+      setItem(shareCreateState.item || "");
       setSharePrice(shareCreateState.price || "");
       setShareQuantity(shareCreateState.quantity || 1);
       setShareDescription(shareCreateState.description || "");
@@ -72,7 +75,7 @@ const ShareCreate = () => {
       addressId: 1111015100,
       meetingLocation: null,
       locationDate: new Date(selectedShareDate).toISOString(), // Instant 형식으로 변환
-      item: selectedShareCategory,
+      item: item,
       quantity: shareQuantity,
       isEnd: false,
       imageUrls: [], // 이미지 URL은 서버에서 처리
@@ -92,6 +95,7 @@ const ShareCreate = () => {
       setSharePosts((prevPosts) => [...prevPosts, shareDTO]);
       saveShareCreateState({}); // 상태 초기화
       navigate("/sharelist");
+      toast.success("게시글이 성공적으로 등록되었습니다."); // 성공 메시지
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정
@@ -99,6 +103,7 @@ const ShareCreate = () => {
         setErrorMessage("게시글 작성 중 오류가 발생했습니다."); // 일반적인 에러 메시지 설정
       }
       console.error("Error creating post:", error);
+      toast.error("게시글 작성 중 오류가 발생했습니다."); // 에러 메시지 처리
 
       // 5초 후에 에러 메시지 지우기
       setTimeout(() => {
@@ -178,7 +183,7 @@ const ShareCreate = () => {
             onClick={() => navigate("/sharelist")}
             className="close-icon-button"
           >
-            <ShareCloseIcon />
+            <CloseIcon />
           </button>
           <button className="save-draft-button">임시저장</button>
         </header>
@@ -201,25 +206,7 @@ const ShareCreate = () => {
             onMouseUp={handleMouseUpOrLeave}
             onMouseLeave={handleMouseUpOrLeave}
           >
-            {/* 고정된 사진등록 버튼 */}
-            <div className="image-upload-box">
-              <label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  style={{ display: "none" }}
-                  onChange={handleImageUpload}
-                />
-                <div className="add-image">
-                  <CameraIcon className="camera-icon" />
-                  <p className="camera-text">사진등록</p>
-                </div>
-              </label>
-            </div>
-
-            {/* 업로드된 이미지들 */}
-            {Array.from({ length: 9 }).map((_, index) => (
+            {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="image-upload-box">
                 {shareImages[index] ? (
                   <>
@@ -246,7 +233,27 @@ const ShareCreate = () => {
                     </button>
                   </>
                 ) : (
-                  <div className="placeholder-box">+</div> // 빈 박스는 "+"로 표시
+                  shareImages.length < 10 && (
+                    <label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        style={{ display: "none" }}
+                        onChange={handleImageUpload}
+                      />
+                      <div className="add-image">
+                        {index === 0 ? (
+                          <>
+                            <CameraIcon className="camera-icon" />
+                            <p className="camera-text">사진등록</p>
+                          </>
+                        ) : (
+                          "+"
+                        )}
+                      </div>
+                    </label>
+                  )
                 )}
               </div>
             ))}
@@ -274,6 +281,16 @@ const ShareCreate = () => {
             type="title"
             value={shareTitle}
             onChange={(e) => setShareTitle(e.target.value)}
+            placeholder="제목을 입력하세요"
+          />
+        </div>
+
+        <div className="form-group">
+          <h4>제품명</h4>
+          <input
+            type="title"
+            value={item}
+            onChange={(e) => setItem(e.target.value)}
             placeholder="제목을 입력하세요"
           />
         </div>
