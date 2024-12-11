@@ -1,9 +1,10 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LoginPage.css';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [token, setToken] = useState(null);
   // 토큰이 있으면 메인페이지로 넘어가기 
   useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
