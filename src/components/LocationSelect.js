@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "./LocationSelect.css";
 import KakaoMap from "./KakaoMap";
 import { DataContext } from "../context/DataContext";
+import { fetchCategoryData, searchName } from "../api/marketApi"; // marketApi.js에서 함수 임포트
 
 const LocationSelect = () => {
   const [shopList, setShopList] = useState([]);
@@ -15,12 +16,32 @@ const LocationSelect = () => {
   const [clickedPosition, setClickedPosition] = useState(null);
   const [locationName, setLocationName] = useState("");
   const [categoryData, setCategoryData] = useState([]); // 카테고리 데이터 상태 추가
+  const [marketData, setMarketData] = useState(null); // 마켓 데이터 상태 추가
 
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
 
-  const handleJumpoSelect = (jumpo) => {
+  const handleJumpoSelect = async (jumpo) => {
     setSelectedJumpo(jumpo);
+
+    let categoryId;
+    if (selectedStore === "COSTCO") {
+      categoryId = 1;
+    } else if (selectedStore === "EMART TRADERS") {
+      categoryId = 2;
+    }
+
+    if (categoryId) {
+      try {
+        const marketDTO = await searchName(categoryId, jumpo);
+        // console.log("Market DTO:", marketDTO);
+        setMarketData(marketDTO); // 받아온 데이터 설정
+        console.log("Market Data:", marketData);
+        // marketData를 필요에 따라 처리합니다.
+      } catch (error) {
+        console.error("Error fetching market data:", error);
+      }
+    }
   };
 
   const handleStoreSelect = async (store) => {
@@ -28,8 +49,7 @@ const LocationSelect = () => {
 
     if (store === "COSTCO") {
       try {
-        const response = await fetch(`http://localhost:8080/api/markets/category/1`);
-        const data = await response.json();
+        const data = await fetchCategoryData(1); // fetchCategoryData 함수 호출
         console.log("COSTCO지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationCostco = [
@@ -46,8 +66,7 @@ const LocationSelect = () => {
       }
     } else if (store === "EMART TRADERS") {
       try {
-        const response = await fetch(`http://localhost:8080/api/markets/category/2`);
-        const data = await response.json();
+        const data = await fetchCategoryData(2); // fetchCategoryData 함수 호출
         console.log("EMART TRADERS 지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationEmart = [
@@ -105,9 +124,9 @@ const LocationSelect = () => {
       } else if (local === "인천/세종/충남") {
         res = ["송도점", "청라점", "세종점", "천안점"];
       } else if (local === "대전/대구") {
-        res = ["대전점", "대구점", "대구 혁신도시점"];
+        res = ["대전점", "대구점", "대구혁신도시점"];
       } else if (local === "부산/울산/경남") {
-        res = ["부산점", "울산점", "김해점"];
+        res = ["수영점", "울산점", "김해점"];
       } else {
         res = [];
       }
@@ -152,7 +171,9 @@ const LocationSelect = () => {
     }
 
     if (selectedStore !== "ETC" && (!selectedLocation || !selectedJumpo)) {
-      toast.error("지역과 점포를 모두 선택해주세요.", { position: "bottom-center" });
+      toast.error("지역과 점포를 모두 선택해주세요.", {
+        position: "bottom-center",
+      });
       return;
     }
 
@@ -162,14 +183,24 @@ const LocationSelect = () => {
     }
 
     const locationData = {
-      store: selectedStore,
-      location: selectedLocation,
-      jumpo: selectedJumpo,
-      position: clickedPosition,
-      name: locationName,
+      id: marketData.id,
+      category: marketData.category,
+      name: marketData.name,
+      addressDetail: marketData.addressDetail,
+      addressId: marketData.addressId,
+      cityCode: marketData.cityCode,
+      districtCode: marketData.districtCode,
+      latitude: marketData.latitude,
+      longitude: marketData.longitude,
+      neighborhood: marketData.neighborhood,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
-    navigate(-1); // 이전 페이지로 이동
+    navigate("/togetherCreate", {
+      state: {
+        marketCategory: marketData.category,
+        marketName: marketData.name,
+      },
+    }); // 이전 페이지로 이동
   };
 
   return (
@@ -203,9 +234,7 @@ const LocationSelect = () => {
             EMART TRADERS
           </button>
           <button
-            className={`etc ${
-              selectedStore === "ETC" ? "" : "inactive-shop"
-            }`}
+            className={`etc ${selectedStore === "ETC" ? "" : "inactive-shop"}`}
             onClick={() => {
               handleStoreSelect("ETC");
             }}

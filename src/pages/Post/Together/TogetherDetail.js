@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { toast } from "react-toastify"; // react-toastify 추가
@@ -23,6 +23,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useLocalStorage } from "react-use";
 
 const TogetherDetail = () => {
+  const [mannerScore, setMannerScore] = useState(null); // 당도
   const { id } = useParams(); // URL에서 id를 가져옴
   const navigate = useNavigate();
   const { applyForPost, appliedPosts } = useContext(DataContext);
@@ -34,6 +35,8 @@ const TogetherDetail = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showApplyConfirm, setShowApplyConfirm] = useState(false); // 참여 신청 확인 창 상태 추가
   const [scrollY] = useLocalStorage("places_list_scroll", 0);
+  const [showTooltip, setShowTooltip] = useState(false); // Tooltip 상태 추가
+  const tooltipRef = useRef(null);
 
   useEffect(() => {
     // 기본값이 "0"이기 때문에 스크롤 값이 저장됐을 때에만 window를 스크롤시킨다.
@@ -45,6 +48,7 @@ const TogetherDetail = () => {
       try {
         const data = await readTogether(id); // readTogether 함수에 id 전달
         setPost(data);
+        setMannerScore(data.brix);
         setIsFavorite(data.favorite); // 좋아요 상태 설정
         setIsWriter(data.writer);
       } catch (error) {
@@ -56,6 +60,19 @@ const TogetherDetail = () => {
 
     fetchPost();
   }, [id]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+        setShowTooltip(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [tooltipRef]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading post: {error.message}</p>;
@@ -87,6 +104,7 @@ const TogetherDetail = () => {
 
   // 삭제하기
   const handleDelete = async () => {
+    console.log("마우스위치", document.scrollY);
     try {
       await deleteTogether(post.id);
       toast.success("게시글이 삭제되었습니다.");
@@ -167,6 +185,42 @@ const TogetherDetail = () => {
     slidesToScroll: 1,
   };
 
+  // 색상 간 보간(interpolation)을 계산하는 함수
+  const interpolateColor = (startColor, endColor, factor) => {
+    const result = startColor.map((start, index) =>
+      Math.round(start + factor * (endColor[index] - start))
+    );
+    return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
+  };
+
+  // 당도 점수(1~50)에 따라 동적 색상을 계산하는 함수
+  const getDynamicColor = (score) => {
+    // 색상 구간 정의 (6개 구간)
+    const colors = [
+      { range: [1, 5], start: [168, 208, 141], end: [210, 225, 136] }, // 연두빛 (덜 익은 과일)
+      { range: [5, 10], start: [210, 225, 136], end: [255, 235, 132] }, // 노랑빛 (조금 익은 과일)
+      { range: [10, 15], start: [255, 235, 132], end: [255, 212, 100] }, // 황금빛 (덜 달지만 맛이 나는 과일)
+      { range: [15, 20], start: [255, 212, 100], end: [244, 187, 68] }, // 망고빛 (달달함이 시작되는 과일)
+      { range: [20, 25], start: [244, 187, 68], end: [255, 152, 0] }, // 밝은 주황 (맛이 깊어진 과일)
+      { range: [25, 30], start: [255, 152, 0], end: [255, 120, 85] }, // 복숭아빛 (풍미가 살아나는 과일)
+      { range: [30, 35], start: [255, 120, 85], end: [255, 87, 51] }, // 붉은 주황 (과즙이 풍부한 과일)
+      { range: [35, 40], start: [255, 87, 51], end: [255, 69, 0] }, // 진한 붉은빛 (거의 완벽한 맛의 과일)
+      { range: [40, 45], start: [255, 69, 0], end: [235, 35, 0] }, // 붉은 과일 (완전히 익은 달콤한 과일)
+      { range: [45, 50], start: [235, 35, 0], end: [255, 0, 0] }, // 빨간 과일 (최고로 맛있는 과일)
+    ];
+
+    // 점수가 해당하는 구간의 색상을 계산
+    for (const color of colors) {
+      const [min, max] = color.range;
+      if (score >= min && score <= max) {
+        const factor = (score - min) / (max - min); // 구간 내 점수 비율 (0~1)
+        return interpolateColor(color.start, color.end, factor);
+      }
+    }
+
+    return "rgb(255, 0, 0)"; // 기본값: 최대값 이상은 고정 빨강
+  };
+
   return (
     <div className="mobile-container">
       <div className="together-detail-page">
@@ -218,7 +272,7 @@ const TogetherDetail = () => {
             <div className="together-user-info">
               {post.userProfileImage ? (
                 <img
-                  src={`http://localhost:8080/api/v1/together/download?id=${post.userProfileImage}`}
+                  src={`http://localhost:8080/api/v1/together/downloadprofile?id=${post.userProfileImage}`}
                   alt={post.userNickname}
                   className="together-user-image"
                 />
@@ -230,6 +284,27 @@ const TogetherDetail = () => {
                 />
               )}
               <p>{post.userNickname}</p>
+            </div>
+            <div className="together-user-brix">
+              <p className="together-brix-font">{post.brix}brix</p>
+              <div className="together-progress-bar">
+                <div
+                  className="together-progress-fill"
+                  style={{
+                    width: `${(mannerScore / 50) * 100}%`, // 당도 비율로 너비 계산
+                    backgroundColor: getDynamicColor(mannerScore), // 당도에 따른 색상 적용
+                  }}
+                ></div>
+              </div>
+              <p className="together-brix-infomation">
+                <span class="tooltip">
+                  매너당도
+                  <span class="tooltip-text">
+                    매너당도는 망고 이용자로부터 받은 칭찬, 비매너평가, 운영자
+                    제재 등을 종합해서 만든 매너 지표 입니다.
+                  </span>
+                </span>
+              </p>
             </div>
           </div>
           <div className="together-detail-info">
@@ -279,17 +354,11 @@ const TogetherDetail = () => {
             </p>
           </div>
           <div className="detail-info-category">
-            <strong>출발일 </strong> <p>{formatDate(post.meetingAt)} </p>
+            <strong>만남일 </strong> <p>{formatDate(post.meetingAt)} </p>
           </div>
           <div className="detail-info-category">
             <strong>만남장소 </strong>
-            <p>{post.meetingLocation || "정보 없음"}</p>
-          </div>
-          <div className="detail-info-category">
-            <strong>현재인원 </strong>
-            <p>
-              {currentApplicants}/{totalPeople}명{" "}
-            </p>
+            <p>{post.togetherLocationDTO.detail || "정보 없음"}</p>
           </div>
         </div>
         <div className="detail-text">{post.content || "내용 없음"}</div>
@@ -335,21 +404,30 @@ const TogetherDetail = () => {
             </button>
           ) : null}
 
-          <button
-            className={`apply-button ${post.isEnd ? "ended" : ""}`}
-            onClick={() =>
-              post.participant ? navigate("/chat") : setShowApplyConfirm(true)
-            } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
-            disabled={isApplied || post.isEnd}
-          >
-            {post.isEnd
-              ? "마감됨"
-              : post.participant
-              ? "채팅방이동"
-              : isApplied
-              ? "신청완료"
-              : "신청하기"}
-          </button>
+          {isWriter ? (
+            <button
+              className="apply-button"
+              onClick={() => navigate(`/applicationlist/${post.id}`)}
+            >
+              신청목록
+            </button>
+          ) : (
+            <button
+              className={`apply-button ${post.isEnd ? "ended" : ""}`}
+              onClick={() =>
+                post.participant ? navigate("/chat") : setShowApplyConfirm(true)
+              } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
+              disabled={isApplied || post.isEnd}
+            >
+              {post.isEnd
+                ? "마감됨"
+                : post.participant
+                ? "채팅방이동"
+                : isApplied
+                ? "신청완료"
+                : "신청하기"}
+            </button>
+          )}
           {showApplyConfirm && (
             <div className="apply-confirm">
               <p>참여신청을 하시겠습니까?</p>
