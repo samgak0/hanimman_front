@@ -9,7 +9,7 @@ const [registeredLocations, setRegisteredLocations] = useState([]); // 초기값
 const [searchText, setSearchText] = useState("");
 const [availableLocations, setAvailableLocations] = useState([]); // 검색 결과를 저장
 const [primaryAddressName, setPrimaryAddressName] = useState("");
-const [secondaryAddressName, setSecondaryAddressName] = useState(""); // 두 번째 주소 상태 추가
+const [secondaryAddressName, setSecondAddressName] = useState(""); // 두 번째 주소 상태 추가
 
 const navigate = useNavigate();
 
@@ -24,10 +24,11 @@ const fetchData = async () => {
   });
 
     if (response.data) {
-      setPrimaryAddressName(response.data.primaryAddressName || "주소가 없습니다.");
+      setPrimaryAddressName(response.data.primaryAddressName || "1차주소")
+      setSecondAddressName(response.data.secondAddressName || "2차주소")
       setRegisteredLocations(response.data.registeredLocations || []); // 예시로 등록된 주소도 설정
     }
-      console.log(response);
+      console.log(response.data);
 
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -118,20 +119,21 @@ try {
 };
 
 const handleAddLocation = (location) => {
-setRegisteredLocations((prev) => {
-if (prev.length < 2 && !prev.includes(location.fullAddress)) {
-return [...prev, location.fullAddress];
-}
-return prev;
-});
-toast.success(`${location.fullAddress}이(가) 추가되었습니다!`);
+  setRegisteredLocations((prev) => {
+  if (prev.length < 2 && !prev.includes(location.fullAddress)) {
+    return [...prev, location.fullAddress];
+  }
+    return prev;
+  });
+  toast.success(`${location.fullAddress}이(가) 추가되었습니다!`);
 };
 
+//주소 등록
 const handleSaveAddresses = async () => {
 // 등록된 주소 ID 가져오기
 const addressId = registeredLocations.map(location => {
 const foundLocation = availableLocations.find(loc => loc.fullAddress === location);
-return foundLocation ? foundLocation.id : null; // ID를 찾고 없으면 null 반환
+  return foundLocation ? foundLocation.id : null; // ID를 찾고 없으면 null 반환
 }).filter(id => id !== null); // null 제외
 
 
@@ -189,34 +191,30 @@ setRegisteredLocations([]);
 }, []);
 
 return (
-<div className="mobile-container">
-<div className="location-settings">
-<div className="locationsettings-header">
-<button className="back-button" onClick={() => navigate(-1)}>◀</button>
+  <div className="mobile-container">
+  <div className="location-settings">
+  <div className="locationsettings-header">
+  <button className="back-button" onClick={() => navigate(-1)}>◀</button>
 <h1>내 동네 설정</h1>
 </div>
-
-
-    <div className="registered-locations">
-      {registeredLocations.map((location, index) => (
-        <div key={index} className="location-tag">
-          {location}
-          <button
-            className="remove-button"
-            onClick={() =>
-              setRegisteredLocations((prev) =>
-                prev.filter((loc) => loc !== location)
-              )
-            }
-          >
-            ✕
-          </button>
-        </div>
-      ))}
+  <div className="registered-locations">
+    <div className="add-location-buttons">
       {registeredLocations.length < 2 && (
-        <button className="add-location-button">{primaryAddressName}</button>
+        <>
+        <div className="location-button-container">
+          <button className="add-location-button">{primaryAddressName}</button>
+          <button className="add-location-button">1차주소 수정</button>
+        </div>
+
+        <br/>
+        <div className="location-button-container">
+          <button className="add-location-button">{secondaryAddressName}</button>
+          <button className="add-location-button">2차주소 수정</button>
+        </div>
+        </>
       )}
     </div>
+  </div>
 
     <div className="content">
       <input
