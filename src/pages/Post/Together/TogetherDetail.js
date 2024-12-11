@@ -263,7 +263,8 @@ const TogetherDetail = () => {
                   매너당도
                   <span class="tooltip-text">
                     매너당도는 망고 이용자로부터 받은 칭찬, 비매너평가, 운영자
-                    제재 등을 종합해서 만든 매너 지표 입니다.
+                    제재 등을 종합해서 만든 매너 지표 입니다. 기본은 15brix이며
+                    최대는 50brix입니다.
                   </span>
                 </span>
               </p>
