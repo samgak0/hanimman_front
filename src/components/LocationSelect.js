@@ -34,10 +34,8 @@ const LocationSelect = () => {
     if (categoryId) {
       try {
         const marketDTO = await searchName(categoryId, jumpo);
-        // console.log("Market DTO:", marketDTO);
         setMarketData(marketDTO); // 받아온 데이터 설정
         console.log("Market Data:", marketData);
-        // marketData를 필요에 따라 처리합니다.
       } catch (error) {
         console.error("Error fetching market data:", error);
       }
@@ -183,22 +181,30 @@ const LocationSelect = () => {
     }
 
     const locationData = {
-      id: marketData.id,
-      category: marketData.category,
-      name: marketData.name,
-      addressDetail: marketData.addressDetail,
-      addressId: marketData.addressId,
-      cityCode: marketData.cityCode,
-      districtCode: marketData.districtCode,
-      latitude: marketData.latitude,
-      longitude: marketData.longitude,
-      neighborhood: marketData.neighborhood,
+      id: marketData?.id,
+      category: marketData?.category,
+      name: marketData?.name,
+      addressDetail: marketData?.addressDetail,
+      addressId: marketData?.addressId,
+      cityCode: marketData?.cityCode,
+      districtCode: marketData?.districtCode,
+      latitude: clickedPosition?.lat || currentPosition?.lat,
+      longitude: clickedPosition?.lng || currentPosition?.lng,
+      neighborhood: marketData?.neighborhood,
+      locationName: locationName, // locationName 추가
+      addressDTO: clickedPosition?.addressDTO || {},
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
+    console.log("latitude:", locationData.latitude);
+    console.log("longitude:", locationData.longitude);
     navigate("/togetherCreate", {
       state: {
-        marketCategory: marketData.category,
-        marketName: marketData.name,
+        marketCategory: marketData?.category,
+        marketName: marketData?.name,
+        locationName: locationName, // locationName 추가
+        addressDTO: clickedPosition?.addressDTO || {},
+        latitude: clickedPosition?.lat || currentPosition?.lat,
+        longitude: clickedPosition?.lng || currentPosition?.lng,
       },
     }); // 이전 페이지로 이동
   };

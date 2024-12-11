@@ -15,6 +15,10 @@ const TogetherCreate = () => {
   const post = location.state?.post || {};
   const marketCategory = location.state?.marketCategory || "";
   const marketName = location.state?.marketName || "";
+  const locationName = location.state?.locationName || "";
+  const addressDTO = location.state?.addressDTO || {};
+  const latitude = location.state?.latitude || "";
+  const longitude = location.state?.longitude || "";
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState(post.title || "");
@@ -87,11 +91,15 @@ const TogetherCreate = () => {
       quantity: people,
       isEnd: false,
       imageUrls: [], // 이미지 URL은 서버에서 처리
-      address,
       marketCategory, // marketCategory 추가
       marketName, // marketName 추가
+      address: locationName, // locationName 추가
+      addressDTO,
+      latitude,
+      longitude,
     };
 
+    console.log("togetherDTO", togetherDTO);
     formData.append(
       "togetherDTO",
       new Blob([JSON.stringify(togetherDTO)], { type: "application/json" })
@@ -134,7 +142,11 @@ const TogetherCreate = () => {
       selectedCategory,
       address,
       marketCategory,
+      locationName,
       marketName,
+      addressDTO,
+      latitude,
+      longitude,
     });
     navigate("/locationselect");
   };
@@ -345,7 +357,11 @@ const TogetherCreate = () => {
             </div>
             <div className="form-group">
               {marketName && (
-                <div className="selected-date">선택된 날짜: {marketName}</div>
+                <div className="selected-date">선택된 장소: {marketName}</div>
+              )}
+
+              {locationName && (
+                <div className="selected-date">선택된 장소: {locationName}</div>
               )}
             </div>
             <div className="form-group">
