@@ -197,24 +197,26 @@ return (
   <button className="back-button" onClick={() => navigate(-1)}>◀</button>
 <h1>내 동네 설정</h1>
 </div>
-  <div className="registered-locations">
-    <div className="add-location-buttons">
+<div className="registered-locations">
+      {registeredLocations.map((location, index) => (
+        <div key={index} className="location-tag">
+          {location}
+          <button
+            className="remove-button"
+            onClick={() =>
+              setRegisteredLocations((prev) =>
+                prev.filter((loc) => loc !== location)
+              )
+            }
+          >
+            ✕
+          </button>
+        </div>
+      ))}
       {registeredLocations.length < 2 && (
-        <>
-        <div className="location-button-container">
-          <button className="add-location-button">{primaryAddressName}</button>
-          <button className="add-location-button">1차주소 수정</button>
-        </div>
-
-        <br/>
-        <div className="location-button-container">
-          <button className="add-location-button">{secondaryAddressName}</button>
-          <button className="add-location-button">2차주소 수정</button>
-        </div>
-        </>
+        <button className="add-location-button">+</button>
       )}
     </div>
-  </div>
 
     <div className="content">
       <input
