@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../beforemaincss/LoginPage.css';
 
 const LoginPage = () => {
+  
   const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+
+   // 토큰이 있으면 메인페이지로 넘어가기 
+   useEffect(() => {
+    const storedToken = localStorage.getItem("authToken");
+    setToken(storedToken);
+    if (storedToken) {
+      navigate("/main");
+    }
+  }, [navigate]); // navigate를 의존성 배열에 추가하여 안전하게 사용
 
   // "로그인" 버튼 클릭 시 VerificationPage로 이동하는 함수
   const handleLoginRedirect = () => {
