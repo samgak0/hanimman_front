@@ -1,19 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ShareLocation.css";
 import KakaoMap from "./KakaoMap";
 import { toast } from "react-toastify";
-import { ReactComponent as ShareCloseIcon } from "../assets/icons/close.svg"
+import { ReactComponent as ShareCloseIcon } from "../assets/icons/close.svg";
 
 const ShareLocation = ({ onClose, onComplete }) => {
   const [locationName, setLocationName] = useState(""); // 장소명 입력 상태
   const [selectedPosition, setSelectedPosition] = useState(null); // 지도에서 선택된 위치
+  const [currentPosition, setCurrentPosition] = useState(null); // 현재 위치 상태
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCurrentPosition(userPosition);
+        },
+        (error) => {
+          console.error("Error fetching geolocation:", error);
+          toast.error("위치 정보를 사용할 수 없습니다.", {
+            position: "bottom-center",
+          });
+        }
+      );
+    } else {
+      toast.error("Geolocation을 지원하지 않는 브라우저입니다.", {
+        position: "bottom-center",
+      });
+    }
+  }, []);
 
   const handleComplete = () => {
     if (!selectedPosition) {
       toast.error("위치를 선택해주세요!");
       return;
     }
-    onComplete({ position: selectedPosition, name: locationName });
+    console.log("selectedPosition", selectedPosition);
+    onComplete({
+      position: selectedPosition,
+      name: locationName,
+      locationName: locationName, // locationName 추가
+      addressDTO: selectedPosition?.addressDTO || {},
+      latitude: selectedPosition?.lat || currentPosition?.lat,
+      longitude: selectedPosition?.lng || currentPosition?.lng,
+    });
+    console.log("addressDTO 셀렉트", selectedPosition?.addressDTO);
     onClose(); // 모달 닫기
   };
 
@@ -30,7 +64,10 @@ const ShareLocation = ({ onClose, onComplete }) => {
 
         {/* 지도 컨테이너 */}
         <div className="share-location-map-container">
-          <KakaoMap setClickedPosition={setSelectedPosition} />
+          <KakaoMap
+            currentPosition={currentPosition}
+            setClickedPosition={setSelectedPosition}
+          />
         </div>
 
         {/* 장소 입력 컨테이너 */}

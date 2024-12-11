@@ -14,133 +14,94 @@ import { useLocation } from "react-router-dom";
 const ShareCreate = () => {
   const location = useLocation();
   const post = location.state?.post || {};
+  const marketCategory = location.state?.marketCategory || "";
+  const marketName = location.state?.marketName || "";
+  const locationName = location.state?.locationName || "";
+  const addressDTO = location.state?.addressDTO || {};
+  const latitude = location.state?.latitude || "";
+  const longitude = location.state?.longitude || "";
 
-  const [shareImages, setShareImages] = useState([]);
-  const [shareTitle, setShareTitle] = useState(post.title || "");
+  const [images, setImages] = useState([]);
+  const [title, setTitle] = useState(post.title || "");
   const [item, setItem] = useState(post.item || "");
-  const [sharePrice, setSharePrice] = useState(post.price || "");
-  const [shareQuantity, setShareQuantity] = useState(post.quantity || 1);
-  const [shareDescription, setShareDescription] = useState(
-    post.description || ""
-  );
-  const [isShareDateSelectVisible, setIsShareDateSelectVisible] =
-    useState(false);
-  const [selectedShareDate, setSelectedShareDate] = useState(
-    post.meetingAt || ""
-  );
-  const [isShareCategoryModalVisible, setIsShareCategoryModalVisible] =
-    useState(false);
-  const [selectedShareCategory, setSelectedShareCategory] = useState(
+  const [price, setPrice] = useState(post.price || "");
+  const [quantity, setQuantity] = useState(post.quantity || 1);
+  const [description, setDescription] = useState(post.description || "");
+  const [showDateSelect, setShowDateSelect] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(post.meetingAt || "");
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(
     post.selectedCategory || null
   );
-  const [shareLocationData, setShareLocationData] = useState(
-    post.location || null
-  );
-  const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
-  const [isShareLocationVisible, setIsShareLocationVisible] = useState(false);
+  const [locationData, setLocationData] = useState({
+    locationName,
+    addressDTO,
+    latitude,
+    longitude,
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showLocationSelect, setShowLocationSelect] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState(null);
 
   const {
-    setPosts: setSharePosts,
-    setShareCreateState: saveShareCreateState,
+    setPosts,
+    setShareCreateState,
     shareCreateState = {},
   } = useContext(DataContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(shareCreateState).length > 0) {
-      setShareTitle(shareCreateState.title || "");
+      setTitle(shareCreateState.title || "");
       setItem(shareCreateState.item || "");
-      setSharePrice(shareCreateState.price || "");
-      setShareQuantity(shareCreateState.quantity || 1);
-      setShareDescription(shareCreateState.description || "");
-      setShareImages(shareCreateState.images || []);
-      setSelectedShareDate(shareCreateState.selectedDate || "");
-      setSelectedShareCategory(shareCreateState.selectedCategory || null);
-      setShareLocationData(shareCreateState.location || null);
+      setPrice(shareCreateState.price || "");
+      setQuantity(shareCreateState.quantity || 1);
+      setDescription(shareCreateState.description || "");
+      setImages(shareCreateState.images || []);
+      setSelectedDate(shareCreateState.selectedDate || "");
+      setSelectedCategory(shareCreateState.selectedCategory || null);
+      setLocationData(shareCreateState.location || {});
     }
   }, [shareCreateState]);
 
-  const handleShareSubmit = async () => {
-    if (!shareLocationData) {
-      alert("장소를 지정해주세요.");
-      return;
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const userPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          setCurrentPosition(userPosition);
+        },
+        (error) => {
+          console.error("Error fetching geolocation:", error);
+          toast.error("위치 정보를 사용할 수 없습니다.", {
+            position: "bottom-center",
+          });
+        }
+      );
+    } else {
+      toast.error("Geolocation을 지원하지 않는 브라우저입니다.", {
+        position: "bottom-center",
+      });
     }
-    const formData = new FormData();
-    const shareDTO = {
-      title: shareTitle,
-      content: shareDescription,
-      views: 0,
-      createdAt: new Date().toISOString(),
-      deletedAt: null,
-      addressId: 1111015100,
-      meetingLocation: null,
-      locationDate: new Date(selectedShareDate).toISOString(), // Instant 형식으로 변환
-      item: item,
-      quantity: shareQuantity,
-      isEnd: false,
-      imageUrls: [], // 이미지 URL은 서버에서 처리
-      location: "서울시 땡땡",
-    };
-
-    formData.append(
-      "shareDTO",
-      new Blob([JSON.stringify(shareDTO)], { type: "application/json" })
-    );
-    shareImages.forEach((image, index) => {
-      formData.append("files", image);
-    });
-
-    try {
-      await createShare(formData); // 서버로 데이터 전송
-      setSharePosts((prevPosts) => [...prevPosts, shareDTO]);
-      saveShareCreateState({}); // 상태 초기화
-      navigate("/sharelist");
-      toast.success("게시글이 성공적으로 등록되었습니다."); // 성공 메시지
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정
-      } else {
-        setErrorMessage("게시글 작성 중 오류가 발생했습니다."); // 일반적인 에러 메시지 설정
-      }
-      console.error("Error creating post:", error);
-      toast.error("게시글 작성 중 오류가 발생했습니다."); // 에러 메시지 처리
-
-      // 5초 후에 에러 메시지 지우기
-      setTimeout(() => {
-        setErrorMessage("");
-      }, 5000);
-    }
-  };
-
-  const handleShareDateSelect = (date) => {
-    setSelectedShareDate(
-      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-    );
-    setIsShareDateSelectVisible(false);
-  };
-
-  const handleCategorySelect = (category) => {
-    setSelectedShareCategory(category);
-    setIsShareCategoryModalVisible(false);
-  };
+  }, []);
 
   const handleImageUpload = (event) => {
-    const files = Array.from(event.target.files).slice(
-      0,
-      10 - shareImages.length
-    );
-    if (files.length + shareImages.length > 10) {
+    const files = Array.from(event.target.files).slice(0, 10 - images.length);
+    if (files.length + images.length > 10) {
       alert("이미지는 최대 10개까지만 업로드 가능합니다.");
       return;
     }
-    setShareImages((prevImages) => [...prevImages, ...files]);
+    setImages((prevImages) => [...prevImages, ...files]);
     event.target.value = "";
   };
 
   const handleImageReplace = (event, index) => {
     const file = event.target.files[0];
     if (file) {
-      setShareImages((prevImages) =>
+      setImages((prevImages) =>
         prevImages.map((img, i) => (i === index ? file : img))
       );
       event.target.value = "";
@@ -148,7 +109,75 @@ const ShareCreate = () => {
   };
 
   const handleImageRemove = (index) => {
-    setShareImages((prevImages) => prevImages.filter((_, i) => i !== index));
+    setImages((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async () => {
+    if (!locationData || !locationData.latitude || !locationData.longitude) {
+      alert("장소를 지정해주세요.");
+      return;
+    }
+    const formData = new FormData();
+    const shareDTO = {
+      title,
+      content: description,
+      views: 0,
+      createdAt: new Date().toISOString(),
+      deletedAt: null,
+      addressId: 1111015100,
+      meetingLocation: null,
+      locationDate: new Date(selectedDate).toISOString(),
+      item,
+      quantity,
+      isEnd: false,
+      imageUrls: [],
+      address: locationData.locationName,
+      price,
+      marketCategory,
+      marketName,
+      locationName: locationData.locationName,
+      latitude: locationData.latitude,
+      longitude: locationData.longitude,
+      addressDTO: locationData.addressDTO,
+    };
+
+    formData.append(
+      "shareDTO",
+      new Blob([JSON.stringify(shareDTO)], { type: "application/json" })
+    );
+    images.forEach((image, index) => {
+      formData.append("files", image);
+    });
+
+    try {
+      await createShare(formData);
+      setPosts((prevPosts) => [...prevPosts, shareDTO]);
+      setShareCreateState({});
+      navigate("/sharelist");
+      toast.success("게시글이 성공적으로 등록되었습니다.");
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("게시글 작성 중 오류가 발생했습니다.");
+      }
+      console.error("Error creating post:", error);
+      toast.error("게시글 작성 중 오류가 발생했습니다.");
+
+      setTimeout(() => {
+        setErrorMessage("");
+      }, 5000);
+    }
+  };
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date.toISOString());
+    setShowDateSelect(false);
+  };
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setShowCategoryModal(false);
   };
 
   const sliderRef = useRef(null);
@@ -208,10 +237,10 @@ const ShareCreate = () => {
           >
             {Array.from({ length: 10 }).map((_, index) => (
               <div key={index} className="image-upload-box">
-                {shareImages[index] ? (
+                {images[index] ? (
                   <>
                     <img
-                      src={URL.createObjectURL(shareImages[index])}
+                      src={URL.createObjectURL(images[index])}
                       alt={`uploaded-${index}`}
                       className="uploaded-image"
                       onClick={() =>
@@ -233,7 +262,7 @@ const ShareCreate = () => {
                     </button>
                   </>
                 ) : (
-                  shareImages.length < 10 && (
+                  images.length < 10 && (
                     <label>
                       <input
                         type="file"
@@ -262,15 +291,15 @@ const ShareCreate = () => {
 
         <button
           className="category-select-button"
-          onClick={() => setIsShareCategoryModalVisible(true)}
+          onClick={() => setShowCategoryModal(true)}
         >
-          {selectedShareCategory
-            ? `선택된 카테고리: ${selectedShareCategory}`
+          {selectedCategory
+            ? `선택된 카테고리: ${selectedCategory}`
             : "품목선택"}
         </button>
-        {isShareCategoryModalVisible && (
+        {showCategoryModal && (
           <ShareCategorySelect
-            onClose={() => setIsShareCategoryModalVisible(false)}
+            onClose={() => setShowCategoryModal(false)}
             onCategorySelect={handleCategorySelect}
           />
         )}
@@ -279,8 +308,8 @@ const ShareCreate = () => {
           <h4>제목</h4>
           <input
             type="title"
-            value={shareTitle}
-            onChange={(e) => setShareTitle(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="제목을 입력하세요"
           />
         </div>
@@ -299,8 +328,8 @@ const ShareCreate = () => {
           <h4>가격</h4>
           <input
             type="price"
-            value={sharePrice}
-            onChange={(e) => setSharePrice(e.target.value)}
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
             placeholder="₩ 100,000"
           />
         </div>
@@ -309,26 +338,29 @@ const ShareCreate = () => {
           <div className="share-button-specify">
             <button
               className="locationSelect-button"
-              onClick={() => setIsShareLocationVisible(true)}
+              onClick={() => setShowLocationSelect(true)}
             >
               장소지정
             </button>
-            {isShareLocationVisible && (
+            {showLocationSelect && (
               <ShareLocation
-                onClose={() => setIsShareLocationVisible(false)}
-                onComplete={(location) => setShareLocationData(location)}
+                onClose={() => setShowLocationSelect(false)}
+                onComplete={(location) => {
+                  setLocationData(location);
+                  setShowLocationSelect(false);
+                }}
               />
             )}
             <button
               className="DateSelect-button"
-              onClick={() => setIsShareDateSelectVisible(true)}
+              onClick={() => setShowDateSelect(true)}
             >
               날짜지정
             </button>
-            {isShareDateSelectVisible && (
+            {showDateSelect && (
               <ShareDateSelect
-                onClose={() => setIsShareDateSelectVisible(false)}
-                onSelectDate={handleShareDateSelect}
+                onClose={() => setShowDateSelect(false)}
+                onSelectDate={handleDateSelect}
               />
             )}
           </div>
@@ -337,8 +369,8 @@ const ShareCreate = () => {
             <input
               className="share-quantity-input"
               type="number"
-              value={shareQuantity}
-              onChange={(e) => setShareQuantity(e.target.value)}
+              value={quantity}
+              onChange={(e) => setQuantity(e.target.value)}
               min="1"
               max="99"
             />
@@ -350,13 +382,13 @@ const ShareCreate = () => {
           <h4>내용</h4>
           <textarea
             className="textarea"
-            value={shareDescription}
-            onChange={(e) => setShareDescription(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="내용을 입력하세요"
           ></textarea>
         </div>
 
-        <button className="submit-button" onClick={handleShareSubmit}>
+        <button className="submit-button" onClick={handleSubmit}>
           등록완료
         </button>
       </div>
