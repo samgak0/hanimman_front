@@ -300,3 +300,11 @@
 .tooltip:hover .tooltip-text {
   display: grid;
 }
+
+.together-meeting-location {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 10px;
+}
