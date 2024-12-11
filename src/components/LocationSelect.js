@@ -126,7 +126,7 @@ const LocationSelect = () => {
       } else if (local === "대전/대구") {
         res = ["대전점", "대구점", "대구혁신도시점"];
       } else if (local === "부산/울산/경남") {
-        res = ["부산점", "울산점", "김해점"];
+        res = ["수영점", "울산점", "김해점"];
       } else {
         res = [];
       }
