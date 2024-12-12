@@ -114,7 +114,11 @@ const ShareCreate = () => {
 
   const handleSubmit = async () => {
     if (!locationData || !locationData.latitude || !locationData.longitude) {
-      alert("장소를 지정해주세요.");
+      alert("장소를 선택해주세요.");
+      return;
+    }
+    if (selectedDate === "") {
+      toast.error("날짜를 선택해주세요.");
       return;
     }
     const formData = new FormData();

@@ -78,6 +78,14 @@ const TogetherCreate = () => {
   };
 
   const handleSubmit = async () => {
+    if (selectedDate === "") {
+      toast.error("날짜를 선택해주세요.");
+      return;
+    }
+    if (marketCategory === "" && latitude === "") {
+      toast.error("장소를 선택해주세요.");
+      return;
+    }
     const formData = new FormData();
     const togetherDTO = {
       title,
