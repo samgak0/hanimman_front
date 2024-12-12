@@ -160,6 +160,8 @@ const LocationSettings = () => {
           toast.error("주소 저장에 실패했습니다.");
         }
       }
+      //새로고침
+      window.location.reload()
     } catch (error) {
       console.error('주소 저장 중 오류 발생:', error);
       toast.error("주소 저장 중 오류가 발생했습니다.");
@@ -207,6 +209,9 @@ const LocationSettings = () => {
       setRegisteredLocations((prev) => prev.filter((loc) => loc !== primaryAddressName)); // 등록된 주소에서도 제거
       toast.success("주소가 성공적으로 삭제되었습니다!");
     
+      //새로고침
+      window.location.reload();
+
     } else{
       toast.error("주소 정보를 찾을 수 없습니다.");
     }
