@@ -1,0 +1,137 @@
+.mobile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.participant-list {
+  padding: 20px 0;
+}
+
+.participant-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.participant-back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.participant-header h1 {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.participant-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.participant-tab {
+  flex-grow: 1;
+  padding: 10px 0;
+  text-align: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-bottom: 2px solid transparent;
+}
+
+.participant-tab.active {
+  border-bottom: 2px solid #007bff;
+  font-weight: bold;
+}
+
+.no-participants {
+  text-align: center;
+  color: #888;
+  margin-top: 20px;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.participant-item:last-child {
+  border-bottom: none;
+}
+
+.participant-card-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.item-details {
+  flex-grow: 1;
+}
+
+.item-title {
+  font-size: 1.1rem;
+  margin: 0 0 5px;
+}
+
+.item-location {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0 10px;
+}
+
+.item-status-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item-status {
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.item-status.active {
+  background-color: #28a745;
+  color: white;
+}
+
+.item-status.pending {
+  background-color: #ffc107;
+  color: white;
+}
+
+.item-status.rejected {
+  background-color: #dc3545;
+  color: white;
+}
+
+.item-status.accepted {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.item-status.completed {
+  background-color: #6c757d;
+  color: white;
+}
+
+.item-nickname {
+  font-size: 0.9rem;
+  font-weight: bold;
+}

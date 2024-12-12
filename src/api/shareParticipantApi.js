@@ -93,3 +93,13 @@ export const listAllByParentIdAndRejectedIsFalse = async (parentId) => {
     throw error;
   }
 };
+
+export const listAllByUserId = async () => {
+  try {
+    const response = await jwtAxios.get(`${host}/list/user`);
+    return response.data;
+  } catch (error) {
+    console.error("참여자 목록 조회 중 에러가 발생했습니다:", error);
+    throw error;
+  }
+};

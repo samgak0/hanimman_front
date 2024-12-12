@@ -1,42 +1,46 @@
-import "./Footer.css"
-import { ReactComponent as HomeIcon} from '../assets/icons/home.svg' 
-import { ReactComponent as FavoriteIcon} from '../assets/icons/heart.svg' 
-import { ReactComponent as ChatIcon} from '../assets/icons/chat.svg' 
-import { ReactComponent as MypageIcon} from '../assets/icons/mypage.svg' 
-import { useNavigate } from 'react-router-dom';
+import "./Footer.css";
+import { ReactComponent as HomeIcon } from "../assets/icons/home.svg";
+import { ReactComponent as FavoriteIcon } from "../assets/icons/heart.svg";
+import { ReactComponent as ChatIcon } from "../assets/icons/chat.svg";
+import { ReactComponent as MypageIcon } from "../assets/icons/mypage.svg";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const navigate = useNavigate();
 
   const MyPageClick = () => {
-    navigate('/mypage');
+    navigate("/mypage");
   };
 
   const HomeClick = () => {
-    navigate('/main');
+    navigate("/main");
   };
 
   const ZzimClick = () => {
-    navigate('/zzimlist');
+    navigate("/zzimlist");
+  };
+
+  const ParticipantListClick = () => {
+    navigate("/participantlist");
   };
 
   return (
     <footer className="footer">
       <button className="footer-button">
         <div className="icon-wrapper" onClick={HomeClick}>
-          <HomeIcon/>
+          <HomeIcon />
         </div>
         <div className="icon-wrapper" onClick={ZzimClick}>
-          <FavoriteIcon/>
+          <FavoriteIcon />
         </div>
-        <div className="icon-wrapper">
-          <ChatIcon/>
+        <div className="icon-wrapper" onClick={ParticipantListClick}>
+          <ChatIcon />
         </div>
         <div className="icon-wrapper" onClick={MyPageClick}>
-          <MypageIcon/>
+          <MypageIcon />
         </div>
       </button>
     </footer>
-  )
-}
+  );
+};
 export default Footer;

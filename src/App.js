@@ -30,6 +30,7 @@ import TogetherDetail from "./pages/Post/Together/TogetherDetail";
 import Search from "./pages/Home/mainjs/Search";
 import TogetherReport from "./pages/Post/Together/TogetherReport";
 import ShareReport from "./pages/Post/Share/ShareReport";
+import ParticipantList from "./pages/Home/mainjs/ParticipantList";
 
 const App = () => {
   return (
@@ -108,6 +109,10 @@ const App = () => {
           <Route
             path="/sharereport"
             element={<PrivateRoute element={<ShareReport />} />}
+          />
+          <Route
+            path="/participantlist"
+            element={<PrivateRoute element={<ParticipantList />} />}
           />
 
           {/* Main 관련 경로 */}
