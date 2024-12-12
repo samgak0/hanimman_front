@@ -89,6 +89,7 @@ const LocationSettings = () => {
     }
   };
 
+  //주소 검색
   const handleSearch = async () => {
     if (searchText.trim() === "") {
       setAvailableLocations([]);
@@ -169,67 +170,125 @@ const LocationSettings = () => {
     setRegisteredLocations([]);
   }, []);
 
+  //X 버튼 클릭 시 처리
+  const handleRemovePrimaryAddress = async () => {
+    try{
+      //기존 주소 가져오기
+      const response = await jwtAxios.get("/api/user-address/select");
+      console.log(response.data, "어떤값이 있어?");
+
+    // API 응답이 객체인 경우
+    if (response.data) {
+      const existingAddress = response.data;
+
+      // id와 userId를 null로 설정
+      existingAddress.id = null;
+      existingAddress.userId = null;
+      console.log(existingAddress, "수정된 값");
+
+      
+      //업데이트할 주소 DTO 설정
+      const userAddressDTO = {
+        id: existingAddress.id, // 기존 주소 ID
+        userId: existingAddress.userId, // 사용자 ID
+        primaryAddressId: existingAddress.secondlyAddressId,
+        validatedAt: new Date().toISOString(),
+        modifiedAt: new Date().toISOString(),
+        createdAt: existingAddress.createdAt // 기존 생성일 유지
+      }
+      
+
+      //주소 업데이트 요청
+      await jwtAxios.put("/api/user-address/update", userAddressDTO);
+      
+
+      // 상태 업데이트 (이부분은 프론트에서만 null인게 아닌가? 싶음)
+      setPrimaryAddressName(""); // 첫 번째 주소를 null로 설정
+      setRegisteredLocations((prev) => prev.filter((loc) => loc !== primaryAddressName)); // 등록된 주소에서도 제거
+      toast.success("주소가 성공적으로 삭제되었습니다!");
+    
+    } else{
+      toast.error("주소 정보를 찾을 수 없습니다.");
+    }
+    
+    } catch (error){
+      console.error('주소 업데이트 중 오류 발생:', error);
+      toast.error("주소 업데이트 중 오류가 발생했습니다: " + error.message);
+    }
+  };
+
+
   return (
-    <div className="mobile-container">
-      <div className="location-settings">
-        <div className="locationsettings-header">
-          <button className="back-button" onClick={() => navigate(-1)}>◀</button>
-          <h1>내 동네 설정</h1>
-        </div>
-        <div className="registered-locations">
-          {registeredLocations.map((location, index) => (
-            <div key={index} className="location-tag">
-              {location}
-              <button
+  <div className="mobile-container">
+    <div className="location-settings">
+      <div className="locationsettings-header">
+        <button className="back-button" onClick={() => navigate(-1)}>◀</button>
+        <h1>내 동네 설정</h1>
+      </div>
+      <div className="registered-locations">
+        {/* 첫 번째 주소 출력 */}
+        {primaryAddressName && (
+          <div className="location-tag">
+            <span>{primaryAddressName}</span>
+            <button
                 className="remove-button"
-                onClick={() =>
-                  setRegisteredLocations((prev) =>
-                    prev.filter((loc) => loc !== location)
-                  )
-                }
-              >
-                ✕
-              </button>
-            </div>
-          ))}
-          {registeredLocations.length < 2 && (
-            <button className="add-location-button" onClick={fetchLocation}>{primaryAddressName}</button>
-          )}
-        </div>
-
-        <div className="content">
-          <input
-            type="text"
-            className="search-input"
-            placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.key === "Enter") {
-                handleSearch(); // Enter 키를 눌렀을 때 검색
-              }
-            }}
-          />
-
-          <button onClick={fetchLocation} className="location-button">📍 현재위치로 찾기</button>
-
-          <div className="nearby-locations">
-            <h2>근처 동네</h2>
-            <ul className="location-list">
-              {availableLocations.map((location, index) => (
-                <li
-                  key={index}
-                  onClick={() => handleAddLocation(location)} // 클릭 시 DB에 저장
-                >
-                  {location.fullAddress} {/* 전체 주소 표시 */}
-                </li>
-              ))}
-            </ul>
+                onClick={handleRemovePrimaryAddress} // X 버튼 클릭 시 핸들러 호출
+            >
+              ✕
+            </button>
           </div>
+        )}
+        
+        {/* 두 번째 주소 출력 */}
+        {secondaryAddressName && (
+          <div className="location-tag">
+            <span>{secondaryAddressName}</span>
+            <button
+              className="remove-button"
+              onClick={() => {
+                // 두 번째 주소 제거 로직 (필요에 따라 수정)
+                setRegisteredLocations((prev) => prev.filter((loc) => loc !== secondaryAddressName));
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="content">
+        <input
+          type="text"
+          className="search-input"
+          placeholder="동명(읍, 면)으로 검색 (ex. 서초동)"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyUp={(e) => {
+            if (e.key === "Enter") {
+              handleSearch(); // Enter 키를 눌렀을 때 검색
+            }
+          }}
+        />
+
+        <button onClick={fetchLocation} className="location-button">📍 현재위치로 찾기</button>
+
+        <div className="nearby-locations">
+          <ul className="location-list">
+            {availableLocations.map((location, index) => (
+              <li
+                key={index}
+                onClick={() => handleAddLocation(location)} // 클릭 시 DB에 저장
+              >
+                {location.fullAddress} {/* 전체 주소 표시 */}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default LocationSettings;
