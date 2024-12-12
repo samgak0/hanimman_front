@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import "../maincss/MainPage.css";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";

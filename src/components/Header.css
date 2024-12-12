@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   position: fixed;
   top: 0;
   left: 0;
@@ -51,13 +51,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 0; /* 검색 버튼과의 간격을 줄임 */
 }
 
 .hamburger-button svg {
   width: 24px;
   height: 24px;
   fill: #ffffff; /* 아이콘 색상 */
-  transition: fill 0.3s ease; /* 호버 시 색상 변환 */
 }
 
 .hamburger-button:hover svg {
@@ -86,12 +86,14 @@
   display: flex;
   align-items: center;
   position: relative;
-  height: 40px;
+  height: 40px; /* 검색 버튼과 동일한 높이 */
   transition: all 0.3s ease;
+  margin: 0; /* 기본값 초기화 */
 }
 
 .search-bar-container.open {
-  width: 240px; /* 확장 상태 너비 */
+  width: calc(100% - 160px); /* menu부터 검색 버튼까지 영역 */
+  left: 0;
 }
 
 /* 검색 버튼 */
@@ -101,14 +103,14 @@
   background-color: #f4bb44;
   border: none;
   cursor: pointer;
-  position: absolute; /* 버튼 고정 */
-  left: 0; /* 검색바 왼쪽에 위치 */
-  z-index: 20; /* 검색창보다 위에 위치 */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
-}
+  order: 0; /* 햄버거 버튼 왼쪽으로 배치 */
+  margin: 0; /* 마진 제거 */
+  padding: 0; /* 불필요한 여백 제거 */
+  }
+  
 
 .search-button svg {
   fill: #ffffff;
@@ -125,9 +127,7 @@
   border: 1px solid #e0e0e0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   width: 100%; /* 부모 컨테이너에 맞춤 */
-  margin-left: 40px; /* 버튼 너비만큼 여백 */
-  overflow: hidden;
-  height: 100%; /* 컨테이너 높이 맞춤 */
+  height: 40px; /* 검색 버튼과 동일한 높이 */
 }
 
 .search-bar-input {

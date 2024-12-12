@@ -82,18 +82,7 @@ const Header = ({
     </div>
   )}
 
-  {/* 로고 버튼 (showLogo가 true일 때만) */}
-  {showLogo && (
-    <button className="logo-button">
-      <img
-        src={`${process.env.PUBLIC_URL}/mangologo.png`}
-        alt="Logo"
-        className="logo-icon"
-      />
-    </button>
-  )}
-
-  {/* 검색 바 */}
+  {/* 검색 버튼 */}
   {showSearch && (
     <div className={`search-bar-container ${isSearchOpen ? "open" : ""}`}>
       <button
@@ -114,14 +103,7 @@ const Header = ({
     </div>
   )}
 
-  {/* 알림 버튼 (showBell이 true일 때만) */}
-  {showBell && (
-    <button className="bell-button" onClick={handleBellClick}>
-      <BellIcon />
-    </button>
-  )}
-
-  {/* 햄버거 버튼 추가 */}
+  {/* 햄버거 버튼 */}
   <button className="hamburger-button" onClick={handleHamburgerClick}>
     <svg
       width="24"
@@ -135,6 +117,13 @@ const Header = ({
       <rect y="18" width="24" height="2" fill="white" />
     </svg>
   </button>
+
+  {/* 알림 버튼 (showBell이 true일 때만) */}
+  {showBell && (
+    <button className="bell-button" onClick={handleBellClick}>
+      <BellIcon />
+    </button>
+  )}
 
   {/* 위치 메뉴 드롭다운 */}
   {menuOpen && (
