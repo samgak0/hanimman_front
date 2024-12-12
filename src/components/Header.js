@@ -5,6 +5,7 @@ import { ReactComponent as BellIcon } from "../assets/icons/bell24.svg";
 import { ReactComponent as MenuIcon } from "../assets/icons/menuV.svg"; // 아래 화살표 버튼
 import { useNavigate } from "react-router-dom";
 import locationsData from "../data/location.json"; // JSON 파일 가져오기
+import { getAddress } from "../api/userApi"; // API 호출 함수 가져오기
 
 const Header = ({
   showMenu = false,
@@ -21,7 +22,8 @@ const Header = ({
     locationsData.lastUsedLocation
   );
   const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 열림 상태
-
+  const [address, setAddress] = useState(""); // 주소 상태 추가
+  const [addressTwo, setAddressTwo] = useState(""); // 두 번째 주소 상태 추가
   const handleBellClick = () => {
     navigate("/notification");
   };
@@ -48,6 +50,21 @@ const Header = ({
     if (savedLocation) {
       setSelectedLocation(savedLocation);
     }
+  }, []);
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      try {
+        const addressData = await getAddress();
+        setAddress(addressData.primaryAddressName);
+        setAddressTwo(addressData.secondlyAddressName);
+        setSelectedLocation(addressData.primaryAddressName);
+      } catch (error) {
+        console.error("Error fetching address:", error);
+      }
+    };
+
+    fetchAddress();
   }, []);
 
   // 순서에 맞게 컴포넌트 배치 (메인페이지에서만 변경)
@@ -80,7 +97,9 @@ const Header = ({
 
           {/* 검색 바 */}
           {showSearch && (
-            <div className={`search-bar-container ${isSearchOpen ? "open" : ""}`}>
+            <div
+              className={`search-bar-container ${isSearchOpen ? "open" : ""}`}
+            >
               <button
                 className="search-button"
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
@@ -99,9 +118,8 @@ const Header = ({
             </div>
           )}
 
-
-            {/* 햄버거 버튼 */}
-            {showMenu && (
+          {/* 햄버거 버튼 */}
+          {showMenu && (
             <button className="hamburger-button" onClick={handleHamburgerClick}>
               <svg
                 width="24"
@@ -176,17 +194,24 @@ const Header = ({
       {/* 위치 메뉴 드롭다운 */}
       {menuOpen && (
         <div className="menu-dropdown">
-          {locationsData.locations.map((location, index) => (
+          <div
+            className={`menu-dropdown-item ${
+              selectedLocation === address ? "selected" : ""
+            }`}
+            onClick={() => setSelectedLocation(address)}
+          >
+            {address}
+          </div>
+          {addressTwo && (
             <div
-              key={index}
               className={`menu-dropdown-item ${
-                selectedLocation === location ? "selected" : ""
+                selectedLocation === addressTwo ? "selected" : ""
               }`}
-              onClick={() => setSelectedLocation(location)}
+              onClick={() => setSelectedLocation(addressTwo)}
             >
-              {location}
+              {addressTwo}
             </div>
-          ))}
+          )}
           <div
             className="menu-dropdown-footer"
             onClick={handleLocationSettingsClick}
