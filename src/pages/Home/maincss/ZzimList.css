@@ -10,14 +10,18 @@
   align-items: center;
   padding-bottom: 16px;
   border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 16px;
+  transform: translateX(-10px);
 }
 
 .zzim-header h1 {
   font-size: 18px;
   font-weight: bold;
   margin: 0;
-  transform: translateX(-16px);
+}
+
+
+.zzim-header .back-button {
+  transform: translateX(10px);
 }
 
 .zzim-back-button {
@@ -51,6 +55,7 @@
   font-size: 16px;
   border-radius: 20px;
   transition: background-color 0.3s, color 0.3s;
+  width: 150px;
 }
 
 .zzim-tab.active {
