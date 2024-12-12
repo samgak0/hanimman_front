@@ -11,6 +11,7 @@ const Header = ({
   showSearch = true,
   showLogo = false,
   showLeft = true,
+  showBack = true,
 }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false); // 메뉴 열림 상태
@@ -75,6 +76,13 @@ const Header = ({
 
   return (
     <header className="header">
+    {showBack && (
+      <div className="header-left">
+        <button className="back-button" onClick={() => navigate(-1)}>
+          ◀
+        </button>
+      </div>
+    )}
       {showLeft && (
         <div className="header-left">
           <span className="header-left-location">{selectedLocation}</span>

@@ -9,7 +9,6 @@
   max-width: 100%; /* Header와 동일한 최대 너비 설정 */
   height: 90vh; /* 화면 높이에서 Header와 FilterBar 높이를 뺀 값 */
   margin: 0 auto;
-  padding-bottom: 100vh;
   box-sizing: border-box;
 }
 

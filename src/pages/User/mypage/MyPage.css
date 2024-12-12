@@ -35,7 +35,10 @@
 .settings-icon {
   font-size: 24px;
   cursor: pointer;
+  padding-right: 10px;
 }
+
+
 
 .section {
   margin: 15px 0; /* 섹션 간의 상하 간격 */

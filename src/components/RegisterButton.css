@@ -1,3 +1,5 @@
+.header .back-button {color: white;}
+
 /* 기본 버튼 스타일 */
 .register-button-container {
   position: fixed; /* 하단에 고정 */

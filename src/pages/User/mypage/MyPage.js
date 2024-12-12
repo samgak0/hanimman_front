@@ -30,6 +30,7 @@ function MyPage() {
         </div>
         {/* 설정 아이콘 클릭 시 /mainsettings로 이동 */}
         <FaCog
+         size={40}
           className="settings-icon"
           onClick={() => navigate('/mainsettings')}
         />

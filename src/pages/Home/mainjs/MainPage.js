@@ -32,7 +32,7 @@ const MainPage = () => {
   return (
     <div className='mobile-container'>
     <div className='main-page'>
-        <Header showLogo={true} showMenu={false} showSearch={true} showLeft={false}  />
+        <Header showBack={false} showLogo={true} showMenu={false} showSearch={true} showLeft={false}  />
       <div className='main-content'>
         <section className='category'>
           <div className='together-selector'>
