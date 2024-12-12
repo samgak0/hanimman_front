@@ -1,51 +1,76 @@
+/* 기본 헤더 스타일 */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #F4BB44;
   position: fixed;
-  top: 0; /* 상단 고정 */
-  left: 0; /* 뷰포트의 왼쪽에 기준 설정 */
-  right: 0; /* 뷰포트의 오른쪽에 기준 설정 */
-  margin: 0 auto; /* 가운데 정렬 */
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   padding: 8px;
   z-index: 1000;
 }
 
 .header-left-location {
   display: inline-block;
-  max-width: 100px; /* 동 이름 영역의 최대 너비 설정 */
-  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-  overflow: hidden; /* 넘치는 텍스트 숨김 */
-  text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: bold;
-  font-size: 16px; /* 기본 폰트 크기 */
+  font-size: 16px;
   line-height: 1.2;
   text-align: center;
-  transition: font-size 0.3s ease; /* 폰트 크기 조정 애니메이션 */
+  transition: font-size 0.3s ease;
 }
 
 .header-left-location.long-text {
-  font-size: 14px; /* 동 이름이 길어지면 폰트 크기를 줄임 */
+  font-size: 14px;
 }
 
-/* 리스트페이지 장소선택란 */
 .header-left {
   color: white;
   font-weight: bold;
   margin-left: 15px;
 }
+
 .menu-button {
   border: none;
   background: transparent;
   cursor: pointer;
 }
+
+/* 햄버거 버튼 */
+.hamburger-button {
+  border: none;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger-button svg {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff; /* 아이콘 색상 */
+  transition: fill 0.3s ease; /* 호버 시 색상 변환 */
+}
+
+.hamburger-button:hover svg {
+  fill: #e0a837; /* 호버 시 색상 변경 */
+}
+
 .logo-icon {
   width: 50px;
   height: 50px;
   margin-top: -3px;
   margin-left: 15px;
 }
+
 .logo-button {
   cursor: pointer;
   border: none;
@@ -56,55 +81,80 @@
   height: 50px;
 }
 
-.search-bar {
+/* 검색바 컨테이너 */
+.search-bar-container {
   display: flex;
-  align-items:flex-start;
-  border-radius: 20px;
-  overflow: hidden;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
-  border: 1px solid #e0e0e0;
-  width: 190px; /* 적절한 기본 크기 */
-  height: 35px; /* 고정 높이 */
-  box-sizing: border-box; /* 내부 여백 포함 크기 설정 */
-}
-
-.search-bar-input {
-  flex: 1; /* 남은 공간을 모두 차지 */
-  font-size: 15px;
-  margin-left: 1vw;
-  border: none !important;
-  outline: none; 
-  color: #333333;
-}
-
-
-.search-button {
-  width: 40px; /* 검색 버튼 크기 */
+  align-items: center;
+  position: relative;
   height: 40px;
-  background-color: #f4bb44; /* 버튼 배경색 */
+  transition: all 0.3s ease;
+}
+
+.search-bar-container.open {
+  width: 240px; /* 확장 상태 너비 */
+}
+
+/* 검색 버튼 */
+.search-button {
+  width: 40px;
+  height: 40px;
+  background-color: #f4bb44;
   border: none;
   cursor: pointer;
+  position: absolute; /* 버튼 고정 */
+  left: 0; /* 검색바 왼쪽에 위치 */
+  z-index: 20; /* 검색창보다 위에 위치 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: background-color 0.3s ease;
 }
 
-.search-button:hover {
-  background-color: #e0a837; /* 호버 시 버튼 색상 변경 */
-}
-
 .search-button svg {
-  fill: #ffffff; /* 아이콘 색상 */
+  fill: #ffffff;
   width: 18px;
   height: 18px;
-  margin-right: 0.2vw;
-  margin-bottom: 0.2vw;
 }
+
+/* 검색 바 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 100%; /* 부모 컨테이너에 맞춤 */
+  margin-left: 40px; /* 버튼 너비만큼 여백 */
+  overflow: hidden;
+  height: 100%; /* 컨테이너 높이 맞춤 */
+}
+
+.search-bar-input {
+  flex: 1;
+  font-size: 15px;
+  color: #333333;
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+.search-bar-input::placeholder {
+  color: #999999;
+}
+
+/* 검색 버튼 SVG 호버 */
+.search-button:hover svg {
+  fill: #ffffff;
+}
+
 .header-icon {
   display: flex;
-  align-items: center; /* 세로 중앙 정렬 */
-  gap: 10px; /* 아이콘 간 간격 */
+  align-items: center;
+  gap: 10px;
 }
-.bell-button{
+
+.bell-button {
   border: none;
   background: transparent;
   padding: 8px;
@@ -112,22 +162,58 @@
   margin-right: 15px;
 }
 
+/* 햄버거 메뉴 스타일 */
+.hamburger-menu {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  width: 200px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.hamburger-menu-item {
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.hamburger-menu-item:hover {
+  background-color: #f4bb44; /* 호버 시 배경색 */
+  color: #fff; /* 호버 시 글자색 */
+}
+
+.hamburger-menu-item:focus {
+  outline: none;
+  background-color: #e0a837;
+}
+
+.hamburger-menu-item.selected {
+  font-weight: bold;
+  background-color: #f4bb44;
+  color: white;
+}
 
 /* 드롭다운 컨테이너 */
 .menu-dropdown {
-  position: absolute; /* 헤더에 고정 */
-  top: 50px; /* 헤더 아래에 위치 */
-  left: 20px; /* 헤더의 왼쪽 정렬 */
-  background-color: rgb(0, 0, 0, 0.7); /* 반투명 배경 */
-  border-radius: 8px; /* 둥근 모서리 */
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  background-color: rgb(0, 0, 0, 0.7);
+  border-radius: 8px;
   padding: 10px;
-  width: 150px; /* 드롭다운 너비 */
-  color: #fff; /* 텍스트 색상 */
-  z-index: 1000; /* 다른 요소 위에 배치 */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 */
+  width: 150px;
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* 드롭다운 항목 */
 .menu-dropdown-item {
   padding: 10px 12px;
   font-size: 14px;
@@ -137,21 +223,20 @@
 }
 
 .menu-dropdown-item:hover {
-  background-color: rgba(255, 255, 255, 0.2); /* 호버 효과 */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .menu-dropdown-item.selected {
   font-weight: bold;
-  background-color: rgba(255, 255, 255, 0.1); /* 선택 항목 강조 */
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* 드롭다운 하단 */
 .menu-dropdown-footer {
   margin-top: 10px;
   padding: 8px 12px;
   font-size: 12px;
   text-align: center;
-  color: #ccc; /* 설명 텍스트 색상 */
+  color: #ccc;
   cursor: pointer;
 }
 
@@ -159,27 +244,25 @@
   color: #fff;
 }
 
-/*노트북 & PC : 1025px-*  맥북 프로가 1024px */
-@media all and (min-width:1025px){
+/* 반응형 스타일 */
+@media all and (min-width: 1025px) {
   .header {
-    width: calc(100vh * (9 / 20)); /* 20:9 비율로 고정, height 기준 */
-    height: 8vh; /* 화면 높이에 맞추기 */
+    width: calc(100vh * (9 / 20));
+    height: 8vh;
   }
 }
 
-/*태블릿 가로, 세로 : 768px-1024px*/
-@media all and (min-width:768px) and (max-width:1024px){
-	.header {
-    width: 100vw; /* 100% 화면 너비 */
-    height: 8vh; /* 화면 높이에 맞춤 */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .header {
+    width: 100vw;
+    height: 8vh;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   }
 }
 
-/*모바일 가로, 세로 : -767px*/
-@media all and (max-width:767px){
-	.header {
-    width: 100vw; /* 100% 화면 너비 */
-    height: 8vh; /* 화면 높이에 맞춤 */
+@media all and (max-width: 767px) {
+  .header {
+    width: 100vw;
+    height: 8vh;
   }
 }
