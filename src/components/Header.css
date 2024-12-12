@@ -162,42 +162,41 @@
   margin-right: 15px;
 }
 
-/* 햄버거 메뉴 스타일 */
+/* 햄버거 메뉴 스타일 (menu-dropdown으로 교체) */
 .hamburger-menu {
   position: absolute;
   top: 50px;
   right: 10px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  width: 200px;
+  background-color: rgb(0, 0, 0, 0.7); /* 기존 흰색에서 어두운 배경으로 변경 */
+  border-radius: 8px;
+  padding: 10px;
+  width: 150px;
+  color: #fff; /* 흰 글자색 */
   z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 그림자 */
   display: flex;
   flex-direction: column;
 }
 
+/* 햄버거 메뉴 항목 */
 .hamburger-menu-item {
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 10px 12px;
+  font-size: 14px;
   cursor: pointer;
+  border-radius: 4px;
   text-align: center;
   transition: background-color 0.3s ease;
 }
 
+/* 햄버거 메뉴 항목 호버 효과 */
 .hamburger-menu-item:hover {
-  background-color: #f4bb44; /* 호버 시 배경색 */
-  color: #fff; /* 호버 시 글자색 */
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.hamburger-menu-item:focus {
-  outline: none;
-  background-color: #e0a837;
-}
-
+/* 선택된 메뉴 항목 */
 .hamburger-menu-item.selected {
   font-weight: bold;
-  background-color: #f4bb44;
-  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* 드롭다운 컨테이너 */

@@ -19,7 +19,6 @@ const MainPage = () => {
           showMenu={true} // 햄버거 버튼 활성화
           showSearch={true} // 검색 버튼 활성화
           showBell={false} // 알림 버튼 비활성화
-          headerOrder="main" // 순서 변경 설정
         />
         <div className="main-content">
           <section className="category">
