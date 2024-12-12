@@ -56,9 +56,10 @@ const Header = ({
     const fetchAddress = async () => {
       try {
         const addressData = await getAddress();
-        setAddress(addressData.primaryAddressName);
-        setAddressTwo(addressData.secondlyAddressName);
-        setSelectedLocation(addressData.primaryAddressName);
+        console.log("Address data:", addressData);
+        setAddress(addressData.primaryNeighborhoodName);
+        setAddressTwo(addressData.secondNeighborhoodName);
+        setSelectedLocation(addressData.primaryNeighborhoodName);
       } catch (error) {
         console.error("Error fetching address:", error);
       }
