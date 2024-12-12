@@ -10,14 +10,6 @@
   border-bottom: 1px solid #ddd;
 }
 
-.back-button {
-  background: none;
-  border: none;
-  font-size: 18px;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
 .account-info-section {
   margin-top: 16px;
 }

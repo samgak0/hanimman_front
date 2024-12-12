@@ -11,13 +11,6 @@
   margin-bottom: 20px;
 }
 
-.back-button {
-  font-size: 20px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
 .zzim-header h1 {
   flex-grow: 1;
   text-align: center;

@@ -16,15 +16,6 @@
   position: relative;
 }
 
-.back-button {
-  position: absolute;
-  left: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-}
-
 .faq-header h1 {
   flex: 1;
   font-size: 18px;

@@ -14,14 +14,6 @@
   border-bottom: 1px solid #eeeeee;
 }
 
-.back-button {
-  font-size: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  margin-right: 8px;
-}
-
 .settings-header h1 {
   flex-grow: 1;
   text-align: center;

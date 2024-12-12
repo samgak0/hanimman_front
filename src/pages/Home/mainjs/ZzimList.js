@@ -138,7 +138,7 @@ const ZzimList = () => {
     <div className="mobile-container">
       <div className="zzim-list">
         <header className="zzim-header">
-          <button className="zzim-back-button" onClick={() => navigate(-1)}>
+          <button className="back-button" onClick={() => navigate(-1)}>
             ◀
           </button>
           <h1>관심목록</h1>
