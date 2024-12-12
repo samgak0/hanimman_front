@@ -51,7 +51,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 0; /* 검색 버튼과의 간격을 줄임 */
+  order: 0; /* 햄버거 버튼을 가장 왼쪽에 위치 */
+  margin-right: 8px; /* 검색바와의 간격 조정 */
 }
 
 .hamburger-button svg {
@@ -87,12 +88,13 @@
   align-items: center;
   position: relative;
   height: 40px; /* 검색 버튼과 동일한 높이 */
+  margin-left: auto; /* 오른쪽으로 밀어내기 */
+  margin-right: 8px; /* 검색 버튼과 간격 조정 */
   transition: all 0.3s ease;
-  margin: 0; /* 기본값 초기화 */
 }
 
 .search-bar-container.open {
-  width: calc(100% - 160px); /* menu부터 검색 버튼까지 영역 */
+  width: calc(100% - 200px); /* menu부터 검색 버튼까지 영역 */
   left: 0;
 }
 
@@ -106,7 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  order: 0; /* 햄버거 버튼 왼쪽으로 배치 */
+  order: 2; /* 검색 버튼을 가장 오른쪽에 위치 */
   margin: 0; /* 마진 제거 */
   padding: 0; /* 불필요한 여백 제거 */
   }
