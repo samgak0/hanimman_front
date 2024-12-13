@@ -5,6 +5,7 @@ import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg";
 import { ReactComponent as CommentIcon } from "../../../assets/icons/chat.svg";
 import { listFavoriteTogethers } from "../../../api/togetherApi";
 import { listFavoriteShares } from "../../../api/shareApi";
+import Footer from "../../../components/Footer";
 
 const ZzimList = () => {
   const [posts, setPosts] = useState([]);
@@ -207,6 +208,7 @@ const ZzimList = () => {
         )}
         {loading && <p>Loading more posts...</p>}
       </div>
+      <Footer />
     </div>
   );
 };

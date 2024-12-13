@@ -42,29 +42,6 @@
   cursor: pointer;
 }
 
-/* 햄버거 버튼 */
-.hamburger-button {
-  border: none;
-  background: transparent;
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  order: 0; /* 햄버거 버튼을 가장 왼쪽에 위치 */
-  margin-right: 8px; /* 검색바와의 간격 조정 */
-}
-
-.hamburger-button svg {
-  width: 24px;
-  height: 24px;
-  fill: #ffffff; /* 아이콘 색상 */
-}
-
-.hamburger-button:hover svg {
-  fill: #e0a837; /* 호버 시 색상 변경 */
-}
-
 .logo-icon {
   width: 50px;
   height: 50px;

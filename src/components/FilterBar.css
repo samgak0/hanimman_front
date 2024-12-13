@@ -60,11 +60,13 @@
 }
 
 .isend-button {
+  margin-left: 10px;
   border-style: none;
   background-color: #f9f9f9;
 }
 
 .isend-button2 {
+  margin-left: 10px;
   border-style: none;
   border-radius: 5px;
   background-color: #e0e0e0;
