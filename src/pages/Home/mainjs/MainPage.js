@@ -4,6 +4,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import mainpagedata from "../../../data/mainpagedata.json"; // JSON 데이터 임포트
 import "../maincss/MainPage.css";
+import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg';
+import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.svg';
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -12,6 +14,13 @@ const MainPage = () => {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
+
+  const handleTogetherClick = () => {
+    navigate("/togetherlist"); 
+  }
+  const handleShareClick = () => {
+    navigate("/sharelist");
+  }
 
   // 데이터 가져오기 (현재는 직접 JSON 파일에서 import)
   useEffect(() => {
@@ -67,37 +76,44 @@ const MainPage = () => {
         />
         <div className="main-content">
           <section className="category">
-            {/* 카테고리 섹션 */}
+            <div className="category-buttons">
+              <button className="category-button" onClick={handleTogetherClick}>
+                <TogetherIcon />
+                <p className="category-text">같이가요</p>
+              </button>  
+              <button className="category-button" onClick={handleShareClick}>
+                <ShareIcon />
+                <p className="category-text">나눠요</p>
+              </button>  
+            </div>
           </section>
 
           <section className="combined-slider">
-            <h3 className="neighborhood-font">우리 동네 같이가요 / 나눠요</h3>
-            <div className="share-list-container">
+            <div className="combined-list-container">
               {items.length > 0 ? (
                 items.map((item, index) => (
                   <div
-                    className="share-card"
+                    className="combined-card"
                     key={index}
                     onClick={() => handleCardClick(item)}
                     ref={index === items.length - 1 ? lastPostElementRef : null}
                   >
-                    <div className="share-card-image-container">
+                    <div className="combined-card-image-container">
                       {item.image ? (
                         <img
                           src={item.image}
                           alt={item.title}
-                          className="share-card-image"
+                          className="combined-card-image"
                         />
                       ) : (
                         <img
                           src="/images/noimage.png"
                           alt={item.title}
-                          className="share-card-image"
+                          className="combined-card-image"
                         />
                       )}
                     </div>
-
-                    <div className="share-card-content">
+                    <div className="combined-card-content">
                       {/* 카테고리 표시 */}
                       <div className={`category-badge ${item.category}`}>
                         {item.category === "share" ? "나눠요" : "같이가요"}
@@ -122,7 +138,7 @@ const MainPage = () => {
                           /{item.quantity}개
                         </div>
                       </div>
-                      <div className="share-card-chat">
+                      <div className="combined-card-chat">
                         <span className="meta-item">💬 {item.chats || 0}</span>
                         <span className="meta-item">❤️ {item.favoriteCount || 0}</span>
                       </div>
