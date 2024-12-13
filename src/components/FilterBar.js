@@ -36,10 +36,6 @@ const FilterBar = ({
   };
   return (
     <div className="filter-bar">
-      {/* 햄버거 버튼 */}
-      <button className="category-menu-button" onClick={handleOpenModal}>
-        <BurgerIcon />
-      </button>
 
       {/* 마감 여부 */}
       <button

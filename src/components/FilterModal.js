@@ -54,21 +54,6 @@ const FilterModal = ({ onClose, onComplete, isShareList }) => {
 
   const goToStep = (step) => setActiveStep(step);
 
-  // ShareList 페이지의 경우 카테고리 선택만 표시
-  if (isShareList) {
-    return (
-      <div className="filter-modal-sharelist">
-        {!selectedCategory && (
-          <CategorySelect
-            onClose={onClose}
-            onCategorySelect={handleCategorySelect}
-            selectedCategory={selectedCategory}
-          />
-        )}
-      </div>
-    );
-  }
-
   // 기본 FilterModal (ShareList가 아닌 경우)
   return (
     <div className="filter-modal-togetherlist">

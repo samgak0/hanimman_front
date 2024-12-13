@@ -16,7 +16,6 @@ const Header = ({
 }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false); // 위치 메뉴 열림 상태
-  const [hamburgerOpen, setHamburgerOpen] = useState(false); // 햄버거 메뉴 열림 상태
   const [selectedLocation, setSelectedLocation] = useState(
     locationsData.lastUsedLocation
   );
@@ -32,17 +31,8 @@ const Header = ({
     setMenuOpen(!menuOpen); // 위치 메뉴 열림/닫힘 상태 토글
   };
 
-  const handleHamburgerClick = () => {
-    setHamburgerOpen(!hamburgerOpen); // 햄버거 메뉴 열림/닫힘 상태 토글
-  };
-
   const handleLocationSettingsClick = () => {
     navigate("/locationsettings"); // '내 동네 설정' 클릭 시 이동
-  };
-
-  const handleNavigation = (path) => {
-    navigate(path); // 전달된 경로로 이동
-    setHamburgerOpen(false); // 햄버거 메뉴 닫기
   };
 
   useEffect(() => {
@@ -106,21 +96,6 @@ const Header = ({
   </div>
 )}
 
-  {/* 햄버거 버튼 */}
-  <button className="hamburger-button" onClick={handleHamburgerClick}>
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect y="4" width="24" height="2" fill="white" />
-      <rect y="11" width="24" height="2" fill="white" />
-      <rect y="18" width="24" height="2" fill="white" />
-    </svg>
-  </button>
-
   {/* 알림 버튼 (showBell이 true일 때만) */}
   {showBell && (
     <button className="bell-button" onClick={handleBellClick}>
@@ -158,23 +133,6 @@ const Header = ({
     </div>
   )}
 
-  {/* 햄버거 메뉴 */}
-  {hamburgerOpen && (
-    <div className="hamburger-menu">
-      <div
-        className="hamburger-menu-item"
-        onClick={() => handleNavigation("/togetherlist")}
-      >
-        같이가요
-      </div>
-      <div
-        className="hamburger-menu-item"
-        onClick={() => handleNavigation("/sharelist")}
-      >
-        나눠요
-      </div>
-    </div>
-  )}
 </header>
   );
 };
