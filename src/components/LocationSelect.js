@@ -35,7 +35,6 @@ const LocationSelect = () => {
       try {
         const marketDTO = await searchName(categoryId, jumpo);
         setMarketData(marketDTO); // 받아온 데이터 설정
-        console.log("Market Data:", marketData);
       } catch (error) {
         console.error("Error fetching market data:", error);
       }
@@ -48,7 +47,6 @@ const LocationSelect = () => {
     if (store === "COSTCO") {
       try {
         const data = await fetchCategoryData(1); // fetchCategoryData 함수 호출
-        console.log("COSTCO지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationCostco = [
           "서울",
@@ -65,7 +63,6 @@ const LocationSelect = () => {
     } else if (store === "EMART TRADERS") {
       try {
         const data = await fetchCategoryData(2); // fetchCategoryData 함수 호출
-        console.log("EMART TRADERS 지점 가지고옴? ", data);
         setCategoryData(data); // 받아온 데이터 설정
         const locationEmart = [
           "서울",
@@ -94,7 +91,6 @@ const LocationSelect = () => {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log("Fetched Position:", userPosition);
           setCurrentPosition(userPosition);
         },
         (error) => {
@@ -195,9 +191,7 @@ const LocationSelect = () => {
       addressDTO: clickedPosition?.addressDTO || currentPosition?.addressDTO,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
-    console.log("latitude:", locationData.latitude);
-    console.log("longitude:", locationData.longitude);
-    console.log("addressDTO:", locationData.addressDTO);
+
     navigate("/togetherCreate", {
       state: {
         marketCategory: marketData?.category,
