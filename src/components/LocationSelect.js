@@ -20,6 +20,7 @@ const LocationSelect = () => {
 
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
+  const { shareCreateState } = useContext(DataContext);
 
   const handleJumpoSelect = async (jumpo) => {
     setSelectedJumpo(jumpo);
@@ -191,17 +192,31 @@ const LocationSelect = () => {
       addressDTO: clickedPosition?.addressDTO || currentPosition?.addressDTO,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
-
-    navigate("/togetherCreate", {
-      state: {
-        marketCategory: marketData?.category,
-        marketName: marketData?.name,
-        locationName: locationName, // locationName 추가
-        addressDTO: clickedPosition?.addressDTO || {},
-        latitude: clickedPosition?.lat || currentPosition?.lat,
-        longitude: clickedPosition?.lng || currentPosition?.lng,
-      },
-    }); // 이전 페이지로 이동
+    console.log("수정인지확인", shareCreateState?.isUpdate);
+    if (shareCreateState?.isUpdate) {
+      navigate(`/togetherupdate/${shareCreateState.postId}`);
+    } else {
+      navigate("/togethercreate", {
+        state: {
+          marketCategory: marketData?.category,
+          marketName: marketData?.name,
+          locationName: locationName,
+          addressDTO: clickedPosition?.addressDTO || {},
+          latitude: clickedPosition?.lat || currentPosition?.lat,
+          longitude: clickedPosition?.lng || currentPosition?.lng,
+        },
+      });
+    }
+    // navigate("/togethercreate", {
+    //   state: {
+    //     marketCategory: marketData?.category,
+    //     marketName: marketData?.name,
+    //     locationName: locationName, // locationName 추가
+    //     addressDTO: clickedPosition?.addressDTO || {},
+    //     latitude: clickedPosition?.lat || currentPosition?.lat,
+    //     longitude: clickedPosition?.lng || currentPosition?.lng,
+    //   },
+    // }); // 이전 페이지로 이동
   };
 
   return (
