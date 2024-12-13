@@ -27,9 +27,13 @@ export const readTogether = async (id) => {
   }
 };
 
-export const updateTogether = async (id, togetherDTO) => {
+export const updateTogether = async (id, formData) => {
   try {
-    const response = await jwtAxios.put(`${host}/${id}`, togetherDTO);
+    const response = await jwtAxios.put(`${host}/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("같이요 게시글 수정에서 에러가 발생하였습니다.");

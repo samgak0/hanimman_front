@@ -194,7 +194,6 @@ const ShareCreate = () => {
       setPosts((prevPosts) => [...prevPosts, shareDTO]);
       setShareCreateState({});
       navigate("/sharelist");
-      toast.success("게시글이 성공적으로 등록되었습니다.");
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message);

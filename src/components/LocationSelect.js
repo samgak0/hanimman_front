@@ -20,7 +20,7 @@ const LocationSelect = () => {
 
   const { setSelectedLocation: saveLocation } = useContext(DataContext); // DataContext에서 위치 저장 함수 가져오기
   const navigate = useNavigate(); // useNavigate 추가
-  const { shareCreateState } = useContext(DataContext);
+  const { togetherCreateState } = useContext(DataContext);
 
   const handleJumpoSelect = async (jumpo) => {
     setSelectedJumpo(jumpo);
@@ -192,9 +192,19 @@ const LocationSelect = () => {
       addressDTO: clickedPosition?.addressDTO || currentPosition?.addressDTO,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
-    console.log("수정인지확인", shareCreateState?.isUpdate);
-    if (shareCreateState?.isUpdate) {
-      navigate(`/togetherupdate/${shareCreateState.postId}`);
+    console.log("수정인지확인", togetherCreateState);
+
+    if (togetherCreateState?.isUpdate) {
+      navigate(`/togetherupdate/${togetherCreateState.postId}`, {
+        state: {
+          marketCategory: marketData?.category,
+          marketName: marketData?.name,
+          locationName: locationName,
+          addressDTO: clickedPosition?.addressDTO || {},
+          latitude: clickedPosition?.lat || currentPosition?.lat,
+          longitude: clickedPosition?.lng || currentPosition?.lng,
+        },
+      });
     } else {
       navigate("/togethercreate", {
         state: {

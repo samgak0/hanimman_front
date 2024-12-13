@@ -160,7 +160,6 @@ const TogetherCreate = () => {
       setPosts((prevPosts) => [...prevPosts, togetherDTO]);
       setTogetherCreateState({}); // 상태 초기화
       navigate("/togetherlist");
-      toast.success("게시글이 성공적으로 등록되었습니다."); // 성공 메시지
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정

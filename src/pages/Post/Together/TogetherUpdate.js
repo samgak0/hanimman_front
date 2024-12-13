@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
-import { ReactComponent as QuestionMark } from "../../../assets/icons/questionmark.svg";
 import DateSelect from "../../../components/DateSelect";
 import { DataContext } from "../../../context/DataContext";
 import { updateTogether } from "../../../api/togetherApi";
@@ -14,7 +13,8 @@ const TogetherUpdate = () => {
   const location = useLocation();
   const post = location.state?.post || {};
   const navigate = useNavigate();
-  const { setTogetherCreateState } = useContext(DataContext);
+  const { togetherCreateState, setTogetherCreateState } =
+    useContext(DataContext);
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState(post.title || "");
@@ -31,17 +31,20 @@ const TogetherUpdate = () => {
     post.marketCategory || ""
   );
   const [marketName, setMarketName] = useState(post.marketName || "");
-  const [locationName, setLocationName] = useState(post.locationName || "");
+  const [locationName, setLocationName] = useState(
+    post.togetherLocationDTO.detail || ""
+  );
   const [addressDTO, setAddressDTO] = useState(post.addressDTO || {});
-  const [latitude, setLatitude] = useState(post.latitude || "");
-  const [longitude, setLongitude] = useState(post.longitude || "");
+  const [latitude, setLatitude] = useState(
+    post.togetherLocationDTO.latitude || ""
+  );
+  const [longitude, setLongitude] = useState(
+    post.togetherLocationDTO.longitude || ""
+  );
   const [address, setAddress] = useState(post.address || "");
-  const [isPriceDisabled, setIsPriceDisabled] = useState(false);
+  const [isPriceDisabled, setIsPriceDisabled] = useState(post.price === null);
   const [errorMessage, setErrorMessage] = useState("");
-  const { update } = useContext(DataContext);
-
-  const { setPosts } = useContext(DataContext);
-
+  console.log("post", post);
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files).slice(0, 10 - images.length);
     if (files.length + images.length > 10) {
@@ -67,7 +70,6 @@ const TogetherUpdate = () => {
   };
 
   const handleSubmit = async () => {
-    // 유효성 검사
     if (title === "") {
       toast.error("제목을 입력해주세요.");
       return;
@@ -117,15 +119,16 @@ const TogetherUpdate = () => {
     const togetherDTO = {
       title,
       content: description,
-      views: post.views,
-      createdAt: post.createdAt,
+      userId: post.userId,
+      views: 0,
+      createdAt: new Date().toISOString(),
       meetingLocation: null,
       meetingAt: new Date(selectedDate).toISOString(),
       item: item,
       price: isPriceDisabled ? null : price,
       quantity: people,
-      isEnd: post.isEnd,
-      imageUrls: post.imageUrls || [],
+      isEnd: false,
+      imageUrls: [],
       marketCategory,
       marketName,
       address: locationName,
@@ -144,9 +147,6 @@ const TogetherUpdate = () => {
 
     try {
       await updateTogether(id, formData);
-      setPosts((prevPosts) =>
-        prevPosts.map((p) => (p.id === id ? { ...p, ...togetherDTO } : p))
-      );
       navigate(`/togetherdetail/${id}`);
       toast.success("게시글이 성공적으로 수정되었습니다.");
     } catch (error) {
@@ -181,7 +181,7 @@ const TogetherUpdate = () => {
       addressDTO,
       latitude,
       longitude,
-      isUpdate: true, // 수정 모드임을 표시
+      isUpdate: true,
       postId: id,
     });
     navigate("/locationselect");
@@ -203,7 +203,6 @@ const TogetherUpdate = () => {
     navigate(`/togetherdetail/${id}`);
   };
 
-  // 이미지 드래그 앤 슬라이드 기능
   const sliderRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -426,4 +425,5 @@ const TogetherUpdate = () => {
     </div>
   );
 };
+
 export default TogetherUpdate;
