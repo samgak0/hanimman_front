@@ -77,7 +77,7 @@
 }
 
 .search-bar-container.open {
-  width: calc(100% - 200px); /* menu부터 검색 버튼까지 영역 */
+  width: calc(100% - 150px); /* menu부터 검색 버튼까지 영역 */
   left: 0;
 }
 
