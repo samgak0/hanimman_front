@@ -15,14 +15,6 @@
   padding: 10vh 0 10vh 0;
 }
 
-/* 카테고리 섹션 */
-.category {
-  display: flex;
-  justify-content: space-around;
-  padding: 0 20px;
-  margin-left: 10px;
-}
-
 /* 동네 같이가요 / 나눠요 제목 스타일 */
 .neighborhood-font {
   padding: 15px;
@@ -45,45 +37,46 @@
   box-sizing: border-box;
 }
 
-/* combined-slider-card 스타일 */
-.combined-slider-card {
+/* 카드 스타일 */
+.share-card {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: row; /* 가로 정렬 유지 */
+  align-items: flex-start; /* 세로 배치에서 왼쪽 정렬 */
   background-color: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 1px;
+  border-radius: 1px; /* 둥근 모서리 추가 */
   padding: 10px;
-  margin-top: 5px;
-  width: 100%;
-  max-width: 100%;
-  height: 150px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 5px; /* 카드 간 간격 */
+  width: 100%; /* 부모 컨테이너에 맞춤 */
+  max-width: 100%; /* Header와 동일한 최대 너비 설정 */
+  height: 150px; /* 고정 높이 설정 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   cursor: pointer;
 }
 
 /* 이미지 섹션 */
-.combined-slider-card-image-container {
+.share-card-image-container {
   width: 100px;
   height: 100px;
   overflow: hidden;
   background: transparent;
 }
 
-.combined-slider-card-image {
+.share-card-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* 이미지 비율 유지하며 잘라내기 */
 }
 
 /* 카드 콘텐츠 섹션 */
-.combined-slider-card-content {
+.share-card-content {
   flex: 1;
-  margin-left: 16px;
+  height: 100%;
+  margin-left: 16px; /* 이미지와 콘텐츠 간격 */
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: space-between; /* 공간을 위아래로 분리 */
+  position: relative; /* 날짜 섹션 위치 지정 가능 */
 }
 
 /* 카드 제목 */
@@ -154,7 +147,7 @@
   max-width: 200px;
 }
 
-.combined-slider-card-chat {
+.share-card-chat {
   display: flex;
   flex-direction: row;
   align-items: right;
@@ -164,6 +157,25 @@
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
+}
+
+.category-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+
+.category-badge.share {
+  background-color: #f4bb44;
+}
+
+.category-badge.together {
+  background-color: #f4bb;
 }
 
 /* 반응형 스타일 */

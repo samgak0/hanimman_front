@@ -25,7 +25,7 @@ const LocationSettings = () => {
 
         if (response.data) {
           setPrimaryAddressName(response.data.primaryAddressName || "1차주소");
-          setSecondAddressName(response.data.secondAddressName || "2차주소");
+          setSecondAddressName(response.data.secondAddressName || "");
           setRegisteredLocations(response.data.registeredLocations || []); // 예시로 등록된 주소도 설정
         }
         console.log(response.data);

@@ -20,13 +20,14 @@ const LocationPage = () => {
       });
 
       if (saveResponse.status === 200) {
-        toast.success("주소가 성공적으로 저장되었습니다!");
-
         // 저장된 주소를 상태에 추가
         setRegisteredAddresses((prev) => [
           ...prev,
           { id: addressId, fullAddress }, // 주소 추가
         ]);
+
+        // 사용자에게 등록 완료 메시지 표시
+        toast.success(`현재 위치가 ${fullAddress}으로 등록되었습니다!`);
         
         navigate("/main"); // 메인 페이지로 이동
       } else {
@@ -48,7 +49,7 @@ const LocationPage = () => {
 
         try {
           const response = await fetch(
-            `http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`,
+            `http://192.168.100.129:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`,
             {
               method: "GET",
               headers: {
@@ -63,13 +64,8 @@ const LocationPage = () => {
             const fullAddress = `${data.cityName} ${data.districtName} ${data.neighborhoodName}`; // 전체 주소 형식화
             console.log(data);
 
-            const userConfirmed = window.confirm(
-              `${data.cityName}\n${data.districtName}\n${data.neighborhoodName}\n법정 코드: ${addressId}\n현재주소로 등록 하시겠습니까?`
-            );
-
-            if (userConfirmed) {
-              await saveAddress(addressId, fullAddress); // 주소 저장
-            }
+            // 주소를 자동으로 저장
+            await saveAddress(addressId, fullAddress); // 주소 저장
           } else {
             const errorMessage = await response.text();
             toast.error(`법정 코드 가져오는 데 실패했습니다: ${errorMessage}`);
