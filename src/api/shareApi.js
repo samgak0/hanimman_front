@@ -26,9 +26,13 @@ export const readShare = async (id) => {
   }
 };
 
-export const updateShare = async (id, shareDTO) => {
+export const updateShare = async (id, formData) => {
   try {
-    const response = await jwtAxios.put(`${host}/${id}`, shareDTO);
+    const response = await jwtAxios.put(`${host}/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("나눠요 게시글 수정에서 에러가 발생하였습니다.");

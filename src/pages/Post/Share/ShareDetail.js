@@ -116,7 +116,7 @@ const ShareDetail = () => {
   // 수정하기
   const handleEdit = () => {
     try {
-      navigate(`/sharecreate`, { state: { post } });
+      navigate(`/shareupdate/${post.id}`, { state: { post } });
     } catch (error) {
       toast.error("게시글 수정 중 오류가 발생했습니다.");
     }
@@ -185,7 +185,10 @@ const ShareDetail = () => {
       <div className="share-detail-page">
         {/* Header */}
         <header className="share-detail-header">
-          <button className="share-back-button" onClick={() => navigate(-1)}>
+          <button
+            className="share-back-button"
+            onClick={() => navigate("/sharelist")}
+          >
             <BackIcon />
           </button>
           <button className="share-notify-button" onClick={handleReport}>

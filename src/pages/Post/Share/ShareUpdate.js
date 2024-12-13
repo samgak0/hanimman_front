@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import "./TogetherCreate.css";
+import "./ShareCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import DateSelect from "../../../components/DateSelect";
 import { DataContext } from "../../../context/DataContext";
-import { updateTogether } from "../../../api/togetherApi";
+import { updateShare } from "../../../api/shareApi";
 
-const TogetherUpdate = () => {
+const ShareUpdate = () => {
   const { id } = useParams();
   const location = useLocation();
   const post = location.state?.post || {};
   const navigate = useNavigate();
-  const { togetherCreateState, setTogetherCreateState } =
-    useContext(DataContext);
+  const { shareCreateState, setShareCreateState } = useContext(DataContext);
 
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState(post.title || "");
@@ -23,7 +22,7 @@ const TogetherUpdate = () => {
   const [people, setPeople] = useState(post.quantity || 1);
   const [description, setDescription] = useState(post.content || "");
   const [showDateSelect, setShowDateSelect] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(post.meetingAt || "");
+  const [selectedDate, setSelectedDate] = useState(post.locationDate || "");
   const [selectedCategory, setSelectedCategory] = useState(
     post.selectedCategory || null
   );
@@ -32,19 +31,18 @@ const TogetherUpdate = () => {
   );
   const [marketName, setMarketName] = useState(post.marketName || "");
   const [locationName, setLocationName] = useState(
-    post.togetherLocationDTO.detail || ""
+    post.shareLocationDTO.detail || ""
   );
   const [addressDTO, setAddressDTO] = useState(post.addressDTO || {});
   const [latitude, setLatitude] = useState(
-    post.togetherLocationDTO.latitude || ""
+    post.shareLocationDTO.latitude || ""
   );
   const [longitude, setLongitude] = useState(
-    post.togetherLocationDTO.longitude || ""
+    post.shareLocationDTO.longitude || ""
   );
   const [address, setAddress] = useState(post.address || "");
   const [isPriceDisabled, setIsPriceDisabled] = useState(post.price === null);
   const [errorMessage, setErrorMessage] = useState("");
-  console.log("post", post);
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files).slice(0, 10 - images.length);
     if (files.length + images.length > 10) {
@@ -116,12 +114,12 @@ const TogetherUpdate = () => {
     }
 
     const formData = new FormData();
-    const togetherDTO = {
+    const shareDTO = {
       title: title,
       content: description,
       userId: post.userId,
       meetingLocation: null,
-      meetingAt: new Date(selectedDate).toISOString(),
+      locationDate: new Date(selectedDate).toISOString(),
       item: item,
       price: isPriceDisabled ? null : price,
       quantity: people,
@@ -136,21 +134,19 @@ const TogetherUpdate = () => {
       latitude,
       longitude,
     };
-    console.log("togetherDTO", togetherDTO);
-
+    console.log("shareDTO", shareDTO);
     formData.append(
-      "togetherDTO",
-      new Blob([JSON.stringify(togetherDTO)], { type: "application/json" })
+      "shareDTO",
+      new Blob([JSON.stringify(shareDTO)], { type: "application/json" })
     );
     images.forEach((image, index) => {
       formData.append("files", image);
     });
-
     console.log("formData", formData.get("files"));
 
     try {
-      await updateTogether(id, formData);
-      navigate(`/togetherdetail/${id}`);
+      await updateShare(id, formData);
+      navigate(`/sharedetail/${id}`);
       toast.success("게시글이 성공적으로 수정되었습니다.");
     } catch (error) {
       if (error.response && error.response.data) {
@@ -168,7 +164,7 @@ const TogetherUpdate = () => {
   };
 
   const openLocationPage = () => {
-    setTogetherCreateState({
+    setShareCreateState({
       title: title,
       price: price,
       item: item,
@@ -203,7 +199,7 @@ const TogetherUpdate = () => {
   };
 
   const handleClose = () => {
-    navigate(`/togetherdetail/${id}`);
+    navigate(`/sharedetail/${id}`);
   };
 
   const sliderRef = useRef(null);
@@ -429,4 +425,4 @@ const TogetherUpdate = () => {
   );
 };
 
-export default TogetherUpdate;
+export default ShareUpdate;
