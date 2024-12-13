@@ -159,6 +159,25 @@
   cursor: pointer;
 }
 
+.category-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  border-radius: 5px;
+}
+
+.category-badge.share {
+  background-color: #f4bb44;
+}
+
+.category-badge.together {
+  background-color: #f4bb;
+}
+
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .neighborhood-font {
