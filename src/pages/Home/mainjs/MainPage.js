@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import Slider from "../../../components/Slider";
 import mainpagedata from "../../../data/mainpagedata.json"; // JSON 데이터 임포트
 import "../maincss/MainPage.css";
 
@@ -99,6 +98,10 @@ const MainPage = () => {
                     </div>
 
                     <div className="share-card-content">
+                      {/* 카테고리 표시 */}
+                      <div className={`category-badge ${item.category}`}>
+                        {item.category === "share" ? "나눠요" : "같이가요"}
+                      </div>
                       <div className="card-title">{item.title}</div>
                       <div className="card-meta">
                         <div className="location-info">

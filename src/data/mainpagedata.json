@@ -10,7 +10,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 1,
     "chats": 5,
-    "favoriteCount": 3
+    "favoriteCount": 3,
+    "category": "share"
   },
   {
     "id": 2,
@@ -23,7 +24,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 10,
     "chats": 10,
-    "favoriteCount": 2
+    "favoriteCount": 2,
+    "category": "share"
   },
   {
     "id": 3,
@@ -36,7 +38,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 5,
     "chats": 2,
-    "favoriteCount": 1
+    "favoriteCount": 1,
+    "category": "together"
   },
   {
     "id": 4,
@@ -49,7 +52,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 8,
     "chats": 3,
-    "favoriteCount": 7
+    "favoriteCount": 7,
+    "category": "share"
   },
   {
     "id": 5,
@@ -62,7 +66,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 2,
     "chats": 12,
-    "favoriteCount": 4
+    "favoriteCount": 4,
+    "category": "together"
   },
   {
     "id": 6,
@@ -75,7 +80,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 6,
     "chats": 3,
-    "favoriteCount": 2
+    "favoriteCount": 2,
+    "category": "share"
   },
   {
     "id": 7,
@@ -88,7 +94,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 3,
     "chats": 8,
-    "favoriteCount": 5
+    "favoriteCount": 5,
+    "category": "together"
   },
   {
     "id": 8,
@@ -101,7 +108,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 4,
     "chats": 15,
-    "favoriteCount": 6
+    "favoriteCount": 6,
+    "category": "share"
   },
   {
     "id": 9,
@@ -114,7 +122,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 2,
     "chats": 1,
-    "favoriteCount": 9
+    "favoriteCount": 9,
+    "category": "together"
   },
   {
     "id": 10,
@@ -127,7 +136,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 15,
     "chats": 20,
-    "favoriteCount": 10
+    "favoriteCount": 10,
+    "category": "share"
   },
   {
     "id": 11,
@@ -140,7 +150,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 3,
     "chats": 4,
-    "favoriteCount": 5
+    "favoriteCount": 5,
+    "category": "together"
   },
   {
     "id": 12,
@@ -153,7 +164,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 8,
     "chats": 11,
-    "favoriteCount": 7
+    "favoriteCount": 7,
+    "category": "share"
   },
   {
     "id": 13,
@@ -166,7 +178,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 4,
     "chats": 6,
-    "favoriteCount": 2
+    "favoriteCount": 2,
+    "category": "together"
   },
   {
     "id": 14,
@@ -179,7 +192,8 @@
     "location": "부산 해운대구 우동",
     "quantity": 12,
     "chats": 9,
-    "favoriteCount": 8
+    "favoriteCount": 8,
+    "category": "share"
   },
   {
     "id": 15,
@@ -192,6 +206,7 @@
     "location": "부산 해운대구 우동",
     "quantity": 7,
     "chats": 4,
-    "favoriteCount": 3
+    "favoriteCount": 3,
+    "category": "together"
   }
 ]
