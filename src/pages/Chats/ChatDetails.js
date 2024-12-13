@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { DataContext } from '../../context/DataContext';
 import API_CONFIG from './ChatApiConfig';
 import { useNavigate } from 'react-router-dom';
-import Footer from "../../components/Footer";
+import { ReactComponent as BackIcon } from "../../assets/icons/back.svg";
 import './ChatCommon.css';
 import './ChatsDetails.css';
 import dayjs from "dayjs";
@@ -263,7 +263,7 @@ function ChatsDetails() {
     return (
         <div className="chat-container" ref={chatContainerRef}>
             <div className="chat-header">
-                <button className="back-button" onClick={() => navigate(-1)}>&lt;</button>
+                <button style={{transform:"translateY(-50%) scale(0.7)"}} className="back-button" onClick={() => navigate(-1)}><BackIcon /></button>
                 <h1 className="chat-header-title">{receiverName} 님과 대화</h1>
             </div>
             <div className="chat-message-container">
