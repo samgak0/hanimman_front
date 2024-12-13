@@ -49,6 +49,7 @@ function ChatUserList() {
     };
 
     return (
+        <div className="mobile-container">
         <div className="users-list-container">
 
             <div className="current-user-info card">
@@ -107,6 +108,7 @@ function ChatUserList() {
                 )}
             </div>
             <Footer />
+        </div>
         </div>
     );
 }

@@ -103,7 +103,6 @@ const Header = ({
     )}
   </div>
 )}
-
   {/* 알림 버튼 (showBell이 true일 때만) */}
   {showBell && (
     <button className="bell-button" onClick={handleBellClick}>

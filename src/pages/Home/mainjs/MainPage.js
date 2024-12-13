@@ -70,7 +70,7 @@ const MainPage = () => {
           showBack={false}
           showLeft={true} // 위치 표시 활성화
           showLogo={false} // 로고 비활성화
-          showMenu={true} // 햄버거 버튼 활성화
+          showMenu={true} 
           showSearch={true} // 검색 버튼 활성화
           showBell={false} // 알림 버튼 비활성화
         />
