@@ -62,3 +62,33 @@
   font-size: 14px;
   color: #929292;
 }
+
+.together-tutorial {
+  height: 50px;
+  width: 50px;
+}
+.question-icon {
+  margin-top: 10px;
+  height: 25px;
+  width: 25px;
+}
+
+.tooltip {
+  display: inline-block;
+  color: hsl(0, 0%, 71%);
+  font-weight: bold;
+  text-decoration: underline;
+  z-index: 1000;
+}
+.tooltip-text {
+  display: none;
+  position: absolute;
+  left: 50%;
+  max-width: 300px;
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 14px;
+  color: white;
+  background: #ff8c00;
+}

@@ -4,6 +4,7 @@ import { toast } from "react-toastify"; // react-toastify 임포트
 import "./TogetherCreate.css";
 import { ReactComponent as CloseIcon } from "../../../assets/icons/close.svg";
 import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
+import { ReactComponent as QuestionMark } from "../../../assets/icons/questionmark.svg";
 import DateSelect from "../../../components/DateSelect";
 import CategorySelect from "../../../components/CategorySelect";
 import { DataContext } from "../../../context/DataContext";
@@ -247,6 +248,23 @@ const TogetherCreate = () => {
           <button onClick={handleClose} className="close-icon-button">
             <CloseIcon />
           </button>
+
+          <span class="tooltip">
+            <p className="together-tutorial">
+              <QuestionMark className="question-icon" />
+            </p>
+            <span class="tooltip-text">
+              '같이가요'는 코스트코, 트레이더스 등 대형 마트에 같이 찾아가서
+              물건을 구매하는 서비스 입니다. <br />
+              <br />
+              제목, 제품명, 장소, 날짜, 수량, 내용은 필수 입력사항입니다. 가격을
+              모르면 '현장확인' 체크박스에 체크를 해주세요.
+              <br />
+              <br />
+              만나는 날짜는 지금 시간으로부터 1시간 후, 그리고 7일 이내에 설정할
+              수 있습니다.
+            </span>
+          </span>
         </header>
 
         {!showDateSelect ? (
