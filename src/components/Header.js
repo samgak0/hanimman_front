@@ -107,7 +107,7 @@ const Header = ({
 )}
 
   {/* 햄버거 버튼 */}
-  <button className="hamburger-button" onClick={handleHamburgerClick}>
+  {/* <button className="hamburger-button" onClick={handleHamburgerClick}>
     <svg
       width="24"
       height="24"
@@ -119,7 +119,7 @@ const Header = ({
       <rect y="11" width="24" height="2" fill="white" />
       <rect y="18" width="24" height="2" fill="white" />
     </svg>
-  </button>
+  </button> */}
 
   {/* 알림 버튼 (showBell이 true일 때만) */}
   {showBell && (
