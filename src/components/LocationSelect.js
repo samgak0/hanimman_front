@@ -175,10 +175,10 @@ const LocationSelect = () => {
       return;
     }
 
-    if (selectedStore === "ETC" && !clickedPosition) {
-      toast.error("위치를 지정해주세요.", { position: "bottom-center" });
-      return;
-    }
+    // if (selectedStore === "ETC" && !clickedPosition) {
+    //   toast.error("위치를 지정해주세요.", { position: "bottom-center" });
+    //   return;
+    // }
 
     const locationData = {
       id: marketData?.id,
@@ -192,11 +192,12 @@ const LocationSelect = () => {
       longitude: clickedPosition?.lng || currentPosition?.lng,
       neighborhood: marketData?.neighborhood,
       locationName: locationName, // locationName 추가
-      addressDTO: clickedPosition?.addressDTO || {},
+      addressDTO: clickedPosition?.addressDTO || currentPosition?.addressDTO,
     };
     saveLocation(locationData); // DataContext에 위치 정보 저장
     console.log("latitude:", locationData.latitude);
     console.log("longitude:", locationData.longitude);
+    console.log("addressDTO:", locationData.addressDTO);
     navigate("/togetherCreate", {
       state: {
         marketCategory: marketData?.category,

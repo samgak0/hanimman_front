@@ -5,7 +5,22 @@ const host = `${jwtAxios.defaults.baseURL}/api/location`;
 
 const KakaoMap = ({ currentPosition, setClickedPosition }) => {
   useEffect(() => {
-    const initializeMap = () => {
+    const fetchAddressDTO = async (position) => {
+      try {
+        const response = await jwtAxios.get(`${host}/administrative`, {
+          params: {
+            latitude: position.lat,
+            longitude: position.lng,
+          },
+        });
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching address data:", error);
+        return null;
+      }
+    };
+
+    const initializeMap = async () => {
       const container = document.getElementById("map");
       const options = {
         center: currentPosition
@@ -13,16 +28,23 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
               currentPosition.lat,
               currentPosition.lng
             )
-          : new window.kakao.maps.LatLng(37.5665, 126.978), // 기본값: 서울 시청
+          : new window.kakao.maps.LatLng(37.5665, 126.978),
         level: 3,
       };
 
       const map = new window.kakao.maps.Map(container, options);
-
       const marker = new window.kakao.maps.Marker({
         position: map.getCenter(),
       });
       marker.setMap(map);
+
+      // 초기 위치에 대한 addressDTO 가져오기
+      if (currentPosition) {
+        const addressDTO = await fetchAddressDTO(currentPosition);
+        if (addressDTO) {
+          setClickedPosition({ ...currentPosition, addressDTO });
+        }
+      }
 
       window.kakao.maps.event.addListener(
         map,
@@ -36,18 +58,9 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
             lng: latlng.getLng(),
           };
 
-          try {
-            const response = await jwtAxios.get(`${host}/administrative`, {
-              params: {
-                latitude: clickedPosition.lat,
-                longitude: clickedPosition.lng,
-              },
-            });
-
-            const addressDTO = response.data;
+          const addressDTO = await fetchAddressDTO(clickedPosition);
+          if (addressDTO) {
             setClickedPosition({ ...clickedPosition, addressDTO });
-          } catch (error) {
-            console.error("Error fetching address data:", error);
           }
         }
       );
@@ -60,7 +73,7 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
       script.async = true;
       script.onload = () => {
         if (window.kakao && window.kakao.maps) {
-          initializeMap(); // 스크립트가 로드된 후 초기화
+          initializeMap();
         }
       };
       document.head.appendChild(script);

@@ -289,20 +289,30 @@ const ShareDetail = () => {
         <div className="detail-info">
           <h2>상세정보</h2>
           <div className="detail-info-category">
-            <strong>카테고리 </strong>{" "}
-            <p>{post.selectedCategory || "카테고리 없음"}</p>
+            <strong>제품명 </strong> <p>{post.item} </p>
           </div>
           <div className="detail-info-category">
-            <strong>출발일 </strong> <p>{formatDate(post.locationDate)} </p>
+            <strong>가격정보 </strong>{" "}
+            <p>
+              {post.price
+                ? `${new Intl.NumberFormat("ko-KR").format(post.price)}원 / ${
+                    post.quantity
+                  }개`
+                : "가격 현장 확인"}{" "}
+            </p>
           </div>
           <div className="detail-info-category">
-            <strong>나눔장소 </strong>
-            <p>{post.location || "위치 정보 없음"}</p>
+            <strong>개당가격 </strong>{" "}
+            <p>
+              {post.price && post.quantity
+                ? `${new Intl.NumberFormat("ko-KR").format(
+                    Math.floor(post.price / post.quantity)
+                  )}원 / 1개`
+                : "가격 정보 없음"}{" "}
+            </p>
           </div>
-
           <div className="detail-info-category">
-            <strong>남은 수량 </strong>
-            <p>{post.quantity || 0}개</p>
+            <strong>거래일 </strong> <p>{formatDate(post.locationDate)} </p>
           </div>
         </div>
         <div className="detail-text">{post.content || "내용 없음"}</div>

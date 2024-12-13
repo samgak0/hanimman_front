@@ -113,12 +113,47 @@ const ShareCreate = () => {
   };
 
   const handleSubmit = async () => {
-    if (!locationData || !locationData.latitude || !locationData.longitude) {
-      alert("장소를 선택해주세요.");
+    if (title === "") {
+      toast.error("제목을 입력해주세요.");
+      return;
+    }
+    if (item === "") {
+      toast.error("제품명을 입력해주세요.");
+      return;
+    }
+    if (locationData.latitude === "") {
+      toast.error("장소를 선택해주세요.");
       return;
     }
     if (selectedDate === "") {
       toast.error("날짜를 선택해주세요.");
+      return;
+    }
+
+    if (price === "") {
+      toast.error("가격을 입력해주세요.");
+      return;
+    }
+    if (price < 1) {
+      toast.error("가격을 1 이상의 숫자로 입력해주세요.");
+      return;
+    }
+    if (!Number.isInteger(Number(price)) || isNaN(Number(price))) {
+      toast.error("가격을 1 이상의 숫자로 입력해주세요.");
+      return;
+    }
+
+    if (quantity < 1) {
+      toast.error("수량을 1개 이상의 숫자로 입력해주세요.");
+      return;
+    }
+    if (!Number.isInteger(Number(quantity)) || isNaN(Number(quantity))) {
+      toast.error("수량을 1개 이상의 숫자로 입력해주세요.");
+      return;
+    }
+
+    if (description === "") {
+      toast.error("내용을 입력해주세요.");
       return;
     }
     const formData = new FormData();
@@ -179,11 +214,6 @@ const ShareCreate = () => {
     setShowDateSelect(false);
   };
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-    setShowCategoryModal(false);
-  };
-
   const sliderRef = useRef(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
@@ -218,7 +248,6 @@ const ShareCreate = () => {
           >
             <CloseIcon />
           </button>
-          <button className="save-draft-button">임시저장</button>
         </header>
 
         {errorMessage && (
@@ -293,21 +322,6 @@ const ShareCreate = () => {
           </div>
         </div>
 
-        <button
-          className="category-select-button"
-          onClick={() => setShowCategoryModal(true)}
-        >
-          {selectedCategory
-            ? `선택된 카테고리: ${selectedCategory}`
-            : "품목선택"}
-        </button>
-        {showCategoryModal && (
-          <ShareCategorySelect
-            onClose={() => setShowCategoryModal(false)}
-            onCategorySelect={handleCategorySelect}
-          />
-        )}
-
         <div className="form-group">
           <h4>제목</h4>
           <input
@@ -324,7 +338,7 @@ const ShareCreate = () => {
             type="title"
             value={item}
             onChange={(e) => setItem(e.target.value)}
-            placeholder="제목을 입력하세요"
+            placeholder="제품명을 입력하세요"
           />
         </div>
 
@@ -381,7 +395,20 @@ const ShareCreate = () => {
             <p className="share-quantity-text">개</p>
           </div>
         </div>
-
+        <div className="form-group-select">
+          {locationData.latitude && (
+            <div className="selected-date">
+              선택된 장소: {locationData.locationName}
+            </div>
+          )}
+        </div>
+        <div className="form-group-select">
+          {selectedDate && (
+            <div className="selected-date">
+              선택된 날짜: {new Date(selectedDate).toLocaleString()}
+            </div>
+          )}
+        </div>
         <div className="form-group">
           <h4>내용</h4>
           <textarea

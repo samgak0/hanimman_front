@@ -15,7 +15,6 @@
   gap: 10px;
 }
 
-
 .share-quantity {
   width: 100px;
   display: flex;
@@ -53,3 +52,13 @@
   object-fit: cover;
 }
 
+.price-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-check-comment {
+  font-size: 14px;
+  color: #929292;
+}

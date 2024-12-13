@@ -24,7 +24,7 @@ const TogetherCreate = () => {
   const [title, setTitle] = useState(post.title || "");
   const [item, setItem] = useState(post.item || "");
   const [price, setPrice] = useState(post.price || "");
-  const [people, setPeople] = useState(post.people || 0);
+  const [people, setPeople] = useState(post.people || 1);
   const [description, setDescription] = useState(post.content || "");
   const [showDateSelect, setShowDateSelect] = useState(false); // 날짜 선택 모달 표시 여부
   const [selectedDate, setSelectedDate] = useState(post.meetingAt || ""); // 선택된 날짜
@@ -32,6 +32,7 @@ const TogetherCreate = () => {
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
   const [address, setAddress] = useState(post.address || ""); // 주소 상태 추가
   const [errorMessage, setErrorMessage] = useState(""); // 에러 메시지 상태 추가
+  const [isPriceDisabled, setIsPriceDisabled] = useState(false); // 가격 입력 비활성화 상태 추가
 
   const {
     setPosts,
@@ -47,7 +48,7 @@ const TogetherCreate = () => {
       setTitle(togetherCreateState.title || "");
       setItem(togetherCreateState.item || "");
       setPrice(togetherCreateState.price || "");
-      setPeople(togetherCreateState.people || 0);
+      setPeople(togetherCreateState.people || 1);
       setDescription(togetherCreateState.description || "");
       setImages(togetherCreateState.images || []);
       setSelectedDate(togetherCreateState.selectedDate || "");
@@ -78,14 +79,51 @@ const TogetherCreate = () => {
   };
 
   const handleSubmit = async () => {
-    if (selectedDate === "") {
-      toast.error("날짜를 선택해주세요.");
+    if (title === "") {
+      toast.error("제목을 입력해주세요.");
+      return;
+    }
+    if (item === "") {
+      toast.error("제품명을 입력해주세요.");
       return;
     }
     if (marketCategory === "" && latitude === "") {
       toast.error("장소를 선택해주세요.");
       return;
     }
+    if (selectedDate === "") {
+      toast.error("날짜를 선택해주세요.");
+      return;
+    }
+    if (isPriceDisabled === false) {
+      if (price === "") {
+        toast.error("가격을 입력해주세요.");
+        return;
+      }
+      if (price < 1) {
+        toast.error("가격을 1 이상의 숫자로 입력해주세요.");
+        return;
+      }
+      if (!Number.isInteger(Number(price)) || isNaN(Number(price))) {
+        toast.error("가격을 1 이상의 숫자로 입력해주세요.");
+        return;
+      }
+    }
+
+    if (people < 1) {
+      toast.error("수량을 1개 이상의 숫자로 입력해주세요.");
+      return;
+    }
+    if (!Number.isInteger(Number(people)) || isNaN(Number(people))) {
+      toast.error("수량을 1개 이상의 숫자로 입력해주세요.");
+      return;
+    }
+
+    if (description === "") {
+      toast.error("내용을 입력해주세요.");
+      return;
+    }
+
     const formData = new FormData();
     const togetherDTO = {
       title,
@@ -165,12 +203,11 @@ const TogetherCreate = () => {
     setShowDateSelect(false);
   };
 
-  /* 품목선택 */
-  const openCategoryModal = () => setShowCategoryModal(true);
-  const closeCategoryModal = () => setShowCategoryModal(false);
-
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category); // 선택된 카테고리 저장
+  const handlePriceCheckboxChange = (e) => {
+    setIsPriceDisabled(e.target.checked);
+    if (e.target.checked) {
+      setPrice(""); // 체크박스가 체크되면 가격 초기화
+    }
   };
 
   const handleClose = () => {
@@ -210,7 +247,6 @@ const TogetherCreate = () => {
           <button onClick={handleClose} className="close-icon-button">
             <CloseIcon />
           </button>
-          <button className="save-draft-button">임시저장</button>
         </header>
 
         {!showDateSelect ? (
@@ -287,21 +323,7 @@ const TogetherCreate = () => {
                 ))}
               </div>
             </div>
-            <button
-              className="category-select-button"
-              onClick={openCategoryModal}
-            >
-              {selectedCategory
-                ? `선택된 카테고리: ${selectedCategory}`
-                : "품목선택"}
-            </button>
-            {showCategoryModal && (
-              <CategorySelect
-                onClose={closeCategoryModal}
-                onCategorySelect={handleCategorySelect}
-                selectedCategory={selectedCategory}
-              />
-            )}
+
             <div className="form-group">
               <h4>제목</h4>
               <input
@@ -311,23 +333,34 @@ const TogetherCreate = () => {
                 placeholder="제목을 입력하세요"
               />
             </div>
-
             <div className="form-group">
               <h4>제품명</h4>
               <input
-                type="item"
+                type="title"
                 value={item}
                 onChange={(e) => setItem(e.target.value)}
                 placeholder="제품명을 입력하세요"
               />
             </div>
+
             <div className="form-group">
-              <h4>가격</h4>
+              <div className="price-group">
+                <h4>가격</h4>
+                <input
+                  type="checkbox"
+                  className="price-checkbox"
+                  onChange={handlePriceCheckboxChange}
+                  checked={isPriceDisabled}
+                />
+                <p className="price-check-comment">현장확인</p>
+              </div>
               <input
+                className="price-input"
                 type="price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
                 placeholder="₩ 100,000"
+                disabled={isPriceDisabled}
               />
             </div>
             <div className="button-group">
@@ -352,6 +385,7 @@ const TogetherCreate = () => {
                     type="number"
                     value={people}
                     onChange={(e) => setPeople(e.target.value)}
+                    defaultValue={1}
                     min="1"
                     max="99"
                   />
@@ -363,16 +397,16 @@ const TogetherCreate = () => {
                 </label> */}
               </div>
             </div>
-            <div className="form-group">
+            <div className="form-group-select">
               {marketName && (
                 <div className="selected-date">선택된 장소: {marketName}</div>
               )}
 
-              {locationName && (
+              {latitude && (
                 <div className="selected-date">선택된 장소: {locationName}</div>
               )}
             </div>
-            <div className="form-group">
+            <div className="form-group-select">
               {selectedDate && (
                 <div className="selected-date">
                   선택된 날짜: {new Date(selectedDate).toLocaleString()}

@@ -302,8 +302,11 @@ const TogetherDetail = () => {
           <div className="detail-info-category">
             <strong>가격정보 </strong>{" "}
             <p>
-              {`${new Intl.NumberFormat("ko-KR").format(post.price)}원`} /{" "}
-              {post.quantity}개{" "}
+              {post.price
+                ? `${new Intl.NumberFormat("ko-KR").format(post.price)}원 / ${
+                    post.quantity
+                  }개`
+                : "가격 현장 확인"}{" "}
             </p>
           </div>
           <div className="detail-info-category">

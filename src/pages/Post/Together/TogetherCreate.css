@@ -260,3 +260,24 @@ textarea::placeholder {
 .image-upload-box {
   position: relative;
 }
+
+.price-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-check-comment {
+  font-size: 14px;
+  color: #929292;
+}
+
+.form-group-select {
+  width: 100%;
+  margin-left: 3vh;
+  text-align: left;
+}
+
+.selected-date {
+  margin-top: 1vh;
+}
