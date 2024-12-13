@@ -329,7 +329,6 @@ function ChatsDetails() {
                 />
                 <button onClick={sendMessage} className="chat-send-button">전송</button>
             </div>
-            <Footer />
         </div>
     );
 

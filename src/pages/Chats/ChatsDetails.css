@@ -1,5 +1,6 @@
 .chat-container {
-    max-width: 600px;
+    width: 100vw;
+
     margin: 0 auto;
     background: #ffffff;
     display: flex;
@@ -16,7 +17,6 @@
     display: flex;
     position: fixed;
     width: 100vw;
-    max-width: 600px;
     justify-content: center;
     background-color: #fff;
 }
@@ -185,7 +185,7 @@
 .chat-container .chat-input-container .chat-input {
     flex-grow: 1;
     padding: 10px;
-    margin-left: 10px;
+    margin: 0 0 0 10px;
     border-radius: 20px;
     border: 1px solid #ddd;
     outline: none;
@@ -196,12 +196,13 @@
     background-color: #ffd396;
     color: #000;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     margin-right: 10px;
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-size: 0.9em;
+    width: 70px;
 }
 
 .chat-container .chat-input-container .chat-send-button:hover {

@@ -7,7 +7,6 @@ import './ChatCommon.css';
 import './ChatUserList.css';
 
 function ChatUserList() {
-    console.log(useContext(DataContext));
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
     const [currentUserDetails, setCurrentUserDetails] = useState(null);
@@ -51,15 +50,14 @@ function ChatUserList() {
 
     return (
         <div className="users-list-container">
-            <h1 className="users-list-title">한입만 채팅</h1>
 
             <div className="current-user-info card">
-                <h2 className="current-user-info-title">👤 현재 로그인된 사용자</h2>
+                <h2 className="current-user-info-title">👤 프로필</h2>
                 {currentUserDetails ? (
                     <p>
-                        <strong>Username: </strong> {currentUser.username} <br />
-                        <strong>User ID:</strong> {currentUser.userId} <br />
-                        <strong>Android ID:</strong> {currentUserDetails.androidId} <br />
+                        <strong>사용자이름: </strong> {currentUser.username} <br />
+                        {/*<strong>User ID:</strong> {currentUser.userId} <br />*/}
+                        {/*<strong>Android ID:</strong> {currentUserDetails.androidId} <br />*/}
                     </p>
                 ) : (
                     <p>
@@ -71,12 +69,12 @@ function ChatUserList() {
             </div>
 
             <div className="users-grid">
-                <h2 className="users-grid-title">💬 대화 가능한 사용자 목록</h2>
+                <h2 className="users-grid-title">💬 사용자 목록</h2>
                 {filteredUsers.length > 0 ? (
                     filteredUsers.map((user) => (
                         <div key={user.id} className="user-card card">
                             <h4>{user.username}</h4>
-                            <h5>{user.androidId}</h5>
+                            {/*<h5>{user.androidId}</h5>*/}
                             <div className="user-buttons">
                                 <button className="button-chat" onClick={() => goToPage(user.id)}>
                                     대화 시작

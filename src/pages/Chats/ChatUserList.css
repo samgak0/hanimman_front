@@ -6,10 +6,6 @@
     border-radius: 20px;
 }
 
-.users-list-container .users-list-title {
-    text-align: center;
-}
-
 .users-list-container .card {
     background: #ffffff;
     border-radius: 15px;
@@ -30,6 +26,7 @@
 .users-list-container .current-user-info .current-user-info-title {
     font-size: 1.2em;
     font-weight: 400;
+    margin-bottom: 10px;
 }
 
 .users-list-container .user-card {
@@ -47,7 +44,7 @@
 }
 
 .users-list-container .user-card h4 {
-    margin: 0;
+    margin-bottom: 10px;
 }
 
 .users-list-container .users-grid {
