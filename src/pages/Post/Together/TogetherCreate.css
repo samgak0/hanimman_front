@@ -296,7 +296,6 @@ textarea::placeholder {
 .tooltip {
   display: inline-block;
   color: hsl(0, 0%, 71%);
-  font-weight: bold;
   text-decoration: underline;
   z-index: 1000;
 }
