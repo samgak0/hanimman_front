@@ -27,6 +27,7 @@
 }
 
 .close-icon-button {
+  transform: scaleY(0.8);
   background: none;
   border: none;
   font-size: 24px;
