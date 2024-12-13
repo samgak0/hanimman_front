@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { ReactComponent as SearchIcon } from "../assets/icons/search.svg";
 import { ReactComponent as BellIcon } from "../assets/icons/bell24.svg";
 import { ReactComponent as MenuIcon } from "../assets/icons/menuV.svg"; // 아래 화살표 버튼
+import { ReactComponent as BackIcon2 } from "../assets/icons/back2.svg";
 import { useNavigate } from "react-router-dom";
 import locationsData from "../data/location.json"; // JSON 파일 가져오기
 import { getAddress } from "../api/userApi"; // API 호출 함수 가져오기
@@ -10,7 +11,7 @@ import { getAddress } from "../api/userApi"; // API 호출 함수 가져오기
 const Header = ({
   showMenu = false,
   showSearch = true,
-  showLogo = false,
+  showBack = false,
   showLeft = true,
   showBell = true, // Bell 아이콘 표시 여부 (기본값 true로 설정)
 }) => {
@@ -60,6 +61,13 @@ const Header = ({
 
   return (
 <header className="header">
+{/* 뒤로 */}
+  {showBack && (
+
+<button style={{"transform":"scale(0.7)"}} className="together-back-button" onClick={() => navigate(-1)}>
+<BackIcon2 />
+</button>
+  )}
   {/* 위치 버튼 (showLeft가 true일 때만) */}
   {showLeft && (
     <div className="header-left">
