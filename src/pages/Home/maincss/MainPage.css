@@ -18,15 +18,22 @@
   border-radius: 15px;
   cursor: pointer;
   gap: 8px; /* 아이콘과 텍스트 사이의 간격 */
-  box-shadow: 1px 1px 1px 1px #ccc; /* 그림자 추가 */
+  box-shadow: 0 2px 5px 1px #ccc; /* 그림자 추가 */
+  flex: 1;
 }
 
-.category-button:hover {
-  background-color: #ddd;
+.category-button:not(:last-child) {
+  margin-left: 5px;
+  margin-right: 10px;
+}
+.category-button:last-child {
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 /* 카테고리 이름 텍스트 스타일 */
 .category-text {
+  margin-left: 5px;
   font-size: 14px;
   color: #333;
 }
