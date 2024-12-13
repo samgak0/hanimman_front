@@ -82,26 +82,29 @@ const Header = ({
     </div>
   )}
 
-  {/* 검색 버튼 */}
-  {showSearch && (
-    <div className={`search-bar-container ${isSearchOpen ? "open" : ""}`}>
-      <button
-        className="search-button"
-        onClick={() => setIsSearchOpen(!isSearchOpen)}
+{/* 검색 버튼 */}
+{showSearch && (
+  <div className={`search-bar-container ${isSearchOpen ? "open" : ""}`}>
+    <button
+      className="search-button"
+      onClick={() => setIsSearchOpen(!isSearchOpen)}
+    >
+      <SearchIcon />
+    </button>
+    {isSearchOpen && (
+      <form
+        className="search-bar"
+        onSubmit={(e) => e.preventDefault()}  // 기본 폼 제출 방지
       >
-        <SearchIcon />
-      </button>
-      {isSearchOpen && (
-        <form className="search-bar">
-          <input
-            className="search-bar-input"
-            type="text"
-            placeholder="Search"
-          />
-        </form>
-      )}
-    </div>
-  )}
+        <input
+          className="search-bar-input"
+          type="text"
+          placeholder="Search"
+        />
+      </form>
+    )}
+  </div>
+)}
 
   {/* 햄버거 버튼 */}
   <button className="hamburger-button" onClick={handleHamburgerClick}>
