@@ -31,6 +31,8 @@ import Search from "./pages/Home/mainjs/Search";
 import TogetherReport from "./pages/Post/Together/TogetherReport";
 import ShareReport from "./pages/Post/Share/ShareReport";
 import ParticipantList from "./pages/Home/mainjs/ParticipantList";
+import ChatUserList from "./pages/Chats/ChatUserList";
+import ChatDetails from "./pages/Chats/ChatDetails";
 
 const App = () => {
   return (
@@ -114,6 +116,8 @@ const App = () => {
             path="/participantlist"
             element={<PrivateRoute element={<ParticipantList />} />}
           />
+          <Route path="/chats" element={<ChatUserList />} />
+          <Route path="/chats/:userId" element={<ChatDetails />} />
 
           {/* Main 관련 경로 */}
           {mainRoutes.map(({ path, element }) => (

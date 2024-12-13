@@ -20,8 +20,8 @@ const Footer = () => {
     navigate("/zzimlist");
   };
 
-  const ParticipantListClick = () => {
-    navigate("/participantlist");
+  const chatClick = () => {
+    navigate("/chats");
   };
 
   return (
@@ -33,7 +33,7 @@ const Footer = () => {
         <div className="icon-wrapper" onClick={ZzimClick}>
           <FavoriteIcon />
         </div>
-        <div className="icon-wrapper" onClick={ParticipantListClick}>
+        <div className="icon-wrapper" onClick={chatClick}>
           <ChatIcon />
         </div>
         <div className="icon-wrapper" onClick={MyPageClick}>

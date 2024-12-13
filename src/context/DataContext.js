@@ -33,6 +33,12 @@ export const DataProvider = ({ children }) => {
     });
   };
 
+  /* 채팅 사용자 저장 */
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    return savedUser ? JSON.parse(savedUser) : { userId: 1, username: 'user1' };
+  });
+
   return (
     <DataContext.Provider
       value={{
@@ -52,7 +58,9 @@ export const DataProvider = ({ children }) => {
         appliedPosts,
         applyForTogetherPost,
         shareDetailState,
-        setShareDetailState
+        setShareDetailState,
+        user,
+        setUser
       }}
     >
       {children}

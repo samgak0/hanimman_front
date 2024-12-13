@@ -1,0 +1,242 @@
+.chat-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.chat-container .chat-header {
+    padding: 15px 0 15px 0;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    max-width: 600px;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.chat-container .chat-header .chat-header-title {
+    display: inline-block;
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.2em;
+}
+
+.chat-container .chat-header .back-button {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    left: 0;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #000;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.chat-container .chat-header .back-button:focus,
+.chat-container .chat-header .back-button:active {
+    background: none;
+}
+
+.chat-container .chat-message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 50px 0 70px 0;
+    background-color: #f7f7f7;
+}
+
+.chat-container .chat-message-container .chat-date-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message {
+    display: flex;
+    width: fit-content;
+    max-width: 80%;
+}
+
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message.chat-message-sent {
+    align-self: flex-start;
+    margin-left: 13px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message.chat-message-received {
+    align-self: flex-end;
+    margin-right: 13px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .chat-bubble {
+    padding: 10px;
+    border-radius: 10px;
+    color: #333;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+    font-weight: 400;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .chat-bubble strong {
+    font-weight: 600;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .status {
+    display: flex;
+    align-items: end;
+    align-self: flex-end;
+    flex-direction: column;
+    font-weight: 300;
+    min-width: 55px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .status.left {
+    margin-right: 5px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .status.right {
+    margin-left: 5px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .read-status {
+    font-size: 0.8em;
+    color: #000;
+    align-self: flex-end;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .receive-time {
+    font-size: 0.8em;
+    color: #000;
+    align-self: flex-end;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: keep-all;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message.chat-message-sent:not(:last-child) .chat-bubble {
+    margin-right: 60px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message.chat-message-received:not(:last-child) .chat-bubble {
+    margin-left: 60px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .receive-time.left {
+    margin: 0;
+    margin-left: 5px;
+}
+
+.chat-container .chat-message-container .chat-date-group .time-group .chat-message .receive-time.right {
+    margin: 0;
+    margin-right: 5px;
+}
+
+.chat-container .chat-message-container .chat-date {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #888;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 5px;
+}
+
+.chat-container .chat-message-container .chat-message-received .chat-bubble {
+    background: #FFF1DE;
+}
+
+.chat-container .chat-message-container .chat-message-sent .chat-bubble {
+    background: #e4e6eb;
+}
+
+.chat-container .chat-input-container {
+    display: flex;
+    position: fixed;
+    max-width: 600px;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    align-items: center;
+    gap: 10px;
+    bottom: 0;
+    width: 100vw;
+    background-color: #fff;
+}
+
+.chat-container .chat-input-container .chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 0.9em;
+}
+
+.chat-container .chat-input-container .chat-send-button {
+    background-color: #ffd396;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
+}
+
+.chat-container .chat-input-container .chat-send-button:hover {
+    background-color: #F4BB44;
+}
+
+.chat-container .scroll-to-bottom-button {
+    position: fixed;
+    bottom: 70px;
+    transform: translateX(-25%);
+    background-color: rgba(124, 124, 124, 0.5);
+    color: #fff;
+    right: 0;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: .5em;
+    opacity: 1;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.chat-container .scroll-to-bottom-button .icon {
+    width: 15px;
+}
+
+.chat-container .scroll-to-bottom-button.hidden {
+    opacity: 0;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.chat-container .scroll-to-bottom-button:hover {
+    background-color: rgba(124, 124, 124, 0.7);
+}

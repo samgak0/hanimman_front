@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
     "expo": "^52.0.8",
     "file-loader": "^6.2.0",
     "hanimman_front": "file:",

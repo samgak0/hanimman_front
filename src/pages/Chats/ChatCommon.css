@@ -1,0 +1,12 @@
+@import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/static/woff2/SUITE.css");
+
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    color: #2b2b2b;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
