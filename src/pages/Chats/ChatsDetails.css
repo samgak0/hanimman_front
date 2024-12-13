@@ -172,6 +172,7 @@
 .chat-container .chat-input-container {
     display: flex;
     position: fixed;
+    max-width: 100wv;
     border-top: 1px solid #ddd;
     padding: 10px 0;
     align-items: center;
@@ -240,3 +241,51 @@
 .chat-container .scroll-to-bottom-button:hover {
     background-color: rgba(124, 124, 124, 0.7);
 }
+
+
+/*노트북 & PC : 1025px-*  맥북 프로가 1024px */
+@media all and (min-width:1025px){
+    .chat-container {
+      width: calc(100vh * (9 / 20)); /* 20:9 비율로 고정, height 기준 */
+      height: 100vh; /* 화면 높이에 맞추기 */
+      overflow-y: auto; /* 스크롤 가능 */
+    }
+
+    .chat-container .chat-header {
+        width: calc(100vh * (9 / 20));
+    }
+    .chat-container .chat-input-container {
+        width: calc(100vh * (9 / 20));
+    }
+  }
+  
+  /*태블릿 가로, 세로 : 768px-1024px*/
+  @media all and (min-width:768px) and (max-width:1024px){
+    .chat-container {
+      width: 100vw; /* 100% 화면 너비 */
+      height: 100vh; /* 화면 높이에 맞춤 */
+    }
+
+    .chat-container .chat-header {
+        width: 100vw;
+    }
+    .chat-container .chat-input-container {
+        width: 100vw;
+    }
+  }
+  
+  /*모바일 가로, 세로 : -767px*/
+  @media all and (max-width:767px){
+    .chat-container {
+      width: 100vw; /* 100% 화면 너비 */
+      height: 100vh; /* 화면 높이에 맞춤 */
+    }
+
+    .chat-container .chat-header {
+        width: 100vw;
+    }
+    .chat-container .chat-input-container {
+        width: 100vw;
+    }
+  }
+  
