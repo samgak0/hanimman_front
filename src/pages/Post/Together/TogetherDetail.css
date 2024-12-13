@@ -281,7 +281,6 @@
 .tooltip {
   display: inline-block;
   color: hsl(0, 0%, 71%);
-  font-weight: bold;
   text-decoration: underline;
 }
 .tooltip-text {

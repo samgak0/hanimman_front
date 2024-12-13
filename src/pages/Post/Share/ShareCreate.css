@@ -76,7 +76,6 @@
 .tooltip {
   display: inline-block;
   color: hsl(0, 0%, 71%);
-  font-weight: bold;
   text-decoration: underline;
   z-index: 1000;
 }
@@ -88,7 +87,7 @@
   border: 1px solid;
   border-radius: 5px;
   padding: 5px;
-  font-size: 14px;
+  font-size: 16px;
   color: white;
   background: #ff8c00;
 }

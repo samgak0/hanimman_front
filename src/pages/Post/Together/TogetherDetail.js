@@ -188,7 +188,10 @@ const TogetherDetail = () => {
       <div className="together-detail-page">
         {/* Header */}
         <header className="together-detail-header">
-          <button className="together-back-button" onClick={() => navigate(-1)}>
+          <button
+            className="together-back-button"
+            onClick={() => navigate("/togetherlist")}
+          >
             <BackIcon />
           </button>
           <button className="together-notify-button" onClick={handleReport}>
