@@ -118,6 +118,7 @@ const ShareList = () => {
           showSearch={true}
           location="양주동"
           showSetting={false}
+          showBell={false} // 알림 버튼 비활성화
         />
         <FilterBar
           onFilterSelect={handleFilterSelect}
