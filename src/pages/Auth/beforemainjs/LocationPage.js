@@ -49,7 +49,7 @@ const LocationPage = () => {
 
         try {
           const response = await fetch(
-            `http://192.168.100.129:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`,
+            `http://localhost:8080/api/location/administrative?latitude=${latitude}&longitude=${longitude}`,
             {
               method: "GET",
               headers: {

@@ -1,0 +1,111 @@
+.users-list-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 20px;
+}
+
+.users-list-container .users-list-title {
+    text-align: center;
+}
+
+.users-list-container .card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    color: #2b2b2b;
+}
+
+.users-list-container .current-user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: #e3f2fd;
+    border: 1px solid #90caf9;
+}
+
+.users-list-container .current-user-info .current-user-info-title {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.users-list-container .user-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-width: 200px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background: #f9f9f9;
+    border: 1px solid #dfe3e8;
+    color: #2b2b2b;
+    justify-content: center;
+}
+
+.users-list-container .user-card h4 {
+    margin: 0;
+}
+
+.users-list-container .users-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.users-list-container .users-grid .users-grid-title {
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.users-list-container .users-grid .user-card .user-buttons {
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    gap: 15px;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.users-list-container .users-grid .user-card .user-buttons .button-chat {
+    border: none;
+    display: block;
+    width: 100%;
+    font-size: 0.95em;
+    padding: 10px 20px;
+    background: #76A5CC;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.3s;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.users-list-container .users-grid .user-card .user-buttons .button-chat:hover {
+    background-color: #5E84A3;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.users-list-container .users-grid .user-card .user-buttons .button-change {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 0.95em;
+    background-color: #cccccc;
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-weight: 400;
+}
+
+.users-list-container .users-grid .user-card .button-change:hover {
+    background-color: #afafaf;
+    transform: scale(1.05);
+    cursor: pointer;
+}

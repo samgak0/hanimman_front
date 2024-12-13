@@ -33,6 +33,9 @@ import ShareReport from "./pages/Post/Share/ShareReport";
 import ParticipantList from "./pages/Home/mainjs/ParticipantList";
 import TogetherUpdate from "./pages/Post/Together/TogetherUpdate";
 
+import ChatUserList from "./pages/Chats/ChatUserList";
+import ChatDetails from "./pages/Chats/ChatDetails";
+
 const App = () => {
   return (
     <DataProvider>
@@ -119,6 +122,8 @@ const App = () => {
             path="/togetherupdate/:id"
             element={<PrivateRoute element={<TogetherUpdate />} />}
           />
+          <Route path="/chats" element={<ChatUserList />} />
+          <Route path="/chats/:userId" element={<ChatDetails />} />
 
           {/* Main 관련 경로 */}
           {mainRoutes.map(({ path, element }) => (
