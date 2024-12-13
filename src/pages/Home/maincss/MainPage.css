@@ -13,8 +13,8 @@
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  background-color: #f5f5f5;
-  border: 1px solid #ddd;
+  background-color: transparent;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   gap: 8px; /* 아이콘과 텍스트 사이의 간격 */
@@ -82,15 +82,14 @@
   margin-top: 5px; /* 카드 간 간격 */
   width: 100%; /* 부모 컨테이너에 맞춤 */
   max-width: 100%; /* Header와 동일한 최대 너비 설정 */
-  height: 150px; /* 고정 높이 설정 */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
   cursor: pointer;
 }
 
 /* 이미지 섹션 */
 .combined-card-image-container {
-  width: 100px;
-  height: 100px;
+  width: 12vh;
+  height: 12vh;
   overflow: hidden;
   background: transparent;
 }
@@ -108,12 +107,12 @@
   margin-left: 16px; /* 이미지와 콘텐츠 간격 */
   display: flex;
   flex-direction: column; /* 세로 정렬 */
-  justify-content: space-between; /* 공간을 위아래로 분리 */
+  justify-content: flex-start; /* 공간을 위아래로 분리 */
   position: relative; /* 날짜 섹션 위치 지정 가능 */
 }
 
 /* 카드 제목 */
-.card-title {
+.combined-card-title {
   font-weight: bold;
   font-size: 16px;
   color: black;
@@ -121,14 +120,16 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 30vh;
+  margin-top: 2vh;
 }
 
 /* 카드 메타데이터 */
-.card-meta {
+.combined-card-meta {
   display: flex;
   align-items: center;
   gap: 8px;
   font-size: 12px;
+  margin-top: 2vh;
 }
 
 .meta-item {
@@ -140,32 +141,39 @@
 }
 
 /* 거래 상태 */
-.card-status-price {
+.combined-card-status-price {
   display: flex;
+  justify-content: space-between; /* 자식들을 양쪽 끝으로 배치 */
   align-items: center;
-  gap: 8px;
+  width: 100%; /* 부모의 너비를 차지 */
+  margin-top: 2vh;
 }
 
-.card-tradeEnd {
+/* 왼쪽 그룹 */
+.left-group {
+  display: flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  gap: 8px; /* 배지와 가격 간격 */
+}
+
+.category-badge {
   font-size: 12px;
   text-align: center;
   color: white;
   border-radius: 4px;
-  padding: 4px 8px;
-  width: fit-content;
+  padding: 4px 4px;
+  width: 60px;
+  background-color: #ccc;
 }
 
-.card-tradeEnd.active {
-  background-color: #f4bb44;
+.category-badge.share {
+  letter-spacing: 1px;
 }
 
-.card-tradeEnd.completed {
-  background-color: #999;
-}
-
-.card-price {
+.combined-card-price {
   font-size: 12px;
   color: #666;
+  margin-left: 1vw;
 }
 
 /* 날짜 및 위치 섹션 */
@@ -183,35 +191,13 @@
 .combined-card-chat {
   display: flex;
   flex-direction: row;
-  align-items: right;
-  justify-content: right;
-  width: 100%;
+  align-items: center; /* 잘못된 'right' → 'center'로 수정 */
+  justify-content: flex-end; /* 부모 요소의 오른쪽 끝으로 배치 */
+  margin-right: 5px; /* 오른쪽에 5px 간격 추가 */
   color: white;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-}
-
-.category-badge {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  padding: 5px 5px;
-  font-size: 10px;
-  font-weight: bold;
-  color: white;
-  border-radius: 5px;
-  width: 60px;
-  text-align: center;
-}
-
-.category-badge.share {
-  background-color: #ccc;
-  letter-spacing: 1px;
-}
-
-.category-badge.together {
-  background-color: #ccc;
 }
 
 /* 반응형 스타일 */

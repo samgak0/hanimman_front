@@ -61,7 +61,7 @@ const MainPage = () => {
     return date.toLocaleDateString("ko-KR", options);
   };
 
-  if (loading && page === 0) return <p>Loading...</p>;
+  if (loading && page === 0) return <p>로딩 중...</p>;
 
   return (
     <div className="mobile-container">
@@ -114,34 +114,35 @@ const MainPage = () => {
                       )}
                     </div>
                     <div className="combined-card-content">
-                      {/* 카테고리 표시 */}
-                      <div className={`category-badge ${item.category}`}>
-                        {item.category === "share" ? "나눠요" : "같이가요"}
-                      </div>
-                      <div className="card-title">{item.title}</div>
-                      <div className="card-meta">
+                      {/* 카드 제목 */}
+                      <div className="combined-card-title">{item.title}</div>
+                      <div className="combined-card-meta">
                         <div className="location-info">
                           <p>{item.location || "정보 없음"}</p>
                         </div>
                         {item.date ? formatDate(item.date) : "날짜 없음"}
                       </div>
-                      <div className="card-status-price">
-                        <div
-                          className={`card-tradeEnd ${item.status}`}
-                        >
-                          {item.status === "completed" ? "마감" : "모집중"}
+
+                      {/* 거래 상태 */}
+                      <div className="combined-card-status-price">
+                        <div className="left-group">
+                          <div className={`category-badge ${item.category}`}>
+                            {item.category === "share" ? "나눠요" : "같이가요"}
+                          </div>
+                          <div className="combined-card-price">
+                            {item.price
+                              ? `${new Intl.NumberFormat("ko-KR").format(item.price)}원`
+                              : "가격정보없음"}
+                            /{item.quantity}개
+                          </div>
                         </div>
-                        <div className="card-price">
-                          {item.price
-                            ? `${new Intl.NumberFormat("ko-KR").format(item.price)}원`
-                            : "가격정보없음"}
-                          /{item.quantity}개
+
+                        <div className="combined-card-chat">
+                          <span className="meta-item">💬 {item.chats || 0}</span>
+                          <span className="meta-item">❤️ {item.favoriteCount || 0}</span>
                         </div>
                       </div>
-                      <div className="combined-card-chat">
-                        <span className="meta-item">💬 {item.chats || 0}</span>
-                        <span className="meta-item">❤️ {item.favoriteCount || 0}</span>
-                      </div>
+                      
                     </div>
                   </div>
                 ))
