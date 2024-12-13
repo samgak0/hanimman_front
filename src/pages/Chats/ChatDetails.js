@@ -263,7 +263,7 @@ function ChatsDetails() {
     return (
         <div className="chat-container" ref={chatContainerRef}>
             <div className="chat-header">
-                <button style={{transform:"translateY(-50%) scale(0.7)"}} className="back-button" onClick={() => navigate(-1)}><BackIcon /></button>
+                <button style={{transform:"translateY(-50%) scale(0.7)"}} className="back-button" onClick={() => navigate(-1)}>◀</button>
                 <h1 className="chat-header-title">{receiverName} 님과 대화</h1>
             </div>
             <div className="chat-message-container">
