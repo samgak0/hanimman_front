@@ -172,7 +172,7 @@ const LocationSettings = () => {
     setRegisteredLocations([]);
   }, []);
 
-  //X 버튼 클릭 시 처리
+  //첫번째 X버튼 클릭 시 처리
   const handleRemovePrimaryAddress = async () => {
     try{
       //기존 주소 가져오기
@@ -223,6 +223,42 @@ const LocationSettings = () => {
   };
 
 
+  // 두 번째 주소 제거 함수
+  const handleRemoveSecondaryAddress = async () => {
+    try {
+      // 기존 주소 가져오기
+      const response = await jwtAxios.get("/api/user-address/select");
+      if (response.data) {
+        const existingAddress = response.data;
+
+        // 두 번째 주소 ID를 null로 설정하여 제거
+        const userAddressDTO = {
+          id: existingAddress.id, // 기존 주소 ID
+          userId: existingAddress.userId, // 사용자 ID
+          primaryAddressId: existingAddress.primaryAddressId, // 첫 번째 주소는 그대로 유지
+          secondlyAddressId: null, // 두 번째 주소를 제거
+          validatedAt: new Date().toISOString(),
+          modifiedAt: new Date().toISOString(),
+          createdAt: existingAddress.createdAt // 기존 생성일 유지
+        };
+
+        // 주소 업데이트 요청
+        await jwtAxios.put("/api/user-address/update", userAddressDTO);
+
+        // 상태 업데이트
+        setSecondAddressName(""); // 두 번째 주소를 null로 설정
+        setRegisteredLocations((prev) => prev.filter((loc) => loc !== secondaryAddressName)); // 등록된 주소에서도 제거
+        toast.success("두 번째 주소가 성공적으로 삭제되었습니다!");
+      } else {
+        toast.error("주소 정보를 찾을 수 없습니다.");
+      }
+    } catch (error) {
+      console.error('주소 업데이트 중 오류 발생:', error);
+      toast.error("주소 업데이트 중 오류가 발생했습니다: " + error.message);
+    }
+  };
+
+
   return (
   <div className="mobile-container">
     <div className="location-settings">
@@ -246,20 +282,17 @@ const LocationSettings = () => {
         
         {/* 두 번째 주소 출력 */}
         {secondaryAddressName && (
-          <div className="location-tag">
-            <span>{secondaryAddressName}</span>
-            <button
-              className="remove-button"
-              onClick={() => {
-                // 두 번째 주소 제거 로직 (필요에 따라 수정)
-                setRegisteredLocations((prev) => prev.filter((loc) => loc !== secondaryAddressName));
-              }}
-            >
-              ✕
-            </button>
-          </div>
-        )}
-      </div>
+            <div className="location-tag">
+              <span>{secondaryAddressName}</span>
+              <button
+                className="remove-button"
+                onClick={handleRemoveSecondaryAddress} // 두 번째 주소 X 버튼 클릭 시 핸들러 호출
+              >
+                ✕
+              </button>
+            </div>
+          )}
+        </div>
 
       <div className="content">
         <input
