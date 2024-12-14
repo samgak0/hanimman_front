@@ -30,7 +30,7 @@ const VerificationPage = () => {
             pc: "POPUP",
             mobile: "REDIRECTION",
           },
-          redirectUrl: "http://localhost:3000/verification/mobile"
+          redirectUrl: "/verification/mobile"
         });
 
         if (response.code !== undefined) {
