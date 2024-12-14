@@ -4,8 +4,8 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import mainpagedata from "../../../data/mainpagedata.json"; // JSON 데이터 임포트
 import "../maincss/MainPage.css";
-import { ReactComponent as ShareIcon } from '../../../assets/icons/share.svg';
-import { ReactComponent as TogetherIcon } from '../../../assets/icons/together.svg';
+import { ReactComponent as ShareIcon } from "../../../assets/icons/share.svg";
+import { ReactComponent as TogetherIcon } from "../../../assets/icons/together.svg";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -16,11 +16,11 @@ const MainPage = () => {
   const observer = useRef();
 
   const handleTogetherClick = () => {
-    navigate("/togetherlist"); 
-  }
+    navigate("/togetherlist");
+  };
   const handleShareClick = () => {
     navigate("/sharelist");
-  }
+  };
 
   // 데이터 가져오기 (현재는 직접 JSON 파일에서 import)
   useEffect(() => {
@@ -70,7 +70,7 @@ const MainPage = () => {
           showBack={false}
           showLeft={true} // 위치 표시 활성화
           showLogo={false} // 로고 비활성화
-          showMenu={true} 
+          showMenu={true}
           showSearch={true} // 검색 버튼 활성화
           showBell={false} // 알림 버튼 비활성화
         />
@@ -80,11 +80,11 @@ const MainPage = () => {
               <button className="category-button" onClick={handleTogetherClick}>
                 <TogetherIcon />
                 <p className="category-text">같이가요</p>
-              </button>  
+              </button>
               <button className="category-button" onClick={handleShareClick}>
                 <ShareIcon />
                 <p className="category-text">나눠요</p>
-              </button>  
+              </button>
             </div>
           </section>
 
@@ -131,18 +131,23 @@ const MainPage = () => {
                           </div>
                           <div className="combined-card-price">
                             {item.price
-                              ? `${new Intl.NumberFormat("ko-KR").format(item.price)}원`
+                              ? `${new Intl.NumberFormat("ko-KR").format(
+                                  item.price
+                                )}원`
                               : "가격정보없음"}
                             /{item.quantity}개
                           </div>
                         </div>
 
                         <div className="combined-card-chat">
-                          <span className="meta-item">💬 {item.chats || 0}</span>
-                          <span className="meta-item">❤️ {item.favoriteCount || 0}</span>
+                          <span className="meta-item">
+                            💬 {item.chats || 0}
+                          </span>
+                          <span className="meta-item">
+                            ❤️ {item.favoriteCount || 0}
+                          </span>
                         </div>
                       </div>
-                      
                     </div>
                   </div>
                 ))

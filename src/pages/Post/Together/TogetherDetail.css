@@ -131,7 +131,8 @@
 
 .calendar-icon,
 .favorite-count,
-.view-count {
+.view-count,
+.chat-count {
   width: 12px;
   height: 12px;
   fill: #a2a2a2;

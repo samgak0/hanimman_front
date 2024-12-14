@@ -19,11 +19,26 @@ const TogetherList = () => {
   const [sortBy, setSortBy] = useState("createdAt"); // 정렬 기준 상태 추가
   const [isEnd, setIsEnd] = useState(false); // 마감 상태 추가
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false); // 필터 모달 상태
+  const [selectedAddressId, setSelectedAddressId] = useState(
+    localStorage.getItem("selectedAddressId") || null
+  ); // 선택된 주소 ID 상태 추가
   const observer = useRef();
 
-  const fetchPosts = async (page, sortBy, isEnd) => {
+  const fetchPosts = async (page, sortBy, isEnd, addressId) => {
+    if (!addressId) {
+      console.error("addressId is null");
+      return;
+    }
+
     try {
-      const params = { page, size: 10, sortBy: sortBy, isEnd: isEnd };
+      const params = {
+        page,
+        size: 10,
+        sortBy: sortBy,
+        isEnd: isEnd,
+        addressId: addressId,
+      };
+      console.log("Fetching posts with params:", params);
       const data = await listAllTogethers(params);
       setPosts((prevPosts) => [...prevPosts, ...data.content]);
       setHasMore(data.content.length > 0);
@@ -35,8 +50,8 @@ const TogetherList = () => {
   };
 
   useEffect(() => {
-    fetchPosts(page, sortBy, isEnd);
-  }, [page, sortBy, isEnd]);
+    fetchPosts(page, sortBy, isEnd, selectedAddressId);
+  }, [page, sortBy, isEnd, selectedAddressId]);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -92,6 +107,12 @@ const TogetherList = () => {
     setPosts([]);
   };
 
+  const handleLocationSelect = (addressId) => {
+    setSelectedAddressId(addressId);
+    setPage(0);
+    setPosts([]);
+  };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -120,6 +141,7 @@ const TogetherList = () => {
           showSetting={false}
           showBack={true}
           showBell={false} // 알림 버튼 비활성화
+          onLocationSelect={handleLocationSelect} // 추가된 콜백 함수
         />
         <FilterBar
           onFilterSelect={handleFilterSelect}
@@ -185,7 +207,9 @@ const TogetherList = () => {
                   </div>
                   <div className="together-card-chat">
                     {/* <span className="meta-item">👥 {post.people}명</span> */}
-                    <span className="meta-item">💬 {post.chats || 0}</span>
+                    <span className="meta-item">
+                      💬 {post.participantCount || 0}
+                    </span>
                     <span className="meta-item">
                       ❤️ {post.favoriteCount || 0}
                     </span>
