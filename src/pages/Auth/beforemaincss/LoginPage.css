@@ -10,30 +10,33 @@
 }
 
 .logo {
-  width: 150px; /* 로고 크기를 조정하세요 */
-  margin-bottom: 20px;
+  width: 70%; /* 로고 크기를 조정하세요 */
+  height: 70%;
+  margin-left: 5%;
 }
 
 .start-button {
   width: 200px;
   padding: 10px;
   margin-bottom: 15px;
-  font-size: 16px;
+  font-size: 20px;
   background-color: #f4bb44; /* 버튼 색상 */
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  margin-top: 8vh
 }
 
 .start-button:hover {
   background-color: #ff8c00;
   transition: 0.3s;
+
   ;
 }
 
 .login-prompt {
-  font-size: 14px;
+  font-size: 17px;
 }
 
 .login-button {
@@ -42,6 +45,7 @@
   color: #f4bb44; /* 링크 색상 */
   cursor: pointer;
   text-decoration: underline;
+  font-size: 17px;
 }
 
 .login-button:hover {
