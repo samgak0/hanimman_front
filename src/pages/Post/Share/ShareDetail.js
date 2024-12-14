@@ -11,6 +11,7 @@ import { ReactComponent as CalendarIcon } from "../../../assets/icons/calendar.s
 import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg";
 import { ReactComponent as ChatIcon } from "../../../assets/icons/chaticon.svg";
 import KakaoMapDetail from "../KakaoMapDetail";
+import jwtAxios from "../../../api/jwtAxios";
 
 import { DataContext } from "../../../context/DataContext";
 import { readShare, deleteShare } from "../../../api/shareApi";
@@ -39,6 +40,7 @@ const ShareDetail = () => {
   const [scrollY] = useLocalStorage("places_list_scroll", 0);
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip 상태 추가
   const tooltipRef = useRef(null);
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/share`;
 
   useEffect(() => {
     // 기본값이 "0"이기 때문에 스크롤 값이 저장됐을 때에만 window를 스크롤시킨다.
@@ -202,7 +204,7 @@ const ShareDetail = () => {
           {post.imageIds && post.imageIds.length > 0 ? (
             post.imageIds.length === 1 ? (
               <img
-                src={`http://localhost:8080/api/v1/share/download?id=${post.imageIds[0]}`}
+                src={`${host}/download?id=${post.imageIds[0]}`}
                 alt="상품 이미지"
                 className="detail-image"
               />
@@ -211,7 +213,7 @@ const ShareDetail = () => {
                 {post.imageIds.map((id, index) => (
                   <div key={index}>
                     <img
-                      src={`http://localhost:8080/api/v1/share/download?id=${id}`}
+                      src={`${host}/download?id=${id}`}
                       alt={`Slide ${index}`}
                       className="detail-image"
                     />
@@ -235,7 +237,7 @@ const ShareDetail = () => {
             <div className="share-user-info">
               {post.userProfileImage ? (
                 <img
-                  src={`http://localhost:8080/api/v1/share/downloadprofile?id=${post.userProfileImage}`}
+                  src={`${host}/downloadprofile?id=${post.userProfileImage}`}
                   alt={post.userNickname}
                   className="share-user-image"
                 />

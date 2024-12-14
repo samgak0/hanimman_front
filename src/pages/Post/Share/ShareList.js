@@ -6,7 +6,7 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllShares } from "../../../api/shareApi";
-
+import jwtAxios from "../../../api/jwtAxios";
 import "./ShareList.css";
 
 const ShareList = () => {
@@ -23,6 +23,7 @@ const ShareList = () => {
     localStorage.getItem("selectedAddressId") || null
   ); // 선택된 주소 ID 상태 추가
   const observer = useRef();
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/share`;
 
   const fetchPosts = async (page, sortBy, isEnd, addressId) => {
     if (!addressId) {
@@ -167,7 +168,7 @@ const ShareList = () => {
                 <div className="share-card-image-container">
                   {post.imageIds[0] ? (
                     <img
-                      src={`http://localhost:8080/api/v1/share/download?id=${post.imageIds[0]}`}
+                      src={`${host}/download?id=${post.imageIds[0]}`}
                       alt={post.title}
                       className="share-card-image"
                     />

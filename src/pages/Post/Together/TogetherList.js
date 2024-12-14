@@ -6,7 +6,7 @@ import FilterBar from "../../../components/FilterBar";
 import FilterModal from "../../../components/FilterModal";
 import RegisterButton from "../../../components/RegisterButton";
 import { listAllTogethers } from "../../../api/togetherApi";
-
+import jwtAxios from "../../../api/jwtAxios";
 import "./TogetherList.css";
 
 const TogetherList = () => {
@@ -23,6 +23,7 @@ const TogetherList = () => {
     localStorage.getItem("selectedAddressId") || null
   ); // 선택된 주소 ID 상태 추가
   const observer = useRef();
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/together`;
 
   const fetchPosts = async (page, sortBy, isEnd, addressId) => {
     if (!addressId) {
@@ -167,7 +168,7 @@ const TogetherList = () => {
                 <div className="together-card-image-container">
                   {post.imageIds[0] ? (
                     <img
-                      src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
+                      src={`${host}/download?id=${post.imageIds[0]}`}
                       alt={post.title}
                       className="together-card-image"
                     />

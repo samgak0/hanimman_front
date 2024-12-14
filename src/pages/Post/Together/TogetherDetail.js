@@ -12,6 +12,7 @@ import { ReactComponent as ChatIcon } from "../../../assets/icons/chaticon.svg";
 import { ReactComponent as TogetherUserIcon } from "../../../assets/icons/togetherUserNum.svg";
 import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg";
 import KakaoMapDetail from "../KakaoMapDetail";
+import jwtAxios from "../../../api/jwtAxios";
 
 import { DataContext } from "../../../context/DataContext";
 import { readTogether, deleteTogether } from "../../../api/togetherApi";
@@ -40,6 +41,7 @@ const TogetherDetail = () => {
   const [scrollY] = useLocalStorage("places_list_scroll", 0);
   const [showTooltip, setShowTooltip] = useState(false); // Tooltip 상태 추가
   const tooltipRef = useRef(null);
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/together`;
 
   useEffect(() => {
     // 기본값이 "0"이기 때문에 스크롤 값이 저장됐을 때에만 window를 스크롤시킨다.
@@ -205,7 +207,7 @@ const TogetherDetail = () => {
           {post.imageIds && post.imageIds.length > 0 ? (
             post.imageIds.length === 1 ? (
               <img
-                src={`http://localhost:8080/api/v1/together/download?id=${post.imageIds[0]}`}
+                src={`${host}/download?id=${post.imageIds[0]}`}
                 alt="상품 이미지"
                 className="detail-image"
               />
@@ -214,7 +216,7 @@ const TogetherDetail = () => {
                 {post.imageIds.map((id, index) => (
                   <div key={index}>
                     <img
-                      src={`http://localhost:8080/api/v1/together/download?id=${id}`}
+                      src={`${host}/download?id=${id}`}
                       alt={`Slide ${index}`}
                       className="detail-image"
                     />
@@ -238,7 +240,7 @@ const TogetherDetail = () => {
             <div className="together-user-info">
               {post.userProfileImage ? (
                 <img
-                  src={`http://localhost:8080/api/v1/together/downloadprofile?id=${post.userProfileImage}`}
+                  src={`${host}/downloadprofile?id=${post.userProfileImage}`}
                   alt={post.userNickname}
                   className="together-user-image"
                 />
