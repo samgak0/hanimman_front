@@ -4,9 +4,6 @@
   "private": true,
   "dependencies": {
     "@portone/browser-sdk": "^0.0.10",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "expo": "^52.0.8",
