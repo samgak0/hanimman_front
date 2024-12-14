@@ -9,7 +9,7 @@ export const createShare = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error("나눠요 게시글 생성에서 에러가 발생하였습니다.");
     throw error;

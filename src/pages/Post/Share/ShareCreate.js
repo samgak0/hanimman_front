@@ -190,10 +190,11 @@ const ShareCreate = () => {
     });
 
     try {
-      await createShare(formData);
+      const response = await createShare(formData);
       setPosts((prevPosts) => [...prevPosts, shareDTO]);
       setShareCreateState({});
-      navigate("/sharelist");
+      const postId = response.data.id;
+      navigate(`/sharedetail/${postId}`);
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message);

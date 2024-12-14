@@ -156,10 +156,11 @@ const TogetherCreate = () => {
     });
 
     try {
-      await createTogether(formData); // 서버로 데이터 전송
+      const response = await createTogether(formData); // 서버로 데이터 전송
       setPosts((prevPosts) => [...prevPosts, togetherDTO]);
       setTogetherCreateState({}); // 상태 초기화
-      navigate("/togetherlist");
+      const postId = response.data.id;
+      navigate(`/togetherdetail/${postId}`); // 생성된 게시글로 이동
     } catch (error) {
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data.message); // 서버에서 반환된 에러 메시지 설정

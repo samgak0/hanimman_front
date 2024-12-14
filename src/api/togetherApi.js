@@ -10,7 +10,7 @@ export const createTogether = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error("같이가요 게시글 생성에 에러가 발생했습니다:", error);
     throw error;
