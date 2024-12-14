@@ -8,6 +8,7 @@ import { ReactComponent as HeartEmptyIcon } from "../../../assets/icons/zzimOff.
 import { ReactComponent as HeartFullIcon } from "../../../assets/icons/zzimOn.svg";
 import { ReactComponent as NotifyIcon } from "../../../assets/icons/notify.svg";
 import { ReactComponent as CalendarIcon } from "../../../assets/icons/calendar.svg";
+import { ReactComponent as ChatIcon } from "../../../assets/icons/chaticon.svg";
 import { ReactComponent as TogetherUserIcon } from "../../../assets/icons/togetherUserNum.svg";
 import { ReactComponent as ViewIcon } from "../../../assets/icons/view.svg";
 import KakaoMapDetail from "../KakaoMapDetail";
@@ -288,6 +289,7 @@ const TogetherDetail = () => {
                 <ViewIcon className="view-count" /> {post.views}{" "}
                 <HeartEmptyIcon className="favorite-count" />{" "}
                 {post.favoriteCount}
+                <ChatIcon className="chat-count" /> {post.participantCount}
               </div>
             </div>
           </div>

@@ -208,7 +208,9 @@ const ShareList = () => {
                     </div>
                   </div>
                   <div className="share-card-chat">
-                    <span className="meta-item">💬 {post.chats || 0}</span>
+                    <span className="meta-item">
+                      💬 {post.participantCount || 0}
+                    </span>
                     <span className="meta-item">
                       ❤️ {post.favoriteCount || 0}
                     </span>
