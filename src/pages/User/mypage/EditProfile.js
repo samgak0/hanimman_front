@@ -6,22 +6,27 @@ import jwtAxios from "../../../api/jwtAxios";
 const EditProfile = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = useState("");
-  const [profileImage, setProfileImage] = useState("/images/default-avatar.png"); // 기본 이미지
+  const [profileImage, setProfileImage] = useState(
+    "/images/default-avatar.png"
+  ); // 기본 이미지
 
   // 프로필 데이터 가져오기
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await jwtAxios.get("http://localhost:8080/users/editprofile", {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const response = await jwtAxios.get(
+          "http://localhost:8080/users/editprofile",
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         console.log(response);
         setNickname(response.data.nickname || "");
         const imageUrl = response.data.profileImage
-        ? `http://localhost:8080/images/${response.data.profileImage}` // 이미지 경로 생성
-        : '/default-profile.png'; // 기본 이미지  
+          ? `http://localhost:8080/images/${response.data.profileImage}` // 이미지 경로 생성
+          : "/images/noprofileimage.png"; // 기본 이미지
 
         setProfileImage(imageUrl || "/images/default-avatar.png"); // URL이 없을 경우 기본 이미지
       } catch (error) {
@@ -56,11 +61,15 @@ const EditProfile = () => {
           formData.append("profileImage", fileInput.files[0]);
         }
 
-        const response = await jwtAxios.post("http://localhost:8080/users/editprofile", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await jwtAxios.post(
+          "http://localhost:8080/users/editprofile",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
 
         console.log("Profile updated successfully:", response.data);
         navigate("/myprofile"); // 성공 후 이동
@@ -87,6 +96,7 @@ const EditProfile = () => {
 
           {/* 이미지 업로드 입력 */}
           <input type="file" accept="image/*" onChange={handleImageChange} />
+          <button className="save-button">기본 이미지 사용</button>
 
           {/* 닉네임 입력 */}
           <label>닉네임</label>
