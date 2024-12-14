@@ -30,7 +30,7 @@ const VerificationPage = () => {
             pc: "POPUP",
             mobile: "REDIRECTION",
           },
-          redirectUrl: "/verification/mobile"
+          redirectUrl: "https://hanimman.netlify.app/verification/mobile"
         });
 
         if (response.code !== undefined) {
