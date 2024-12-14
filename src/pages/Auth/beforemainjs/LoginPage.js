@@ -8,7 +8,7 @@ const LoginPage = () => {
   const [token, setToken] = useState(null);
 
    // 토큰이 있으면 메인페이지로 넘어가기 
-   useEffect(() => {
+  useEffect(() => {
     const storedToken = localStorage.getItem("authToken");
     setToken(storedToken);
     if (storedToken) {
