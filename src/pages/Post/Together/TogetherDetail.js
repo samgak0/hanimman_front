@@ -332,7 +332,7 @@ const TogetherDetail = () => {
         <div className="detail-text">{post.content || "내용 없음"}</div>
         <div className="together-meeting-location">
           <strong>만남장소 </strong>
-          <p>{post.togetherLocationDTO.detail || "정보 없음"}</p>
+          <p>{post.togetherLocationDTO.detail || ""}</p>
         </div>
         <KakaoMapDetail
           latitude={post.togetherLocationDTO.latitude}

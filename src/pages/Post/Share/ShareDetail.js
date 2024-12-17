@@ -325,7 +325,7 @@ const ShareDetail = () => {
         <div className="detail-text">{post.content || "내용 없음"}</div>
         <div className="share-meeting-location">
           <strong>만남장소 </strong>
-          <p>{post.shareLocationDTO?.detail || "정보 없음"}</p>
+          <p>{post.shareLocationDTO?.detail || ""}</p>
         </div>
         {post.shareLocationDTO && (
           <KakaoMapDetail
