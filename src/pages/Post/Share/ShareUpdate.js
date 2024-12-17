@@ -7,8 +7,10 @@ import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import DateSelect from "../../../components/DateSelect";
 import { DataContext } from "../../../context/DataContext";
 import { updateShare } from "../../../api/shareApi";
+import jwtAxios from "../../../api/jwtAxios";
 
 const ShareUpdate = () => {
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/share`;
   const { id } = useParams();
   const location = useLocation();
   const post = location.state?.post || {};
@@ -43,21 +45,61 @@ const ShareUpdate = () => {
   const [address, setAddress] = useState(post.address || "");
   const [isPriceDisabled, setIsPriceDisabled] = useState(post.price === null);
   const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (post.imageIds && post.imageIds.length > 0) {
+        try {
+          const imagePromises = post.imageIds.map(async (id) => {
+            const response = await fetch(`${host}/download?id=${id}`);
+            const blob = await response.blob();
+            const file = new File([blob], `image-${id}.jpg`, {
+              type: "image/jpeg",
+            });
+            return {
+              id: id,
+              isExisting: true,
+              url: `${host}/download?id=${id}`,
+              file: file,
+            };
+          });
+          const initialImages = await Promise.all(imagePromises);
+          setImages(initialImages);
+        } catch (error) {
+          console.error("Error fetching images:", error);
+        }
+      }
+    };
+    fetchImages();
+  }, [post.imageIds]);
+
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files).slice(0, 10 - images.length);
     if (files.length + images.length > 10) {
-      toast.error("이미지는 최대 10개까지만 업로드 가능합니다.", { position: "bottom-center" });
+      toast.error("이미지는 최대 10개까지만 업로드 가능합니다.", {
+        position: "bottom-center",
+      });
       return;
     }
-    setImages((prevImages) => [...prevImages, ...files]);
+    const newImages = files.map((file) => ({
+      file: file,
+      isExisting: false,
+      url: URL.createObjectURL(file),
+    }));
+    setImages((prevImages) => [...prevImages, ...newImages]);
     event.target.value = "";
   };
 
   const handleImageReplace = (event, index) => {
     const file = event.target.files[0];
     if (file) {
+      const newImage = {
+        file: file,
+        isExisting: false,
+        url: URL.createObjectURL(file),
+      };
       setImages((prevImages) =>
-        prevImages.map((img, i) => (i === index ? file : img))
+        prevImages.map((img, i) => (i === index ? newImage : img))
       );
       event.target.value = "";
     }
@@ -139,8 +181,8 @@ const ShareUpdate = () => {
       "shareDTO",
       new Blob([JSON.stringify(shareDTO)], { type: "application/json" })
     );
-    images.forEach((image, index) => {
-      formData.append("files", image);
+    images.forEach((img) => {
+      formData.append("files", img.file);
     });
     console.log("formData", formData.get("files"));
 
@@ -261,7 +303,11 @@ const ShareUpdate = () => {
                     {images[index] ? (
                       <>
                         <img
-                          src={URL.createObjectURL(images[index])}
+                          src={
+                            images[index].isExisting
+                              ? images[index].url
+                              : URL.createObjectURL(images[index].file)
+                          }
                           alt={`uploaded-${index}`}
                           className="uploaded-image"
                           onClick={() =>

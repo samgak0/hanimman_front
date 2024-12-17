@@ -121,6 +121,7 @@ const TogetherDetail = () => {
   const handleEdit = () => {
     try {
       navigate(`/togetherupdate/${post.id}`, { state: { post } });
+      console.log("수정하기 포스트 확인 : " + post);
     } catch (error) {
       toast.error("게시글 수정 중 오류가 발생했습니다.");
     }
