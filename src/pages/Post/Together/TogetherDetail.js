@@ -192,7 +192,7 @@ const TogetherDetail = () => {
         <header className="together-detail-header">
           <button
             className="together-back-button"
-            onClick={() => navigate("/togetherlist")}
+            onClick={() => navigate(-1)}
           >
             <BackIcon />
           </button>

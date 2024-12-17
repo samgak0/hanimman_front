@@ -31,7 +31,11 @@ const MainPage = () => {
   }, []); // 의존성 배열이 비어있어 컴포넌트 마운트 시 한 번 실행됨
 
   const handleCardClick = (item) => {
-    navigate(`/itemdetail/${item.id}`, { state: { item } }); // 카드 클릭 시 상세 페이지로 이동
+    if (item.type === "share") {
+      navigate(`/sharedetail/${item.id}`);
+    } else if (item.type === "together") {
+      navigate(`/togetherdetail/${item.id}`);
+    }
   };
 
   const lastPostElementRef = useCallback(
@@ -116,8 +120,6 @@ const MainPage = () => {
                         />
                       )}
                     </div>
-
-
 
                     <div className="combined-card-content">
                       {/* 카드 제목 */}
