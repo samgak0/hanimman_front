@@ -7,8 +7,10 @@ import { ReactComponent as CameraIcon } from "../../../assets/icons/camera.svg";
 import DateSelect from "../../../components/DateSelect";
 import { DataContext } from "../../../context/DataContext";
 import { updateTogether } from "../../../api/togetherApi";
+import jwtAxios from "../../../api/jwtAxios";
 
 const TogetherUpdate = () => {
+  const host = `${jwtAxios.defaults.baseURL}/api/v1/together`;
   const { id } = useParams();
   const location = useLocation();
   const post = location.state?.post || {};
@@ -45,21 +47,71 @@ const TogetherUpdate = () => {
   const [isPriceDisabled, setIsPriceDisabled] = useState(post.price === null);
   const [errorMessage, setErrorMessage] = useState("");
   console.log("post", post);
+
+  // Add a new state for existing image IDs
+  const [existingImageIds, setExistingImageIds] = useState(post.imageIds || []);
+
+  // Add useEffect to handle initial images
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (post.imageIds && post.imageIds.length > 0) {
+        try {
+          const imagePromises = post.imageIds.map(async (id) => {
+            // 이미지 다운로드
+            const response = await fetch(`${host}/download?id=${id}`);
+            const blob = await response.blob();
+
+            // File 객체 생성
+            const file = new File([blob], `image-${id}.jpg`, {
+              type: "image/jpeg",
+            });
+
+            return {
+              id: id,
+              isExisting: true,
+              url: `${host}/download?id=${id}`,
+              file: file, // File 객체 추가
+            };
+          });
+
+          const initialImages = await Promise.all(imagePromises);
+          setImages(initialImages);
+        } catch (error) {
+          console.error("Error fetching images:", error);
+        }
+      }
+    };
+
+    fetchImages();
+  }, [post.imageIds]);
+
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files).slice(0, 10 - images.length);
     if (files.length + images.length > 10) {
-      toast.error("이미지는 최대 10개까지만 업로드 가능합니다.", { position: "bottom-center" });
+      toast.error("이미지는 최대 10개까지만 업로드 가능합니다.", {
+        position: "bottom-center",
+      });
       return;
     }
-    setImages((prevImages) => [...prevImages, ...files]);
+    const newImages = files.map((file) => ({
+      file: file,
+      isExisting: false,
+      url: URL.createObjectURL(file),
+    }));
+    setImages((prevImages) => [...prevImages, ...newImages]);
     event.target.value = "";
   };
 
   const handleImageReplace = (event, index) => {
     const file = event.target.files[0];
     if (file) {
+      const newImage = {
+        file: file,
+        isExisting: false,
+        url: URL.createObjectURL(file),
+      };
       setImages((prevImages) =>
-        prevImages.map((img, i) => (i === index ? file : img))
+        prevImages.map((img, i) => (i === index ? newImage : img))
       );
       event.target.value = "";
     }
@@ -126,7 +178,7 @@ const TogetherUpdate = () => {
       price: isPriceDisabled ? null : price,
       quantity: people,
       isEnd: false,
-      imageUrls: [],
+      imageIds: existingImageIds,
       marketCategory,
       marketName,
       views: post.views,
@@ -142,8 +194,10 @@ const TogetherUpdate = () => {
       "togetherDTO",
       new Blob([JSON.stringify(togetherDTO)], { type: "application/json" })
     );
-    images.forEach((image, index) => {
-      formData.append("files", image);
+
+    // Append only new files to formData
+    images.forEach((img) => {
+      formData.append("files", img.file);
     });
 
     console.log("formData", formData.get("files"));
@@ -265,7 +319,11 @@ const TogetherUpdate = () => {
                     {images[index] ? (
                       <>
                         <img
-                          src={URL.createObjectURL(images[index])}
+                          src={
+                            images[index].isExisting
+                              ? images[index].url
+                              : URL.createObjectURL(images[index].file) // file 속성 사용
+                          }
                           alt={`uploaded-${index}`}
                           className="uploaded-image"
                           onClick={() =>

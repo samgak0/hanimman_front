@@ -96,7 +96,7 @@ const ShareDetail = () => {
       try {
         await createParticipant(shareParticipantDTO);
         toast.success("신청이 완료되었습니다.");
-        navigate("/chat"); // 채팅 페이지로 이동
+        navigate("/chats/2"); // 채팅 페이지로 이동
       } catch (error) {
         toast.error("참여자 생성 중 오류가 발생했습니다.");
       }
@@ -377,7 +377,10 @@ const ShareDetail = () => {
           {isWriter ? (
             <button
               className="apply-button"
-              onClick={() => navigate(`/applicationlist/${post.id}`)}
+              onClick={() => {
+                post.activeTab = "share";
+                navigate(`/applicationlist/${post.id}`, { state: { post } });
+              }}
             >
               신청목록
             </button>
@@ -385,7 +388,9 @@ const ShareDetail = () => {
             <button
               className={`apply-button ${post.isEnd ? "ended" : ""}`}
               onClick={() =>
-                post.participant ? navigate("/chat") : setShowApplyConfirm(true)
+                post.participant
+                  ? navigate("/chats/2")
+                  : setShowApplyConfirm(true)
               } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
               disabled={isApplied || post.isEnd}
             >

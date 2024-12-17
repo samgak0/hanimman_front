@@ -7,7 +7,12 @@ import {
   rejectParticipant,
   completeParticipant,
 } from "../../../api/togetherParticipantApi";
-import { listAllByParentId as listShareApplications } from "../../../api/shareParticipantApi";
+import {
+  listAllByParentId as listShareApplications,
+  acceptParticipant as acceptShare,
+  rejectParticipant as rejectShare,
+  completeParticipant as completeShare,
+} from "../../../api/shareParticipantApi";
 import { createReview } from "../../../api/togetherReviewApi";
 import { toast } from "react-toastify";
 
@@ -17,7 +22,7 @@ const ApplicationList = () => {
   const post = location.state?.post;
 
   const [applications, setApplications] = useState([]);
-  const [activeTab, setActiveTab] = useState("together");
+  const [activeTab, setActiveTab] = useState(post.activeTab);
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
