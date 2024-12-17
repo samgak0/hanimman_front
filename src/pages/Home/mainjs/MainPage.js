@@ -25,8 +25,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await readMain(); // 데이터를 비동기적으로 가져옴
-      console.log(data);
-      setItems(mainpagedata); // 상태 업데이트
+      setItems(data); // 상태 업데이트
       setLoading(false);
     }
     fetchData(); // 비동기 함수 호출
@@ -103,41 +102,45 @@ const MainPage = () => {
                     ref={index === items.length - 1 ? lastPostElementRef : null}
                   >
                     <div className="combined-card-image-container">
-                      {item.image ? (
+                      {item.imageId && (item.type === "share" || item.type === "together") ? (
                         <img
-                          src={item.image}
+                          src={`http://localhost:8080/api/v1/${item.type === "share" ? "share" : "together"
+                            }/download?id=${item.imageId}`}
                           alt={item.title}
                           className="combined-card-image"
                         />
                       ) : (
                         <img
                           src="/images/noimage.png"
-                          alt={item.title}
+                          alt={item.title || "이미지 없음"}
                           className="combined-card-image"
                         />
                       )}
                     </div>
+
+
+
                     <div className="combined-card-content">
                       {/* 카드 제목 */}
                       <div className="combined-card-title">{item.title}</div>
                       <div className="combined-card-meta">
                         <div className="location-info">
-                          <p>{item.location || "정보 없음"}</p>
+                          <p>{item.address || "정보 없음"}</p>
                         </div>
-                        {item.date ? formatDate(item.date) : "날짜 없음"}
+                        {item.dateAt ? formatDate(item.dateAt) : "날짜 없음"}
                       </div>
 
                       {/* 거래 상태 */}
                       <div className="combined-card-status-price">
                         <div className="left-group">
-                          <div className={`category-badge ${item.category}`}>
-                            {item.category === "share" ? "나눠요" : "같이가요"}
+                          <div className={`category-badge ${item.type}`}>
+                            {item.type === "share" ? "나눠요" : "같이가요"}
                           </div>
                           <div className="combined-card-price">
                             {item.price
                               ? `${new Intl.NumberFormat("ko-KR").format(
-                                  item.price
-                                )}원`
+                                item.price
+                              )}원`
                               : "가격정보없음"}
                             /{item.quantity}개
                           </div>
@@ -145,10 +148,10 @@ const MainPage = () => {
 
                         <div className="combined-card-chat">
                           <span className="meta-item">
-                            💬 {item.chats || 0}
+                            💬 {item.participant || 0}
                           </span>
                           <span className="meta-item">
-                            ❤️ {item.favoriteCount || 0}
+                            ❤️ {item.favorite || 0}
                           </span>
                         </div>
                       </div>
