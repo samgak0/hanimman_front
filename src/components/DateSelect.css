@@ -26,13 +26,13 @@
 }
 
 .date-header {
-  position: relative; 
+  position: relative;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 15px;
   display: flex;
   margin-top: 10px;
-  justify-content:space-between;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -41,24 +41,22 @@
   font-size: 20px;
 }
 .date-close-button {
-  background: #F4BB44;
+  background: #f4bb44;
   padding: 10px;
   border-radius: 10px;
   border: none;
   font-size: 15px;
-  font-weight:bold;
-  color:white;
+  font-weight: bold;
+  color: white;
   cursor: pointer;
-   /* 버튼 여백 추가 */
-   margin-right: 15px;
+  /* 버튼 여백 추가 */
+  margin-right: 15px;
 }
-
 
 .react-calendar__navigation button {
   color: black; /* 네비게이션 버튼 색상 */
-  font-size:medium;
+  font-size: medium;
   font-weight: bold;
-  
 }
 /* 기본 날짜 색상 */
 .react-calendar__tile {
@@ -93,13 +91,13 @@
 
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile--active {
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   color: white;
   border-radius: 8px;
 }
 
 .date-confirm-button {
-  background-color: #F4BB44;
+  background-color: #f4bb44;
   color: white;
   padding: 12px 16px;
   border: none;
@@ -130,4 +128,10 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
+}
+
+.disabled-tile {
+  color: gray;
+  pointer-events: none;
+  background-color: #f0f0f0;
 }
