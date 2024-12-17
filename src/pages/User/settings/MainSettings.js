@@ -96,24 +96,23 @@ const MainSettings = () => {
         </div>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section account">
         <h2>사용자 설정</h2>
         <div className="settings-item" onClick={() => navigate("/user/account")}>
           <span>계정 / 정보 관리</span>
         </div>
         <div
-          className="settings-item"
-          onClick={() => navigate("/user/blocked")}
+          className="settings-item blocked"
         >
           <span>차단 사용자 관리</span>
         </div>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section reset-cache">
         <div className="settings-item">
           <span>캐시 데이터 삭제</span>
         </div>
-        <div className="settings-item">
+        <div className="settings-item version">
           <span>현재 버전</span>
           <span className="version-value">24.45.2 (244502)</span>
         </div>

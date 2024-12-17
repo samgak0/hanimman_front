@@ -37,6 +37,13 @@
   border-bottom: 1px solid #eeeeee;
 }
 
+.settings-section.reset-cache, .settings-item.blocked,.settings-section .settings-item {
+  cursor: pointer;
+}
+.settings-item.version {
+  cursor:auto;
+}
+
 .settings-item span {
   font-size: 16px;
   color: #333333;
