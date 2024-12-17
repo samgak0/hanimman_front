@@ -5,6 +5,8 @@ import { ReactComponent as HeartIcon } from "../../../assets/icons/heart.svg";
 import { ReactComponent as CommentIcon } from "../../../assets/icons/chat.svg";
 import { listAllByUserId as listTogetherParticipants } from "../../../api/togetherParticipantApi";
 import { listAllByUserId as listShareParticipants } from "../../../api/shareParticipantApi";
+import { createReview } from "../../../api/togetherReviewApi";
+import { toast } from "react-toastify";
 
 const ParticipantList = () => {
   const [participants, setParticipants] = useState([]);
@@ -12,6 +14,10 @@ const ParticipantList = () => {
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [selectedParticipant, setSelectedParticipant] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [reviewContent, setReviewContent] = useState("");
+  const [reviewRating, setReviewRating] = useState(1);
   const navigate = useNavigate();
   const observer = useRef();
 
@@ -162,6 +168,35 @@ const ParticipantList = () => {
     }
   };
 
+  const handleReviewSubmit = async () => {
+    const reviewDTO = {
+      content: reviewContent,
+      rating: reviewRating,
+      parentId: selectedParticipant.parentId,
+      targetId: selectedParticipant.userId,
+    };
+
+    try {
+      await createReview(reviewDTO);
+      setShowModal(false);
+      setReviewContent("");
+      setReviewRating(1);
+    } catch (error) {
+      toast.error("이미 해당 거래에 대한 후기를 작성하셨습니다.");
+      console.error("Failed to create review:", error);
+    }
+  };
+
+  const handleMoreClick = (participant) => {
+    setSelectedParticipant(participant);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedParticipant(null);
+  };
+
   return (
     <div className="mobile-container">
       <div className="participant-list">
@@ -227,6 +262,15 @@ const ParticipantList = () => {
                     {getStatusText(getStatus(item))}
                   </span>
                   <span className="item-nickname">{item.nickname}</span>
+                  <button
+                    className="more-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleMoreClick(item);
+                    }}
+                  >
+                    ...
+                  </button>
                 </div>
               </div>
             </div>
@@ -234,6 +278,39 @@ const ParticipantList = () => {
         )}
         {loading && <p>Loading more participants...</p>}
       </div>
+      {showModal && selectedParticipant && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>참여자 관리</h2>
+            {getStatus(selectedParticipant) === "completed" && (
+              <>
+                <textarea
+                  value={reviewContent}
+                  onChange={(e) => setReviewContent(e.target.value)}
+                  placeholder="후기 내용을 입력하세요 (100자 이내)"
+                  maxLength="100"
+                />
+                <select
+                  value={reviewRating}
+                  onChange={(e) => setReviewRating(Number(e.target.value))}
+                >
+                  {[-2, -1, 0, 1, 2].map((rating) => (
+                    <option key={rating} value={rating}>
+                      {rating + 3}점
+                    </option>
+                  ))}
+                </select>
+                <button className="modal-button" onClick={handleReviewSubmit}>
+                  후기작성하기
+                </button>
+              </>
+            )}
+            <button className="modal-button" onClick={closeModal}>
+              닫기
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

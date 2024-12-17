@@ -94,7 +94,6 @@ const TogetherDetail = () => {
         date: new Date().toISOString(),
         quantity: post.quantity,
       };
-      console.log("참여자 생성", togetherParticipantDTO);
       try {
         await createParticipant(togetherParticipantDTO);
         toast.success("신청이 완료되었습니다.");
@@ -109,7 +108,6 @@ const TogetherDetail = () => {
 
   // 삭제하기
   const handleDelete = async () => {
-    console.log("마우스위치", document.scrollY);
     try {
       await deleteTogether(post.id);
       toast.success("게시글이 삭제되었습니다.");
@@ -383,9 +381,10 @@ const TogetherDetail = () => {
           {isWriter ? (
             <button
               className="apply-button"
-              onClick={() =>
-                navigate(`/applicationlist/${post.id}`, { state: { post } })
-              }
+              onClick={() => {
+                post.activeTab = "together";
+                navigate(`/applicationlist/${post.id}`, { state: { post } });
+              }}
             >
               신청목록
             </button>
@@ -393,7 +392,9 @@ const TogetherDetail = () => {
             <button
               className={`apply-button ${post.isEnd ? "ended" : ""}`}
               onClick={() =>
-                post.participant ? navigate("/chat") : setShowApplyConfirm(true)
+                post.participant
+                  ? navigate("/chats/2")
+                  : setShowApplyConfirm(true)
               } // 참여 신청 확인 창 표시 또는 채팅 페이지로 이동
               disabled={isApplied || post.isEnd}
             >
