@@ -79,6 +79,7 @@ export const deleteParticipant = async (id) => {
 };
 
 export const listAllByParentId = async (parentId) => {
+  console.log("listAllByParentId", parentId);
   try {
     const response = await jwtAxios.get(`${host}/list/${parentId}`);
     return response.data;

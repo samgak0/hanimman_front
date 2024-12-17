@@ -98,7 +98,7 @@ const TogetherDetail = () => {
       try {
         await createParticipant(togetherParticipantDTO);
         toast.success("신청이 완료되었습니다.");
-        navigate("/chat"); // 채팅 페이지로 이동
+        navigate("/chats"); // 채팅 페이지로 이동
       } catch (error) {
         toast.error("참여자 생성 중 오류가 발생했습니다.");
       }
@@ -267,7 +267,7 @@ const TogetherDetail = () => {
               <p className="together-brix-infomation">
                 <span class="tooltip">
                   매너당도
-                  <span class="tooltip-text">
+                  <span className="tooltip-text">
                     매너당도는 망고 이용자로부터 받은 칭찬, 비매너평가, 운영자
                     제재 등을 종합해서 만든 매너 지표 입니다. 기본은 15brix이며
                     최대는 50brix입니다.
@@ -383,7 +383,9 @@ const TogetherDetail = () => {
           {isWriter ? (
             <button
               className="apply-button"
-              onClick={() => navigate(`/applicationlist/${post.id}`)}
+              onClick={() =>
+                navigate(`/applicationlist/${post.id}`, { state: { post } })
+              }
             >
               신청목록
             </button>

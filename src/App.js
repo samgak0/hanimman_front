@@ -33,6 +33,7 @@ import ShareReport from "./pages/Post/Share/ShareReport";
 import ParticipantList from "./pages/Home/mainjs/ParticipantList";
 import TogetherUpdate from "./pages/Post/Together/TogetherUpdate";
 import ShareUpdate from "./pages/Post/Share/ShareUpdate";
+import ApplicationList from "./pages/Home/mainjs/ApplicationList";
 
 import ChatUserList from "./pages/Chats/ChatUserList";
 import ChatDetails from "./pages/Chats/ChatDetails";
@@ -126,6 +127,10 @@ const App = () => {
           <Route
             path="/shareupdate/:id"
             element={<PrivateRoute element={<ShareUpdate />} />}
+          />
+          <Route
+            path="/applicationlist/:id"
+            element={<PrivateRoute element={<ApplicationList />} />}
           />
           <Route path="/chats" element={<ChatUserList />} />
           <Route path="/chats/:userId" element={<ChatDetails />} />

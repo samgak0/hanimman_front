@@ -1,0 +1,173 @@
+.mobile-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.application-list {
+  padding: 20px 0;
+}
+
+.application-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.application-back-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.application-tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.application-tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 1rem;
+}
+
+.application-tab.active {
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+
+.application-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.application-card-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.item-location {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.item-status-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.item-status {
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.item-status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.item-status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.item-status.accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.item-status.completed {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.item-nickname {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.no-applications {
+  text-align: center;
+  color: #666;
+  margin-top: 20px;
+}
+
+.more-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.modal-button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.modal-button:hover {
+  background: #0056b3;
+}
+
+textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
