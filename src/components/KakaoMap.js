@@ -69,7 +69,7 @@ const KakaoMap = ({ currentPosition, setClickedPosition }) => {
     if (!window.kakao || !window.kakao.maps) {
       const script = document.createElement("script");
       script.src =
-        "https://dapi.kakao.com/v2/maps/sdk.js?appkey=dced50809ec042e36d26acfdfabca35b&libraries=services";
+        "https://dapi.kakao.com/v2/maps/sdk.js?appkey=1ace1b4b41905a8ace6db543650ac2bb&libraries=services";
       script.async = true;
       script.onload = () => {
         if (window.kakao && window.kakao.maps) {
