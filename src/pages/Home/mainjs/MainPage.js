@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
-import mainpagedata from "../../../data/mainpagedata.json"; // JSON 데이터 임포트
 import "../maincss/MainPage.css";
 import { ReactComponent as ShareIcon } from "../../../assets/icons/share.svg";
 import { ReactComponent as TogetherIcon } from "../../../assets/icons/together.svg";
