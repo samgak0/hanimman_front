@@ -96,6 +96,8 @@ const ParticipantList = () => {
 
   const handleItemClick = (id) => {
     // 채팅방으로 이동 로직 구현
+    // navigate(`/chat/${id}`);
+    navigate(`/chats/2`);
   };
 
   const handleTabClick = (tab) => {

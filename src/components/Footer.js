@@ -21,7 +21,7 @@ const Footer = () => {
   };
 
   const chatClick = () => {
-    navigate("/chats");
+    navigate("/participantlist");
   };
 
   return (
