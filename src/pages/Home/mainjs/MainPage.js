@@ -6,6 +6,7 @@ import mainpagedata from "../../../data/mainpagedata.json"; // JSON 데이터 �
 import "../maincss/MainPage.css";
 import { ReactComponent as ShareIcon } from "../../../assets/icons/share.svg";
 import { ReactComponent as TogetherIcon } from "../../../assets/icons/together.svg";
+import { readMain } from "../../../api/mainApi";
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -21,12 +22,15 @@ const MainPage = () => {
   const handleShareClick = () => {
     navigate("/sharelist");
   };
-
-  // 데이터 가져오기 (현재는 직접 JSON 파일에서 import)
   useEffect(() => {
-    setItems(mainpagedata); // JSON 데이터를 상태에 저장
-    setLoading(false); // 로딩 종료
-  }, []);
+    const fetchData = async () => {
+      const data = await readMain(); // 데이터를 비동기적으로 가져옴
+      console.log(data);
+      setItems(mainpagedata); // 상태 업데이트
+      setLoading(false);
+    }
+    fetchData(); // 비동기 함수 호출
+  }, []); // 의존성 배열이 비어있어 컴포넌트 마운트 시 한 번 실행됨
 
   const handleCardClick = (item) => {
     navigate(`/itemdetail/${item.id}`, { state: { item } }); // 카드 클릭 시 상세 페이지로 이동

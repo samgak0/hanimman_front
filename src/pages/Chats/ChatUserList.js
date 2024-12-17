@@ -80,12 +80,12 @@ function ChatUserList() {
                                 <button className="button-chat" onClick={() => goToPage(user.id)}>
                                     대화 시작
                                 </button>
-                                <button
+                                {/*<button
                                     className="button-change"
                                     onClick={() => changeCurrentUser(user)}
                                 >
                                     사용자 전환
-                                </button>
+                                </button>*/}
                             </div>
                         </div>
                     ))
@@ -98,11 +98,11 @@ function ChatUserList() {
                             <button className="button-chat">
                                 대화 시작
                             </button>
-                            <button
+                            {/*<button
                                 className="button-change"
                             >
                                 사용자 전환
-                            </button>
+                            </button>*/}
                         </div>
                     </div>
                 )}
