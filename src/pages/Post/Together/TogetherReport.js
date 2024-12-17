@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./TogetherReport.css";
 import { reportCategory, reportTogether } from "../../../api/togetherReportApi";
+import { toast } from "react-toastify";
 
 const TogetherReport = () => {
   const [categories, setCategories] = useState([]);
@@ -30,7 +31,7 @@ const TogetherReport = () => {
 
   const handleReportClick = () => {
     if (!selectedCategory) {
-      alert("신고할 카테고리를 선택하세요.");
+      toast.error("신고할 카테고리를 선택하세요.", { position: "bottom-center" });
       return;
     }
     setShowConfirm(true);
@@ -46,11 +47,11 @@ const TogetherReport = () => {
     };
     try {
       await reportTogether(togetherReportDTO);
-      alert("신고가 접수되었습니다.");
+      toast.error("신고가 접수되었습니다.", { position: "bottom-center" });
       navigate(-1); // 이전 페이지로 이동
     } catch (error) {
       console.error("Failed to submit report:", error);
-      alert("신고 접수에 실패했습니다.");
+      toast.error("신고 접수에 실패했습니다.", { position: "bottom-center" });
     }
   };
 

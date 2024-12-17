@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
+import { toast } from "react-toastify";
 import "react-datepicker/dist/react-datepicker.css";
 import "./MainSettings.css";
 import { useNavigate } from "react-router-dom";
@@ -40,7 +41,6 @@ const MainSettings = () => {
   const handleLogout = () => {
     closeLogoutModal();
     localStorage.removeItem('authToken');
-    alert("로그아옷 되었습니다.");    
     navigate("/login");
   };
 
@@ -48,15 +48,12 @@ const MainSettings = () => {
     const result = window.confirm("정말 탈퇴하시겠습니까?");
     if(result){
       jwtAxios.post("http://localhost:8080/users/delete",{
-      }).then(response =>{
-        alert(response.data);
-           // 클라이언트 측에서 JWT 토큰 삭제
-        localStorage.removeItem("authToken");  // 로컬 스토리지에서 JWT 제거
+      }).then(() =>{
+        localStorage.removeItem("authToken");
         localStorage.removeItem("refreshToken");
-        // 로그아웃 후 리디렉션 처리 (예시)
-        window.location.href = "/login";  // 로그인 페이지로 리디렉트
+        toast.success("탈퇴 완료했습니다.", { position: "bottom-center" });
+        navigate("/login");
       }).catch(error => {
-        // 오류 처리
         console.error("로그아웃 실패:", error);
       });
     }
