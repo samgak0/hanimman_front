@@ -30,7 +30,7 @@ const VerificationPage = () => {
             pc: "POPUP",
             mobile: "REDIRECTION",
           },
-          redirectUrl: "https://hanimman.netlify.app/verification/mobile"
+          redirectUrl: "https://www.samgak.store/verification/mobile"
         });
 
         if (response.code !== undefined) {
