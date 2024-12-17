@@ -92,7 +92,7 @@ const ShareCreate = () => {
   const handleImageUpload = (event) => {
     const files = Array.from(event.target.files).slice(0, 10 - images.length);
     if (files.length + images.length > 10) {
-      alert("이미지는 최대 10개까지만 업로드 가능합니다.");
+      toast.error("이미지는 최대 10개까지만 업로드 가능합니다.", { position: "bottom-center" });
       return;
     }
     setImages((prevImages) => [...prevImages, ...files]);

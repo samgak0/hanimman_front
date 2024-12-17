@@ -71,21 +71,21 @@ const LocationSettings = () => {
                   return prev;
                 });
               } else {
-                alert('법정 코드 가져오는 데 실패했습니다.');
+                toast.error("법정 코드 가져오는 데 실패했습니다.", { position: "bottom-center" });
               }
             }
           } catch (error) {
             console.error('API 호출 중 오류 발생:', error);
-            alert('API 호출 중 오류가 발생했습니다: ' + error.message);
+            toast.error('API 호출 중 오류가 발생했습니다: ' + error.message, { position: "bottom-center" });
           }
         },
         (error) => {
           console.error('위치 정보를 가져오지 못했습니다:', error);
-          alert('위치 정보를 가져오는 데 실패했습니다.');
+          toast.error('위치 정보를 가져오는 데 실패했습니다.', { position: "bottom-center" });
         }
       );
     } else {
-      alert('GPS를 지원하지 않는 브라우저입니다.');
+      toast.error('GPS를 지원하지 않는 브라우저입니다.', { position: "bottom-center" });
     }
   };
 
@@ -107,11 +107,11 @@ const LocationSettings = () => {
         }));
         setAvailableLocations(formattedLocations);
       } else {
-        alert('주소 검색에 실패했습니다.');
+        toast.error('주소 검색에 실패했습니다.', { position: "bottom-center" });
       }
     } catch (error) {
+      toast.error('주소 검색 중 오류가 발생했습니다.', { position: "bottom-center" });
       console.error('주소 검색 중 오류 발생:', error);
-      alert('주소 검색 중 오류가 발생했습니다.');
     }
   };
 
