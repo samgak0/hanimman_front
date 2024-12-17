@@ -51,18 +51,23 @@ const ShareUpdate = () => {
       if (post.imageIds && post.imageIds.length > 0) {
         try {
           const imagePromises = post.imageIds.map(async (id) => {
+            // 이미지 다운로드
             const response = await fetch(`${host}/download?id=${id}`);
             const blob = await response.blob();
+
+            // File 객체 생성
             const file = new File([blob], `image-${id}.jpg`, {
               type: "image/jpeg",
             });
+
             return {
               id: id,
               isExisting: true,
               url: `${host}/download?id=${id}`,
-              file: file,
+              file: file, // File 객체 추가
             };
           });
+
           const initialImages = await Promise.all(imagePromises);
           setImages(initialImages);
         } catch (error) {
@@ -70,6 +75,7 @@ const ShareUpdate = () => {
         }
       }
     };
+
     fetchImages();
   }, [post.imageIds]);
 
@@ -160,6 +166,7 @@ const ShareUpdate = () => {
       title: title,
       content: description,
       userId: post.userId,
+      parentId: post.parentId,
       meetingLocation: null,
       locationDate: new Date(selectedDate).toISOString(),
       item: item,
@@ -306,7 +313,7 @@ const ShareUpdate = () => {
                           src={
                             images[index].isExisting
                               ? images[index].url
-                              : URL.createObjectURL(images[index].file)
+                              : URL.createObjectURL(images[index].file) // file 속성 사용
                           }
                           alt={`uploaded-${index}`}
                           className="uploaded-image"
