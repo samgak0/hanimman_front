@@ -84,7 +84,6 @@ const MyProfile = () => {
             ◀
           </button>
           <h1>프로필</h1>
-          <button className="share-button">🔗</button>
         </header>
 
         <div className="profile-main">
