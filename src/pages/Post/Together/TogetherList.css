@@ -117,7 +117,7 @@
   word-break: break-word; /* 단어가 길 경우 줄바꿈 */
   white-space: normal; /* 텍스트를 자동 줄바꿈 */
   overflow-wrap: break-word; /* 긴 단어 자동 줄바꿈 */
-  max-width: 200px; /* 텍스트 영역의 최대 너비 제한 */
+  max-width: 150px; /* 텍스트 영역의 최대 너비 제한 */
 }
 
 .together-card-chat {
