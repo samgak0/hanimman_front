@@ -190,7 +190,7 @@ const ShareDetail = () => {
         <header className="share-detail-header">
           <button
             className="share-back-button"
-            onClick={() => navigate(-1)}
+            onClick={() => navigate("/sharelist")}
           >
             <BackIcon />
           </button>
