@@ -80,7 +80,7 @@ const MyProfile = () => {
     <div className="mobile-container">
       <div className="profile-container">
         <header className="profile-header">
-          <button className="back-button" onClick={() => navigate(-1)}>
+          <button className="back-button" onClick={() => navigate("/mypage")}>
             ◀
           </button>
           <h1>프로필</h1>
