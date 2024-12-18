@@ -97,7 +97,7 @@ const TogetherDetail = () => {
       try {
         await createParticipant(togetherParticipantDTO);
         toast.success("신청이 완료되었습니다.");
-        navigate("/chats"); // 채팅 페이지로 이동
+        navigate("/chats/5"); // 채팅 페이지로 이동
       } catch (error) {
         toast.error("참여자 생성 중 오류가 발생했습니다.");
       }
