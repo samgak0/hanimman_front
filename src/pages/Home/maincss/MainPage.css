@@ -128,7 +128,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 30vh;
+  max-width: 20vh;
   margin-top: 1vh;
 }
 
