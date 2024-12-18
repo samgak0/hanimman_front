@@ -1,51 +1,62 @@
-import "./Header.css";
 import React, { useState, useEffect } from "react";
 import { ReactComponent as SearchIcon } from "../assets/icons/search.svg";
 import { ReactComponent as BellIcon } from "../assets/icons/bell24.svg";
-import { ReactComponent as MenuIcon } from "../assets/icons/menuV.svg"; // 아래 화살표 버튼
+import { ReactComponent as MenuIcon } from "../assets/icons/menuV.svg";
 import { ReactComponent as BackIcon2 } from "../assets/icons/back2.svg";
 import { useNavigate } from "react-router-dom";
-import locationsData from "../data/location.json"; // JSON 파일 가져오기
-import { getAddress } from "../api/userApi"; // API 호출 함수 가져오기
+import locationsData from "../data/location.json";
+import { getAddress } from "../api/userApi";
+import "./Header.css";
 
 const Header = ({
   showMenu = false,
   showSearch = true,
   showBack = false,
   showLeft = true,
-  showBell = true, // Bell 아이콘 표시 여부 (기본값 true로 설정)
-  onLocationSelect, // 추가된 콜백 함수
+  showBell = true,
+  onLocationSelect,
 }) => {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false); // 위치 메뉴 열림 상태
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState({
     name:
       localStorage.getItem("selectedLocationName") ||
       locationsData.lastUsedLocation,
     id: localStorage.getItem("selectedAddressId") || null,
   });
-  const [isSearchOpen, setIsSearchOpen] = useState(false); // 검색창 열림 상태
-  const [address, setAddress] = useState([]); // 주소 상태 추가
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [address, setAddress] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleBellClick = () => {
     navigate("/notification");
   };
 
   const handleMenuClick = () => {
-    setMenuOpen(!menuOpen); // 위치 메뉴 열림/닫힘 상태 토글
+    setMenuOpen(!menuOpen);
   };
 
   const handleLocationSettingsClick = () => {
-    navigate("/locationsettings"); // '내 동네 설정' 클릭 시 이동
+    navigate("/locationsettings");
   };
 
   const handleLocationSelect = (locationName, addressId) => {
     setSelectedLocation({ name: locationName, id: addressId });
     setMenuOpen(false);
-    localStorage.setItem("selectedAddressId", addressId); // addressId를 로컬 스토리지에 저장
-    localStorage.setItem("selectedLocationName", locationName); // locationName을 로컬 스토리지에 저장
+    localStorage.setItem("selectedAddressId", addressId);
+    localStorage.setItem("selectedLocationName", locationName);
     if (onLocationSelect) {
-      onLocationSelect(addressId); // 콜백 함수 호출
+      onLocationSelect(addressId);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${searchQuery}`);
+      setIsSearchOpen(false);
+    } else {
+      setIsSearchOpen(false);
     }
   };
 
@@ -72,11 +83,11 @@ const Header = ({
           localStorage.setItem(
             "selectedAddressId",
             addressData.primaryAddressId
-          ); // addressId를 로컬 스토리지에 저장
+          );
           localStorage.setItem(
             "selectedLocationName",
             addressData.primaryNeighborhoodName
-          ); // locationName을 로컬 스토리지에 저장
+          );
         }
       } catch (error) {
         console.error("Error fetching address:", error);
@@ -88,7 +99,6 @@ const Header = ({
 
   return (
     <header className="header">
-      {/* 뒤로 */}
       {showBack && (
         <button
           style={{ transform: "scale(0.7)" }}
@@ -98,7 +108,6 @@ const Header = ({
           <BackIcon2 />
         </button>
       )}
-      {/* 위치 버튼 (showLeft가 true일 때만) */}
       {showLeft && (
         <div className="header-left">
           <span className="header-left-location">{selectedLocation.name}</span>
@@ -109,8 +118,6 @@ const Header = ({
           )}
         </div>
       )}
-
-      {/* 검색 버튼 */}
       {showSearch && (
         <div className={`search-bar-container ${isSearchOpen ? "open" : ""}`}>
           <button
@@ -120,27 +127,23 @@ const Header = ({
             <SearchIcon />
           </button>
           {isSearchOpen && (
-            <form
-              className="search-bar"
-              onSubmit={(e) => e.preventDefault()} // 기본 폼 제출 방지
-            >
+            <form className="search-bar" onSubmit={handleSearchSubmit}>
               <input
                 className="search-bar-input"
                 type="text"
                 placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </form>
           )}
         </div>
       )}
-      {/* 알림 버튼 (showBell이 true일 때만) */}
       {showBell && (
         <button className="bell-button" onClick={handleBellClick}>
           <BellIcon />
         </button>
       )}
-
-      {/* 위치 메뉴 드롭다운 */}
       {menuOpen && (
         <div className="menu-dropdown">
           <div

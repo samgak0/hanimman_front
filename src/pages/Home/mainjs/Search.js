@@ -45,11 +45,11 @@ const Search = () => {
     setActiveTab(tab);
   };
 
-  useEffect(() => {
-    if (query) {
-      fetchSearchResults(query);
-    }
-  }, [activeTab]);
+  // formatDate 함수 추가
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString("ko-KR", options);
+  };
 
   return (
     <div className="mobile-container">
@@ -74,53 +74,67 @@ const Search = () => {
             나눠요
           </button>
         </div>
-        {posts.length === 0 ? (
-          <p className="no-posts">검색 결과가 없습니다</p>
-        ) : (
-          posts.map((item) => (
-            <div
-              key={item.id}
-              className="search-item"
-              onClick={() => handleItemClick(item.id)}
-            >
-              {item.imageIds[0] ? (
-                <img
-                  src={`http://localhost:8080/api/v1/${activeTab}/download?id=${item.imageIds[0]}`}
-                  alt={item.title}
-                  className="search-card-image"
-                />
-              ) : (
-                <img
-                  src="/images/noimage.png"
-                  alt="No Image"
-                  className="search-card-image"
-                />
-              )}
-              <div className="item-details">
-                <h2 className="item-title">{item.title}</h2>
-                <p className="item-location">{item.address}</p>
-                <div className="item-status-price">
-                  <span
-                    className={`item-status ${
-                      item.isEnd ? "completed" : "active"
-                    }`}
-                  >
-                    {item.isEnd ? "마감" : "모집중"}
-                  </span>
-                  <span className="item-price">수량 {item.quantity}</span>
+        <div className="search-list-container">
+          {posts.length === 0 ? (
+            <p className="no-posts">검색 결과가 없습니다</p>
+          ) : (
+            posts.map((item, index) => (
+              <div
+                key={item.id}
+                className="search-card"
+                onClick={() => handleItemClick(item.id)}
+              >
+                <div className="search-card-image-container">
+                  {item.imageIds[0] ? (
+                    <img
+                      src={`http://localhost:8080/api/v1/${activeTab}/download?id=${item.imageIds[0]}`}
+                      alt={item.title}
+                      className="search-card-image"
+                    />
+                  ) : (
+                    <img
+                      src="/images/noimage.png"
+                      alt="No Image"
+                      className="search-card-image"
+                    />
+                  )}
                 </div>
-                <div className="item-icons">
-                  <span className="item-comments">
-                    <CommentIcon /> {item.comments}
-                  </span>
-                  <span className="item-likes">
-                    <HeartIcon /> ❤️{item.favoriteCount}
-                  </span>
+                <div className="search-card-content">
+                  <div className="card-title">{item.title}</div>
+                  <div className="card-meta">
+                    <div className="location-info">
+                      <p>{item.address || "정보 없음"}</p>
+                    </div>
+                    {item.meetingAt ? formatDate(item.meetingAt) : "날짜 없음"}
+                  </div>
+                  <div className="card-status-price">
+                    <div
+                      className={`card-tradeEnd ${
+                        item.isEnd ? "completed" : "active"
+                      }`}
+                    >
+                      {item.isEnd ? "마감" : "모집중"}
+                    </div>
+                    <div className="card-price">
+                      {item.price
+                        ? `${new Intl.NumberFormat("ko-KR").format(
+                            item.price
+                          )}원`
+                        : "가격정보없음"}
+                      /{item.quantity}개
+                    </div>
+                  </div>
+                  <div className="search-card-chat">
+                    <span className="meta-item">💬 {item.comments || 0}</span>
+                    <span className="meta-item">
+                      ❤️ {item.favoriteCount || 0}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
